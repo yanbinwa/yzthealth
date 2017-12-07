@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+
+<title></title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate-plugin.js"></script>
+
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>商品编辑
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+                            <form action="" method="post" class="form-horizontal form-validate" id="transform" >
+
+							
+							      <div class="control-group">
+                                    <label class="control-label" for="title">商品分类：</label>
+                                    <div class="controls">
+		 							{$m->select($lb_opts_gg,'typgg',' required="required" ')}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="title">品牌分类：</label>
+                                    <div class="controls">
+		 							{$m->select($lb_opts_brand,'brand',' required="required" ')}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">商品名称:</label>
+                                    <div class="controls">
+                                    {$m->text('name','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                 <div class="control-group">
+                                    <label class="control-label" for="title">商品简要描述：</label>
+                                    <div class="controls">
+		 							{$m->textarea('ms','style="height:80px;width:380px;" required="required" ')}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="title">商品型号：</label>
+                                    <div class="controls">
+		 							 {$m->text('xh','class="input-xlarge" required="required"')}
+		 							<span class="maroon">*&nbsp;&nbsp;</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+									<label class="control-label">商品首图：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->pic}" id="pic_pic" relobj="elfinder_nhyk" style="max-height:100px;" />
+											{$m->hidden('pic',' relobj="elfinder_nhyk"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk" >封面</button>
+												<span class="help-inline">尺寸：宽300像素，高300像素</span>
+											</span>
+											<img class="thumb_img" src="{$m->pic2}" id="pic_pic2" relobj="elfinder_nhyk2" style="max-height:100px;" />
+											{$m->hidden('pic2',' relobj="elfinder_nhyk2"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk2" >幻灯片</button>
+												<span class="help-inline">尺寸：宽610像素，高385像素</span>
+											</span>
+										</div>
+								</div>
+								
+                               
+                               <!--<div class="control-group">
+                                    <label class="control-label" for="title">所属类别：</label>
+                                    <div class="controls">
+		 							{$m->select($lb_opts,'typ',' required="required" ')}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                </div>-->
+                                
+                               <div class="control-group">
+                                    <label class="control-label" for="title">基本数据：</label>
+                                    <div class="controls">
+                                        <div class="con">
+                                            <table class="table table-bordered" >
+                                                <thead id="goodsBaseHead"></thead>
+                                                <tbody id="goodsBaseBody"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label class="control-label" for="title">规格：</label>
+                                    <div class="controls">
+                                     <button class="btn" type="button" onclick="selSpec()"><span class="add">添加规格</span></button>
+                                    </div>
+                                </div>
+                                 <div class="control-group">
+                                    <label class="control-label" for="title">商品推荐类型：</label>
+                                    <div class="controls">
+                                       <label class="attr">
+                                        {$m->checkbox('zx')}
+										最新商品
+										 {$m->checkbox('tj')}
+										特价商品
+										 {$m->checkbox('rm')}
+										热卖商品
+										 {$m->checkbox('tuij')}
+										推荐商品
+										 {$m->checkbox('wptj')}
+										旺铺推荐商品
+										{$m->checkbox('zgtj')}
+										掌柜推荐商品
+										</label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="price">标签</label>
+                                    <div class="controls">
+                                         {$m->select($tagarr,'tags',array('class'=>"input-xlarge chosen-select",'data-placeholder'=>"选择标签 ",'multiple'=>"multiple" ),false)}
+	                                     {$m->hidden('tagss')}
+	                                     <script>
+											$(function() {
+											     $("#z02_sproducttags").on("change", function() {$("#z02_sproducttagss").val($("#z02_sproducttags").val());
+												});
+											});
+										 </script>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="price">分组</label>
+                                    <div class="controls">
+                                        {$m->select($grouparr,'groupid',array('class'=>"input-xlarge chosen-select",'data-placeholder'=>"选择分组 "),false)}
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+									<label for="prices" class="control-label">商品图片：</label>
+									{$m->hidden('pics')}
+									<div class="controls">
+										<div id="upimg_main">
+											<div id="file_upload" class="uploadify"><button id="file_upload-button" class="btn pl_add btn-primary" rel="yyuc" relobj="elfinder" relfun="setpic1" relmultiple="1"  type="button"><i class="icon-plus-sign"></i>上传图片</button><span class="maroon">*</span><span class="help-inline">尺寸：宽610像素，高385像素</span></div><div id="file_upload-queue" class="uploadify-queue"></div>
+											<ul class="ipost-list ui-sortable" id="fileList">
+											</ul><div id="file_upload_queue" class="uploadifyQueue">
+											</div>
+										</div>
+									<span for="imagestexts[40829][]" class="help-block error valid" style=""></span><span for="imagestexts[67544][]" class="help-block error valid" style=""></span><span for="imagestexts[99277][]" class="help-block error valid" style=""></span></div>
+								</div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="title">商品排序：</label>
+                                    <div class="controls">
+		 							 {$m->text('sort','class="input-mini"')}
+                                    </div>
+                                </div>
+								
+								 
+								<div class="control-group">
+                                    <label class="control-label" for="title">运费：</label>
+                                    <div class="controls">
+		 							 {$m->text('yf','class="input-mini" required="required"')} &nbsp;元
+                                    </div>
+                                </div>
+                    
+								<div class="control-group">
+                                    <label class="control-label" for="title">商品属性：</label>
+                                    <div class="controls">
+                                     {$m->texteditor('detailcs',3, '650px','450px' )}
+                                    </div>
+                                </div>
+								 <div class="control-group">
+                                    <label class="control-label" for="title">商品详情：</label>
+                                    <div class="controls">
+                                     {$m->texteditor('detail',3, '650px','450px' )}
+                                    </div>
+                                </div>
+                               
+								
+								<hr>
+								<div class="control-group">
+                                    <label class="control-label" for="title">审核：</label>
+                                    <div class="controls">
+		 							{$m->select($sh_status,'sh_status',' required="required" ',false )}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="keyword">审核备注:</label>
+                                    <div class="controls">
+									{$m->textarea('sh_desc','style="height:80px;width:380px;"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+								
+								
+								
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                </div>
+                            </form>
+                        </div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+  <!--   <script type="text/javascript" src="{$JS}comm.js"></script> -->
+    <script type="text/javascript" src="{$JS}shop.js"></script>
+<script type="text/template" id="picdemo">
+    <li class="imgbox" style="list-type:none">
+    <a class="item_close" href="javascript:void(0)" onclick="$(this).parent().remove();" title="删除">
+	</a>
+	<span class="item_box">
+   	 <img src="" style="max-height:100%;">
+	</span>
+	<span class="item_input">
+    <textarea class="bewrite" cols="3" rows="4" style="resize: none" placeholder="图片描述..." onfocus="$(this).parent().addClass('on');" onblur="$(this).parent().removeClass('on');">
+    </textarea>
+    <i class="shadow hc">
+    </i>
+	</span>
+    </li>
+</script>
+
+<script type="text/html" id="bookingoption">
+<tr class="bookingtr" issys="0">
+<td class="booking_type" colspan="2">
+会员级别&nbsp;&nbsp;<select name="data-type"  class="input-large" >{$option}</select>
+  &nbsp;&nbsp;，折扣&nbsp;&nbsp;<input name="data-holder" type="text" class="input-mini" required="required"  value="" >&nbsp;&nbsp; 例：0.98是9.8折，必须小于等于1。
+</td>
+<td><p><a href="javascript:;" class="yydelahref" onclick="dodelit(this)">删除</a><!--&nbsp;<a href="javascript:;" onclick="doaddit(this)">添加</a>--></p></td>
+</tr>
+</script>
+
+<script>
+
+
+//预约项目设置
+$(function(){
+	if($.trim($('.bookingset').val())!=''){
+		var intv = $.evalJSON($('.bookingset').val());
+		for(var i=0;i<intv.length;i++){
+			var tr = addbookingline();
+			var msg = intv[i];
+
+			tr.find('.booking_type').find('select').val(msg.type);
+			tr.find('.booking_type').find('input').val(msg.holder);
+	
+		}
+	}	
+});
+
+function addbookingline(){
+	$('#bookingtb').append($('#bookingoption').html());
+	var tr = $('#bookingtb').find('tr:last');
+	initbookingmsg(tr);
+	
+	return tr;
+}
+
+
+function initbookingmsg(tr){
+	tr.find('input[type="text"]').each(function(){
+		if($.trim($(this).val())==''){
+			//var hn = $(this).attr('name');
+			//$(this).attr('placeholder','如：'+tr.find('option:selected').attr(hn));
+		}
+	});
+}
+
+
+function dodelit(o){
+	$(o).parent().parent().parent().remove();
+}
+
+function doaddit(o){
+	var tr = $(o).parent().parent().parent();
+	var newtr = tr.clone();
+	
+	//newtr.find('select').val(tr.find('select').val());
+	
+	tr.after(newtr);
+	initbookingmsg(newtr);
+	//newtr.find('select').change(function(){
+	//	newtr.find('input[type="text"]').val('');
+	//	initbookingmsg(newtr);			
+	//});
+}
+
+
+function saveyyx(){
+	var bk = [];
+	$('.bookingtr').each(function(){
+		var msg = {};
+		msg.type = $(this).find('.booking_type').find('select').val();
+		msg.holder = $(this).find('.booking_type').find('input').val();
+
+		bk[bk.length] = msg;
+	});
+	
+	$('.bookingset').val($.toJSON(bk));
+}
+
+
+
+		//图片上传的回调
+		function setpic1(m,n){
+			addoneing(m,n);
+		}
+		
+		function addoneing(m,n){
+			n = n.split(',');
+			n = n[0];
+			$('#fileList').append($('#picdemo').html());
+			var li = $('#fileList').children('li:last');
+			li.find('img').attr('src',m);
+			li.find('textarea').val(n);
+		}
+		$(function(){
+			$('#transform').submit(function(){
+				var pics = [];
+				$('#fileList').find('li').each(function(){
+					var msg = {};
+					var img = $(this).find('img');
+					msg.src = img.attr('src');
+					msg.txt = $.trim($(this).find('textarea').val());
+					var w = img.width();
+					var h = img.height();
+					w = parseInt(450*w/h);
+					msg.w = w;
+					msg.h = 450;
+					pics[pics.length] = msg;
+				});
+				if(pics.length == 0){
+					tusi('商品图片至少传一张');
+					return false;
+				}
+				$('#z02_sproductpics').val($.toJSON(pics));
+				
+				saveyyx();
+			});
+			var val = $('#z02_sproductpics').val();
+			if($.trim(val)==''){
+				val = '[]';
+			}
+			var data = $.evalJSON(val);
+			for(var i=0;i<data.length;i++){
+				var msg = data[i];
+				addoneing(msg.src,msg.txt);
+			}
+		});
+		$(function(){
+			//判断是否参加团购
+			var tuan = $('#tuan').val();
+			if(tuan == 1){
+				$('.mm').css('display','block');
+			}
+			 $('#z02_sproductistuan').click(function(){
+				 $('.mm').toggle();
+			}); 
+			
+			 $("#bsubmit").submit(function(){
+					var cansv= true;
+					$(this).find('input[type="text"],select,textarea').filter('[required="required"]').each(function(){
+						if($.trim($(this).val())==''){
+							cansv = false;
+							$(this).css('backgroundColor','yellow');
+							$(this).one('focus',function(){
+								$(this).css('backgroundColor','transparent');
+							});
+						}
+					});
+					if(!cansv){
+						tusi('请将信息填写完整');
+					}
+			    	return cansv;
+			    });
+		});
+
+		//默认货号
+		var defaultProductNo = '{"wx".time().rand(10,99)}';
+		$(function()
+		{
+			//存在商品信息
+			var goodsHeadrender = template.compile(goodsHeadTemplateSource);
+			{if isset($specdata)}
+			    var spec_array = {json_encode($specdata)};
+				var goodsHeadHtml = goodsHeadrender({ 'templateData':spec_array});
+			{else}
+				//默认产生一条商品标题空挡
+				var goodsHeadHtml = goodsHeadrender({ 'templateData':[]});
+			{/if}
+			    $('#goodsBaseHead').html(goodsHeadHtml);
+
+			    
+			var goodsRowrender = template.compile(goodsRowTemplateSource);
+			{if isset($productdata)}
+				var goods = {json_encode($productdata)};
+				var goodsRowHtml = goodsRowrender({ 'templateData':goods});
+			{else}
+				//默认产生一条商品空挡
+				var goodsRowHtml = goodsRowrender({ 'templateData':[[]]});
+			{/if}
+				$('#goodsBaseBody').html(goodsRowHtml);
+		});
+	</script>
+	<script type="text/javascript" charset="UTF-8" src="{$JS}shop/sproductedit.js?dfaassd2014"></script>
+    </body>
+</html>

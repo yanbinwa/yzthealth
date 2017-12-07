@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<script type="text/javascript" src="{$JS}mwm/nhyk/mymain.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    <body onselectstart="return true;" ondragstart="return false;">
+        		<script>
+				
+		document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+		
+		 	$().ready(function(){
+				$("#nav_1 a").on("touchstart touchend mouseover mouseout", function(e){
+					switch(e.type){
+						case "touchstart":
+						case "mouseover":
+							this.classList.add("hover");
+						break;
+						case "touchend":
+						case "mouseout":
+							this.classList.remove("hover");
+						break;
+					}
+				});
+			});
+
+			function del(id, use){
+				confirm("确定删除吗？", function(){
+					var req = {
+						id: id,
+						use:use
+					}
+					loading(true);
+					//提交信息
+					$.ajax({
+						type: "post",  
+						url: "/Webnewmemintegral/del?pid=1071&wechatid=osXr8jse4OQ6PUXeEg5Z3G7SUpUI&id="+id+"&sue="+use,
+						dataType: "json", 
+						data:req, 
+						success: function(html){
+							loading(false);
+					    	if (html.status == 1) {
+								alert(html.msg,1500);
+								setTimeout("location.reload();",1500);
+					    	} else {
+					    		alert(html.msg,1500)
+					    	}
+						}
+					});
+				}, function(){});
+			}
+
+			/**
+ 			 * 立即领取
+			*/
+			function receive(obj,id) {
+				
+				//提交信息
+				$.ajax({
+					type: "post",  
+					url: "/Webnewmemintegral/receivecoupon?pid=1071&wechatid=osXr8jse4OQ6PUXeEg5Z3G7SUpUI&id="+id,
+					dataType: "json",  
+					success: function(html){
+				    	if (html.status == 1) {
+							alert(html.msg,1500);
+				    	} else {
+				    		alert(html.msg,1500)
+				    	}
+					}
+				});
+			}
+		</script>
+		<style>
+			.list_exchange{
+				padding-top:10px;
+			}
+			.list_exchange li[data-card]:first-of-type{
+				margin-top:0;
+			}
+		</style>
+		{if empty($rs)}
+		<div class="container coupon exchange exchange_my none">
+		{else}
+		<div class="container coupon exchange exchange_my ">
+		{/if}
+		
+			<header>
+				<nav id="nav_1" class="p_10">
+					<ul class="box">
+					    <li><a href="myexchangeactivity-{n}.html" {if $sta==0} class="on" {/if} >未抽奖</a></li>
+						<li><a href="myexchangeactivity-{y}.html" {if $sta==1} class="on" {/if} >已抽奖</a></li>
+					</ul>
+				</nav>
+			</header>
+			<div class="body">
+				<ul class="list_exchange">
+				
+				   {loop $rs as $v}
+					<li data-card onclick="this.classList.toggle('on');"  >
+						<header>
+							<ul class="tbox">
+								<li>
+									<h5>{$v->title}</h5>
+									<p>有效期至{$v->time} </p>
+								</li>
+								<li>
+								 	<label class="pre"> </label>
+								</li>
+							</ul>
+						</header>
+						<section>
+							<div>
+								<figure>
+									 <img src="{$v->pic}" />
+								</figure>
+								<!--  <article class="p">
+									{$v->des}
+								</article>-->
+							</div>
+						</section>
+						<footer>
+							<dl class="box">
+							   {if $sta==1}
+							      {if $v->status==0}
+								  <dd onclick="event.stopPropagation();"><a href="uselpcoupon-{$v->id}.html" >查看详情 </a></dd>
+								  {else}
+								  <dd onclick="event.stopPropagation();"><a href="javascript:;" >已抽奖 </a></dd>
+								  {/if}
+							   {else}
+							    <dd><a href="{$v->url}" >去抽奖 </a></dd>
+							   {/if}
+							</dl>
+						</footer>
+					</li>
+					{/loop}
+					
+					
+			  	</ul>
+			</div>
+	{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-4.html}
+		  {elseif $wid==6765368 || $wid==6780484||$wid==6788906}
+		  {I footer_yypk.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-4.html}
+        {/if}
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>		</div>
+		        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+	</body>
+
+</html>
+

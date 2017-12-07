@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>{$model->name}</title>
+	<meta name="keywords"  content="DeathGhost" />
+	<meta name="description" content="http://www.deathghost.cn" />
+	<meta name="author" content="DeathGhost" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name='apple-touch-fullscreen' content='yes'>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="address=no">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{$CSS}wsc/style.css?v=<?php echo time();?>" />
+	<script src="{$JS}wsc/swiper.min.js"></script>
+	<script type="text/javascript" src="{$JS}getopenid.js?v=<?php echo time(); ?>"></script>
+	<link rel="stylesheet" href="{$CSS}wsc/weui.min.css"/>
+	<script>
+		$(document).ready(function(){
+			var mySwiper = new Swiper('#slide',{
+				autoplay:5000,
+				visibilityFullFit : true,
+				loop:true,
+				pagination : '.pagination',
+			});
+			//product list:Tab
+			$(".tab_proList dd").eq(0).show().siblings(".tab_proList dd").hide();
+			$(".tab_proList dt a").eq(0).addClass("currStyle");
+			$(".tab_proList dt a").click(function(){
+				var liindex = $(".tab_proList dt a").index(this);
+				$(this).addClass("currStyle").siblings().removeClass("currStyle");
+				$(".tab_proList dd").eq(liindex).fadeIn(150).siblings(".tab_proList dd").hide();
+			});
+
+			var wxid = "{$wxid}";
+			var appid = "{$kefu->cusid}";
+			if(wxid==''){
+				getUserOpenId("http://yyt.laikehu.com/dz_wsc2_new/index.html",appid);
+			}
+
+		});
+	</script>
+	<style>
+		.login {
+			margin-right: 10px;
+			margin-top: 10px;
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			border-radius: 5px;
+			width: 80px;
+			font-size: 12px;
+			background-color: #74cdeb;
+			color: white;
+			float: right;
+			display: inline-block;
+		}
+		.register {
+			margin-right: 10px;
+			margin-top: 10px;
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			border-radius: 5px;
+			width: 80px;
+			font-size: 12px;
+			background-color: #74cdeb;
+			color: white;
+			float: right;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="zhe" style="display: none; position: fixed;left: 0;top: 0; background: #000;opacity:0.7;width: 100%;height: 100%;z-index: 99"></div>
+	<div class="tan1" style="background-color: #ffffff;width: 90%;height: 15% ;display: none; position: fixed;top: 15%;left: 5%;z-index: 200;">
+
+		<div class="vertify_code" style="margin-top: 7%">
+			<a class="get_code_bitch"><div class="login" style="float: none;margin-left: 15%">登录</div></a>
+			<a class="get_code_bitch" href="/nhyk/index.html?wid=6797969"><div class="register" style="float: none;margin-left: 15%">注册</div></a>
+		</div>
+
+	</div>
+	<input type="hidden" name="fuck" value="{$fuck}" id="fuck">
+	<header>
+		<!-- <a href="#" class="location">西安市</a> -->
+		
+		<h1>{$model->name}</h1>
+		<a href="/dz_wsc2_new/index3.html" class="rt_searchIcon">&#37;</a>
+	</header>
+	<!--slide-->
+	<div id="slide">
+		<div class="swiper-wrapper">
+			{loop $tjres as $tj}
+			<div class="swiper-slide">
+				<a href="/dz_wsc2_new/pro-{$tj->id}.html">
+					<img src="{$tj->pic2}"  width="100%" style="height:250px" />
+				</a>
+			</div>
+			{/loop}
+			
+			
+		</div>
+		<div class="pagination"></div>  
+	</div>
+	<!--categoryList-->
+	<style>
+	.categoryLiIcon li a em{
+		font-size: 10px;
+	}
+	</style>
+	
+	<ul class="categoryLiIcon">
+		{loop $fls as $fl}
+			<li>
+				<a href="/dz_wsc2_new/index1-{$fl->id}.html">
+					<img src="{$fl->logimg}"/>
+					<em>{$fl->name}</em>
+				</a>
+			</li>
+		{/loop}
+	</ul>
+	<!-- 优惠券 -->
+		{if $model->is_useyhj == 1}
+		<style>
+			.lingqu{
+				width: 100%;
+				margin-bottom: 5px;
+			}
+		</style>
+			<div class="lingqu">
+				<a href="/yhj/index.html">
+					<img src="/media/images/yhj/index.png" alt="" width="100%;">
+				</a>
+			</div>
+		{/if}
+	<!--Tab:productList-->
+	<dl class="tab_proList">
+		<dt>
+			<a>热销</a>
+			<a>新品</a>
+			<a>打折</a>
+		</dt>
+		<dd>
+			<ul>
+				{loop $tjzr as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+
+						{else}
+							<a href="/dz_wsc2_new/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1" >
+								{elseif $wid==6784797 }
+									<a href="#" >
+								{else}
+									<a href="/dz_wsc2_new/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+
+							<div style="display: flex;">
+								<div class="price" style="color: #64ab5b;">
+								{$tj->yj}
+									</div>
+
+							</div>
+							<!-- <a class="addToCart" goods-no="{$tj->id}">&#126;</a> -->
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+		<dd>
+			<ul>
+				{loop $tjzx as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/dz_wsc2_new/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/dz_wsc2_new/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+
+								{if $tj->show_zk}
+									<span class="o2">{number_format(($tj->zk/10), 2)}折</span>	
+								{/if}
+							</p>
+							<p>
+								<strong class="price">   ¥{$tj->yj}
+									</strong>
+							</p>
+							<!-- <a class="addToCart" goods-no="{$tj->id}">&#126;</a> -->
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+		<dd>
+			<ul>
+				{loop $tjzk as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/dz_wsc2_new/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/dz_wsc2_new/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+
+								{if $tj->show_zk}
+									<span class="o2">{number_format(($tj->zk/10), 2)}折</span>	
+								{/if}
+							</p>
+							<p>
+								<strong class="price">
+									¥{if $fuck==0}{$tj->yj}{/if}
+									{if $fuck==1}{$tj->lowest}{/if}
+									{if $fuck==2}{$tj->er_price}{/if}
+									{if $fuck==3}{$tj->san_price}{/if}</strong>
+							</p>
+							<!-- <a class="addToCart" goods-no="{$tj->id}">&#126;</a> -->
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+	</dl>
+	<!--floatCart-->
+	<div class="hoverCart" style="display:none">
+		<a href="#">0</a>
+	</div>
+	{T tp2}
+{if $wgw_kefu == 1}
+	<a href="/kefu/phone/phonekefu.html?wid={$wid}&openid={$wxid}" id="customerfloat"><img src="{$IMG}kefu/MobileChatFloat.png" style="position: fixed; right: 0px; top: 150px; z-index: 99999; height: 70px; width: 65px; min-width: 65px;" id="div"></a>
+<script>
+	var div = document.getElementById('div');
+	div.addEventListener('touchmove', function(event) {
+		event.preventDefault();//阻止其他事件
+		// 如果这个元素的位置内只有一个手指的话
+		if (event.targetTouches.length == 1) {
+			var touch = event.targetTouches[0];  // 把元素放在手指所在的位置
+			div.style.left = (touch.pageX - 30) + 'px';
+			div.style.top = (touch.pageY - 45) + 'px';
+		}
+	}, false);
+
+</script>
+<!--<a href="/kefu/phone/phonekefu.html?wid={$wid}&openid={$wxid}" id="customerfloat" style="position: fixed; right: 0px; top: 150px; z-index: 99999; height: 70px; width: 65px; min-width: 65px; background: url( {$IMG}kefu/MobileChatFloat.png ) no-repeat scroll 0px 0px / 65px auto transparent;"></a>-->
+{/if}
+{if $qq_kefu_num}
+	<a onClick="qqkefushow()" id="qqkefubut"><img src="{$IMG}kefu/qq_MobileChatFloat.png" style="position: fixed; right: 0px; top: 220px; z-index: 9999; height: 70px; width: 65px; min-width: 65px; " id="qqkefuimg"></a>
+
+
+	<style type="text/css">
+		#qqkefushow{ width:120px; height:auto; position:fixed; top:220px; right:5px; z-index:88888; background:#fff; border:1px solid #d1d1d1; border-top:2px solid #ca2d25; }
+		#qqkefushow .top{ width:100%; height:35px; line-height:35px; font-family:"Microsoft YaHei"; font-size:14px; color:#333; font-weight:bold; text-align:center;}
+		#qqkefushow .middle{ font-size:12px; text-align:center; line-height:5px; margin-left:8px}
+		#qqkefushow .close{ float:right; margin-right:10px; margin-top:10px; cursor:pointer;}
+	</style>
+
+
+<div id="qqkefushow" style="display:none">
+	<div class="top">
+		在线客服<img src="{$IMG}kefu/close.gif" class="close" onclick="qqkefuhide()" />
+	</div>
+	<div class="middle">
+		{loop $qq_kefu_num as $num}
+			<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$num}&site=qq&menu=yes"><img src="{$IMG}kefu/qq.png" /></a><br />
+		{/loop}
+	</div>
+</div>
+
+<script type="text/javascript">
+var qqkefuimg = document.getElementById('qqkefuimg');
+qqkefuimg.addEventListener('touchmove', function(event) {
+event.preventDefault();//阻止其他事件
+
+// 如果这个元素的位置内只有一个手指的话
+if (event.targetTouches.length == 1) {
+var touch = event.targetTouches[0];  // 把元素放在手指所在的位置
+qqkefuimg.style.left = (touch.pageX - 30) + 'px';
+qqkefuimg.style.top = (touch.pageY - 45) + 'px';
+
+}
+}, false);
+
+//点击出现多个QQ
+function qqkefushow(){
+$('#qqkefushow').css('display','block');
+$('#qqkefubut').css('display','none');
+}
+
+function qqkefuhide(){
+$('#qqkefushow').css('display','none');
+$('#qqkefubut').css('display','block');
+}
+
+
+</script>
+
+{/if}
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+function gogwc(id){
+	$.getJSON("./gwc-"+id+"-add.html?gid=0&num=1",{ ajax:'ajax'} , function(json, textStatus) {
+		if(json.success){
+			alert('加入购物车成功');
+		}else
+			alert('添加失败');
+		location.reload();
+	});
+	//location.href="/dz_wsc2_new/gwc-"+id+"-add.html?gid=0&num=1";
+}
+wx.config({
+    // debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: "{$signPackage['appId']}", // 必填，公众号的唯一标识
+    timestamp: "{$signPackage['timestamp']}", // 必填，生成签名的时间戳
+    nonceStr: "{$signPackage['nonceStr']}", // 必填，生成签名的随机串
+    signature: "{$signPackage['signature']}",// 必填，签名，见附录1
+    jsApiList: [
+    	'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideOptionMenu',
+    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+wx.ready(function(){
+	wx.onMenuShareAppMessage({
+	    title: '{$model->name}', // 分享标题
+	    desc: "{$model->jianjie}", // 分享描述
+	    link: "<?= Conf::$http_path.'dz_wsc2/index.html?wid='.$wid;?>", // 分享链接
+	    imgUrl: '{$model->pic}', // 分享图标
+	   	type: 'link', // 分享类型,music、video或link，不填默认为link
+		dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	    success: function () { 
+	       sharelog('send_msg','ok');
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+	wx.onMenuShareTimeline({
+		title: '{$model->name}',
+		link: "<?= Conf::$http_path.'dz_wsc2/index.html?wid='.$wid;?>",
+		imgUrl:'{$model->pic}',
+		trigger: function (res) {
+			//alert('用户点击分享到朋友圈');
+		},
+		success: function (res) {
+			alert('分享成功');
+			sharelog('timeline','ok');
+		},
+		cancel: function (res) {
+		},
+		fail: function (res) {
+			alert(JSON.stringify(res));
+		}
+	});
+	wx.onMenuShareQQ({
+	   title: '{$model->name}', // 分享标题
+	    desc: "{$model->jianjie}", // 分享描述
+	    link: "<?= Conf::$http_path.'dz_wsc2/index.html?wid='.$wid;?>", // 分享链接
+	    imgUrl: '{$model->pic}', // 分享图标
+	    success: function () { 
+	       sharelog('send_msg','ok');
+	    },
+	    cancel: function () { 
+	       // 用户取消分享后执行的回调函数
+	    }
+	});
+	wx.onMenuShareWeibo({
+	    title: '{$model->name}', // 分享标题
+	    desc: "{$model->jianjie}", // 分享描述
+	    link: "<?= Conf::$http_path.'dz_wsc2/index.html?wid='.$wid;?>", // 分享链接
+	    imgUrl: '{$model->pic}', // 分享图标
+	    success: function () { 
+	      sharelog('send_msg','ok');
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+})
+
+
+  
+</script>
+
+
+</body>
+</html>

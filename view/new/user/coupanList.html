@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Basic Page Needs-->
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="" />
+    <title>领取优惠券</title>
+    <meta name="author" content="" />
+    <meta name="copyright" content="" />
+    <meta name="keywords" content="">
+    <!-- 删除默认的苹果工具栏和菜单栏 -->
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- 控制状态栏显示样式 -->
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <!-- 禁止使用手机自带的格式检测 -->
+
+    <meta content="telephone=no" name="format-detection" />
+
+    <!-- 禁止用户对手机的缩放 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="" type="image/x-icon">
+    <link rel="icon" href="" type="image/x-icon">
+    <!-- css files -->
+    <!-- Custom styles -->
+    <link rel="stylesheet" type="text/css" href="{$CSS}wxy/myCoupon.css">
+    <link rel="stylesheet" href="{$CSS}weui/dist/style/weui.css"/>
+
+    <style>
+      .hdbar{
+      	display:-webkit-box;
+      	display:-ms-flexbox;
+      	display:flex;
+      	-webkit-box-pack:justify;
+      	-ms-flex-pack:justify;
+      	justify-content:space-between;
+      	-webkit-box-align:center;
+      	-ms-flex-align:center;
+      	align-items:center;
+      	width:100%;
+      	height:50px;
+      	padding:0 10px;
+      	background-color:#fff;
+      	border-bottom:1px solid #ccc;
+        }
+
+
+  	.i-btn{
+  		display:inline-block;
+		width:36px;
+		height:36px;
+		border-radius:100%;
+		vertical-align:middle}
+  	.i-back{
+		background: url({$IMG}wx/fanhui.png) center center no-repeat;
+		background-size:100% 100%}
+  	.i-home{
+  		background:url({$IMG}wx/shouye.png) center center no-repeat;
+		background-size:100% 100%}
+    </style>
+</head>
+<body>
+<header class="hdbar fixed" style="position: fixed; z-index: 20;">
+  <a href="javascript:history.back(-1);"><span class="i-btn i-back"></span></a>
+  领取优惠券
+  <a href="/wx/yangsheng.html"><span class="i-btn i-home"></span></a>
+</header>
+<div class="viewport">
+  <div class="">
+    <div class="tabs">
+      <div id="tab1" class="tab" style=" margin-top: 1rem;">
+          {loop $youhuiquan_arr as $v}
+          <div class="card coup-card app-coup" data-id="0" data-cpn="6538" data-tit="{$v->name}" data-type="1">
+          	<div class="card-content no-border no-padding">
+            	<div class="card-main">
+                	<div class="coup-main-hb">现金{$v->redcon}元</div>
+                	<div class="coup-main-bd">现金<span class="coup-jian">￥<em>{$v->redcon}</em></span></div>
+                </div>
+                <div class="coup-link" onclick="Obtain({$v->id})">立即<br/>领取</div>
+            </div>
+            
+            <div class="card-footer">
+            	<span class="coup-type">
+                  满{$v->maxcon}元减{$v->redcon}元
+                </span>
+                <span class="coup-time">{substr($v->starttime,0,10)}至{substr($v->endtime,0,10)}</span>
+            </div>
+          </div>
+          {/loop}
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="js_dialog" id="iosDialog2" style="display: none;">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__bd"></div>
+                <div class="weui-dialog__ft">
+                    <a href="mycoupan.html" class="weui-dialog__btn weui-dialog__btn_primary">知道了</a>
+                </div>
+            </div>
+        </div>
+<script type="text/javascript">
+  function Obtain(coupan){
+    var submitData = {
+        'action': "obtain",
+        'coupan': coupan
+    };
+    $.post('coupanList.html',submitData,function(data){  
+      if(data.errno == '1') {
+        $('.weui-dialog__bd').html('恭喜您获得一张'+parseInt(data.jine)+'元优惠券');
+        $('#iosDialog2').show();
+      }else if(data.errno == '3'){
+        $('.weui-dialog__bd').html(data.error);
+        $('#iosDialog2').show();
+      }
+      else{
+        $('.weui-dialog__bd').html('非法操作');
+        $('#iosDialog2').show();
+      }
+
+    },'json');
+  }
+</script>
+<!-- javascript files -->
+<!-- Custom javascript -->
+
+<script type="text/javascript" src="{$JS}wx/myCoupon.js"></script>
+<script type="text/javascript" src="{$JS}wx/stats.js" name="MTAH5" sid="500142227" ></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+
+<html lang="">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$set->title}</title>
+    <meta name="keywords" content="{$set->keywords}" />
+    <meta name="description" content="{$set->description}" />
+	<link href="{$CSS}web/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css">
+	<link rel="stylesheet" href="{$CSS}web/owl.carousel.css?v=10.6">
+	<link href="{$CSS}web/inner.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/menu.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/slider.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/index.css?v=10.6" rel="stylesheet">
+	
+	<!--<script type="text/javascript" src="{$JS}web/jquery-1.10.2.min.js?v=10.6"></script> -->
+	<script type="text/javascript" src="{$JS}web/mobile_menu.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/main_menu.js?v=10.6"></script> 
+	<!--<script type="text/javascript" src="{$JS}web/owl.carousel.min.js?v=10.6"></script>
+	<script type="text/javascript" src="{$JS}web/custom-owl.js?v=10.6"></script>
+	<script type="text/javascript" src="{$JS}web/myjs.js?v=10.6"></script>-->
+	<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0">
+<style>
+.home-icon-2 img {
+    width: 60px;
+	height: 23px;
+	margin-bottom: 6px;
+}
+.inner-nav-1 { font-size:16px;}
+</style>
+</head>
+<body>
+	{T head}
+	<div style="left: 0px;" id="container">
+
+		<!-- inner content -->
+		<div class="inner-content-1">
+			<div class="container">
+
+				<div class="inner-nav-1">
+					<span class="home-icon-2">
+						<a href="index.html">
+							<img src="{$IMG}web/location.png" >
+						</a>
+					</span>
+					<a href="about.html">走进颐正国际</a>
+				</div>
+
+				<div class="about">
+					<div class="ser-middle">
+						<div class="row">
+							<!-- <div class="col-sm-4">
+								<div class="csr-b">
+									<h3>
+										<a href="dy-{$gk->id}.html" target="_blank" title="集团概况">
+											集团概况 
+											<img src="{$IMG}web/icon3.png" alt="">
+										</a>
+									</h3>
+									<h4 class="c3">LKK HPG</h4>
+									<a href="dy-{$gk->id}.html" target="_blank" title="集团概况">
+										<img src="{$gk->pic}" alt="集团概况" style="max-height:153px" class="img-responsive" />
+									</a>
+							
+									<p>{$gkdes,0,120}...</p>
+								</div>
+							</div> -->
+
+							<!-- <div class="col-sm-4">
+								<div class="csr-b">
+									<h3>
+										<a href="news-1.html" target="_blank" title="董事长的话">
+											董事长的话
+											<img src="{$IMG}web/icon3.png" alt="">
+										</a>
+									</h3>
+									<h4 class="c3">Message from the Chairman</h4>
+									<a href="news-1.html" target="_blank" title="董事长的话">
+										<img src="{$IMG}web/zjwxj_pic2.jpg" alt="董事长的话" class="img-responsive" style="max-height:153px" />
+									</a>
+
+									<ul>
+										{loop $list_dsz as $r}
+										<li><a href="newsInfo-{$r->id}.html" target="_blank" >{$r->title}</a></li>
+										{/loop}
+										
+									</ul>
+								</div>
+							</div> -->
+
+							<div class="col-sm-4">
+								<div class="csr-b">
+									<h3>
+										<a href="dy-{$jieshao->id}.html" target="_blank" title="企业介绍">
+											企业介绍 
+										</a>
+									</h3>
+									<h4 class="c3">About infinitus</h4>
+									<a href="dy-{$jieshao->id}.html" target="_blank" title="企业介绍">
+										<img src="{$jieshao->pic}" alt="企业介绍" style="max-height:153px" class="img-responsive" />
+									</a>
+
+									<p>{$jieshaodes}...
+									</p>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="csr-b">
+									<h3>
+										<a href="dy-{$wenhua->id}.html" target="_blank" title="企业介绍">
+											企业文化 
+										</a>
+									</h3>
+									<h4 class="c3">Corporate culture</h4>
+									<a href="dy-{$wenhua->id}.html" target="_blank" title="企业介绍">
+										<img src="{$wenhua->pic}" alt="企业介绍" style="max-height:153px" class="img-responsive" />
+									</a>
+
+									<p>{$wenhuades}...
+									</p>
+								</div>
+							</div>
+
+
+							<div class="col-sm-4">
+								<div class="csr-b">
+									<h3>
+										<a href="dy-{$linian->id}.html" target="_blank" title="健康理念">
+											健康理念 
+										</a>
+									</h3>
+									<h4 class="c3">Health concept</h4>
+									<a href="dy-{$linian->id}.html" target="_blank" title="健康理念">
+										<img src="{$linian->pic}" style="max-height:153px" alt="健康理念" class="img-responsive" />
+									</a>
+
+									<p>{$liniandes}...</p>
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="csr-b">
+									<h3>
+										<a href="news-2.html" target="_blank" title="荣誉">
+											荣誉 
+										</a>
+									</h3>
+									<h4 class="c3">Honor</h4>
+									<a href="news-2.html" target="_blank" title="荣誉">
+										<img src="{$IMG}web/zjwxj_pic6.jpg" style="max-height:153px" alt="荣誉" class="img-responsive" />
+									</a>
+
+									<ul>
+										{loop $list_ry as $r}
+											<li><a href="newsInfo-{$r->id}" target="_blank" >{$r->title}</a></li>
+										{/loop}
+										
+									</ul>
+								</div>
+							</div>
+
+
+						</div>
+					</div>  
+				</div> 
+			</div>
+		</div>
+	<!-- main content end-->
+	</div>
+
+
+{T footer}
+
+</body>
+</html>    

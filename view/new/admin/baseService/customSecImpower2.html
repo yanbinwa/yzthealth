@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>公众平台帐号授权</h3>
+                            </div>
+                            <div class="span2">
+                                <a class="btn" href="javascript:window.history.go(-1);">返回</a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                        <div class="alert">
+    1. 要在微信公众平台<strong>“开发模式”</strong>下使用自定义菜单，首先要在公众平台<strong>申请</strong>自定义菜单使用的<strong>AppId和AppSecret</strong>，然后填入下边表单。<br>
+	2. 提交完id和密钥后，可以在【菜单设置】中设置各个菜单项，然后进行发布，您的微信公众号便支持自定义菜单了。<br>
+	3. 公众平台规定，<strong>菜单发布<span class="red bold">24小时后生效</span></strong>。如果为新增粉丝，则可马上看到菜单。
+                        </div>
+                            <form action="" method="post" class="form-horizontal form-validate">{$p->hidden('id')}
+                                <div class="control-group">
+                                    <label class="control-label">公众帐号类型：</label>
+                                    <div class="controls" id="ppshowset">
+                                    <label class="radio inline">
+											{$p->radio($typ_arr,'wtyp','class="auth" onclick="ppsetshow()"','</label><label class="radio inline">')}
+									</label>
+                                     </div>
+                                </div>
+                                
+                                <div class="control-group ppid">
+                                    <label class="control-label" for="new_password">应用id:</label>
+                                    <div class="controls">
+                                    {$p->text('cusid','class="span4"')}
+                                    <span class="maroon">*</span><span class="help-inline">公众平台申请到的AppId</span>
+                                    </div>
+                                </div>
+                                <div class="control-group ppid">
+                                    <label class="control-label" for="repassword">应用密钥:</label>
+                                    <div class="controls">
+                                        {$p->text('cussec','class="span4"')}
+                                        <span class="maroon">*</span><span class="help-inline">公众平台申请到的AppSecret</span>
+                                    </div>
+                                </div>
+                                
+                               <div class="control-group">
+                                    <label class="control-label">绑定第三方平台：</label>
+                                    <div class="controls" id="oterpt">
+                                    <label class="radio inline">
+											{$p->radio($other_arr,'othertype','class="auth" onclick="orterset()"','</label><label class="radio inline">')}
+									</label>
+                                     </div>
+                                </div>
+                                
+	                              <div class="alert alert-info orterset">
+	                         		1.填写第三方接口地址<br />
+	                       		 </div>
+	                       		 
+	                       		 <div class="control-group orterset" id="jkdz">
+                                    <label class="control-label" for="repassword">第三方接口地址:</label>
+                                    <div class="controls">
+                                        {$p->text('otherurl','class="span4"')}
+                                        <span class="maroon">*</span><span class="help-inline">第三方平台的接口地址</span>
+                                    </div>
+                                </div>
+                                
+                                
+                                <!-- 
+                                <div class="control-group orterset" id="jkdz">
+                                    <label class="control-label" for="repassword">openid参数:</label>
+                                    <div class="controls">
+                                        {$p->text('openidkey')}
+                                        <span class="maroon">*</span><span class="help-inline">公众号设置下的原始ID参数名称</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group orterset" id="jkdz">
+                                    <label class="control-label" for="repassword">关键字参数:</label>
+                                    <div class="controls">
+                                        {$p->text('keywordkey')}
+                                        <span class="maroon">*</span><span class="help-inline">第三方平台接受关键字的参数名称</span>
+                                    </div>
+                                </div>
+                                 -->
+                                
+                                
+                                <div class="form-actions" id="btn_box">
+                                    <button type="submit" class="btn btn-big btn-primary">保存授权</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script type="text/javascript" src="{$JS}/comm.js"></script>
+	<script type="text/javascript">
+	
+	
+	$(document).ready(function(){
+		orterset();
+		});
+
+		function ppsetshow(){
+			var val = $('#ppshowset').find('input:checked').val();
+			if(val=='1'){
+				$('.ppid').hide();
+			}else{
+				$('.ppid').show();
+			}
+		}
+		$(ppsetshow);
+	
+		function orterset()
+		{
+			var val = $('#oterpt').find('input:checked').val();
+			if(val=='1')
+				{
+					$(".orterset").show();
+				}
+			else
+				{
+					$(".orterset").hide();
+					$('#jkdz').find('input').val("");
+				}
+		}
+	
+	
+	
+	
+	</script>
+<br/><br/><br/></body>
+</html>

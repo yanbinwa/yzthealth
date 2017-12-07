@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+    
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>意见反馈处理</h3>
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+
+                        <div class="box-content">
+                            <form action="" method="post" id="transform" class="form-horizontal form-validate" onsubmit="return check()" >
+                             
+                     
+                                
+                               <div class="control-group">
+                                    <label for="name" class="control-label">反馈人姓名：</label>
+                                    <div class="controls">
+                                        {$complaint->text('fkname','class="input-large" disabled ')}
+                                        <span class="maroon"></span>
+                                        <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">反馈人电话：</label>
+                                    <div class="controls">
+                                        {$complaint->text('tel','class="input-large" disabled ')}
+                                        <span class="maroon"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">标题：</label>
+                                    <div class="controls">
+                                        {$complaint->text('title','class="input-large" disabled ')}
+                                        <span class="maroon"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">反馈类型：</label>
+                                    <div class="controls">
+                                        {$complaint->select($fankui,'type','class="input-large" disabled')}
+                                        <span class="maroon"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                        <label class="control-label" for="title">商家简介：</label>
+                                        <div class="controls">
+                                         {$complaint->textarea('content','style="width:500px;height:400px;" disabled' )}
+                                        </div>
+                                    </div>
+                                    
+                                 <div class="control-group">
+                                    <label class="control-label" for="fanslocal">备注：</label>
+                                    <div class="controls">
+                                        {$complaint->text('beizhu','class="input-large" ')}
+                                        <span class="maroon"></span>
+                                        <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                    
+
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    <button type="button" class="btn" onclick="Javascript:window.history.go(-1)">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

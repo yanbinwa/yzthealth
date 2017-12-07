@@ -1,0 +1,368 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!-- Apple devices fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- Apple devices fullscreen -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <title>地理位置定位</title>
+    <link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+    <link rel="stylesheet" href="{$CSS}admin/admin.css">
+    <style type="text/css">
+        table td {
+            min-width: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #picsethere {
+            width: 510px;
+            display: block;
+        }
+
+        #picsethere img {
+            max-width: 500px;
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/css/wm/uploadify_t.css" media="all" />
+    
+   <!--
+    <script type="text/javascript" src="/res/mbaudio/inc/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="/res/mbaudio/inc/jquery.mb.miniPlayer.js"></script>
+    <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
+    <script type="text/javascript" src="/uploadify/jquery.uploadify.js"></script> --> 
+    
+    <script src="http://api.map.baidu.com/api?v=1.5&ak=1b0ace7dde0245f796844a06fb112734"></script>
+
+</head>
+<body class="{Session::get('maintheme')}">
+<h3>商家LBS设置</h3>
+
+<div class="alert alert-info">
+    <p><span class="bold">说明：</span>开启LBS功能后用户可在微信上发送地理位置获取商家的地理位置信息。</p>
+</div>
+<form class="form-horizontal" id="lbsForm" action="" method="post">
+    {tk()}{$lbs->hidden('id')}{$lbs->hidden('jd')}{$lbs->hidden('wd')}
+    <div class="control-group">
+        <label class="control-label" for="keyword">商家名称</label>
+
+        <div class="controls">
+            {$lbs->text('name','class="span4"')}
+            <span class="maroon">*</span>
+            <span class="help-inline">最多只能输入30个字符。</span>
+        </div>
+    </div>
+	<div class="control-group">
+        <label class="control-label" for="keyword">登录密码</label>
+
+        <div class="controls">
+            {$lbs->text('password','class="span4"')}
+            <span class="maroon">*</span>
+            <span class="help-inline">子系统管理平台登入密码</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="location_p">商家所在地区</label>
+
+        <div class="controls">
+            {$lbs->mulselect('chinaarea',array('l_sheng','l_shi','l_xianqu'))}
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="category_f">商家类别</label>
+
+        <div class="controls">
+            {$lbs->mulselect('industry',array('l_ind1','l_ind2'))}
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="address">地址:</label>
+
+        <div class="controls">
+            {$lbs->text('address','class="span5"')}
+            <button id="locate-btn" class="btn btn-primary">定位</button>
+            <span class="maroon">*</span><br>
+            <span class="help-inline">输入地址后，点击“自动定位”按钮可以在地图上定位。</span><br>
+            <span class="help-inline">（如果输入地址后无法定位，请在地图上直接点击选择地点）</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <div id="map" style="width: 600px;height: 300px;margin-left: 100px;"></div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="address">电话:</label>
+
+        <div class="controls">
+            {$lbs->text('tel','class="span5"')}
+            <span class="maroon">*</span><br>
+        </div>
+    </div>
+  <div class="control-group">
+		        <label class="control-label" for="">商家展示图片:</label>
+		        <div class="controls">
+		                <p class="img-area cover-bd" id="picsethere">
+						  <img class="thumb_img" src="{$lbs->pic}" id="pic_pic" relobj="elfinder_lbsp" style="max-height:100px;" />
+						</p>
+						 {$lbs->hidden('pic',' relobj="elfinder_lbsp"')}
+						<span class="help-inline">
+							<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="lbsp" >选择封面</button>
+							<span class="help-inline">建议尺寸：700像素 * 380像素</span>
+						</span>
+				</div>
+		    </div>
+		    
+		    
+    <script type="text/javascript">
+        function setclickshow() {
+            $('ul.nav-tabs').children('li').hide();
+            $('.tab-pane').hide();
+            $('.interactivec').each(function () {
+                if ($(this).prop('checked')) {
+                    var rel = $(this).attr('rel');
+                    $('li.' + rel).show();
+                }
+            });
+            $('ul.nav-tabs').children('li:visible').eq(0).trigger('click');
+        }
+    </script>
+    
+    
+    <div class="control-group">
+        <label class="control-label" for="">图片列表:</label>
+        {$lbs->hidden("pic_list")}
+        <div class="controls">
+            <button id="file_upload-button2" type="button" class="btn pl_add btn-primary" rel="yyuc" relobj="elfinder" relfun="setpic1" relmultiple="1" ><i class="icon-plus-sign"></i>上传图片</button>
+            <span class="maroon">*</span><span class="help-inline">图片大小640*320，图片大小不超过300K</span>
+            <ul class="ipost-list ui-sortable" id="fileList"></ul>
+            <div id="file_upload_queue" class="uploadifyQueue"></div>
+            <span for="imagestexts[50337][]" class="help-block error valid"></span>
+            <span for="imagestexts[19924][]"class="help-block error valid"></span>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <label class="control-label" for="detail">门店简介:</label>
+
+        <div class="controls">
+            {$lbs->textarea('content','class="span5" style="height:90px;width:520px;"')}
+            <span class="maroon">*</span><br><span class="help-inline">最多为1000个字符。</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+
+            <button id="save-btn" type="submit" class="btn btn-primary btn-large">保存并开启</button>
+
+        </div>
+    </div>
+</form>
+
+<script type="text/template" id="picdemo">
+<li class="imgbox" style="list-type:none">
+<a class="item_close" href="javascript:void(0)" onclick="$(this).parent().remove();" title="删除">
+</a>
+<span class="item_box">
+    <img src="" style="max-height:100%;">
+</span>
+<span class="item_input">
+    <textarea class="bewrite" cols="3" rows="4" style="resize: none" placeholder="图片描述..." onfocus="$(this).parent().addClass('on');" onblur="$(this).parent().removeClass('on');">
+    </textarea>
+    <i class="shadow hc">
+    </i>
+</span>
+</li>
+</script>
+
+<script type="text/javascript">
+
+    //图片上传的回调
+	function setpic1(m,n){
+		addoneing(m,n);
+	}
+	function addoneing(m,n){
+		n = n.split(',');
+		n = n[0];
+		$('#fileList').append($('#picdemo').html());
+		var li = $('#fileList').children('li:last');
+		li.find('img').attr('src',m);
+		li.find('textarea').val(n);
+	}
+
+
+    //是否从未保存过定位信息，如果从未保存过，并且有填地址信息，那么进入页面后自动定位
+    var located = true;
+    //定位坐标
+    var destPoint = new BMap.Point($('#lbsjd').val(), $('#lbswd').val());
+    $(function () {
+
+        /**开始处理百度地图**/
+        var map = new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(destPoint.lng, destPoint.lat), 12);//初始化地图
+        map.enableScrollWheelZoom();
+        map.addControl(new BMap.NavigationControl());
+        var marker = new BMap.Marker(destPoint);
+        map.addOverlay(marker);//添加标注
+
+        map.addEventListener("click", function (e) {
+            if (confirm("确认选择这个位置？")) {
+                destPoint = e.point;
+                $('#lbsjd').val(destPoint.lng);
+                $('#lbswd').val(destPoint.lat);
+                map.clearOverlays();
+                var marker1 = new BMap.Marker(destPoint);  // 创建标注
+                map.addOverlay(marker1);
+            }
+        });
+
+
+        var myValue;
+
+        var local;
+
+        function setPlace() {
+            map.clearOverlays();    //清除地图上所有覆盖物
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map}
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search(myValue);
+        }
+
+        function addEventListener(marker) {
+            marker.addEventListener("click", function (data) {
+                destPoint = data.target.getPosition(0);
+            });
+        }
+
+        function callback(posi) {
+            $("#locate-btn").removeAttr("disabled");
+            for (var i = 0; i < posi.length; i++) {
+                if (i == 0) {
+                    destPoint = posi[0].point;
+                }
+                posi[i].marker.addEventListener("click", function (data) {
+                    destPoint = data.target.getPosition(0);
+                });
+            }
+        }
+        $("#lbsl_xianqu").change(function () {
+            $("#locate-btn").attr("disabled", "disabled");
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map}
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search($("#lbsl_xianqu").find('option:selected').text());
+            return false;
+        });
+        $("#lbsl_shi").change(function () {
+            $("#locate-btn").attr("disabled", "disabled");
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map}
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search($("#lbsl_shi").find('option:selected').text());
+            return false;
+        });
+        $("#locate-btn").click(function () {
+            if ($("#lbsaddress").val() == "") {
+                alert("请输入门店地址！");
+                return;
+            }
+            $("#locate-btn").attr("disabled", "disabled");
+            local = new BMap.LocalSearch(map, { //智能搜索
+                renderOptions: { map: map}
+            });
+            located = true;
+            local.setMarkersSetCallback(callback);
+            local.search($("#lbsaddress").val());
+            return false;
+        });
+        /**结束百度地图处理**/
+        $("#close-btn").click(function () {
+            if (confirm("你确定要停用LBS功能？")) {
+                var submitData = {
+                    "action": "close",
+                    "wuid": 19979,
+                    "lid": null
+                };
+                $.post("/admin/lbsinfo", submitData, function (data) {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        alert("停用失败");
+                    }
+                }, "json");
+            }
+        });
+        $("#lbsForm").submit(function () {
+            var pics = [];
+            $('#fileList').find('li').each(function () {
+                var msg = {};
+                var img = $(this).find('img');
+                msg.src = img.attr('src');
+                msg.txt = $.trim($(this).find('textarea').val());
+                var w = img.width();
+                var h = img.height();
+                w = parseInt(450 * w / h);
+                msg.w = w;
+                msg.h = 450;
+                pics[pics.length] = msg;
+            });
+            $('#lbspic_list').val($.toJSON(pics));
+            var cansv = true;
+            $(this).find('input[type="text"],textarea').each(function () {
+                if ($.trim($(this).val()) == '') {
+                    cansv = false;
+                    $(this).css('backgroundColor', 'yellow');
+                    $(this).one('focus', function () {
+                        $(this).css('backgroundColor', 'transparent');
+                    });
+                }
+            });
+            if (!cansv) {
+                tusi('请将信息填写完整');
+            } else if ($('#picsethere').find('img').size() < 1) {
+                cansv = false;
+                tusi('请上传商家图片');
+            }
+            return cansv;
+        });
+        var val = $('#lbspic_list').val();
+        if ($.trim(val) == '') {
+            val = '[]';
+        }
+        var data = $.evalJSON(val);
+        for (var i = 0; i < data.length; i++) {
+            var msg = data[i];
+            addoneing(msg.src, msg.txt);
+        }
+    });
+</script>
+
+<script type="text/javascript" src="/js/comm.js"></script>
+<script>
+    function addjx(id) 
+    {
+        var tab = $('#' + id);
+        var tr = tab.find('tr').eq(1).clone();
+        tr.find('input').val('');
+        tr.find('a').show()
+        tab.append(tr);
+        return tr;
+    }
+</script>
+<br/><br/><br/></body>
+</html>

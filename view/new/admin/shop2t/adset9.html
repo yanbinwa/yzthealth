@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+	<title>{$_SERVER['WEB_NAME']}</title>
+	<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+	<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+	<script type="text/javascript" src="{$JS}jscolor.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+	</head>
+<body class="{Session::get('maintheme')}">
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span12">
+                                <h3><i class="icon-cog"></i>首页广告位管理</h3>
+                            </div>
+                        </div>
+                        <form  method="post" class="form-horizontal form-validate" onsubmit="return checkinfo();">
+                        	{$m->hidden('id')}
+                            <div class="box-content">
+							
+							    <div class="control-group">
+                                    <label class="control-label" for="bg_bg_color">首页公告条背景颜色：</label>
+                                    <div class="controls">
+                                     {$m->text('titlecolor','class="input-mini color" ')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+								
+                                <!-------------通栏1start--------------->
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位1名称:</label>
+                                    <div class="controls">
+                                    {$m->text('ad1name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位1图片：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad1pic}" id="pic_ad1pic" relobj="elfinder_ad1pic" style="max-height:100px;" />
+											{$m->hidden('ad1pic',' relobj="elfinder_ad1pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad1pic" >选择图片</button>
+												<span class="help-inline">750*160或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位1类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad1type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad1url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <!-------------通栏1end--------------->
+								 
+								 <hr>
+								  <!-------------特价板块start--------------->
+								<div class="control-group">
+                                    <label class="control-label" for="keyword">广告位2名称(左1):</label>
+                                    <div class="controls">
+                                    {$m->text('ad2name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位2图片(左1)：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad2pic}" id="pic_ad2pic" relobj="elfinder_ad2pic" style="max-height:100px;" />
+											{$m->hidden('ad2pic',' relobj="elfinder_ad2pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad2pic" >选择图片</button>
+												<span class="help-inline">374*298或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位2类型(左1)：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad2type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad2url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位2名称（右上）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad3name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位2图片（右上）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad3pic}" id="pic_ad3pic" relobj="elfinder_ad3pic" style="max-height:100px;" />
+											{$m->hidden('ad3pic',' relobj="elfinder_ad3pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad3pic" >选择图片</button>
+												<span class="help-inline">374*148或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位2类型（右上）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad3type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad3url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								                <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位2名称（右下）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad4name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位2图片（右下）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad4pic}" id="pic_ad4pic" relobj="elfinder_ad4pic" style="max-height:100px;" />
+											{$m->hidden('ad4pic',' relobj="elfinder_ad4pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad4pic" >选择图片</button>
+												<span class="help-inline">374*148或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位2类型（右下）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad4type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad4url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								       <!-------------特价板块end---------------> 
+
+
+									   
+								 <hr>
+								 
+								 <!-------------吃遍全球start---------------> 
+                                 <div class="control-group">
+                                    <label class="control-label" for="keyword">吃遍全球（左1）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad5name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">吃遍全球（左1）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad5pic}" id="pic_ad5pic" relobj="elfinder_ad5pic" style="max-height:100px;" />
+											{$m->hidden('ad5pic',' relobj="elfinder_ad5pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad5pic" >选择图片</button>
+												<span class="help-inline">539*646或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">吃遍全球（左1）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad5type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad5url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">吃遍全球（右上）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad6name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">吃遍全球（右上）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad6pic}" id="pic_ad6pic" relobj="elfinder_ad6pic" style="max-height:100px;" />
+											{$m->hidden('ad6pic',' relobj="elfinder_ad6pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad6pic" >选择图片</button>
+												<span class="help-inline">374*148或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">吃遍全球（右上）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad6type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad6url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">吃遍全球（右中）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad7name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">吃遍全球（右中）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad7pic}" id="pic_ad7pic" relobj="elfinder_ad7pic" style="max-height:100px;" />
+											{$m->hidden('ad7pic',' relobj="elfinder_ad7pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad7pic" >选择图片</button>
+												<span class="help-inline">374*148或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">吃遍全球（右中）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad7type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad7url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">吃遍全球（右下）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad8name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">吃遍全球（右下）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad8pic}" id="pic_ad8pic" relobj="elfinder_ad8pic" style="max-height:100px;" />
+											{$m->hidden('ad8pic',' relobj="elfinder_ad8pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad8pic" >选择图片</button>
+												<span class="help-inline">374*148或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">吃遍全球（右下）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad8type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad8url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <hr>
+								 
+								  <!-------------吃遍全球end---------------> 
+								 
+								 <div class="control-group">
+                                    <label class="control-label" for="keyword">通栏广告:</label>
+                                    <div class="controls">
+                                    {$m->text('ad9name','class="input-xlarge" ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+								
+								<div class="control-group">
+									<label class="control-label">通栏广告：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad9pic}" id="pic_ad9pic" relobj="elfinder_ad9pic" style="max-height:100px;" />
+											{$m->hidden('ad9pic',' relobj="elfinder_ad9pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad9pic" >选择图片</button>
+												<span class="help-inline">750*160或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">通栏广告：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad9type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad9url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 
+								 
+								<hr>
+								
+								
+
+								<!-------------眼饱口福start---------------> 
+                                 <div class="control-group">
+                                    <label class="control-label" for="keyword">眼饱口福（左1）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad10name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">眼饱口福（左1）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad10pic}" id="pic_ad10pic" relobj="elfinder_ad10pic" style="max-height:100px;" />
+											{$m->hidden('ad10pic',' relobj="elfinder_ad10pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad10pic" >选择图片</button>
+												<span class="help-inline">374*410或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">眼饱口福（左1）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad10type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad10url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">眼饱口福（右上）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad11name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">眼饱口福（右上）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad11pic}" id="pic_ad11pic" relobj="elfinder_ad11pic" style="max-height:100px;" />
+											{$m->hidden('ad11pic',' relobj="elfinder_ad11pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad11pic" >选择图片</button>
+												<span class="help-inline">374*148或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">眼饱口福（右上）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad11type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad11url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">眼饱口福（左下）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad12name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">眼饱口福（左下）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad12pic}" id="pic_ad12pic" relobj="elfinder_ad12pic" style="max-height:100px;" />
+											{$m->hidden('ad12pic',' relobj="elfinder_ad12pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad12pic" >选择图片</button>
+												<span class="help-inline">186*260或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">眼饱口福（左下）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad12type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad12url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">眼饱口福（右下）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad13name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">眼饱口福（右下）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad13pic}" id="pic_ad13pic" relobj="elfinder_ad13pic" style="max-height:100px;" />
+											{$m->hidden('ad13pic',' relobj="elfinder_ad13pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad13pic" >选择图片</button>
+												<span class="help-inline">186*260或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">眼饱口福（右下）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad13type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad13url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								<hr>
+								
+                             
+								<!-------------眼饱口福end---------------> 
+								<!--通栏-------->
+								 <div class="control-group">
+                                    <label class="control-label" for="keyword">通栏广告:</label>
+                                    <div class="controls">
+                                    {$m->text('ad14name','class="input-xlarge" ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+								
+								<div class="control-group">
+									<label class="control-label">眼饱口福（右下）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad14pic}" id="pic_ad14pic" relobj="elfinder_ad14pic" style="max-height:100px;" />
+											{$m->hidden('ad14pic',' relobj="elfinder_ad14pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad14pic" >选择图片</button>
+												<span class="help-inline">750*160或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">眼饱口福（右下）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad14type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad14url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 
+								<hr>
+								
+								<!----------------玩转乾坤---------------->
+								
+								 <hr>
+                                 <div class="control-group">
+                                    <label class="control-label" for="keyword">玩转乾坤（左1）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad15name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">玩转乾坤（左1）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad15pic}" id="pic_ad15pic" relobj="elfinder_ad15pic" style="max-height:100px;" />
+											{$m->hidden('ad15pic',' relobj="elfinder_ad15pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad15pic" >选择图片</button>
+												<span class="help-inline">374*410或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">玩转乾坤（左1）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad15type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad15url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">玩转乾坤（右左）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad16name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">玩转乾坤（右左）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad16pic}" id="pic_ad116pic" relobj="elfinder_ad16pic" style="max-height:100px;" />
+											{$m->hidden('ad16pic',' relobj="elfinder_ad16pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad16pic" >选择图片</button>
+												<span class="help-inline">186*260或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">玩转乾坤（右左）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad16type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad16url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">玩转乾坤（右右）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad17name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">玩转乾坤（右右）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad17pic}" id="pic_ad17pic" relobj="elfinder_ad17pic" style="max-height:100px;" />
+											{$m->hidden('ad17pic',' relobj="elfinder_ad17pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad17pic" >选择图片</button>
+												<span class="help-inline">186*260或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">玩转乾坤（右右）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad17type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad17url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">玩转乾坤（右下）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad18name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">玩转乾坤（右下）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad18pic}" id="pic_ad18pic" relobj="elfinder_ad18pic" style="max-height:100px;" />
+											{$m->hidden('ad18pic',' relobj="elfinder_ad18pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad18pic" >选择图片</button>
+												<span class="help-inline">374*148或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">玩转乾坤（右下）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad18type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad18url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								<hr>
+								<!-------------玩转乾坤end--------------->
+								<!-------------乐享无限start--------------->
+								
+								
+								 <div class="control-group">
+                                    <label class="control-label" for="keyword">乐享无限（上左1）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad19name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">乐享无限（上左1）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad19pic}" id="pic_ad19pic" relobj="elfinder_ad19pic" style="max-height:100px;" />
+											{$m->hidden('ad19pic',' relobj="elfinder_ad19pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad19pic" >选择图片</button>
+												<span class="help-inline">374*300或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">乐享无限（上左1）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad19type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad19url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">乐享无限（上右1）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad20name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">乐享无限（上右1）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad20pic}" id="pic_ad20pic" relobj="elfinder_ad20pic" style="max-height:100px;" />
+											{$m->hidden('ad20pic',' relobj="elfinder_ad20pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad20pic" >选择图片</button>
+												<span class="help-inline">374*300或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">乐享无限（上右1）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad20type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad20url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 
+								 
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">乐享无限（下左1）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad21name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">乐享无限（下左1）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad21pic}" id="pic_ad21pic" relobj="elfinder_ad21pic" style="max-height:100px;" />
+											{$m->hidden('ad21pic',' relobj="elfinder_ad21pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad21pic" >选择图片</button>
+												<span class="help-inline">249*260或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">乐享无限（下左1）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad21type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad21url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								  <div class="control-group">
+                                    <label class="control-label" for="keyword">乐享无限（下中）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad22name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">乐享无限（下中）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad22pic}" id="pic_ad22pic" relobj="elfinder_ad22pic" style="max-height:100px;" />
+											{$m->hidden('ad22pic',' relobj="elfinder_ad22pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad22pic" >选择图片</button>
+												<span class="help-inline">249*260或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">乐享无限（下中）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad22type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad22url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 
+								   <div class="control-group">
+                                    <label class="control-label" for="keyword">乐享无限（下右）:</label>
+                                    <div class="controls">
+                                    {$m->text('ad23name','class="input-xlarge"  ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">乐享无限（下右）：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad23pic}" id="pic_ad23pic" relobj="elfinder_ad23pic" style="max-height:100px;" />
+											{$m->hidden('ad23pic',' relobj="elfinder_ad23pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad23pic" >选择图片</button>
+												<span class="help-inline">249*260或同等比例</span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">乐享无限（下右）：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad23type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad23url',array("class"=>'input-xlarge', "data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								
+								<!-------------乐享无限end--------------->
+					
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">保存</button>
+                                        <button onclick="window.history.go(-1)" class="btn" type="button">取消</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+   
+
+<div id="fallr-overlay"></div>
+</body>
+
+<script type="text/javascript" src="{$JS}comm.js"></script>
+
+</html>

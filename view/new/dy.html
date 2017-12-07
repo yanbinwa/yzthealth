@@ -1,0 +1,78 @@
+
+<html lang="">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$set->keywords}" />
+<meta name="description" content="{$set->description}" />
+<title>{$set->title}</title>
+<link href="{$CSS}web/bootstrap.min.css?v=10.6" rel="stylesheet">
+<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css?v=10.6">
+<link href="{$CSS}web/inner.css?v=10.6" rel="stylesheet">
+<link href="{$CSS}web/menu.css?v=10.6" rel="stylesheet">
+<link href="{$CSS}web/slider.css?v=10.6" rel="stylesheet">
+<link href="{$CSS}web/index.css?v=10.6" rel="stylesheet">
+
+<script type="text/javascript" src="{$JS}web/jquery-1.10.2.min.js?v=10.6"></script> 
+<script type="text/javascript" src="{$JS}web/mobile_menu.js?v=10.6"></script> 
+<script type="text/javascript" src="{$JS}web/main_menu.js?v=10.6"></script> 
+<script type="text/javascript" src="{$JS}web/myjs.js?v=10.6"></script> 
+<script type="text/javascript" src="{$JS}web/config.js?v=10.6"></script>
+</head>
+<body>
+{T head}
+	<div style="left: 0px;" id="container">
+
+	<!-- inner content -->
+	<div class="inner-content-1">
+		<div class="container">
+
+		<style>
+		.home-icon-2 img {
+		width: 60px;
+		height: 23px;
+		margin-bottom: 6px;
+		}
+		.inner-nav-1 { font-size:16px;}
+		</style>
+			<div class="inner-nav-1">
+				<span class="home-icon-2">
+					<a href="index.html">
+						<img src="{$IMG}web/location.png" >
+					</a>
+				</span>
+				<a href="about.html">走进{$set->title}</a> &gt;
+				<span>{$d->type}</span>
+			</div>
+			<div class="zoujin-box">
+				<div class="zou-top">
+					<div class="row">
+						<div class="col-sm-3">
+							<h3>{$d->type}</h3>
+						</div>
+
+					</div>
+				</div>
+				<div class="zou-bottom">
+					<div class="row">
+						{$d->content}
+					</div>
+				</div>
+
+
+			</div>
+
+
+
+
+		</div>
+	</div>
+<!-- main content end-->
+
+<script type="text/javascript" src="{$JS}web/bootstrap.min.js"></script> 
+
+
+{T footer}
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+     <div id="main" style="margin-bottom:40px">
+        <div class="container-fluid">
+            <div class="row-fluid">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-table"></i>订单详情</h3>
+                            </div>
+                            <div class="span2">
+                                <a class="btn" href="Javascript:window.history.go(-1)">返回</a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <div class="row-fluid dataTables_wrapper">
+                                    <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>商品图片</th>
+                                                <th>商品名称</th>
+                                                <th>实际价格</th>
+                                                <th>商品数量</th>
+                                                <th>备注</th>
+                                                <th>小计</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listTable">
+                                            <tr>
+                                                <td width="10%"><img class="thumb_img" src="{$sproduct->pic}"   onclick="window.open($(this).attr('src'))" style="max-height:40px;cursor:pointer;"></td>
+                                                <td width="25%">{$sproduct->name}</td>
+                                                <td width="5%">{$sproduct->lowest}</td>
+                                                <td width="5%">{$orderModel->num}</td>
+                                                <td width="20%">{$orderModel->beizhu}</td>
+                                                <td width="15%">{$sproduct->lowest * $orderModel->num}</td>
+                                            </tr>  
+                                        <tr align="center">
+                                                <td width="20%"  colspan='5'>总计</td>
+                                                <td width="10%">{$sproduct->lowest * $orderModel->num}</td>
+                                        </tr>                                       
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                     <div class="row-fluid dataTables_wrapper">
+                          <div class="span4 row-fluid dataTables_wrapper ">
+                                 <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                                       <thead>
+                                                            <tr>
+                                                                <th colspan="2" >订单金额明细</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="listTable">
+                                                            <tr>
+                                                                <td width="50%">商品总额:</td> 
+                                                                <td>{$sproduct->lowest}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>订单总额:</td> 
+                                                                <td>{$orderModel->total}</td>
+                                                            </tr>
+                                                        </tbody>
+                                    </table>
+
+                            
+                                        <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" >使用优惠券信息</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="listTable">
+                                                <tr>
+                                                    <td width="50%">是否使用优惠券:</td> 
+                                                    <td>{if $orderModel->couponid}使用{else}未使用{/if}</td>
+                                                </tr>
+                                                {if $orderModel->couponid}
+                                                    <tr>
+                                                        <td>优惠券名称:</td> 
+                                                        <td>{$youhuiquan->name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>优惠券使用条件:</td> 
+                                                        <td>订单金额大于{$youhuiquan->maxcon}元</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>优惠券减免金额:</td> 
+                                                        <td>{$youhuiquan->redcon}元</td>
+                                                    </tr>
+                                                {/if}
+                                                
+                                            </tbody>
+                                        </table>
+                            
+                             </div>
+                            
+                              <div class="span4 row-fluid dataTables_wrapper ">
+                                 <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                                       <thead>
+                                                            <tr>
+                                                                <th colspan="2" > 订单状态</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="listTable">
+                                                            <tr>
+                                                                <td>支付状态:</td> 
+                                                                <td>{$pay_status[$orderModel->pay_status]}</td>
+                                                            </tr>
+                                                            <!-- <tr>
+                                                                <td>支付方式:</td> 
+                                                                <td>{$pay_type[$m->pay_type]}</td>
+                                                            </tr> -->
+                                                            <tr>
+                                                                <td>支付平台交易号:</td> 
+                                                                <td>{$orderModel->trade_no}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>订单状态:</td> 
+                                                                
+                                                                
+                                                                    {if $orderModel->status==0 && $orderModel->pay_status==0}
+                                                                        <td>未支付</td>
+                                                                    {elseif $orderModel->pay_status==1 && $orderModel->status==0}
+                                                                        <td>带使用</td>
+                                                                    {elseif $orderModel->pay_status==1 && $orderModel->status==1}
+                                                                        <td>已结算</td>
+                                                                    {/if}
+                                                                
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="50%">理疗地点：</td> 
+                                                                <td>{$supplier->shopname}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="50%">理疗地址：</td> 
+                                                                <td>{$supplier->address}</td>
+                                                            </tr>
+                                                              <tr>
+                                                                <td width="50%">下单日期:</td> 
+                                                                <td>{$orderModel->created_at}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="50%">结算日期:</td> 
+                                                                <td>{$orderModel->end_time}</td>
+                                                            </tr>                                                            
+                                                        </tbody>
+                                    </table>
+                             </div>
+                             <div class="span4 row-fluid dataTables_wrapper ">
+                                   <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                                       <thead>
+                                                            <tr>
+                                                                <th colspan="2">下单人信息</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="listTable">
+                                                            <tr>
+                                                                <td width="50%">下单人:</td> 
+                                                                <td>{$orderModel->full_name}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>联系电话:</td> 
+                                                                <td>{$orderModel->telephone}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>预约时间:</td> 
+                                                                <td>{$orderModel->ll_time}</td>
+                                                            </tr>                                                            
+                                                            <tr>
+                                                                <td>备注:</td> 
+                                                                <td><textarea placeholder="选填，可以备注某些要求" name="bz" id='bz' rows="3" cols="40">{$orderModel->bz}</textarea></td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><button onclick="tijiao()">确认提交</button></td>
+                                                            </tr>
+                                                        </thead>
+                                    </table>
+                             </div>
+                          
+                             </div>
+                              </div>
+                 </div>
+               
+                   
+              </div>
+      </div>
+    </div>
+ 
+
+
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    <script type="text/javascript">
+    function tijiao(){
+        var id = {$orid};
+        var bz = $('#bz').val();
+        ajax('orderview-ti.html',{ id:id,bz:bz},function(m){
+            if(m == 'ok'){
+                tusi('提交成功');
+            }
+        });
+        
+    }
+</script>
+   </body>
+</html>

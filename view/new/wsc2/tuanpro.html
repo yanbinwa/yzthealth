@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>团购商品详情</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+	
+	
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/common_css.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/detail.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/privileges.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/detail_c50048b.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/shop_map_main.css"/>
+
+
+<script type="text/javascript" src="{$JS}mwm/swipe.js"></script>
+	
+<link rel="shortcut icon" href="/favicon.ico" />
+<style type="text/css">
+		.p-shop-list-area{ border-bottom:1px solid #e0e0e0 }
+		.cmt_list { 
+			float: left;
+		   	width: 100%;
+		    margin-bottom: 5px;
+		    border-bottom: 1px solid #e0e0e0;
+		    }
+		.date {  
+			float: right;
+		    margin-right: 2%;
+		    font-size: 12px;
+		    color: #555;
+		    margin-bottom: 8px;
+	    }
+		.cmt_cnt { 
+			font-size:15px;
+			font-weight: 100;
+		    float: left;
+		    width: 98%;
+		    line-height: 28px;
+		    padding-left: 2%;
+		    margin-top: 8px;
+	    }
+		 .cmt_li{ 
+			border-bottom: 1px solid #e0e0e0;
+			float: left;
+			width: 100%;
+		}
+		#j-buy-ctn{
+			float: left;
+    		
+   			 margin-top: 8px;
+   			 width: 96%;
+			
+			}
+		.content{
+			margin-top: 10px;
+			line-height: 26px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid rgb(224, 224, 224);
+			padding-left: 2%;
+			overflow: hidden;
+			}
+		#buy_btn {
+    		background: none repeat scroll 0% 0% #AFAFAF;
+			}
+		.content img{
+				width:100%;
+			}
+			.mod_slider {
+	min-width: 320px;
+	min-height: 120px;
+	position: relative;
+	margin: 10px 0;
+	overflow: hidden
+}
+
+.mod_slider .inner {
+	width: 100%;
+	overflow: hidden
+}
+
+.mod_slider .pic_list {
+	position: relative
+}
+
+.mod_slider .pic_list li {
+	float: left;
+	min-width: 320px;
+	min-height: 120px;
+	position: relative;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none
+}
+
+.mod_slider .pic_list a {
+	display: block;
+	text-align: center
+}
+
+.mod_slider .pic_list img {
+	width: 100%;
+	min-height: 120px
+}
+
+.mod_slider .bar_wrap {
+	width: 100%;
+	height: 18px;
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	right: 0;
+	z-index: 20;
+	text-align: center
+}
+
+.mod_slider .bar {
+	display: inline-block;
+	padding: 0 4px;
+	min-width: 58px;
+	height: 18px;
+	overflow: hidden;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 10px
+}
+
+.mod_slider .bar li {
+	display: inline-block;
+	margin: 5px 3px;
+	width: 8px;
+	height: 8px;
+	background: #fff;
+	opacity: 0.5;
+	border-radius: 5px;
+	cursor: pointer
+}
+
+.mod_slider .bar li.cur {
+	opacity: 1
+}
+	</style>
+<script>
+
+		$(function(){			
+			new Swipe(document.getElementById('slideWrapper'), {
+				speed:500,
+				auto:3000,
+				callback: function(index, elem){
+					var lis = $('#bannerTab').children();
+					lis.removeClass("cur").eq(index).addClass("cur");
+				}
+			});
+			
+		});
+		
+$(function(){
+	localStorage.lastprice = 0;
+})
+</script>
+
+</head>
+
+<body mon="position=detail_local">
+	<header class="w-header" mon="type=header">
+		<a class="arrow-wrap" href="javascript:history.back()" mon="content=back">
+		<span class="arrow-left"></span>
+		</a>
+		<a href="/" class="home" mon="content=home"></a>
+		<div class="text">团购详情</div>
+	</header>
+	<article class="p-detail" mon="action=click">
+		<!--<div class="w-product-image">
+			<div class="wrapper">
+			 
+				<img src="{$pics[0]->src}">
+			 
+			</div>
+		</div>
+		-->
+		
+		<div class="mod_slider" id="slideList">
+			<div class="inner" id="slideWrapper">
+			  <ul class="pic_list" id="bannerImg">
+				{loop $pics as $tj}
+				<li style="max-width:380px;max-height:240px;overflow: hidden;">
+				  <a href="javascript:;">
+					<img src="{$tj->src}" style="width:100%;">
+				  </a>
+				</li>
+				{/loop}
+			  </ul>
+			</div>
+			<div class="bar_wrap">
+			  <ul class="bar" id="bannerTab">
+			  {loop $pics as $tj}
+				<li id="{$__i}" no="{$__i}" class="">
+				</li>
+			  {/loop}
+			  </ul>
+			</div>
+      </div>
+		
+		
+		
+		<div class="w-product-desc">
+			<div class="segment buy-segment">
+				<span class="current-price">
+					<em class="price-value">
+						{$p->lowest}
+					</em>
+				</span>
+				<span class="original-price">
+					<del>{$p->yj}</del>
+				</span>
+				<div class="buy-wrapper" mon="action=click">
+					<div class="w-buy-btn-normal w-buy-btn-normal-small" id="j-buy-ctn" mon="type=topBuy" style="width:100%">
+						{if $kai == 0}
+						<a href="javascript:;" class="buy-btn" id="buy_btn" >即将开始</a>
+						{else}
+						<a href="tuandetail-{$p->id}.html" class="buy-btn" mon="price={$p->lowest}&content=立即抢购">立即抢购</a>
+						{/if}
+					</div>
+				</div>
+			</div>
+			<div class="segment summary-segment">
+				<div class="title">{$p->name}</div>
+				<div class="description">{$p->ms}</div>
+			</div>
+			<div class="segment desc-segment">
+				<div class="block">
+					<span class="bought-num">
+						<img class="icon" src="/res/tg/images/boughtNum_a709dd0.png"/>{$p->sale_nums}人已购买</span>
+					<span class="remaining-days">
+					<img class="icon" src="/res/tg/images/remainingDays_cc3f607.png" />剩余{if $kai == 0}{time2string($p->tkssj)}{else}{time2string($p->tjssj)}{/if}</span>
+				</div>
+			</div>
+	   </div>
+	{if $p->detailcs != ''}
+		<section class="w-rich-text">
+			<div class="rich-title j-block-title">团购介绍</div>
+			<div class="rich-wrapper" >
+				<div class="content">
+					{$p->detailcs}
+				</div>
+				{if $p->detail != ''}
+				<a href="moredetail-{$p->id}.html" class="rich-look-lottery" mon="type=moreDetailBtn">
+					<span class="right-arrow">查看图文详情</span>
+				</a>
+				{/if}
+				</div>
+		</section>
+		{/if}
+		{if $p->saletip != ''}
+		<section class="w-rich-text">
+			<div class="rich-title j-block-title">消费提示</div>
+			<div class="rich-wrapper" >
+				<div class="content">
+					{$p->saletip}
+				</div>
+			</div>
+		</section>
+		{/if}
+		<section class="w-rich-text">
+			<div class="rich-title j-block-title">评价({count($cres)}人评价)</div>
+			 <div class="cmt_list">
+			 {loop $cres as $c}
+			 <div class="cmt_li" >
+			    <h3 class="cmt_cnt">{$c->con}</h3>
+			    <div class="cmt_user">
+			        <span class="date">{$c->create_time}</span>
+			    </div>
+			</div>
+            {/loop}
+            </div>
+		</section>
+		<div class="w-buy-btn-normal w-buy-btn-normal-large" id="j-buy-ctn" mon="type=bottomBuy" style="padding: 10px 2% 20px;">
+			{if $kai == 0}
+			<a href="javascript:;" class="buy-btn" id="buy_btn" >即将开始</a>
+			{else}
+			<a href="tuandetail-{$p->id}.html" class="buy-btn" mon="price={$p->lowest}&content=立即抢购">立即抢购</a>
+			{/if}
+		</div>
+	</article>
+</body>
+</html>

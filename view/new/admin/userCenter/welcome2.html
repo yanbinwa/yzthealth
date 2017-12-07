@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="app fadeInUp animated js no-touch no-android no-chrome no-firefox no-iemobile no-ie no-ie10 no-ie11 ios" lang="cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>平台概况</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="{$CSS}lgc/bootstrap.css" rel="stylesheet" />
+    <link href="{$CSS}lgc/animate.css" rel="stylesheet" />
+    <link href="{$CSS}wm/font-awesome.css" rel="stylesheet" />
+    <link href="{$CSS}lgc/style.css" rel="stylesheet">
+    <style>
+        .text-muted{
+            margin-bottom: 5px;
+        }
+    </style>
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie8/inie8.min.js"></script><![endif]-->
+</head>
+
+<body>
+    <section class="vbox">
+        <section class="scrollable padder">
+            <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+                <li><a href="javascript:;"><i class="fa fa-dashboard"></i>平台概况</a></li>
+            </ul>
+            <section class="panel panel-default m-t">
+
+                <div class="row m-l-none m-r-none bg-light lter">
+                    <div class="col-sm-6 padder-v b-r b-light" style="width: 50%;">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <i class="fa fa-circle fa-stack-2x text-info"></i>
+                            <i class="fa fa-truck fa-stack-1x text-white"></i>
+                        </span>
+                        <a class="clear" href="###">
+                            <span class="h3 block m-t-xs"><strong>{$yesterdayCount}</strong></span>
+                            <small class="text-muted text-uc">昨日下单数</small>
+                        </a>
+                    </div>
+                    <div class="col-sm-6 padder-v b-r b-light lt" style="width: 50%;">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <i class="fa fa-circle fa-stack-2x text-warning"></i>
+                            <i class="fa fa-legal fa-stack-1x text-white"></i>
+                            <span class="easypiechart pos-abt" data-percent="100" data-line-width="4" data-track-color="#fff" data-scale-color="false" data-size="50" data-line-cap="butt" data-animate="2000" data-target="#bugs" data-update="3000"></span>
+                        </span>
+                        <a class="clear" href="###">
+                            <span class="h3 block m-t-xs"><strong id="bugs">{$yesterdaytotal}</strong></span>
+                            <small class="text-muted text-uc">昨日成交金额</small>
+                        </a>
+                    </div>
+
+                </div>
+            </section>
+            <div class="row">
+                <div class="col-md-8">
+                    <section class="panel panel-default">
+                        <header class="panel-heading font-bold">7天交易数据<small>（{date('Y-m-d',time())}至{date('Y-m-d',time()-7*24*3600)}）</small></header>
+                        <div class="panel-body">
+                        <!--   插入图表 -->
+                            <!--  echart -->
+                            <div id="main" style="width: 100%;height:400px;"></div>
+                        </div>
+                        <footer class="panel-footer bg-white no-padder">
+                            <div class="row text-center no-gutter">
+                                
+                                <div class="col-xs-4 b-r b-light">
+                                    <span class="h4 font-bold m-t block">{$turnover}</span>
+                                    <small class="text-muted m-b block">交易额</small>
+                                </div>
+                                <!-- <div class="col-xs-4 b-r b-light">
+                                    <span class="h4 font-bold m-t block">{$integralTotal}</span>
+                                    <small class="text-muted m-b block">赠送积分</small>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span class="h4 font-bold m-t block">{$pointTotal}</span>
+                                    <small class="text-muted m-b block">消点数</small>
+                                </div> -->
+                            </div>
+                        </footer>
+                    </section>
+                </div>
+                <div class="col-md-4">
+                    <section class="panel panel-default">
+                        <header class="panel-heading font-bold">总计</header>
+                        <div class="panel-body">
+                            <div>
+                                <span class="text-muted">累计交易额</span>
+                                <span class="h3 block money">{$turnover1}</span>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+            
+            
+        </section>
+    </section>
+
+<script src="{$JS}echarts.min.js" type="text/javascript" r></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: ''
+            },
+            tooltip: {},
+            legend: {
+                data:['交易额']
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: {json_encode($datesArray)}
+                //data: ["10.10","10.11","10.12","10.13","10.14","10.15"]
+            },
+            yAxis: { },
+            series: [
+            {
+                name: '交易额',
+                type: 'line',
+                data: {json_encode($turnoverArray)}
+                //data: [ 300000, 188888, 244444, 140000, 169999, 160000]
+            },
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body></html>

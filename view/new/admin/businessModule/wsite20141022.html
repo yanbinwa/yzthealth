@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<link rel="stylesheet" href="{$CSS}admin/admin.css">
+<link type="text/css" rel="stylesheet" href="/res/wz/style/list.css" />
+<link type="text/css" rel="stylesheet" href="/res/wz/style/wsite.css" />
+<title>微官网</title>
+<script type="text/javascript" src="{$JS}main.js"></script>
+<script type="text/javascript" src="/res/helpmsg.js"></script>
+<script type="text/javascript" src="/@system/jqueryui/jquery-ui.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	if(!jQuery.support.tbody){
+		
+	}
+});
+</script>
+<style type="text/css">
+*{
+	-webkit-user-select:auto;
+	user-select:auto;
+}
+</style>
+<!--[if lt IE 10]>
+<style>
+#notbroswer{
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid gray;
+	background-color:#e0e0e0;	
+}
+#notbroswer span{
+line-height: 30px;
+	margin-left: 20px;
+	font-size: 14px;
+}
+</style>
+<div id="notbroswer">
+<span>
+你正在使用老版本的IE浏览器，获得更好的制作体验请使用<a href="http://www.google.cn/intl/zh-CN/chrome/browser/"  target="_blank"><b>chrome</b></a>,<a href="http://www.apple.com.cn/safari/" target="_blank">safari</a>,<a href="http://firefox.com.cn/download/" target="_blank">firefox</a>或<a href="http://www.opera.com/zh-cn/computer" target="_blank">opera</a>,或者使用国产浏览器的<a href="http://chrome.360.cn/help/skimmode.html" target="_blank"><b>极速模式</b></a>完成设计。</a>。
+</span>
+</div>
+<script>
+$(function(){
+//$('body').mask('IE浏览器内核不支持手机端网站设计，请切换到其他浏览器！');
+$('.table-bordered').hide();
+});
+
+</script>
+<![endif] -->
+
+
+ <div id="yystep1"  >
+		<a href="javascript:;"  data-toggle="modal" title="1选择模版" id="1">
+		<img src='/res/sm/gwzn1.png' width='170' height='120' />
+	   </a>
+   </div>
+   
+   <div id="yystep2" style="display: none;" >
+		<a href="javascript:;"  data-toggle="modal" title="2设置内容模块"  id="2">
+		<img src='/res/sm/gwzn2.png' width='170' height='120' />
+	   </a>
+   </div>
+   
+   <div id="yystep3"  style="display: none;">
+	<a href="javascript:;"  data-toggle="modal" title="3设置标题、描述、链接" >
+		<img src='/res/sm/gwzn3.png' width='170' height='120' />
+	</a>
+  </div>
+   
+	  <div id="yystep4" style="display: none;">
+	<a href="javascript:;"  data-toggle="modal" title="4添加内容页面" >
+		<img src='/res/sm/gwzn4.png' width='170' height='120' />
+	</a>
+  </div>
+  <div id="yystep5"    style="display: none;">
+	<a href="javascript:;"  data-toggle="modal" title="5同样需要选择模版" >
+		<img src='/res/sm/gwzn5.png' width='170' height='120' />
+	</a>
+  </div>
+  <div id="yystep6"   style="display: none;" >
+	<a href="javascript:;"  data-toggle="modal" title="6保存" >
+		<img src='/res/sm/gwzn6.png' width='170' height='120' />
+	</a>
+  </div>
+  
+   <div id="yystep7"  style="display: none;"  >
+	<a href="javascript:;"  data-toggle="modal" title="7更多详细内容见使用指南" >
+		<img src='/res/sm/gwzn7.png' width='170' height='120' />
+	</a>
+  </div>
+  
+<link rel="stylesheet" href="/res/btncss/font-awesome.min.css">
+<link rel="stylesheet" href="/res/btncss/buttons.css">
+<script type="text/javascript">
+$(function(){
+
+	$('#yystep1').click(function(){
+	    	$("#yystep1").css("display","none");
+	    	$("#yystep2").css("display","block");
+	    });
+	 $('#yystep2').click(function(){
+	    	$("#yystep2").css("display","none");
+	    	$("#yystep3").css("display","block");
+		
+	 });
+	  
+	 $('#yystep3').click(function(){ 
+ 	      $("#yystep3").css("display","none");
+		  $("#yystep4").css("display","block");
+       });
+	   
+	 $('#yystep4').click(function(){ 
+ 	      $("#yystep4").css("display","none");
+		  $("#yystep5").css("display","block");
+     });
+	   
+	    $('#yystep5').click(function(){ 
+ 	      $("#yystep5").css("display","none");
+		  //$("#yystep6").css("display","block");
+		  
+		  //找到保存的位置
+		  var p_top = $("#savebtn").offset().top;
+		  var pos = p_top - 60;
+		  $("html,body").animate({ scrollTop: pos }, 800);
+		  var left = $("#savebtn").offset().left + 80;
+		  $("#yystep6").css({ "left":left + "px", "top": pos+"px", "font-size":"23px","width":"120px", "height":"100px", "display":"block"});
+		  $("#yystep6").addClass(".yystep6c");
+		  
+		 
+       });
+	   
+	   
+	   
+	    $('#yystep6').click(function(){ 
+ 	      $("#yystep6").css("display","none");
+		  $("#yystep7").css("display","block");
+		  //回到上面的位置
+		  $("html,body").animate({ scrollTop: 10 }, 800);
+       });
+	   
+	   $('#yystep7').click(function(){ 
+ 	      $("#yystep7").css("display","none");
+
+       });  
+	   
+
+
+/*
+	window.myhelpmsg = [
+						{
+		            	   ele:$('#step01'),
+		            	   msg:'还在羡慕别人的微官网？<br/>别着急，马上动手制作自己的微官网 ～',
+		            	   pic:'{$IMG}/admin/v3/step01.jpg',
+		            	   pic_w:310,
+		            	   pic_h:280,
+		            	   des:' '
+		               },
+		               {
+		            	   ele:$('#step0'),
+		            	   msg:'首先，点击”+“增加您的官网页面：',
+		            	   pic:'{$IMG}/admin/v3/step1.jpg',
+		            	   pic_w:293,
+		            	   pic_h:254,
+		            	   des:' '
+		               },
+		                {
+		            	   ele:$('#liindex'),
+		            	   msg:'选中左侧的”微首页“，开始完美的微官网首页：',
+		            	   pic:'{$IMG}/admin/v3/step2.jpg',
+		            	   pic_w:300,
+		            	   pic_h:370,
+		            	   des:' '
+		               },
+		               {
+		            	   ele:$('#selst'),
+		            	   msg:'设置图片导航，即顶部导航图片，图片导航选择”显示“，点击下面的”封面图片“字样，需确认剪裁才能上传图片：',
+		            	   pic:'{$IMG}/admin/v3/step3.jpg',
+		            	   pic_w:405,
+		            	   pic_h:338,
+		            	   des:''
+		               },
+		               {
+		            	   ele:$('#step4'),
+		            	   msg:'接下来点击”选择模板“编辑首页内容,我们为您提供数十种丰富多样的编辑模板:',
+		            	   pic:'{$IMG}/admin/v3/step4_11.jpg',
+		            	   pic_w:348,
+		            	   pic_h:277,
+		            	   des:''
+		               },
+		               {
+		            	   ele:$('#step5'),
+		            	   msg:'根据您的活动内容，选中控件内容框，使用“复制添加”和“删除控件”按钮随心设置组件数量：',
+		            	   pic:'{$IMG}/admin/v3/step5.jpg',
+		            	   pic_w:329,
+		            	   pic_h:312,
+		            	   des:''
+		               },
+		               {
+		            	   ele:$('#step6'),
+		            	   msg:'选中模板的内容块，右侧”内容与响应“下面即出现编辑框，设置说明，图片，最重要的是，设置页面跳转，即点击内容块跳转到的页面：',
+		            	   pic:'{$IMG}/admin/v3/step6.jpg',
+		            	   pic_w:420,
+		            	   pic_h:300,
+		            	   des:''
+		               },
+		               {
+		            	   ele:$('#savebtn'),
+		            	   msg:'这样，微官网首页就设计好啦，别忘记保存哦！ <br/>按这样的方式依次设计所有页面，您的专属微官网就诞生啦～',
+		            	   pic:'{$IMG}/admin/v3/step71.jpg',
+		            	   pic_w:250,
+		            	   pic_h:350,
+		            	   des:''
+		               },
+		            ];
+	if($.cookie('wishelp')!='WH'){
+		openhelp(myhelpmsg);
+		$.cookie('wishelp','WH');
+	}
+	
+	*/
+	$('#mainsethtm').blur(function(){
+		$('#mainhtm').html($(this).val());
+	});
+});
+
+function autosetjb(){
+	if($('.22btr').is(':hidden')){
+		$('.2btr').show();
+		$('#mainsethtm').hide();
+		$('#tophtm').show();
+	}else{
+		$('.22btr').hide();
+		$('#mainsethtm').show();
+		$('#selst').val('n');
+		$('#selstsl').val('1');
+		$('#tophtm').hide();
+	}
+	
+}
+
+function getqqtop(jo){
+	if(jo.is('body')){
+		tusi('不包含整排信息');
+		return null;
+	}
+	if(jo.is('.qq_add_parent')){
+		return jo;
+	}else{
+		return getqqtop(jo.parent());
+	}
+}
+</script>
+<link type="text/css" rel="stylesheet" href="/@system/jqueryui/jquery-ui.css" />
+</head>
+<body class="{Session::get('maintheme')}" >
+	<div class="main-title">
+		<h3>我的微官网:<sub style="color: gray;">{$mywwz}/<span id="yemianpage">index</span>.html</sub>&nbsp;&nbsp;&nbsp;&nbsp;
+		<!-- <span class="jiaocheng" id="step01" style="cursor: pointer;" onclick="openhelp(myhelpmsg);return;">新手指导</span> -->
+		<!-- <span class="jiaocheng" id="step01" style="cursor: pointer;" onclick="autosetjb();return;" title="为了满足客户的个性化需求针对高级用户定制开发扩展 ">自定义脚本</span> -->
+	
+</h3>
+	</div>
+	<!-- 
+	<div class="alert alert-info">
+	  	<p><span class="bold">注意：</span>微投票的目的是获得系统客观的收集信息研究数据，为决策做准备。。</p>
+	</div>
+	 -->
+	
+
+
+<div class="pagination">
+ <!--  <ul>
+
+    <li class="disabled"><span>上一页</span></li>
+  </ul>
+ -->  
+</div>
+	<table class="table table-bordered">
+				<tr style="background-color:#f6f6f6;">
+					<th id="step0" align="center" style="text-align: center;">页面列表
+					<button class="button glow button-rounded button-flat-primary" style="height:25px;font-size:30px;padding:2px;line-height:22px;" onclick="addalb()" title="添加分组">+</button>
+					</th>
+					<th align="center" style="text-align: center;">样式编辑</th>
+					<th align="center" id="step6" style="text-align: center;">内容与响应</th>
+				</tr>
+				<tr>
+					<td style="width: 300px;padding: 0px 0px 0px 0px;">
+					<ul class="lbul" id="lbul">
+					<li class="liindex liindex11 liindex33" id="liindex" uuid="index" style="padding-bottom:1px;"><span>微首页</span>
+					<i style="display: none;"></i>
+					<p style="display: none;"></p>					
+					</li>
+					</ul>
+					</td>
+					<td style="width: 400px;position: relative;">
+					
+					<table class="table-caozuo">
+					<tr>
+					<td style="border: none;" nowrap="nowrap"><span style="line-height: 28px;">页面名称：</span></td>
+					<td style="border: none;" nowrap="nowrap"><input type="text" id="pagename" style="width: 120px; margin:0"/></td>
+					<td class="2btr" style="border: none;" nowrap="nowrap"><button id="step4" id="linktobak" relfun="setbj" onmousedown="clearbj();" rel="yyuc" relobj="elfinder"  relmultiple="true" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;" title="选择背景图片" >背景图片</button>&nbsp;<button title="删除背景图片" class="button glow button-rounded button-flat-primary" style="height:25px;font-size:20px;padding:2px;line-height:22px;" onclick="delbj()">&nbsp;X&nbsp;</button></td>
+					<td class="2btr"style="border: none;" nowrap="nowrap"><button id="step4" onclick="openmbxzq();"  class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;" title="选择页面模板">选择模板</button></td>
+					</tr>
+					<tr><td colspan='4' style="border: none; line-height:32px">背景图片建议尺寸：550X820px</td></tr>
+					<tr class="2btr 22btr">
+					<td style="border: none;" nowrap="nowrap"><span style="line-height: 28px;">导航高度：</span></td>
+					<td style="border: none;" nowrap="nowrap">
+					<select style="width: 85px;" id="selst">
+					<option value="n">
+					不显示
+					</option>
+					<option value="150">
+					150
+					</option>
+					<option value="170">
+					170
+					</option>
+					<option value="190">
+					190
+					</option>
+					<option value="210">
+					210
+					</option>
+					<option value="230">
+					230
+					</option>
+					<option value="250">
+					250
+					</option>
+					</select>
+					<select style="width: 50px;" id="selstsl">
+					{loop 8}
+					<option value="{$__i}">
+					{$__i}
+					</option>
+					{/loop}
+					</select>
+					</td>
+					<td style="border: none;" nowrap="nowrap">
+					<button onclick="upadd()" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;"  title="前移选中控件">↑</button>
+					<button onclick="downadd()" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;"  title="后移选中控件">↓</button>&nbsp;
+					<button id="step5" onclick="copyadd()" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;" title="添加选中控件">复制添加</button>
+					</td>
+					<td style="border: none;">
+					<button onclick="deladd()"  class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;" title="删除选中控件">删除控件</button>
+					</td>
+					</tr>
+					<tr>
+					<td style="border: none;" nowrap="nowrap"><span style="line-height: 28px;">整排操作：</span></td>				
+					<td colspan="3" style="border: none;" nowrap="nowrap">
+					<button id="step4" id="linktobak" onclick="upadd(1)" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;" title="前移选中控件所在的整排 " >↑整排上移</button>&nbsp;
+					<button onclick="downadd(1)" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;"  title="后移选中控件所在的整排">↓整排下移</button>&nbsp;
+					<button id="step5" onclick="copyadd(1)" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;" title="添加选中控件">整排复制</button>&nbsp;
+					<button id="step5" onclick="deladd(1)" class="button glow button-rounded button-flat-primary" style="height:25px;padding:2px;line-height:22px;" title="添加选中控件">整排删除</button>
+					</td>
+					</tr>
+					<tr>
+					<td style="border: none;" nowrap="nowrap"><span style="line-height: 28px;">分享到朋友圈：</span></td>
+					<td style="border: none; line-height: 25px; height:25px" colspan="3" nowrap="nowrap" ><input style="margin-bottom: 5px;" type="checkbox" name="isshare" id="isshare" />&nbsp;(不建议使用到首页模板中)</td>
+					</tr>
+					<tr>
+					<td style="border: none;" nowrap="nowrap"><span style="line-height: 28px;">分享到微博：</span></td>
+					<td style="border: none; line-height: 25px; height:25px" colspan="3" nowrap="nowrap" ><input style="margin-bottom: 5px;" type="checkbox" name="isshare1" id="isshare1" />&nbsp;(不建议使用到首页模板中)</td>
+					</tr>
+					<tr>
+					<td style="border: none; "></td>
+					<td style="width: 100px;border: none;float:right;"> <button  onclick="savewwz()" id="savebtn" class="button button-pill button-primary tmdbc" style="display: none;">保存</button>   </td>
+					<td style="border: none; "></td>
+					</tr>
+					<tr >
+					<td colspan="4" style="border: none;width:400px;height:833px;background:url('/res/ip6.png');">
+					<div id="dqymdhtm" style="width: 323px;height:554px;overflow:auto;margin-top:152px;margin-left:40px;position: relative;">
+					<div id="tophtm" class="2btr">
+							<div class="mainpicshow">
+						    	<div class="mainpicarea">
+						    	<table style="border: none;height: 100%;">
+						    	<tr id="tpdhtr">
+						    	<td><img src="/res/fmdtp.jpg"/></td>
+						       	</tr>
+						    	</table>
+						    	
+						    	</div>
+						    </div>
+					</div>
+					<textarea id="mainsethtm" style="height: 200px;display:none;width: 100%"></textarea>	
+					<div id="mainhtm" style="min-height: 400px;">					
+					</div>					
+					</div>					
+					</td>
+					</tr>
+					</table>
+					
+					<div>
+					<div><b>友情提示：</b></div>
+					1、同一个浏览器请勿打开多个账户，以免导致信息内容冲突替换。<br/>
+					2、微官网制作完成后，如需选择其它模版，请备份页面内容。
+
+					</div>					
+					</td>
+					<td>					
+					<table id="proptable">
+					<tr id="t_text" rel="m_text">
+					<td style="border: none;"><span style="line-height: 28px;">标题</span></td>
+					<td style="border: none;"><input type="text" id="i_text"/></td>
+					</tr>
+					<tr id="t_text" rel="m_text_fu">
+					<td style="border: none;"><span style="line-height: 28px;">副标题</span></td>
+					<td style="border: none;"><input type="text" id="i_text"/></td>
+					</tr>
+					<!-- <tr id="t_text_fu" rel="m_text_fu">
+					<td style="border: none;"><span style="line-height: 28px;">副标题</span></td>
+					<td style="border: none;"><input type="text" id="i_text"/></td>
+					</tr> -->
+					<tr id="t_desc" rel="m_desc">
+					<td style="border: none;"><span style="line-height: 28px;">描述</span></td>
+					<td style="border: none;"><textarea id="i_text" style="width: 205px;height: 70px;"></textarea></td>
+					</tr>
+					<tr id="t_date" rel="m_date">
+					<td style="border: none;"><span style="line-height: 28px;">日期</span></td>
+					<td style="border: none;">{$m->date('date')}</td>
+					</tr>
+					<tr id="t_txt" rel="m_txt">
+					<td style="border: none;" colspan="2"><span style="line-height: 28px;">内容</span></td>
+					</tr>
+					<tr id="t_txt" rel="m_txt">
+					<td style="border: none;" colspan="2">{$m->texteditor('txt','langType:"zh-cn",allowImageUpload:true,allowFlashUpload:false,allowMediaUpload:false,allowFileManager:false,items:kindeditor_item3,afterChange:setwbdnr','325px','200px')}</td>
+					</tr>
+					<tr id="t_data" rel="m_target">
+					<td style="border: none;"><span style="line-height: 28px;">链接</span></td>
+					<td style="border: none;">
+					<select id="linktourl">
+					<option></option>
+					</select><br/>
+					<input type="text" id="i_linktourl" style="display: none;"/>
+					</td>
+					</tr>
+					<tr id="t_date" rel="m_pic">
+						<td style="border: none;"><span style="line-height: 28px;">图片</span></td>
+						<td style="border: none;">
+						    <button id="linktopic" rel='yyuc' relfun="setPic" relobj="elfinder">上传图片</button>
+						<!-- 	<button id="linktopic">上传图片</button> -->
+							<span>建议尺寸：</span>
+							<span id="jydccid"></span>					
+						</td>
+					</tr>
+					</table>
+				<span id="gotonext">
+					<img src="{$IMG}/admin/v3/huiyuanka.png" style="></img>
+				</span>
+					</td>
+				</tr>
+				<tr>
+				<td colspan="3" align="center" style="text-align: center;">
+				<button onclick="savewwz()" id="savebtn" class="button button-pill button-primary tmdbc" style="display: none;">保存</button>
+				
+				
+				
+				</td>
+				</tr>
+		</table>
+	<div class="tb-toolbar">
+	</div>
+	
+
+
+<div class="pagination" style="">
+  <!-- <ul>
+
+    <li class="disabled"><span>上一页</span></li>
+  </ul> -->
+  
+</div>
+
+<script type="text/javascript">
+//删除北京
+function delbj(){
+	$('#dqymdhtm').css('backgroundImage','');
+	$('#dqymdhtm').attr('backgroundImage','');
+}
+//设置背景
+function clearbj(){
+	$('#dqymdhtm').attr('backgroundImage','');
+	/**
+	window.piccbk = function(m){
+		$('#dqymdhtm').css('backgroundImage','url('+m+')');
+		$('#dqymdhtm').css('backgroundSize','100%, 100%');
+		
+		window.piccbk = null;
+	}
+	window.curpic = null;
+	openpicset();
+	**/
+} 
+
+function setbj(m,name){
+	var bbnmm = $.trim($('#dqymdhtm').attr('backgroundImage'));
+	if(bbnmm ==''){
+		$('#dqymdhtm').css('backgroundImage','url('+m+')');
+		$('#dqymdhtm').css('backgroundSize','100%, 100%');
+		$('#dqymdhtm').attr('backgroundImage',m);
+	}else{
+		$('#dqymdhtm').attr('backgroundImage',bbnmm+','+m);
+	}
+	/**
+	window.piccbk = function(m){
+		$('#dqymdhtm').css('backgroundImage','url('+m+')');
+		$('#dqymdhtm').css('backgroundSize','100%, 100%');
+		$('#dqymdhtm').attr('backgroundImage',m);
+		window.piccbk = null;
+	}
+	window.curpic = null;
+	openpicset();
+	**/
+} 
+//右侧 阿里上传图片回调函数
+function setPic(m,name){
+     $(window.curblock).find('.m_pic').attr('src',m);
+}
+function setspantext(o){
+	if($(o).find('input').size()==0){
+		var val = $(o).text();
+		var inp = $('<input type="text" style="width:140px;"/>');
+		inp.val(val);
+		inp.blur(function(){
+			var vall = $(this).val();
+			if($.trim(vall)==''){
+				vall='无名称分组';
+			}
+			$(this).parent().empty().text(vall);
+		});
+		
+		$(o).empty().append(inp);
+		inp.focus().select();
+	}
+	
+}
+
+function savewwz(force){
+	$('body').scrollTop(0);
+	
+	savelastdata();
+	var tjres = [];
+	$('.liindex33').each(function(){
+		var btsj = {};
+		btsj.htm = $.trim($(this).data('htm'));
+		btsj.bgpic = $.trim($(this).data('bgpic'));
+		btsj.uuid = $.trim($(this).attr('uuid'));
+		btsj.tpdh = $.trim($(this).data('tpdh'));
+		btsj.tpdhh = $.trim($(this).data('tpdhh'));
+		btsj.name = $.trim($(this).find('span').text());
+		btsj.isshare = $.trim($(this).find('p').text());
+		btsj.isshare1 = $.trim($(this).find('i').text());
+		btsj.zname = $.trim($(this).parent().find('span').eq(0).text());
+		tjres[tjres.length] = btsj;
+	});
+	$('body').mask();
+	loading('保存中,切勿中断!');
+	var url = 'swsite-{$wid}.html';
+	if(force){
+		url = 'swsite-{$wid}-1.html';
+	}
+	ajaxjson(url,{tjres},function(res){
+		$('body').unmask();
+		loading(false);
+		if(res=='ok'){
+			tusi('微网站保存成功');
+		}else if(res=='nos'){
+			if(confirm('页面初始化的用户信息和实际登录的用户信息不一致，确定要替换当前已登录用户的微网站信息吗？')){
+				savewwz(true);
+			}
+		}else{
+			tusi('通信异常请重试!');
+			$('body').unmask();
+			loading(false);
+		}		
+	},function(){
+		tusi('通信异常请重试!!');
+		$('body').unmask();
+		loading(false);
+	});
+}
+
+function upadd(zp){
+	if(zp && window.curblock){
+		var p = getqqtop($(window.curblock));
+		if(p && p.prev().size()>0){
+			$(p).prev().before(p);
+		}
+	}else if(window.curblock && $(window.curblock).prev().size()>0){
+		$(window.curblock).prev().before($(window.curblock));
+		$(window.curblock).trigger('click');
+	}
+}
+function downadd(zp){
+	if(zp && window.curblock){
+		var p = getqqtop($(window.curblock));
+		if(p && p.next().size()>0){
+			$(p).next().after(p);
+		}
+	}else if(window.curblock && $(window.curblock).next().size()>0){
+		$(window.curblock).next().after($(window.curblock));
+		$(window.curblock).trigger('click');
+	}
+}
+
+function getwwzsj(fun){
+	ajax('wsiteinit.html',null,function(m){
+		for(var i=0;i<m.length;i++){
+			var mm = m[i];
+			var li = null;
+			if(i==0){
+				li = $('#lbul').find('#liindex');
+				li.find('span').text(mm.name);
+				li.attr('zname',mm.zname);
+				li.data('htm',mm.htm);
+				li.data('tpdh',mm.tpdh);
+				li.data('tpdhh',mm.tpdhh);
+				li.data('bgpic',mm.bgpic);
+				li.find('p').text(mm.isshare);
+				li.find('i').text(mm.isshare1);
+			}else{
+				if($.trim(mm.zname)==''){
+					mm.zname = '默认分组';
+				}
+				li = $('#lbul').find('li[uuid="'+mm.zname+'"]');
+				if(li.size()==0){
+					li = addalb(mm.zname);
+				}
+				var sundiv = addadivb(li,mm.uuid);
+				sundiv.find('span').text(mm.name);
+				sundiv.data('htm',mm.htm);
+				sundiv.data('tpdh',mm.tpdh);
+				sundiv.data('tpdhh',mm.tpdhh);
+				sundiv.data('bgpic',mm.bgpic);
+				sundiv.find('p').text(mm.isshare);
+				sundiv.find('i').text(mm.isshare1);
+
+			}
+			
+			
+			//
+			
+			
+		}
+		
+		if(fun){
+			fun();
+		}
+		setTimeout(function(){
+			$('.tmdbc').show();
+		},1000);
+	});
+}
+function addalb(uuuid){
+	if(!uuuid){
+		uuuid = '新增分组';
+	}
+	var sj = $('<li class="liindex liindex22" uuid="'+uuuid+'"><span onclick="setspantext(this)">'+uuuid+'</span><button class="aaddbtn glow button-rounded button-flat-royal" style="" title="添加组内页面">+</button><button class="cddbtn glow button-rounded button-flat-royal" style="" title="展开/收缩">≡</button><button class="czxbtn glow button-rounded button-flat-royal" style="" title="删除分组">—</button></li>');
+	$('#lbul').append(sj);
+		
+	return sj;
+}
+function addadivb(li,uuid){
+	var sundiv = $('<div uuid="'+uuid+'" class="divindex liindex33"><span style="display: inline-block;height:20px;width: 210px;overflow: hidden;"></span><p style="display:none;"></p><i style="display:none;"></i><button class="mindelbtn">一</button></div>');
+	li.append(sundiv);
+	sundiv.on('mousedown',function(){
+		window.dddiv = this;
+	});
+	
+	return sundiv;
+}
+
+$(document).mousemove(function(){
+	if(window.dddiv){
+		if(window.dddmove){
+			
+		}else{
+			window.dddppp = $(window.dddiv).parent();
+			$('body').append(window.dddiv);
+			$('head').append('<style>*{ -webkit-user-select:none;user-select:none;}</style>');
+		}		
+		window.dddmove = true;
+		$(window.dddiv).css('position','absolute');
+		$(window.dddiv).css('top',$.mtop+'px');
+		$(window.dddiv).css('left',$.mleft+'px');
+		//找找看放在哪个div下面
+		window.dqdqdddiv = null;
+		window.dqdqdddivppp = null;	
+		$('.divindex').css('border-top','none');
+		$('.divindex').each(function(){			
+			var jl = $(this).offset().top-$.mtop;
+			if(jl<15 && jl >-15 && window.dddiv != this){
+				window.dqdqdddiv = this;
+				$(this).css('border-top','solid 1px red');
+				return;
+			}
+			
+		});
+		$('.liindex22').each(function(){
+			if($(this).offset().top <= $.mtop && ($(this).offset().top+$(this).height())>=$.mtop){
+				window.dqdqdddivppp = this;				
+			}
+		});
+		
+		
+	}
+});
+$(document).mouseup(function(){
+	$('head').append('<style>*{ -webkit-user-select:auto;user-select:auto;}</style>');
+	if(window.dddiv){
+		if(window.dqdqdddiv){
+			$(window.dqdqdddiv).before(window.dddiv);
+		}else if(window.dqdqdddivppp){
+			$(window.dqdqdddivppp).append(window.dddiv);
+		}else{
+			$(window.dddppp).append(window.dddiv);
+		}
+		$(window.dddiv).css('position','inherit');
+		$(window.dddiv).css('top','0px');
+		$(window.dddiv).css('left','0px');
+	}
+	$('.divindex').css('border-top','none');
+	window.dddiv = null;
+	window.ddli = null;
+	window.dddmove = false;
+	window.dddppp= null;
+	window.dqdqdddiv = null;
+	window.dqdqdddivppp = null;
+});
+function openmbxzq(){
+	$('#proptable').find('tr').hide();
+	$('.add_qq_more').unmask();
+	$('body').css('overflow','hidden');
+	if($('.qpmbxs2bg').size()>0){
+		$('.qpmbxs2bg').show();
+	}else{
+		$('body').append('<iframe class="qpmbxs2bg" src="../web/set-1.html" style="_position: absolute;position: fixed;left: 0;top:0;z-index:999999;width:'+$(window).width()+'px;height:'+$(window).height()+'px;border:none;background-color: #dfdfdf;" width="'+$(window).width()+'px" height="'+$(window).height()+'px"></iframe>');
+	}
+}
+
+function openpicset(url){
+	var appd = '';
+	if(url){
+		appd = '-u';
+	}
+	pophtml('<iframe src="wspicif'+appd+'.html" style="width:630px;height:470px;border:none;background-color: #dfdfdf;" width="630px" height="475px"></iframe>',670,510,true);
+}
+$(function(){
+	getwwzsj(function(){
+		initpagedata($('.liindex')[0]);
+	});
+	$('#proptable').find('tr').hide();	
+	window.endmbxz = function(html){
+		if(html !='0'){
+			$('#mainhtm').html(html);
+		}
+		$('.qpmbxs2bg').hide();	
+		
+		$('body').css('overflow','auto');
+	}
+	
+	$('#tophtm').delegate('img','click',function(){
+		window.curpic = this;
+		window.piccbk = null;
+		openpicset(true);
+	});
+	$('#lbul').find('li').eq(0).click(function(){
+		savelastdata();		
+		initpagedata(this);
+	});
+	
+	
+	$('#lbul').delegate('div','click',function(){
+		$('#lbul').find('div').unmask();
+		$(this).mask();
+		savelastdata();		
+		initpagedata(this);
+	});
+	$('#lbul').delegate('div > button.mindelbtn','click',function(e){
+		if(confirm('确定删除此页面吗？')){
+			$(this).parent().remove();
+		}
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	});
+	
+	$('#lbul').delegate('li > button.aaddbtn','click',function(e){
+		var sundiv = addadivb($(this).parent(),uuid());
+		sundiv.find('span').text('新建的页面');
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	});
+	$('#mainhtm').delegate('.add_qq_more','click',function(){
+		$('.add_qq_more').unmask();
+		$(this).mask();
+		$('#proptable').find('tr').hide();
+		initblock(this);
+	});
+	$('#dqymdhtm').scroll(function(){
+		$('.add_qq_more').unmask();
+		$('#proptable').find('tr').hide();
+	});
+	$('#lbul').delegate('li > button.czxbtn','click',function(e){
+		if(confirm('确定删除此分组吗？')){
+			$(this).parent().remove();
+		}
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
+	});
+	$('#lbul').delegate('li > button.cddbtn','click',function(e){
+		$(this).parent().find('div').unmask();
+			if($(this).parent().find('div').eq(0).is(':hidden')){
+				$(this).parent().find('div').show();
+			}else{
+				$(this).parent().find('div').hide();
+			}
+			
+			
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		});
+	$('#selst').change(function(){
+		$('#proptable').find('tr').hide();
+		$('.add_qq_more').unmask();
+		if($(this).val()!='n'){			
+			$('.mainpicshow,.mainpicarea').height($(this).val());
+			$('.mainpicarea').children('table').height($(this).val());
+			$('head').append('<style>#tpdhtr td img{ width: 323px;height: '+$(this).val()+'px;cursor: pointer;}</style>');
+			if($('#tophtm').is(':hidden')){
+				$('#tophtm').show();
+				$('#selstsl').val('1');
+				$('#tpdhtr').html('<td><img src="/res/fmdtp.jpg"/></td>');
+			}
+		}else{
+			$('#tophtm').hide();
+			$('#selstsl').val('1');
+			$('#tpdhtr').html('<td><img src="/res/fmdtp.jpg"/></td>');
+		}
+		
+	});
+	//图数
+	$('#selstsl').change(function(){
+		var ypnum = parseInt($(this).val());
+		var tdnum = $('#tpdhtr').find('td').size();
+		$('#proptable').find('tr').hide();
+		$('.add_qq_more').unmask();
+		if(ypnum>tdnum){
+			for(var i = 0;i<ypnum-tdnum;i++){
+				$('#tpdhtr').find('td:last').after('<td><img src="/res/fmdtp.jpg"/></td>');
+			}
+		}else if(ypnum < tdnum){
+			for(var i = 0;i<tdnum-ypnum;i++){
+				$('#tpdhtr').find('td:last').remove();
+				
+			}
+		}
+	});
+	//组件
+	/**
+	$('#selkjsl').change(function(){
+		if($.trim($('#mainhtm').html())==''){
+			$(this).val('1');
+		}else{
+			var ypnum = parseInt($(this).val());
+			var tdnum = $('#mainhtm').find('.add_qq_more').size();
+			$('#proptable').find('tr').hide();
+			$('.add_qq_more').unmask();
+			if(ypnum>tdnum){
+				for(var i = 0;i<ypnum-tdnum;i++){
+					var lastm = $('#mainhtm').find('.add_qq_more:last');					
+					lastm.after(lastm.clone());
+				}
+			}else if(ypnum < tdnum){
+				for(var i = 0;i<tdnum-ypnum;i++){
+					$('#mainhtm').find('.add_qq_more:last').remove();					
+				}
+			}			
+		}
+	});
+	*/
+	//目标
+	$('#linktourl').change(function(){
+		if($(this).val()=='888'){
+			$('#i_linktourl').show();
+		}else{
+			if(window.curblock){
+				$(window.curblock).attr('toto',$(this).val());
+			}
+			$('#i_linktourl').hide();
+		}
+		
+	});
+	/* $('#proptable').find('tr[rel="m_pic"]').find('button').click(function(){
+		window.curpic = $(this).data('m_pic');
+		var src = $('.m_pic').attr('src');
+		window.piccbk = null;
+		openpicset();
+	}); */
+	$('#proptable').find('tr[rel="m_text"]').find('input[type="text"]').on('click keyup blur',function(){
+		$(window.curblock).find('.m_text').text($(this).val());	
+	});
+	$('#proptable').find('tr[rel="m_text_fu"]').find('input[type="text"]').on('click keyup blur',function(){
+		$(window.curblock).find('.m_text_fu').text($(this).val());	
+	});
+	$('#proptable').find('tr[rel="m_target"]').find('input[type="text"]').on('click keyup blur',function(){		
+		$(window.curblock).attr('toto',$(this).val());
+	});
+	
+	$('#proptable').find('tr[rel="m_text"]').find('input[type="text"]').on('click keyup blur',function(){
+		$(window.curblock).find('.m_text').text($(this).val());	
+	});
+	$('#proptable').find('tr[rel="m_text_fu"]').find('input[type="text"]').on('click keyup blur',function(){
+		$(window.curblock).find('.m_text_fu').text($(this).val());	
+	});
+	$('#proptable').find('tr[rel="m_desc"]').find('textarea').on('click keyup',function(){
+		$(window.curblock).find('.m_desc').text($(this).val());	
+	});
+	$('#proptable').find('tr[rel="m_date"]').find('input[type="text"]').on('click keyup blur',function(){
+		$(window.curblock).find('.m_date').text($(this).val());	
+	});
+	$('#pagename').on('click keyup blur',function(){
+		$(window.currli).find('span').text($(this).val());	
+	});
+	$('#isshare').on('click keyup blur',function(){
+		var flag=0 ;
+		if($(":checkbox[name=isshare]:checked").is(':checked')){
+			flag =1;
+		} 
+		$(window.currli).find('p').text(flag);	
+	});
+	
+	$('#isshare1').on('click keyup blur',function(){
+		var flag1=0 ;
+		if($(":checkbox[name=isshare1]:checked").is(':checked')){
+			flag1=1;
+		} 
+		$(window.currli).find('i').text(flag1);	
+	});
+	
+	$("#gotonext").click(function(){
+    	window.parent.$('.menu-huiyuan').trigger('click');
+	});
+	
+});
+function copyadd(zp){
+	if(zp && window.curblock){
+		var p = getqqtop($(window.curblock));
+		if(p){
+			p.after(p.clone());
+		}
+	}else if(window.curblock){
+		$(window.curblock).after($(window.curblock).clone());
+	}
+}
+
+function deladd(zp){
+	if(zp && window.curblock){
+		var p = getqqtop($(window.curblock));
+		if(p){
+			$('.add_qq_more').unmask();
+			$('#proptable').find('tr').hide();
+			p.remove();
+			window.curblock = null;
+		}
+	}else if(window.curblock){
+		$('.add_qq_more').unmask();
+		$('#proptable').find('tr').hide();
+		$(window.curblock).remove();
+		window.curblock = null;
+	}
+}
+function initblock(o){
+	$('#proptable').find('tr').hide();
+	$('#proptable').find('tr[rel="m_target"]').find('input[type="text"]').hide();
+	window.curblock = o;
+	if($(o).find('.m_pic').size()>0){
+		var tpic = $(o).find('.m_pic');
+		$('#proptable').find('tr[rel="m_pic"]').show();
+		$('#proptable').find('tr[rel="m_pic"]').find('button').data('m_pic',$(o).find('.m_pic')[0]);
+		
+		$('#jydccid').html(tpic.width()*2+'X'+tpic.height()*2);
+	}
+	if($(o).find('.m_text').size()>0){ 
+		$('#proptable').find('tr[rel="m_text"]').show();
+		$('#proptable').find('tr[rel="m_text"]').find('input[type="text"]').val($(o).find('.m_text').text());
+	}
+	if($(o).find('.m_text_fu').size()>0){ 
+		$('#proptable').find('tr[rel="m_text_fu"]').show();
+		$('#proptable').find('tr[rel="m_text_fu"]').find('input[type="text"]').val($(o).find('.m_text_fu').text());
+	}
+	if($(o).find('.m_desc').size()>0){
+		$('#proptable').find('tr[rel="m_desc"]').show();
+		$('#proptable').find('tr[rel="m_desc"]').find('textarea').val($(o).find('.m_desc').text());
+	}
+	if($(o).find('.m_txt').size()>0){
+		$('#proptable').find('tr[rel="m_txt"]').show();
+		window.kindeditor_ftxt.html($(o).find('.m_txt').html());
+	}
+	if($(o).find('.m_date').size()>0){
+		$('#proptable').find('tr[rel="m_date"]').show();
+		$('#proptable').find('tr[rel="m_date"]').find('input[type="text"]').val($(o).find('.m_date').text());
+	}
+	$('#proptable').find('tr[rel="m_target"]').show();
+	//$('#proptable').find('tr[rel="m_target"]').find('select').val($(o).attr('m_target'));
+	//目标更新
+	var opt = '<option value="">无跳转</option><option value="888">自定义页面</option>';
+	$('.liindex33').each(function(){
+		opt += '<option value="'+$(this).attr('uuid')+'">'+$(this).find('span').text()+'</option>';
+	});
+	$('#linktourl').html(opt);
+	if($.trim($(o).attr('toto'))==''){
+		$('#linktourl').val('');
+	}else if($('#linktourl').find('option[value="'+$(o).attr('toto')+'"]').size()==0){
+		$('#linktourl').val('888');
+		$('#proptable').find('tr[rel="m_target"]').find('input[type="text"]').show().val($(o).attr('toto'));
+	}else{
+		$('#linktourl').val($(o).attr('toto'));
+	}
+	
+	
+	
+}
+
+function setwbdnr(){
+	$(window.curblock).find('.m_txt').html(window.kindeditor_ftxt.html());	
+}
+
+
+function savelastdata(){
+	$('#proptable').find('tr').hide();	
+	$('.add_qq_more').unmask();
+	if(window.currli){
+		$(window.currli).data('htm',$('#mainhtm').html());
+		$(window.currli).data('bgpic',$.trim($('#dqymdhtm').attr('backgroundImage')));
+		if($('#selst').val()!='n'){
+			//有导航图
+			$(window.currli).data('tpdh',$('#tophtm').html());	
+			$(window.currli).data('tpdhh',$('#selst').val());	
+		}else{
+			$(window.currli).data('tpdh','');
+			$(window.currli).data('tpdhh','0');
+			if($('#mainsethtm').is(':visible')){
+				$(window.currli).data('tpdh','2btr');
+			}
+		}
+	}
+
+}
+function initpagedata(o){
+	$('.2btr').show();
+	$('#mainsethtm').hide();
+	window.currli = o;
+	var dat = $.trim($(o).data('htm'));
+	var showtph = $.trim($(o).data('tpdhh'));
+	var showtp = $.trim($(o).data('tpdh'));
+	var bgpic = $.trim($(o).data('bgpic'));
+	
+	//
+	$('#yemianpage').text($(o).attr('uuid'));
+	if(dat==''){
+		//$('#selkjsl').val('1');
+		$('#mainhtm').html('');
+	}else{
+		$('#mainhtm').html(dat);
+		//$('#selkjsl').val($('#mainhtm').find('.add_qq_more').size());
+	}
+	if(bgpic==''){
+		delbj();
+	}else{
+		var bjpp = bgpic.split(',');
+		$('#dqymdhtm').css('backgroundImage','url('+bjpp[0]+')');
+		$('#dqymdhtm').css('backgroundSize','100%, 100%');
+		$('#dqymdhtm').attr('backgroundImage',bgpic);
+	}
+	if(showtp=='' || showtp=='2btr'){		
+		$('#selst').val('n');
+		$('#selstsl').val('1');
+		$('#tophtm').hide();
+		if(showtp=='2btr'){
+			$('#mainsethtm').val(dat).show();
+			$('.2btr').hide();
+		}
+				
+	}else{
+		$('#tophtm').show().html(showtp);
+		$('#selst').val(showtph);
+		$('#selst').trigger('change');
+		$('#selstsl').val($('#tophtm').find('img').size());
+	}
+	var pname = $.trim($(o).find('span').text());
+	$('#pagename').val(pname);
+	if($.trim($(o).find('p').text()) == 1){
+		document.getElementById("isshare").checked = true;
+	}else{
+		document.getElementById("isshare").checked = false;
+	}
+	
+	if($.trim($(o).find('i').text()) == 1){
+		document.getElementById("isshare1").checked = true;
+	}else{
+		document.getElementById("isshare1").checked = false;
+	}
+	
+}
+</script>
+
+
+
+<br/><br/><br/></body></html>

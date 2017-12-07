@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- Apple devices fullscreen -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- Apple devices fullscreen -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<base target="mainFrame" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}newxydzp/bootstrap_responsive_min2.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}newxydzp/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<title>{$_SERVER['WEB_NAME']}—{$_SERVER['WEB_NAME_LAST']}</title>
+	<link rel="shortcut icon" href="/favicon.ico" />
+    <script type="text/javascript" src="/js/ewm2.js"></script>
+
+</head>
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span10">
+								<h3><i class="icon-edit"></i>编辑优惠券</h3>
+								
+							</div>
+							<div class="span2"><a class="btn" href="index.html">优惠券列表</a></div>
+						</div>
+
+						<div class="box-content">
+							<div class='topnav'>
+								<div id='topnav1' class='topnav1'><span id='topsp1'>1</span>&nbsp;&nbsp;添加优惠券</div>
+								
+							</div>
+							<form action="" method="post" id="lbsForm" class="form-horizontal form-wizard ui-formwizard ui-helper-reset ui-widget ui-widget-content ui-corner-all" novalidate="novalidate" style='min-width:800px;'>
+								<div id="cc1" class="ccc step ui-formwizard-content ui-helper-reset ui-corner-all" id="firstStep" style="display: block;">
+									<div class="span8" style='margin-top:20px;width:700px;'>
+										<div class="control-group">
+											<label class="control-label" for="keyword"><span class="maroon">*</span>&nbsp;优惠券名称</label>
+											<div class="controls">
+												{$lbs->hidden('id')}
+												{$lbs->text('name','class="span4" style="width:350px;" placeholder="请输入优惠券名称，最多30个字"')}
+											</div>
+										</div>
+										
+										<div class="control-group">
+											<label for="endtite" class="control-label"><span class="maroon">*</span>&nbsp;优惠券描述</label>
+											<div class="controls">                                                
+												{$lbs->textarea('describe','class="span5" noneed="1" style="height:110px;width:350px;"')}
+												<span for="endtite" class="help-block error valid" style="display: block;"></span>
+											</div>
+										</div>
+
+										<div class="control-group">
+											<label for="endtite" class="control-label"><span class="maroon">*</span>&nbsp;使用条件</label>
+											<div class="controls">                                                
+												订单金额满 {$lbs->text('maxcon','class="maxcon" style="width:70px;"')} 元立减 {$lbs->text('redcon','class="redcon" style="width:70px;"')} 元
+												<span for="endtite" class="help-block error valid" style="display: block;"></span>
+											</div>
+										</div>
+										<div class="control-group">
+											<label for="endtite" class="control-label"><span class="maroon">*</span>&nbsp;优惠券数量</label>
+											<div class="controls">                                                
+												{$lbs->text('num','class="span4" style="width:100px;" isint="1"')} 张
+												<span for="endtite" class="help-block error valid" style="display: block;"></span>
+											</div>
+										</div>
+
+										<div class="control-group">
+                                            <label for="keyword" class="control-label"><span class="maroon">*</span>&nbsp;活动开始时间</label>
+                                            <div class="controls">
+	                                           	{$lbs->datetime('starttime','class="start"')}
+	                                            <span for="endtite" class="help-block error valid" style="display: block;"></span>
+                                        	</div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label for="tel" class="control-label"><span class="maroon">*</span>&nbsp;活动结束时间</label>
+                                            <div class="controls">
+                                            	{$lbs->datetime('endtime','class="end"')}
+                                            	<span for="endtite" class="help-block error valid" style="display: block;"></span>
+                                        	</div>
+                                        </div>    
+
+										<div class="span12">
+											<div class="form-actions">
+												<input type="submit" class="btn btn-primary ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-active" value="提交" id="next">
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+$(function(){
+
+
+	$("#lbsForm").submit(function(){
+		var cansv= true;
+		$(this).find('input[type="text"],select,textarea').each(function(){
+			if($.trim($(this).val())=='' && $(this).attr('noneed')!='1'){
+				cansv = false;
+				$(this).css('backgroundColor','yellow');
+				$(this).one('focus',function(){
+					$(this).css('backgroundColor','transparent');
+				});
+			}
+		});
+		if(!cansv){
+			tusi('请将信息填写完整');
+			return false;
+		}
+		$(this).find('input[type="text"],select,textarea').each(function(){
+			if($(this).attr('isint')=='1' && $.trim($(this).val())!=''){
+				var intthis = parseInt2($(this).val());
+				if(intthis+''=='NaN'){
+					cansv = false;
+					$(this).css('backgroundColor','yellow');
+					$(this).one('focus',function(){
+						$(this).css('backgroundColor','transparent');
+					});
+				}else{
+					$(this).val(parseInt($(this).val()));
+				}
+			}
+		});
+		if(!cansv){
+			tusi('标注的项目必须为整数');
+			return false;
+		}
+		var maxcon = parseFloat($(".maxcon").val());
+		var redcon = parseFloat($(".redcon").val());
+		if(redcon >= maxcon){
+
+			tusi('减免金额需小于条件金额');
+			return false;
+		}
+		var start = $(".start").val();
+		var end   = $(".end").val();
+		if(Date.parse(start.replace("-","/")) > Date.parse(end.replace("-","/"))){
+			tusi('开始时间大于结束时间');
+			return false;
+		}
+		return cansv;
+	});
+});
+</script>
+</body>
+</html>
+

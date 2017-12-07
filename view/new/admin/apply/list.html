@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+    <title></title>
+    <script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+    <script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+    <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span8">
+                                <h3><i class="icon-table"></i>加盟客户管理  </h3>
+                            </div>
+
+                        </div>
+
+                        <div class="box-content">
+                           <!-- <div class="alert">
+                                                               <p style="line-height: 40px;vertical-align:middle;height: 40px;margin-bottom: 0px;">
+                                                                   注：下面的用户需从此地址登录：
+                                                                   <span cp="cp">
+                                                                   <a href="{$linkurl}" target="_blank">
+                                                                       {$linkurl}
+                                                                   </a>  
+                                                                   </span>
+                                                        </div> -->
+                            <div class="row-fluid">
+
+                                <!-- <div class="span8 control-group">
+                                    <a href="adduser.html" class="btn"  ><i class="icon-plus"></i>添加代理账号</a>
+                                </div> -->
+                                <div class="span4" style="text-align:right; float:right">
+                                    <form action=""  method="post" class="form-horizontal form-validate">
+                                    
+                                        <input type="text" name="title" id="title" value="{$title}" class="input-large" placeholder="手机号">
+                                        <select name="shenhe" class="input-small">
+                                            <option value="0">待审核</option>
+                                            <option value="1">通过</option>
+                                            <option value="2">拒绝</option>
+                                        </select>
+                                        <button class="btn">查询</button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <div class="row-fluid dataTables_wrapper">
+
+
+                                <table id="listTable" class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>联系人</th>
+											<th>联系电话</th>
+                                            <th>审核状态</th>
+                                            <th>支付状态</th>
+                                            <th>申请时间</th>
+                                            <th>审核时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    {loop $r as $v}
+                                    <tr>
+                                        <td>{$v->id}</td>
+                                        <td>{$v->true_name}</td>
+										<td>{$v->telephone}</td>
+                                        <td>
+                                            {if $v->status=='0'}
+                                            <span class="label label-lightred">待审核</span>
+                                            {elseif $v->status=='1' }
+                                            <span class="label label-satgreen">通过</span>
+                                            {elseif $v->status=='2' }
+                                            <span class="label label-lightred">拒绝</span>
+                                            {/if}
+                                        </td>                                        
+										<td>
+                                            {if $v->pay_status=='0'}
+                                            <span class="label label-lightred">未支付</span>
+                                            {else}
+                                            <span class="label label-satgreen">已支付</span>
+                                            {/if}
+                                        </td>
+                                        <td>{$v->create_time}</td>
+                                        <td>{$v->sh_time}</td>
+                                        <td class="input-medium">
+                                            <a class="btn" href="adduser-{$v->id}.html" title="审核"><i class="icon-edit"></i></a>
+                                            <a class="btn" href="javascript: G.ui.tips.confirm('确定删除？','list-del-{$v->id}.html')" title="删除"><i class="icon-remove"></i></a>
+                                            
+										</td>
+                                    </tr>
+                                    {/loop}
+									</table>
+                                <div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	
+		
+</body>
+</html>

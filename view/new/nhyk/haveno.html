@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+        <script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+                <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+    </head>
+    <body onselectstart="return true;" ondragstart="return false;">
+      <script>
+		function share(){
+			document.getElementById("masklayer").classList.add("on");
+		}
+</script>
+        <div class="container get card">
+	<header>
+		<div class="header card">
+			<div id="card" data-role="card" >
+				<div class="front" style="background-image:url({if $info->icbg==0}{$info->cbg}{else}{$info->cbg_my}{/if});">
+						<span class="name" style="color:#FFFFFF">VIP</span>
+					<span class="no" style="color:#FBFFFA;">88888888</span>
+				</div>
+			</div>
+		</div>
+		<div>
+			<ul class="tbox group_btn3">
+				<li></li>
+				<li><a  {if $wxid==''} href="javascript:;" {else} href="addMember.html" {/if} >点击领取</a></li>
+			</ul>
+		</div>
+	</header>
+	<div class="body">
+		<ul class="list_ul">
+		<!-- 特权-->
+			<li class="li_a">
+				<label class="label" onclick="this.parentNode.classList.toggle('on');"><i>&nbsp;</i>会员特权<span>&nbsp;</span></label>
+				<ol>
+				 {loop $glist as $v}
+					{$v->con}
+				 {/loop}
+				</ol>
+			</li>
+				<!-- 开卡活动-->
+				<!-- 生日关怀-->
+				<!-- 节日关怀-->
+				<!-- 联系电话-->
+					<li class="li_i">
+				<a class="label" href="tel:{$set->tel}"><i>&nbsp;</i>{$set->tel} <span>&nbsp;</span></a>
+			</li>
+				<!-- 地址-->
+			<li class="li_j">
+				<a href="http://api.map.baidu.com/marker?location={$set->wd},{$set->jd}&title={$set->dz}&name={$set->dz}&content={$set->dz}&output=html&src=weiba|weiweb">
+				<label class="label"><i>&nbsp;</i><p class="mutipleLine">{$set->dz}</p> <span>&nbsp;</span></label>
+				</a>
+			</li>
+				<!-- 门店-->
+					{if $wid=="6765368" || $wid == '6780484' ||$wid==6788906}
+					<li class="li_k">
+						<a href="/weiweb/6780484/148934361ccd339b74e02768.html"><label class="label"><i>&nbsp;</i>在线预定<span>&nbsp;</span></label></a>
+					</li>
+				{else}
+					<li class="li_k">
+						<a href="store.html"><label class="label"><i>&nbsp;</i>适用门店<span>&nbsp;</span></label></a>
+					</li>
+				{/if}
+				</ul>
+	</div>
+</div>
+
+<style type="text/css">
+	.masklayer{
+		display:none;
+		position:fixed;
+		top:0;
+		left:0;
+		z-index:2000;
+		width:100%;
+		height:100%;
+		background-color:rgba(0,0,0,0.5);
+		text-align:right;
+	}
+	.masklayer.on{
+		display:block;
+	}
+	.masklayer img{
+		margin-top:10px;
+		margin-right:30px;
+		width:160px;
+	}
+</style>
+<div id="masklayer" class="masklayer" ontouchmove="return true;" onclick="$(this).toggleClass('on');">
+	<img src='../media/images/mwm/nhyk/shareno.png' alt='' style="width:260px;" />
+</div>   
+     		
+<div mark="stat_code" style="width:0px; height:0px; display:none;"></div>
+
+
+<script type="text/javascript">
+
+var wx = '{$wxid}';
+
+if(wx!='')
+{
+	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+
+	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+	});
+			
+}
+
+
+var mlistmcc = '{$mlistmcc}';
+
+if(wx=='')share();
+
+</script>        	
+</body>
+</html>
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="{$CSS}admin/admin.css"> -->
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<title>我的活动</title>
+
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box">
+                   <div class="box-title">
+                      <div class="span8">
+                        <h3 style="border-bottom: 0;"><i class="icon-table"></i>{$lbs->name}微调研活动</h3>
+                      </div>
+                   </div>
+		
+		<div class="box-content">
+		<div class="alert" style="font-size:15px;">
+		   <span class="member-count" >参与总数: <font color='red'>{$p->totalnum}</font>条</span> 
+		</div>
+<div>
+<form action="microSurveyList-{$lbs->id}.html">
+手机号：
+{$tj->text('tel','style="margin-top: 10px;width:100px;" class="input-small-z"')}
+&nbsp;&nbsp;
+开始时间：
+{$tj->datetime('kssj','style="margin-top: 10px;width:140px;" class="input-small-z"')}
+&nbsp;&nbsp;结束时间：
+{$tj->datetime('jssj','style="margin-top: 10px;width:140px;" class="input-small-z"')}
+&nbsp;&nbsp;<button type="submit" class="btn">检索</button>
+</form>
+
+</div>
+<!-- <div>总计：<B>{$p->totalnum}条/{$p->totalpage}页</B></div> -->
+<div class="row-fluid dataTables_wrapper">
+	<table class="table table-bordered table-hover dataTable">
+			<thead>
+				<tr>
+					<th>用户名称</th>
+					<th>用户电话</th>
+					<th>参与时间</th>
+					<th>意见反馈</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			{loop $res as $r}			 
+			      <tr>
+						<td width="8%">{$r->un}</td>
+						<td width="8%">{$r->tel}</td>
+						<td width="12%">{$r->ctime}</td>
+						<td width="8%">{if $r->yjfk == ''}未完成
+						   {else}
+						   {$r->yjfk}
+						   {/if}
+						   </td>
+						<td width="8%">
+						<span>
+						<a href="microSurveyDetail-{$r->id}-{$r->cid}.html" >查看详情</a>						
+						</span>
+						</td>
+				  </tr>
+			{/loop}
+			</tbody>
+		</table>
+	<div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
+<br/><br/><br/></body></html>

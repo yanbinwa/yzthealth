@@ -1,0 +1,104 @@
+/* CSS Document */
+*{margin: 0;outline: 0;padding: 0;webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+div,form,img,ul,ol,li,dl,dt,dd,p,span,img{margin: 0; padding: 0; border: 0; }
+li{list-style-type:none;}
+a{text-decoration: none;}
+img{vertical-align:middle; max-width:100%; width：auto;}
+table { border-collapse: collapse;border-spacing: 0;}
+th, td, caption {vertical-align: middle;}
+body {margin: 0;padding: 0;width: 100%;height: 100%;min-height: 100%;font-family: Helvetica, Arial, sans-serif;font-size: 1em;line-height: 1.231;
+	-webkit-touch-callout: none;display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-align: stretch;position: relative;font-family:"微软雅黑",arial;}
+html {height: 100%;font-size: 100%;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; }
+input, button, select, textarea {outline: none;border-radius: 0;}
+figure,form,fieldset{border:0;margin:0;padding:0}
+footer{max-width:640px; margin:0 auto; height:43px;overflow:hidden;margin-top:-43px;position:relative;z-index:10;color:#000}
+footer .copyright{padding: 0 10px; line-height: 43px;}
+
+/*--清除浮动--*/
+.clr:after {content: " ";display: block;clear: both;height: 0;}
+.clr {zoom: 1;}
+
+
+.floatl{float: left;}
+.floatr{float: right;}
+.bg_fff{background-color: #fff!important;}
+.c_2fa5fc{color:#2fa5fc;}
+.mt10{marign-top:10px;}
+.mt30{margin-top: 30px;}
+.fb{font-weight: bold;}
+
+.index_container{max-width:640px; margin:0 auto; min-height:100%; position:relative;background-repeat: no-repeat; background-size: 100% 100%; background-color:#e1e0de; -webkit-box-sizing: border-box;}
+.index_container ~ footer{text-align:center;position:relative;}
+.index_container ~ footer a{color:#666!important;}
+
+/*.index_c{height:200px;  overflow: hidden; }*/
+/**/
+.slider{ overflow: hidden; }
+.list_menu li { text-align: center;}
+.position{ text-align: left;margin: 0 auto;  position: relative;  margin-top:-39px; padding: 10px 0 10px 20px;}
+.position li{ width: 15px; height: 15px;   margin-right: 10px; border: 1px solid #fff; display: inline-block; border-radius: 45px;}
+.position li.active{ background-color:#22b6db; border: 1px solid #22b6db;}
+
+
+.con_operation{background-color: #fff; padding: 1px 0 20px; }
+.weixin_login{position: relative; margin: -55px auto 0 auto; width: 58px; height: 58px;  background-color:#fff; padding: 10px; border-radius: 50%; text-align: center; line-height: 60px;}
+.weixin_login a{width: 58px; height: 58px; display: inline-block;  background: url(../images/welcome/img/login_botton.png) 0 0 no-repeat; background-size: cover; }
+.copy{width: 100%; display: block; background-color: #2fa5fc; color: #fff; padding: 12px 0; text-align:center; box-shadow: 0 3px 3px #807a78; } 
+.copy:active{width: 100%; display: block; background-color: #065fa1; color: #fff; padding: 12px 0; text-align:center; box-shadow: 0 3px 3px #807a78; } 
+
+
+.con_list li{border-top: 1px solid #aaaaaa; padding:10px; }
+.con_title{padding: 10px 0; }
+.con_list li span.old{display: inline-block; color: #22b6db; width: 10px; font-size: 1.2em; height: 10px; background-color:#22b6db;  border-radius: 50%; text-align: center; }
+.con_list li p{width: 80%; display: inline-block; vertical-align: top; padding-left: 10px; line-height: 20px;}
+
+.con_list li img{ display: inline-block; width: 20%; vertical-align: top;}
+
+
+.weixin_verify{text-align: center; margin-top: 10px; width:80%; margin:10px 10%;}
+.weixin_verify p{margin-bottom: 10px;}
+
+.wifi_succeed{text-align: center; padding-top: 80px;}
+.wifi_succeed img{width: 40%;}
+.wifi_succeed p{ color: #454545; line-height: 30px;}
+.wifi_succeed p.alt{font-size: 1.2em; margin-top: 10px;}
+
+
+
+/**/
+.goWeChat{position:fixed; bottom:0px; left:0px; width: 100%; z-index: 999;}
+
+/**/
+.home_login{background-color: #fff;padding-bottom: 10px;}
+.home_login div{width:80%; margin: 0 auto; padding-top: 10px;}
+.home_login input[type="text"]{ border: 1px solid #999; font-size: 1em; border-radius: 3px; padding: 10px 5%; width: 100%;}
+.home_verify input[type="text"]{width: 52%;}
+.home_verify input[type="button"]{width: 45%;-webkit-appearance: none; margin-left: 2%; border: none; border-radius: 3px; display:inline-block; background-color: #2fa5fc; color: #fff; padding: 12px 0; font-size: 1em; text-align:center; }
+.home_verify input[type="button"]:active{width: 45%;-webkit-appearance: none; margin-left: 2%; border: none; border-radius: 3px; display:inline-block; background-color: #065fa1; color: #fff; padding: 12px 0; font-size: 1em; text-align:center; }
+
+
+.home_genre{position: relative;}
+.home_genre p{ padding: 10px 10px; color: #929292;}
+.home_genre .home_genre_list{width: 100%; padding: 10px 0;}
+.home_genre .home_genre_list li{float: left; width: 19.3%; margin:0 7%;}
+.home_genre .home_genre_list li img{width: 100%;}
+.home_login_button{position: relative; margin: -95px auto 0 auto; width: 70px; height: 70px;padding: 10px; display: block; background-color: #ece9e9; border-radius: 50%; }
+.home_login_button a{display: inline-block; width: 70px; height: 70px; border-radius: 50%; background-color: #2fa5fc; color: #fff; line-height: 70px; text-align:center;}
+
+.home_await_button{position: relative; margin: -95px auto 0 auto; width: 70px; height: 70px;padding: 10px; display: block; background-color: #ece9e9; border-radius: 50%; }
+.home_await_button a{display: inline-block; width: 70px; height: 70px; border-radius: 50%; background-color: #f9f9f9; color: #2f2f2f; line-height: 70px; text-align:center;}
+.home_await_button ul li{width: 5px; height: 5px; border-radius: 50%; background-color: #c5c2c2; float: left;top: -15px; left: 15px; margin-left: 5px; position: relative;}
+/*.home_await_button ul li.on{background-color:#7a7878;}*/
+
+
+.banner_swipe {overflow: hidden;visibility: hidden;position: relative;}
+.banner_swipe_wrap {overflow: hidden;position: relative;-webkit-padding-start: 0px;}
+.banner_swipe .wrap{max-width:640px;min-height:100%;display:block;position:relative;}
+.banner_swipe .image{display:block;border-radius:5px;height:inherit;}
+.banner_swipe .image img{ width:640px; }
+.login_button{ display: block; width: 100%; background-color: #2fa5fc; color: #fff; padding: 12px 0;text-align:center; border-radius: 3px;}
+.login_button:active{ display: block; width: 100%; background-color: #065fa1; color: #fff; padding: 12px 0;text-align:center; border-radius: 3px;}
+.home_login .alt{padding-top:0px;}
+
+.load_bg{display: none; position:fixed; top:0px; left:0px; width:100%; height:100%; z-index:1001; text-align: center;background:rgba(0,0,0,0.3);}
+.load_bg #foo{width:100px; height:100px; display: inline-block; margin-top:35%;}

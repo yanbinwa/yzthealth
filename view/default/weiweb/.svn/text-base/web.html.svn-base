@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="微信">
+<title>{$m->name}</title>
+<link type="text/css" rel="stylesheet" href="/res/wz/style/list.css" />
+<style type="text/css">
+
+</style>
+<script type="text/javascript" src="/res/swipe.js"></script>
+<script type="text/javascript">
+$(function(){
+	resize();
+	$(window).resize(function(){
+		resize();
+	});
+	$('.add_qq_more').each(function(){
+		var tourl = $.trim($(this).attr('toto'));
+		if(tourl ==''){
+			tourl = 'javascript:;'
+		}
+		if(tourl.indexOf(':')==-1){
+			tourl = tourl+'.html';
+		}
+		if(tourl !=''){
+			if($(this).is('a')){
+				$(this).attr('href',tourl);
+			}else{
+				$(this).wrap('<a href="'+tourl+'"></a>');
+			}
+			$(this).find('a').attr('href',tourl);
+		}
+	});
+	if($('.mainpicarea').is('div')){
+		var tplth = $('.mainpicarea').find('td').length;
+		for(var i=1;i<tplth;i++){
+			$('#ppoool').append('<li></li>');
+		}
+		$('.mainpicarea').qswipe();
+		$('.mainpicarea').on('dragok',function(e,msg){
+			if((msg+'').indexOf('.')>0){
+				msg = 0;
+			}
+			$('#ppoool').find('li').removeClass('on');
+			$('#ppoool').find('li').eq(msg).addClass('on');
+		});
+		
+	}
+	
+
+});
+function resize(){
+	var ww = $(window).width();
+	$('.picshowtop,.mainpicshow').css('width',ww+'px');
+	$('#tpdhtr').children('td').css('width',ww+'px');
+	$('#tpdhtr').children('td').find('img').css('width',ww+'px');
+}
+</script>
+<style type="text/css">
+.mainpicshow{
+height: 150px;
+overflow: hidden;
+}
+.mainpicarea{
+height: 150px;
+}
+.mainpicarea img{
+height: 150px;
+}
+#ppoool{
+    height:20px;
+    position: relative;
+    z-index:10;
+    margin-top:0px;
+    text-align:right;
+    padding-right:15px;
+    background-color:rgba(0,0,0,0.3);
+}
+#ppoool>li{
+    display:inline-block;
+    margin:5px 0;
+    width:8px;
+    height:8px;
+    background-color:#757575;
+    border-radius: 8px;
+}
+#ppoool>li.on{
+    background-color:#ffffff;
+}
+</style>
+</head>
+<body>
+{if trim($m->bgpic)!=''}
+<div style="top:0px;left:0px;width: 100%;height: 100%;position: fixed;z-index:-999;background-image: url('{$m->bgpic}');background-size:100%,100%;">
+
+</div>
+{/if}
+{if trim($m->tpdh)!=''}
+<div class="picshowtop" style="position: relative;">
+{$m->tpdh}
+<div style="position: absolute;width: 100%;height: 20px;bottom: 0px;" id="ppooind">
+<ol id="ppoool">
+    <li class="on"></li>
+</ol>
+
+</div>
+</div>
+{/if}
+<div class="mainshowtop">
+{$m->htm}
+</div>
+{if trim($m->bgpic)==''}
+{T /_wf}
+{/if}
+</body>
+<script type="text/javascript">
+</script>
+
+</html>

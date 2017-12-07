@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/daterangepicker.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+
+
+</head>
+<body class="{Session::get('maintheme')}">
+	 <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span7">
+                                <h3><i class="icon-table"></i>实名认证</h3>
+                            </div>
+                            <div class="span5"></div>
+                        </div>
+
+                        <div class="box-content">
+                            <div class="alert" style="font-size:14px;">
+                                <span class="member-count">未提交申请: <a href="authen-wtj.html" style="font-size:16px;color:red">{$zs}</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>审核中: <a href="authen-wsh.html" style="font-size:16px;color:red">{$sq}</a></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>审核通过: <a href="authen-shtg.html" style="font-size:16px;color:red">{$shtg}</a></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>审核不通过: <a href="authen-shbtg.html" style="font-size:16px;color:red">{$shbtg}</a></span>
+                            </div>
+                            <div class="row-fluid">
+                                <div class=" span4 control-group">
+                                    <div class="span1">
+                                        <a class="btn" href="javascript:location.reload()"><i class="icon-refresh"></i>刷新</a>
+                                    </div>
+                                </div>
+                                <div class="span4" style="text-align:right; float:right">
+                                    <form action=""  method="post" class="form-horizontal form-validate">
+                                        <input type="text" name="title" id="title" value="{$title}" class="input-large" placeholder="请输入真实姓名"><button class="btn">查询</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid dataTables_wrapper">
+                                    <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>编号</th>
+                                                <th>用户真实姓名</th>
+                                                <th>身份证号码</th>
+                                                <th>身份证照片</th>
+                                                <th>状态</th>
+                                                <th>备注</th>
+                                                <th class="input-xlarge">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listTable">
+                                        {loop $list as $val}
+	                                        <tr>
+	                                            <td width="5%">{$val->id}</td>
+												<td width="7%">{$val->true_name}</td>
+												<td width="12%">{$val->idcard}</td>
+												<td>
+                                               
+                                                    <!-- <img src="{$val->file}" onClick="art.dialog({ content: '<img src={$val->file} />'});" width="130px" height="90px" alt="身份证正面照片">
+                                                    <img src="{$val->file1}"  onClick="art.dialog({ content: '<img src={$val->file1} />'});" width="130px" height="90px" alt="身份证背面照片"> -->
+                                                    <img src="{$val->file2}"  onClick="art.dialog({ content: '<img src={$val->file2} />'});" width="130px" height="90px" alt="手持身份证半身照">
+                                                </td>
+												<td width="5%">
+												{if $val->status=='0'}
+											    <span class="label label-satblue">未实名认证</span>
+												{elseif $val->status=='1'}
+												<span class="label label-lightred">等待认证</span>
+												{elseif $val->status == '2'}
+												<span class="label label-satgreen">实名认证通过</span>
+                                                {else}
+                                                <span class="label label-lightred">认证不通过</span>
+												{/if}
+												</td>
+                                                <td width="10%">{$val->bz}</td>												
+												<td width="9%">
+													<a href="javascript:showa({$val->id});" class="btn" title="审核"><i class="icon-edit"></i></a>
+												
+											    </td>
+											</tr>
+                                        {/loop}                                           
+                                        </tbody>
+                                    </table>
+                                  <div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- /.modal-dialog 查看会员资料 -->
+    <div id="myModalzl" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="Formbestow"  class="form-horizontal form-validate form-modal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="icon-list"></i>审核实名认证</h4>
+                    </div>
+                    <!-- <form id="Form1" action="editauthen-edit.html" method="post" class="form-horizontal form-validate form-modal"  enctype="multipart/form-data"> -->
+                    <div class="modal-body">
+                        <!-- <div class="control-group">
+                            <label class="control-label" for="price">用户登录名：</label>
+                            <div class="controls" id='name'></div>
+                        </div> -->
+                        <div class="control-group">
+                            <label class="control-label" for="price">用户真实姓名：</label>
+                            <div class="controls" id='truename'></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="price">用户联系电话：</label>
+                            <div class="controls" id='phone'></div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="price">用户身份证号码：</label>
+                            <div class="controls" id='idcard'></div>
+                        </div>
+                        <!-- <div class="control-group">
+                            <label class="control-label" for="price">身份证正面照片：</label>
+                            <div class="controls">
+                                <img src="" id='sfzzm' alt="" height='10' width='160'>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="price">身份证背面照片：</label>
+                            <div class="controls">
+                                <img src="" id='sfzbm' alt="" height='10' width='160'>
+                            </div>
+                        </div> -->
+                        <div class="control-group">
+                            <label class="control-label">手持身份证半身照：</label>
+                            <div class="controls">
+                                <img src="" id='sfzbs' alt="" height='10' width='160'>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="price">审核状态：</label>
+                            <div class="controls">
+                                <select name="status" id="status">
+                                    <option value>--请选择审核状态--</option>
+                                    <option value="2">审核通过</option>
+                                    <option value="3">审核不通过</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="bz">备注：</label>
+                            <div class="controls">
+                                <textarea name="bz" id="bz" cols="80" rows="5"></textarea>
+                            </div>
+                        </div>  
+                        <input type="hidden" value='' id="yhbh">     
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</button>
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            <!-- </form> -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+
+    <script>
+//查看会员资料
+ function showa(id)
+ {
+      $("#myModalzl").modal("show");
+      $('#yhbh').val(id);
+      $.ajax({
+            url: "editauthen-show-"+ id +".html",
+            type: "get",
+            dataType: 'json',
+            data: {
+            },
+            success: function (data) {
+                console.log(data)
+                $('#name').html(data.uname);
+                $('#truename').html(data.true_name);
+                $('#phone').html(data.telephone);
+                $('#idcard').html(data.idcard);
+                $('#sfzzm').attr('src',data.file);
+                $('#sfzbm').attr('src',data.file1);
+                $('#sfzbs').attr('src',data.file2);
+                $("#status").find("option[value='"+data.status+"']").attr("selected",true);
+                $('#bz').html(data.bz);
+            }
+     });
+}
+$(function(){
+    $('#submit').on('click',function(){
+        var id = $('#yhbh').val();
+        var status = $('#status').val();
+        var bz = $('#bz').val();
+        $.ajax({
+            url:"editauthen-edit.html",
+            type:'post',
+            dataType:'json',
+            data:{ id:id,status:status,bz:bz},
+            success:function(ret){
+                if(ret.status ==1){
+                    G.ui.tips.info(ret.info); 
+                    location.reload(true);
+                }
+            }
+        })
+    })
+})
+
+
+    </script>
+   </body>
+</html>

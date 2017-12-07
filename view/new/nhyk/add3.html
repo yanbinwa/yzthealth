@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+        <head>
+			<META   HTTP-EQUIV="Pragma"   CONTENT="no-cache">
+			<META   HTTP-EQUIV="Cache-Control"   CONTENT="no-cache">
+			<META   HTTP-EQUIV="Expires"   CONTENT="0">
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/mymain.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dcvalidate.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/mymain.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/aSelect.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/aLocation.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    <body onselectstart="return true;" ondragstart="return false;">
+		<div class="container addr_add">
+			<div class="body">
+				<div>
+					<form name="myform" id="Js-myform"  method="post">
+					   {$m->hidden('id')}
+					  	<input type="hidden" value="{$wid}" name="pdwid" class="pdwid" >
+					  	<input type="hidden" value="{$temp}" name="pdtemp" class="pdtemp" >
+						<table class="table_addr">
+							<tr>
+								<td>收货人</td>
+								<td>
+								 {$m->text('shr','maxlength="30" ')}
+								</td>
+							</tr>
+							<tr>
+								<td>手机号码</td>
+								<td>
+								{$m->text('phone','maxlength="11" ')}
+								</td>
+							</tr>
+							<tr>
+								<td>邮政编码</td>
+								<td>
+								{$m->text('yb','maxlength="6" ')}
+								</td>
+							</tr>
+							<tr>
+								<td>所在地区</td>
+								<td>
+									<div class="box select_box">
+										<div>
+											<select name="province_id" class="select" id="Js-selectProvince" selectedindex="{$m->s_p}"  data-selected="{$m->s_p}"></select>
+										</div>
+										<div>
+											<select name="city_id" class="select" id="Js-selectCity" selectedindex="{$m->s_s}"  data-selected="{$m->s_s}" ></select>
+										</div>
+										<div>
+											<select name="zone_id" class="select" id="Js-selectArea" selectedindex="{$m->s_x}"  data-selected="{$m->s_x}" ></select>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>详细地址</td>
+								<td>
+								{$m->text('s_addr')}
+								</td>
+							</tr>
+							
+							<tr>
+								<td>设为默认</td>
+								<td>
+								{$m->select($ismr,'is_mr',array(),false)}
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+				</div>
+			</div>
+			<footer>
+				<nav class="nav_add_addr">
+					<ul class="tbox">
+						<li>
+							<a href="javascript:history.go(-1);" class="icons icons_before">&nbsp;</a>
+						</li>
+						<li class="align_right">
+							<a href="javascript:void(0)" id="Js-submit" class="btn">保存</a>
+						</li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+		
+<script>
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+		
+$(function () {
+
+    var sel = aSelect({
+        data: aLocation});
+    sel.bind('#Js-selectProvince', '');
+    sel.bind('#Js-selectCity', '');
+    sel.bind('#Js-selectArea', '');
+})
+
+$("#Js-submit").click(function(){
+
+	var submit_bool = true;
+	var show_msg = [];
+	var wid = $('.pdwid').val();
+	var temp = $('.pdtemp').val();
+	//验证数据
+
+	//收货人
+	if (!Valid.check.required($("#micro_membercard_dz_listshr").val())){
+		submit_bool = false;
+		show_msg.push("请输入收货人！");
+		message="请输入收货人！";
+
+	}
+
+	//手机
+	if (!Valid.check.mobile($("#micro_membercard_dz_listphone").val())){
+		submit_bool = false;
+		show_msg.push("请输入11位手机号码！");
+		message='请输入11位手机号码！';
+	} 
+
+	//邮编
+	if (Valid.check.required($("#micro_membercard_dz_listyb").val()) && !Valid.check.post($("#micro_membercard_dz_listyb").val())) {
+		submit_bool = false;
+		show_msg.push("请输入6位邮编！");
+		message='请输入6位邮编！';
+	}
+
+	//地址
+	if($("#Js-selectProvince").val() == '460000'){
+		if (!Valid.check.required($("#micro_membercard_dz_lists_addr").val())
+			||!Valid.check.required($("#Js-selectProvince").val())
+			||!Valid.check.required($("#Js-selectCity").val())) {
+			submit_bool = false;
+			show_msg.push("请填写完整地址");	
+			message='请填写完整地址';
+		}
+	}else{
+		if (!Valid.check.required($("#micro_membercard_dz_lists_addr").val())
+				||!Valid.check.required($("#Js-selectProvince").val())
+				||!Valid.check.required($("#Js-selectCity").val())
+				||!Valid.check.required($("#Js-selectArea").val())) {
+			submit_bool = false;
+			show_msg.push("请填写完整地址");
+			message='请填写完整地址';
+		}
+	}
+		
+
+	if (submit_bool === false) {
+		tusi(message);
+		//alert(show_msg.join("<br/>"),1500);
+	} else {
+		loading('请稍后...');
+		//提交信息
+		var wid = vxid;
+		var temp = temp;
+		$.ajax({
+			type: "post",  
+			url: "add.html",
+			dataType: "json",  
+			data: $("#Js-myform").serialize(),
+			success: function(html){
+				loading(false);
+		    	if (html.status == 1) {
+		    		tusi(html.msg);
+		    		setTimeout(function(){
+//		    			redirect("myaddr.html");
+						if(wid == '6765368' && temp =='2'){
+							if($.cookie('num')){
+								location.href="/wsc2_new/tobuy-"+$.cookie('pid')+"-buy.html?num="+$.cookie('num')+"&showwxpaytitle=1&gid="+$.cookie('gid');
+							}else{
+								location.href="/wsc2_new/tobuy-"+$.cookie('pid')+"-buy.html?mm=1&showwxpaytitle=1&gid="+$.cookie('gid');
+							}
+						}else{
+							if($.cookie('num')){
+								location.href="/wsc2/tobuy-"+$.cookie('pid')+"-buy.html?num="+$.cookie('num')+"&showwxpaytitle=1&gid="+$.cookie('gid');
+							}else{
+								location.href="/wsc2/tobuy-"+$.cookie('pid')+"-buy.html?mm=1&showwxpaytitle=1&gid="+$.cookie('gid');
+							}
+						}
+						
+//						window.history.go(-2);
+
+		    		},1500);
+		    	} else {
+		    		tusi(html.msg);
+		    	}
+			}
+		});
+	}
+});
+
+</script>
+		        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+	</body>
+</html>
+

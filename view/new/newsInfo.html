@@ -1,0 +1,180 @@
+
+<html lang="">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="{$set->keywords}" />
+	<meta name="description" content="{$set->description}" />
+	<title>{$art->title}_{$set->title}</title>
+	<link href="{$CSS}web/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css">
+	<link href="{$CSS}web/royalslider.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/rs-default.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/inner.css?v=14.6" rel="stylesheet">
+	<link href="{$CSS}web/menu.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/slider.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/index.css?v=10.6" rel="stylesheet">
+	<script type="text/javascript" src="{$JS}web/jquery-1.10.2.min.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/jquery.royalslider.min.js?v=10.6" /></script>
+	<script type="text/javascript" src="{$JS}web/boot_carousel.js?v=10.6"></script>
+	<script type="text/javascript" src="{$JS}web/mobile_menu.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/main_menu.js?v=10.6"></script> 
+	<!--瀑布流-->
+	<script src="{$JS}web/jquery.grid-a-licious.min.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/config.js?v=10.6"></script>
+	<script type="text/javascript" src="{$JS}web/myjs.js?v=132.6"></script> 
+	<style>
+.nr-3 .rsDefault .rsTab{
+	display: inline-block;
+}
+.nr-3 .rsDefault .rsTabs{
+	width: 100%;
+	text-align: center;
+}
+.nd-content iframe{ width: 100%; height:30rem; }
+	</style>
+
+</head>
+<body>
+<div style="left: 0px;" id="container">
+{T head}
+	<!-- inner content -->
+	<div class="inner-content-1">
+		<div class="container">
+			<div class="innernews">
+				<div class="row">
+					<div class="col-sm-8 col-md-9">
+						<hr class="hr-1">
+						<div class="news-detail-box">
+							<div class="inner-nav-1">
+    							<span class="home-icon-2">
+    								<a href="index.html">
+    									<img src="{$IMG}web/location.png">
+    								</a>
+    							</span>
+                    			<a href="news-{$art->tid}.html">{$type->name}</a> &gt;
+                    			<span class="c3">正文</span>
+   							 </div>
+							<div class="news-title">{$art->title}</div>
+							<div class="share-top">
+								<div class="row">
+									<div class="col-sm-7 col-md-8">
+										<div class="fadate">
+											<span><i>发布时间：</i><i>{$art->update_time}</i></span>
+										</div>
+									</div>
+									<div class="col-sm-5 col-md-4">
+
+									</div>
+								</div>
+							</div>
+							<div class="nd-content">
+								<div class="daodu">
+									<div class="row">
+										<div class="col-sm-1" >
+											<img src="{$IMG}web/icon-21.png" alt="" class="img-responsive">
+										</div>
+										<div class="col-sm-11">
+											导读：{$art->introduction}
+											<img src="{$IMG}web/icon-22.png" alt="" >
+										</div>
+									</div>
+								</div>
+								{$art->content}
+							</div>
+						</div>
+					</div>
+
+					<div class="hidden-xs col-sm-4 col-md-3">
+						<div class="news-right">
+
+
+							<div class="hot-range">
+								<h3><strong>热门排行</strong></h3>
+								<div class="hot-list">
+									{loop $list as $r}
+									<div class="hotl-item">
+										<span class="hot-xie">{$i++}</span><span><a href="newsInfo-{$r->id}.html" >{utf8_substraw($r->title,0,16)}</a></span>
+									</div>
+									{/loop}
+									
+								</div>
+							</div>
+
+
+							<!--右侧推荐 专题推广-->
+
+							<div class="nr-3">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="active" style="width:100%;"><a href="#hotp" data-toggle="tab">热门产品</a></li>
+								</ul>
+
+								<!-- Tab panes -->
+								<div class="tab-content">
+
+									<div class="tab-pane active" id="hotp">
+										<div id="content-slider-1" class="royalSlider contentSlider rsDefault">
+											{loop $listp as $r}
+											<div>
+												<a href="proInfo-{$r->id}.html" target="_blank" >
+													<img class="rsImg" src="{$r->pics}">
+												</a>
+												<p><a href="proInfo-{$r->id}.html" target="_blank" >{$r->name}</a><br>{$r->guige}</p>
+												<span class="rsTmb"></span>
+											</div>
+											{/loop}
+											
+										<!--右侧推荐 热门产品-->
+										</div>
+									</div>
+
+									
+
+								</div>
+							</div>
+							{if $video->id}
+							<div class="nr-4">
+								<h3>精彩视频</h3>
+								<a href="newsInfo-{$video->id}.html" target="_blank" >
+									<img src="{$video->pics}" alt="{$video->title}" class="img-responsive">
+								</a>
+							</div>
+							{/if}
+						</div>
+						<script>
+							jQuery(document).ready(function($) {
+								$('#content-slider-1').royalSlider({
+									autoHeight: true,
+									arrowsNav: false,
+									fadeinLoadedSlide: false,
+									controlNavigationSpacing: 0,
+									controlNavigation: 'tabs',
+									imageScaleMode: 'none',
+									imageAlignCenter:false,
+									loop: false,
+									loopRewind: true,
+									numImagesToPreload: 6,
+									keyboardNavEnabled: true,
+									usePreloader: false,
+									autoPlay: { enabled: true,pauseOnHover: true,delay:1500}
+								});
+
+							});
+						</script>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+{T footer}
+
+
+</div>
+
+</body>
+</html>

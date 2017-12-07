@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>颐正国际养生理疗馆</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/default.css"/>
+<style type="text/css">
+	.dengjied{
+		background-color:#249caa;
+		color:#fff;
+		border:1px solid #249caa;}
+	.dengji{
+		background-color:#fff;
+		color:#000;
+		border:1px solid #dcdcdc;}
+	.desc_content{ overflow: hidden;}
+</style>
+</head>
+<body>
+<link type="text/css" rel="stylesheet" href="{$CSS}wxy/product_detail.css"/>
+<div class="product">
+	<div class="p_top">
+		<table>
+			<tr>
+				<td>
+					<img class="img_title" src="{$sproduct_array->pic}" height="75" width="75" title="{$sproduct_array->name}"/>
+				</td>
+				<td style="padding-left: 10px;">
+					<div class="title">
+						{$sproduct_array->name}
+					</div>
+					<div class="timeicon">
+						<img src="{$IMG}wx/clock.png" height="13" alt="">
+						<span>
+							{$sproduct_array->lltime}分钟							
+						</span>
+					</div>
+					<div class="money">
+
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="p_content">
+		<div class="title">
+			选择套餐内容
+		</div>
+		<div class="e_level">
+			<h3>推拿师等级</h3>
+			<ul>
+				<?php foreach ($rowtemp as $k => $v): ?>
+					<?php if ($k == 0) {?>
+						<li lang="{$v['sell_price']}" id='{$k}' class="dengjied"><?php echo mb_substr($v['spec_array'][0], 4);?></li>
+					<?php }else{ ?>
+						<li lang="{$v['sell_price']}" id='{$k}'><?php echo mb_substr($v['spec_array'][0], 4);?></li>
+					<?php }?>
+				<?php endforeach ?>
+			</ul>
+		</div>
+		<div class="buy_num">
+            <h3>购买数量</h3>
+            <div class="buy_num_button">
+                <div class="btn_decr" onclick="decrClick()">－</div>
+                <input type="text" id="buynum" class="num_input" onfocus="buynumFocuse(this)"/>
+                <div class="btn_add" onclick="addClick()">＋</div>
+            </div>
+		</div>
+	</div>
+    <div class="p_content" style="margin-bottom: 46px;padding-bottom: 10px">
+        <div class="desc">
+                <div class="desc_tap">
+                    <div class="descTaps" lang="1">
+                        服务内容
+                    </div>
+                    <div class="descTaps" lang="2">
+                        禁忌症状
+                    </div>
+                </div>
+                <div class="desc_content">
+					<span class="tap_content" id="content1">
+						{$sproduct_array->detail}
+					</span>
+					<span class="tap_content" id="content2">
+                        {$sproduct_array->detailcs}
+					</span>
+					
+                </div>
+        </div>
+    </div>
+</div>
+<div class="product_bottom">
+    <div class="product_bottom_left">
+        <div class="serve_time">时长：<span id="allServiceTime">{$sproduct_array->lltime}</span> 分钟</div>
+        <div class="total_money">合计：<span id="allmoney"></span></div>
+    </div>
+	<input class="btn_next" type="button" value="下一步" id="btn_next"/>
+</div>
+<script type="text/javascript">
+var aryLevel = '{$aryLevel}';
+	aryLevel = aryLevel.split(',');
+	var aryPrice = '{$sell_price}';
+	aryPrice = aryPrice.split(',');
+	var Max_Count = parseInt("6");
+	var Min_Count = parseInt("1");
+    var Buy_Count = Min_Count;
+
+	var Price = aryPrice[0];
+	var Period = '{$sproduct_array->lltime}';
+$(document).ready(function() {
+	$("#buynum").val(Buy_Count);
+	$(".money").html("￥ " + Price);
+	$("#allmoney").html(Price * Buy_Count + " 元");
+	//推拿师等级选择
+	$('.e_level > ul > li').on('click', function () {
+            $(this).addClass('dengjied').siblings('.dengjied').removeClass('dengjied');
+            var dengji = $(this).attr('id');
+            Price = aryPrice[dengji];
+            $(".money").html("￥ " + Price);
+            $("#allmoney").html(Price * Buy_Count + " 元");
+    });
+	
+	$("#content1").show();
+	//服务内容、禁忌状态、下单须知显示
+	$(".descTaps").bind("click", function () {
+		$(".descTaps").removeClass("descChecked");
+		$(this).addClass("descChecked");
+
+		$(".tap_content").hide();
+		$("#content"+this.lang).show();
+	});
+	$('#btn_next').click(function(){
+		var rank = $('.dengjied').attr('id');
+		var astime = $('#buynum').val();
+		location.href='payment-{$pid}.html?rank='+rank+'&ast='+astime;
+	});
+});
+
+//购买数量加
+function addClick() {
+	if(Buy_Count < Max_Count){
+		Buy_Count = parseInt($("#buynum").val()) + 1;
+		$("#buynum").val(Buy_Count);
+		cal();
+	}
+}
+//购买数量减
+function decrClick() {
+	if (parseInt($("#buynum").val()) > 1 && parseInt($("#buynum").val()) > Min_Count) {
+		Buy_Count = parseInt($("#buynum").val()) - 1;
+		$("#buynum").val(Buy_Count);
+		cal();
+	}
+}
+function buynumFocuse(self){
+		self.blur();
+	}
+	//计算
+function cal() {
+	$("#allmoney").html(Price * Buy_Count + " 元");
+	$("#allServiceTime").html(Period * Buy_Count);
+}
+</script>
+</body>
+</html>

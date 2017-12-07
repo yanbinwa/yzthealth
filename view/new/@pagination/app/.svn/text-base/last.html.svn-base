@@ -1,0 +1,3 @@
+{if !$P->islast}
+<a href="{$P->lastlink}"><span class="hack">末页</span></a>
+{/if}

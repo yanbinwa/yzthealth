@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}/chosen_jquery_min.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+<style type="text/css">
+        a.tag {
+            font-size: 12px;
+            min-height: 27px;
+            display: inline-block;
+            line-height: 27px;
+            padding: 0 10px;
+            position: relative;
+            background-color: #fff;
+            border-radius: 2px;
+            margin: 0 7px 8px 0;
+            border: 1px solid #aaa;
+            cursor: pointer;
+            color: rgb(102, 102, 102);
+            text-decoration: none;
+        }
+
+        a.tag:hover {
+                background-color: #eaeaea;
+        }
+
+        a.tag_select, .tag_wrap .tag_select:hover {
+            color: #b46e00;
+            background-color: #ffe690;
+            border: 1px solid #e7b75b;
+        }
+    </style>
+
+    <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span8">
+                                <h3><i class="icon-table"></i>用户列表 {if $gname==''}<small>根据已选标签共找到{$allcount}人</small>{/if}</h3>
+                            </div>
+                        </div>
+                        <div class="box-content">
+
+                            <div class="row-fluid">
+
+                                <div class="span8 control-group">
+                                    {if $gname!=''}
+                                        <h5 >分组名称：[{$gname}]  分组成员：{Request::get(3)}人(注：其中{$noinfoCount}人未完善信息。)</h5>
+                                    {else}
+                                        <span>标签筛选：</span>
+	                                    <a href="fansList.html" class="tag tag_select">不限</a>
+	                                    {loop $tag_res as $r}
+	                                      <a href="fansList-{tag}-{$r->id}.html" class="tag ">{$r->name}</a>
+	                                    {/loop}
+                                    {/if}
+                                </div>
+                                <div class="span4">
+                                 {if $gname==''}
+                                    <div class="form-horizontal">
+                                        <input type="text" name="keywords" id="keyword-input" value="" class="input-medium" placeholder="用户名" data-rule-required="true" />
+                                        <button class="btn" id="btn_search">查询</button>
+                                    </div>
+                                 {/if}
+                                </div>
+                            </div>
+                            <div class="row-fluid  control-group"><a class="btn btn-primary" id="set_all_customer" title="给选中用户添加标签"><i class="icon-tag"></i>给选中用户添加标签</a></div>
+                            <div class="row-fluid dataTables_wrapper">
+
+                                <table id="listTable" class="table table-bordered table-hover dataTable">
+
+                                    <thead>
+                                        <tr>
+                                            <th class='with-checkbox' style="text-align:center">
+                                              <input type="checkbox" class="check_all" onclick="selallck(this);"></th>
+                                            <th>用户名</th>
+                                            <th>手机</th>
+                                            <th>最后联系时间</th>
+                                            <th>地区</th>
+                                            <th>标签</th>
+                                            <!-- <th>操作</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+									     {loop $fans_res as $rs}
+											<tr>
+											    <td width="5%"  style="text-align:center" ><input type="checkbox" value="{$rs['id']}"></td>
+                                                <td width="15%" >{$rs['un']}</td>
+                                                <td width="15%" >{$rs['tel']}</td>
+                                                <td width="20%" >{$rs['ctime']}</td>
+                                                <td width="15%" >{$rs['city']}</td>
+                                                <td width="30%" >{$rs['tag']}</td>
+                                               <!-- <td width="10%">
+                                                    <a href="tagadd-{$r->id}.html" class="btn" rel="tooltip" title="Edit"><i class="icon-edit"></i></a>
+                                                    <a href="javascript:void(0);" class="btn" rel="tooltip" title="Delete"  onclick="if(confirm('确定要删除吗？')){ goto('fansTags-{del}-{$r->id}.html');}"><i class="icon-remove"></i></a>
+                                                </td> -->
+                                            </tr>
+										{/loop}	
+                                    </tbody>    
+                                </table>
+                                <div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="icon-tag"></i>选择标签</h4>
+                </div>
+                <div class="modal-body" style="overflow: visible">
+                    <div class="row-fluid">
+                     {$fanstag->select($tag_arr,'tagss',array('multiple'=>"multiple","data-placeholder"=>"选择标签",'class'=>'input-xxlarge chosen-select select2-offscreen'))}
+                     <input type="hidden" id="fans_tag_listtags" >
+                     <script>
+					 $(function() {
+								$("#fans_tag_listtagss").on("change", function() { $("#fans_tag_listtags").val($("#fans_tag_listtagss").val());
+						});
+					 });
+					 </script>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="tag_set">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消 </button>
+                </div>
+                <input type="hidden" id="customer_id" />
+            </div>
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    $("a.tag-set").click(function (e) {
+                        e.preventDefault();
+                        var $cid = $(this).data("cid"), $tid = $(this).data("tid");
+                        console.log($cid);
+                        $("#set_tag option").each(function () {
+                            var t = $(this);
+                            var f = $(this).val();
+                            if ($.inArray(eval(f), $tid)!=-1) { t.attr("selected", true); } else { t.attr("selected", false); }
+                        });
+                        $("#customer_id").val($cid);
+                        $("#set_tag").trigger("liszt:updated");
+                        $('#myModal').modal('show');
+
+                    });
+                    $("#set_all_customer").click(function (e) {
+                        e.preventDefault();
+                        var $set_items = $("#listTable tbody input[type='checkbox']:checked");
+                        var $len = $set_items.length;
+                        if (0 == $len) { G.ui.tips.info('请先选择要添加标签的客户'); return; } else {
+                            var c = new Array;
+                            $set_items.each(function () { c.push($(this).val()) });
+                            $("#customer_id").val(c.join(","));
+                            $('#myModal').modal('show');
+                        }
+                    });
+                    $("#tag_set").click(function () {
+                        var tagstr = $("#fans_tag_listtags").val(), $this = $(this);
+                        if (tagstr) {
+                            $this.text("提交中...").addClass("disabled").attr("disabled", "disabled");
+                            $.ajax({
+                                url: "fansList.html",
+                                type: "post",
+                                dataType: 'json',
+                                data: {
+                                    "customer_id": $("#customer_id").val(),
+                                    "tagstr": tagstr
+                                },
+                                success: function (data) {
+                                    alert(data.error);
+                                    $this.text("确定").removeClass("disabled").removeAttr("disabled");
+                                    $('#myModal').modal('hide');
+                                    location.reload(true);
+
+                                },
+                                error: function () {
+                                    alert("设置失败....");
+                                    $this.text("重试").removeClass("disabled").removeAttr("disabled");
+                                }
+                            });
+                       } else {
+                            alert("请选择标签..");
+                       }
+                    });
+
+
+                    $("#btn_search").click(function(){
+                        var keywords = $.trim($('#keyword-input').val());
+                        
+                        if (keywords.length <= 0) {
+                            alert('请输入搜索关键字.');
+                            $('#keyword-input').focus();
+                            return false;
+                        }
+                        window.location.href = 'fansList.html?keywords=' + keywords;
+
+                    });
+
+                    $("#keyword-input").keyup(function(e) {
+                        if (e.keyCode == 13) {
+                            $("#btn_search").click();
+                            return false;
+                        }
+                    }).click(function(){
+                        $(this).val('');
+                    });
+
+
+
+
+                })
+            </script>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    </body>
+</html>

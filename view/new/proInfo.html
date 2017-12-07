@@ -1,0 +1,169 @@
+
+<html lang="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$set->keywords}" />
+<meta name="description" content="{$set->description}" />
+<title>{$pro->name}_{$set->title}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="{$CSS}web/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css">
+	<link href="{$CSS}web/inner.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/menu.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/slider.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/index.css?v=10.6" rel="stylesheet">
+	<script type="text/javascript" src="{$JS}web/jquery-1.10.2.min.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/menu/mobile_menu.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/menu/main_menu.js?v=10.6"></script> 
+<style>
+.home-icon-2 img {
+	width: 60px;
+	height: 23px;
+	margin-bottom: 6px;
+}
+.inner-nav-1 { 
+	font-size:16px;
+}
+.hot-range{ border: 1px solid #e6e6e6;padding: 18px 15px 0px;  margin-bottom: 20px;}
+.hot-range h3 { margin: 0px 0px 25px; font-size: 20px;}
+</style>
+</head>
+<body>
+	{T head}
+<div style="left: 0px;" id="container">
+	<div class="inner-content-1">
+		<div class="container">
+			<div class="inner-nav-1">
+				<span class="home-icon-2">
+					<a href="index.html">
+						<img src="{$IMG}web/location.png" >
+					</a>
+				</span>
+				<a href="product.html">全部商品</a> &gt;
+				<a href="product-{$shop->id}.html">{$shop->name}</a>&gt; 
+				<span class="c3">{$pro->name}</span>
+			</div>
+			<div class="product-detail-banner">
+				<div class="pdb">
+					<img src="{$pro->pics}" alt="{$pro->name}" class="img-responsive">
+				</div>
+				<div class="pdb-bar " style="border: 1px solid #CCC;" >
+					<div class="row">
+						<div class="col-sm-7">
+							<div class="pdb-bar-info">
+								<h2>{$pro->name}</h2>
+								<div class="pdb-bi-bottom" >
+									<span class="f18">{$pro->guige}</span>
+									<span class="prob-price"><span>RMB</span><span class="probc">{$pro->price}</span></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="product-detail-box">
+				<div class="row">
+					<div class="col-sm-8">
+						<div class="product-tab">
+							<ul class="nav nav-tabs sssss" role="tablist">
+								<li class="active" style="width: 33.3%" ><a href="javascript:;" id="spro_info" data-toggle="tab" class="noborder"  >产品介绍</a></li>
+								<li style="width: 33.3%" ><a id="sknowledge" href="javascript:;" data-toggle="tab">相关知识</a></li>
+								<li style="width: 33.3%" ><a id="sguid" href="javascript:;" data-toggle="tab">使用指南</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="pro_info">
+									<div class="product-tab-box">
+										{$pro->jieshao}
+									</div>
+								</div>
+								<div class="tab-pane" id="knowledge" ><div class="product-tab-box">
+									{$pro->xiangguan}
+								</div></div>
+								<div class="tab-pane" id="guid" ><div class="product-tab-box">
+									{$pro->zhinan}
+								</div></div>
+							</div>
+
+
+						</div>
+					</div>
+					<div class="col-sm-4">
+
+						<div class="ch-info">
+							<div class="chi-top clearfix">
+								<div class="pull-left">
+									<h3 class="tting clearfix">
+										<a href="news-10.html" target="_blank" >
+											<span>产品信息</span>
+										</a>
+									</h3>
+									<h4 class="c3">Information</h4>
+								</div>
+								<div class="pull-right"><a href="news-10.html" target="_blank" >更多 &gt;</a></div>
+							</div>
+							<div class="chi-content">
+								{loop $lists as $r}
+								<div class="row">
+									<a href="newsInfo-{$r->id}" target="_blank" >
+										<div class="col-xs-6 col-sm-6">
+											<div class="chi-pic">
+												<img src="{$r->pics}"  class="img-responsive"/>
+											</div>
+										</div>
+										<div class="col-xs-6 col-sm-6">
+											<div class="chi-text">{$r->title}</div>
+										</div>
+									</a>
+								</div>
+								{/loop}
+							</div>
+						</div>
+
+
+					</div>
+					
+
+				</div>
+
+			</div>
+		</div>
+	<!-- main content end-->
+	</div>
+</div>
+{T footer}
+
+<script>
+$(function(){
+	$('#spro_info').click(function(){
+		$('.sssss li a').removeClass('noborder');
+		$('.sssss li ').removeClass('active');
+		$(this).addClass('noborder');
+		$(this).parent().addClass('active');
+		$('#pro_info').addClass('active');
+		$('#knowledge').removeClass('active');
+		$('#guid').removeClass('active');
+
+	})
+	$('#sknowledge').click(function(){
+		$('.sssss li a').removeClass('noborder');
+		$('.sssss li ').removeClass('active');
+		$(this).addClass('noborder');
+		$(this).parent().addClass('active');
+		$('#pro_info').removeClass('active');
+		$('#knowledge').addClass('active');
+		$('#guid').removeClass('active');
+	})
+	$('#sguid').click(function(){
+		$('.sssss li a').removeClass('noborder');
+		$('.sssss li ').removeClass('active');
+		$(this).addClass('noborder');
+		$(this).parent().addClass('active');
+		$('#pro_info').removeClass('active');
+		$('#knowledge').removeClass('active');
+		$('#guid').addClass('active');
+	})
+})
+</script>
+</body>
+</html>        

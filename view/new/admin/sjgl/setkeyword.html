@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+	<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+	<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+	<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+	<script type="text/javascript" src="{$JS}jscolor.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+	</head>
+ <body class="{Session::get('maintheme')}">
+<div class="container-fluid" id="content">
+        <div id="main">
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="box">
+                            <div class="box-title">
+                                <div class="span10">
+                                    <h3> <i class="icon-cog"></i>
+                                                                                                       商城设置
+                                    </h3>
+                                </div>
+                                <div class="span2">
+                                    <a class="btn" href="Javascript:window.history.go(-1)">返回</a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <form action="" method="POST" id="setBusinessForm" class="form-horizontal form-validate" >
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">商城名称</label>
+                                        <div class="controls">
+                                            {$m->text('name','class="input-xlarge" required="required" data-rule-maxlength="50" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline">最多只能输入50个字符。</span>
+                                        </div>
+                                    </div>
+
+                                
+								
+                                    <div class="form-actions">
+                                        <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                        <button type="button" class="btn" onclick="window.location='picture-text-repaly.html'">取消</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  	<script>
+		window.document.onkeydown = function(e) {
+			if ('' == document.activeElement.id) {
+				var e=e || event;
+　 				var currKey=e.keyCode || e.which || e.charCode;
+				if (8 == currKey) {
+					return false;
+				}
+			}
+		};
+		
+		function setpic(imgid,hideid){
+			window.piccbk = function(m){
+				$('#'+imgid).attr('src',m);
+				$('#'+hideid).val(m);
+				window.piccbk = null;
+			}
+			window.curpic = null;
+			openpicset();	
+		} 
+		function openpicset(){
+			pophtml('<iframe src="../businessModule/wspicif.html" style="width:630px;height:470px;border:none;background-color: #dfdfdf;" width="630px" height="475px"></iframe>',670,510,true);
+		}
+
+        
+		$(function(){		
+			 $("#setBusinessForm").submit(function(){
+				var cansv= true;
+				$(this).find('input[type="text"],select,textarea').filter('[required="required"]').each(function(){
+					if($.trim($(this).val())==''){
+						cansv = false;
+						$(this).css('backgroundColor','yellow');
+						$(this).one('focus',function(){
+							$(this).css('backgroundColor','transparent');
+						});
+					}
+					
+				});
+				if(!cansv){
+					tusi('请将信息填写完整');
+				}
+		    	return cansv;
+		    });
+		});
+	</script>
+</body>
+</html>

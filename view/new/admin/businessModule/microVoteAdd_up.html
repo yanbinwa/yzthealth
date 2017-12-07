@@ -1,0 +1,501 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<style type='text/css'>
+	.control-option{
+/*		width: 145px;*/
+		font-weight: bold;
+		text-align: left;
+		line-height: 40px;
+	}
+	.con-inpt{
+		width:300px;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>编辑微投票内容</h3>
+                                <br/>
+<!--                                <span class="bold">当前地址：</span>{getUrl('wtp')}-->
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+                        <div class="box-content">
+                            <form action="" method="post" id="lbsForm" class="form-horizontal form-wizard ui-formwizard ui-helper-reset ui-widget ui-widget-content ui-corner-all" novalidate="novalidate">
+                            {tk()}{$lbs->hidden('id')}
+                           
+                                <div id="cc1" class="ccc step ui-formwizard-content ui-helper-reset ui-corner-all" id="firstStep" style="display: block;">
+                                    <ul class="wizard-steps steps-3">
+                                        <li class="active">
+                                            <div class="single-step">
+                                                <span class="title">1</span>
+                                                <span class="circle">
+                                                    <span class="active"></span>
+                                                </span>
+                                                <span class="description">活动基本信息
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">2</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动时间设置
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">3</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动详情设置
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    <div class="step-forms">
+                                        <div class="span8">
+                                            <div class="control-group">
+										    	<label class="control-label" for="keyword">微投票名称</label>
+										    	<div class="controls">
+										    	{$lbs->text('name','class="span4"')}
+											    	<span class="maroon">*</span>
+											    	<span class="help-inline">最多只能输入30个字符。</span>
+										    	</div>
+										  	</div>
+										  	<div class="control-group">
+										    	<label class="control-label" for="keyword">微投票关键字</label>
+										    	<div class="controls">
+										    	{$lbs->text('gjz','class="span4"')}
+											    	<span class="maroon">*</span>
+											    	<span class="help-inline">最多只能输入20个字符。</span>
+										    	</div>
+										  	</div>
+									<!--	  	<div class="control-group">
+										    	<label class="control-label" for="keyword">页面显示</label>
+										    	<div class="controls" style="vertical-align: middle;padding-top: 5px;">
+										    	{$lbs->radio(array('1'=>' 单排','2'=>' 双排','3'=>' 三排'),'pai','style="margin-top:-2px;"')}
+										    	</div>
+										  	</div>-->
+										  	
+                                        </div>
+                                        <div class="span4">
+                                            <div>
+                                             <label for="tel" class="control-label">活动展示图片：</label>
+                                                <p id="picsethere"><img  src="{$lbs->pic}" relobj="elfinder_pwtp"></p>
+                                                  {$lbs->hidden('pic',' relobj="elfinder_pwtp"')}
+                                                  <button class="btn select_img" rel="yyuc" relobj="elfinder" id="pwtp"  type="button">选择封面</button>
+                                                <p>建议尺寸：700像素 * 380像素</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span12">
+                                    <div class="form-actions">
+                                        
+                                        <input type="button" class="btn btn-primary ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-active" onclick="$('.ccc').hide();$('#cc2').show();" value="下一步" id="next">
+                                    </div>
+                                </div>
+                                </div>
+                                <div  id="cc2" class="ccc step ui-formwizard-content ui-helper-reset ui-corner-all" id="secondStep" style="display: none;">
+                                    <ul class="wizard-steps steps-3">
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">1</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动基本信息
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="active">
+                                            <div class="single-step">
+                                                <span class="title">2</span>
+                                                <span class="circle">
+                                                    <span class="active"></span>
+                                                </span>
+                                                <span class="description">活动时间设置
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">3</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动详情设置
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                    <div class="step-forms">
+                                        <div class="span8">
+                                            <div class="control-group">
+                                                <label for="keyword" class="control-label">活动开始时间：</label>
+                                                <div class="controls">
+                                               {$lbs->datetime('kssj','class="span4"')}
+                                               <span class="maroon">*</span>
+                                                <span for="keyword" class="help-block error valid" style="display: block;"></span></div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label for="tel" class="control-label">活动结束时间：</label>
+                                                <div class="controls">
+                                                   {$lbs->datetime('jssj','class="span4"')}</div>
+                                            </div>                                            
+                                        </div>
+
+                                        
+                                    </div>
+                                    
+<div class="span12">
+                                    <div class="form-actions">
+                                        <input type="button" class="btn ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-disabled" value="后退" onclick="$('.ccc').hide();$('#cc1').show();" id="back">
+                                        <input type="button" class="btn btn-primary ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-active" onclick="$('.ccc').hide();$('#cc3').show();" value="下一步" id="next">
+                                    </div>
+                                </div>
+                                </div>
+                                <div  id="cc3" class="ccc step ui-formwizard-content ui-helper-reset ui-corner-all" id="thirdStep" style="display: none;">
+                                    <ul class="wizard-steps steps-3">
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">1</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动基本信息
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">2</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动时间设置
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="active">
+                                            <div class="single-step">
+                                                <span class="title">3</span>
+                                                <span class="circle"></span>
+                                                <span class="active"></span>
+                                                <span class="description">活动详情设置
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    <div class="control-group">
+                                            <label for="endtite" class="control-label">活动简述：</label>
+                                            <div class="controls">                                                
+											{$lbs->textarea('ms','class="span5" style="height:90px;width:520px;"')}
+                                            <span for="endtite" class="help-block error valid" style="display: block;"></span></div>
+                                   </div>   
+
+       <!--<div class="control-group">
+	    	<label class="control-label" for="keyword">选项1</label>
+	    	<div class="controls">
+	    	{$lbz->text('option1','class="span4"')}
+		    	<span class="maroon">*</span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+		    <label class="control-label" for="">展示图片1</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+						<tr>
+							<td>
+							{$lbz->hidden('headpic1',' relobj="elfinder_pheadpic1"')}
+							<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic1"  type="button">选择封面</button></td>
+							<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+						</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic1">
+				 	   <img  src="{$lbz->headpic1}" relobj="elfinder_pheadpic1" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>-->
+	  	<div class="control-group" id="lbmain">
+			<table width='100%' border="0" cellspacing="0" cellpadding="5" id="categoryTable">
+				<?php if($resNum == 0){ ?>
+			          <tr>
+			            <td width='145px;'><span class="control-option">选项1</span><strong style="display:none">标识</strong></td>
+			            <td><input type='text' name='option1' class='span4 con-inpt'><span class="maroon">*</span><span class="help-inline">最多只能输入30个字符。</span></td>
+			          </tr>
+			          <tr>
+			            <td width='145px;'><span class="control-option">展示图片1</span></td>
+			            <td><input type='hidden' name='headpic1' relobj='elfinder_pheadpic1'><button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic1"  type="button">选择封面</button><span valign="top" style="line-height: 30px;color:gray;"> 建议尺寸：350像素 * 200像素</span></td>
+			          </tr>
+			          <tr >
+			          		<td>&nbsp;</td>
+			           		<td><p class="img-area cover-bd" id="headpic1"><img  src="http://www.weixinguanjia.cn/media/images/shop/mlogo.png" relobj="elfinder_pheadpic{$k+1}" style="max-height: 100px;"></p></td>
+			           </tr>
+				<?php }else{ ?>
+					{loop $listres as $k=>$v}
+						<tr>
+				            <td width='145px;'><span class="control-option">选项{$k+1}</span><strong style="display:none">标识</strong></td>
+				            <td><input type='text' name='option{$k+1}' class='span4 con-inpt' value="{$v['optionz']}"><span class="maroon">*</span><span class="help-inline">最多只能输入30个字符。</span></td>
+			          	</tr>
+			          	<tr>
+				            <td width='145px;'><span class="control-option">展示图片{$k+1}</span></td>
+				            <td><input type='hidden' name='headpic{$k+1}' relobj='elfinder_pheadpic{$k+1}' value="{$v['headpic']}"><button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic{$k+1}"  type="button">选择封面</button><span valign="top" style="line-height: 30px;color:gray;"> 建议尺寸：350像素 * 200像素</span></td>
+			           </tr>
+			           <tr>
+			           		<td>&nbsp;</td>
+			           		{if $v['headpic']!=''}
+			           			<td><p class="img-area cover-bd" id="headpic{$k+1}"><img  src="{$v['headpic']}" relobj="elfinder_pheadpic{$k+1}" style="max-height: 100px;"></p></td>
+			           		{else}
+			           			<td><p class="img-area cover-bd" id="headpic{$k+1}"><img  src="http://www.weixinguanjia.cn/media/images/shop/mlogo.png" relobj="elfinder_pheadpic{$k+1}" style="max-height: 100px;"></p></td>
+			           		{/if}
+			           </tr>
+			           	
+					{/loop}
+				<?php }; ?>
+			</table>
+	  </div>
+		<!--<if condition="$resNum eq 0">
+			<div class="control-group">
+			  	<table width='100%' border="0" cellspacing="0" cellpadding="5" id="categoryTable">
+		          <tr>
+		            <td width='145px;'><span class="control-option">选项1</span><strong style="display:none">标识</strong></td>
+		            <td><input type='text' name='option1' class='span4 con-inpt'><span class="maroon">*</span><span class="help-inline">最多只能输入30个字符。</span></td>
+		          </tr>
+		          <tr>
+		            <td width='145px;'><span class="control-option">展示图片1</span></td>
+		            <td><input type='hidden' name='headpic1' relobj='elfinder_pheadpic1'><button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic1"  type="button">选择封面</button><span valign="top" style="line-height: 30px;color:gray;"> 建议尺寸：200像素 * 160像素</span></td>
+		          </tr>
+		        </table>
+	        </div>
+       		{loop $listres as $v}
+       			{$v->option}
+       		{/loop}
+       </if>-->
+	  	
+
+	  	<div class="control-group">
+<!--	    	<label class="control-label" for="keyword"><button id="more_vote" type="button">更多选项</button></label>-->
+	    	<label class="control-label" for="keyword"><button onclick="AddNewCategory1()" type="button">添加选项</button></label>
+	    	<div class="controls">
+	    		<span class="help-inline">提示:请依次填写</span>
+	    	</div>
+	  	</div>
+
+       <div class="span12">
+            <div class="form-actions">
+                <input type="button" class="btn ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-disabled" value="后退" onclick="$('.ccc').hide();$('#cc2').show();" id="back">
+                <input type="submit" class="btn btn-primary ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-active" value="提交" id="next">
+            </div>
+        </div>                                 
+	</div>
+
+                                
+                            </form>
+                        </div>
+                        <script>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script type="text/javascript">
+//$(function(){
+//	$("#more_vote").click(function(){ 
+//		 $(".more").toggle();
+//		 
+//	 });
+//	 $("#lbsForm").submit(function(){
+//		var cansv= true;
+//		$(this).find('input[type="text"],select,textarea').each(function(){
+//			if($.trim($(this).val())=='' && $(this).attr('noneed')!='1'){
+//				cansv = false;
+//				$(this).css('backgroundColor','yellow');
+//				$(this).one('focus',function(){
+//					$(this).css('backgroundColor','transparent');
+//				});
+//			}
+//		});
+//		if(!cansv){
+//			tusi('请将信息填写完整');
+//			return false;
+//		}
+//		$(this).find('input[type="text"],select,textarea').each(function(){
+//			if($(this).attr('isint')=='1' && $.trim($(this).val())!=''){
+//				var intthis = parseInt2($(this).val());
+//				if(intthis+''=='NaN'){
+//					cansv = false;
+//					$(this).css('backgroundColor','yellow');
+//					$(this).one('focus',function(){
+//						$(this).css('backgroundColor','transparent');
+//					});
+//				}else{
+//					$(this).val(parseInt($(this).val()));
+//				}
+//			}
+//		});
+//		if(!cansv){
+//			tusi('标注的项目必须为整数');
+//			return false;
+//		}
+//		
+//		$(this).find('input[type="text"],select,textarea').each(function(){
+//			if($(this).attr('isfloat')=='1' && $.trim($(this).val())!=''){
+//				var intthis = parseFloat($(this).val());
+//				if(intthis+''=='NaN'){
+//					$(this).val('0');
+//					cansv = false;
+//					$(this).css('backgroundColor','yellow');
+//					$(this).one('focus',function(){
+//						$(this).css('backgroundColor','transparent');
+//					});
+//				}else{
+//					$(this).val(parseFloat($(this).val()));
+//				}
+//			}
+//		});
+//		if(!cansv){
+//			tusi('标注的项目必须为数字');
+//			return false;
+//		}
+//		
+//		if($('#picsethere').find('img').size()<1){
+//   		cansv = false;
+//   		tusi('请上传活动图片');
+//   		return false;
+//   	}
+//   	return cansv;
+//   });
+//});
+</script>
+
+<script type="text/javascript">
+    function AddNewCategory(){
+        //添加行
+         var spanid = document.getElementsByTagName("strong");
+         var num=1;
+		 for(var j = 0;j < spanid.length;j++){
+			if(spanid[j].style.display=="none"){
+				num++;
+			}
+		 }
+		 
+         var titleId="选项"+num;
+         var stitleId="展示图片"+num;
+		 var optionId="option"+num;
+		 var soptionId="headpic"+num;
+		 var otherId="elfinder_pheadpic"+num;
+		 var pheadpicId="pheadpic"+num;
+         var newTr=document.getElementById('categoryTable').insertRow();
+         var snewTr=document.getElementById('categoryTable').insertRow();
+         var tnewTr=document.getElementById('categoryTable').insertRow();
+         //添加列
+         var titleTd=newTr.insertCell();
+         titleTd.width="145";
+         var optionTd=newTr.insertCell();
+         
+         var stitleTd=snewTr.insertCell();
+         stitleTd.width="145";
+         var soptionTd=snewTr.insertCell();
+         
+         var imgTd2=tnewTr.insertCell();
+         imgTd2.width="145";
+         var imgTd=tnewTr.insertCell();
+         //设置列内容和属性
+         titleTd.innerHTML='<span class="control-option">'+ titleId +'</span><strong style="display:none">标识</strong>';
+         optionTd.innerHTML='<input type="text" name="'+optionId+'" class="span4 con-inpt"><span class="maroon">*</span><span class="help-inline">最多只能输入30个字符。</span>';
+         stitleTd.innerHTML='<span class="control-option">'+ stitleId +'</span>';
+         soptionTd.innerHTML='<input type="hidden" name="'+soptionId+'" relobj="'+otherId+'"><button class="btn select_img" rel="yyuc" relobj="elfinder" id="'+pheadpicId+'"  type="button">选择封面</button><span valign="top" style="line-height: 30px;color:gray;"> 建议尺寸：350像素 * 200像素</span>';
+         imgTd2.innerHTML='&nbsp;';
+         imgTd.innerHTML='<p class="img-area cover-bd" id="'+soptionId+'"><img src="http://www.weixinguanjia.cn/media/images/shop/mlogo.png" relobj="'+otherId+'" style="max-height: 100px;"></p>';
+         
+         loadelfinder($("#categoryTable tr").eq(-2).find('button')); 
+    }
+    function AddNewCategory1(){
+    	 var spanid = document.getElementsByTagName("strong");
+         var num=1;
+		 for(var j = 0;j < spanid.length;j++){
+			if(spanid[j].style.display=="none"){
+				num++;
+			}
+		 }
+		 var titleId="选项"+num;
+         var stitleId="展示图片"+num;
+		 var optionId="option"+num;
+		 var soptionId="headpic"+num;
+		 var otherId="elfinder_pheadpic"+num;
+		 var pheadpicId="pheadpic"+num;
+		 
+		 var tableObje = document.getElementById("categoryTable");
+//		 第一行
+		 var bodyObj = tableObje.tBodies[0];
+		 var rowObj = document.createElement("tr");
+		 var cellObj = document.createElement("td"); 
+		 cellObj.innerHTML = '<span class="control-option">'+ titleId +'</span><strong style="display:none">标识</strong>';
+		 rowObj.appendChild(cellObj) 
+		 cellObj = document.createElement("td"); 
+		 cellObj.innerHTML = '<input type="text" name="'+optionId+'" class="span4 con-inpt"><span class="maroon">*</span><span class="help-inline">最多只能输入30个字符。</span>';
+		 rowObj.appendChild(cellObj); 
+		 bodyObj.appendChild(rowObj); 
+//		 第二行
+		 bodyObj = tableObje.tBodies[0];
+		 rowObj = document.createElement("tr");
+		 cellObj = document.createElement("td"); 
+		 cellObj.innerHTML = '<span class="control-option">'+ stitleId +'</span>';
+		 rowObj.appendChild(cellObj); 
+		 cellObj = document.createElement("td"); 
+		 cellObj.innerHTML = '<input type="hidden" name="'+soptionId+'" relobj="'+otherId+'"><button class="btn select_img" rel="yyuc" relobj="elfinder" id="'+pheadpicId+'"  type="button">选择封面</button><span valign="top" style="line-height: 30px;color:gray;"> 建议尺寸：350像素 * 200像素</span>';
+		 rowObj.appendChild(cellObj); 
+		 bodyObj.appendChild(rowObj); 
+//		 第三行
+		 bodyObj = tableObje.tBodies[0];
+		 rowObj = document.createElement("tr");
+		 cellObj = document.createElement("td"); 
+		 cellObj.innerHTML = '&nbsp;';
+		 rowObj.appendChild(cellObj); 
+		 cellObj = document.createElement("td"); 
+		 cellObj.innerHTML = '<p class="img-area cover-bd" id="'+soptionId+'"><img src="http://www.weixinguanjia.cn/media/images/shop/mlogo.png" relobj="'+otherId+'" style="max-height: 100px;"></p>';
+		 rowObj.appendChild(cellObj); 
+		 bodyObj.appendChild(rowObj); 
+		 
+		 loadelfinder($("#categoryTable tr").eq(-2).find('button')); 
+    }
+    function DelRow(){
+        //删除一行
+      //获得行索引
+      //两个parentElement分别是TD和TR哟，rowIndex是TR的属性
+      //this.parentElement.parentElement.rowIndex
+         var getRow = window.event.srcElement.parentElement.parentElement.rowIndex;
+        categoryTable.deleteRow(getRow);
+    }
+   
+</script>
+<br/><br/><br/></body>
+</html>

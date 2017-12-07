@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>{$set->title}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="{$set->keywords}"/>
+<meta name="description" content="{$set->description}"/>
+<link rel="stylesheet" href="{$CSS}web/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="{$CSS}web/v3-framework.css" type="text/css" />
+<link href="{$CSS}web/style.css?v=1" rel="stylesheet" type="text/css">
+<link href="{$CSS}web/nav.css?v=1" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{$JS}web/jquery.SuperSlide.2.1.1.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0">
+
+</head>
+<body>
+
+
+{T head}
+<!-- 主内容 -->
+<input type="hidden" value="" id="CatalogInnerCode"/>
+<div class="banner_lun">
+	<div class="focusBox" style="margin:auto">
+		<ul class="ban_pic">
+			{loop $pics as $r}
+				<li><img src="{$r[src]}"/></li>
+			{/loop}
+		</ul>
+		<ul class="hd">
+			{loop $pics as $r}
+			<li></li>
+			{/loop}
+		</ul>
+</div>
+<script type="text/javascript">
+	/*SuperSlide图片切换*/
+	jQuery(".focusBox").slide({ mainCell:".ban_pic",effect:"fold", autoPlay:true, delayTime:600, trigger:"click"});
+</script>
+</div>
+
+<div class="main">
+<!--焦点图-->
+
+
+
+	<!-- <div class="p-b-md badge-lightGray">
+		<div class="swiper-container full-banner-swiper J-ajax-swiper m-t-xs">
+			<div class="swiper-wrapper mySwiper" style="z-index: 0;">
+				{loop $pics as $r}
+					<div class="swiper-slide text-center">
+						<a target="_blank" href="javascript:;" style="background-image:url({$r[src]})"></a>'
+					</div>
+				{/loop}
+					
+			</div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+			<div class="container pos-rlt J-paginationBox">
+				<div class="pagination text-center"></div>
+			</div>
+		</div>
+	</div> -->
+
+
+<!--焦点图结束-->
+
+<!--第一排-->
+	<div class="clearfix p-b-xl badge-lightGray">
+		<div class="container">
+			<div class="clearfix">
+				<div class="w352 pull-left mr42">
+					<div class="">
+						<h4 class="h4 con-tit font-bold">最新动态</h4>
+						<div class="index-box border-gray">
+							{loop $list1 as $r}
+							<div class="index-pic">
+								<a href="newsInfo-{$r->id}.html"><img src="{$r->pics}" alt="{$r->title}" class="img-responsive"></a>
+							</div>
+							<div class="index-info title-info clear imgBlurBox">
+								<img src="{$r->pics}" alt="{$r->title}" class="img-responsive imgBlur">
+								<p class="p-l-sm"><span><a href="newsInfo-{$r->id}.html">{$r->title}</a></span></p>
+							</div>
+							{/loop}
+						</div>
+					</div>
+				</div>
+				<div class="w352 pull-left">
+					<div class="">
+						<h4 class="h4 con-tit clearfix text-right"><a class="text-gray font14 titleMore" href="news.html" target="_blank">更多&gt;</a></h4>
+
+						<ul class="list-unstyled">
+							{loop $list as $r}
+							<li class="p-b">
+								<div class="font18 text-black m-b-xs">
+									<a class="ellipsis" href="newsInfo-{$r->id}.html" title="{$r->title}"  target="_blank" style="display: inline-block;max-width: 360px;{if $list1->title_col != "#FFFFFF"}color:{$list1->title_col}{/if}">{$r->title}...</a>
+								</div>
+								<div class="font15 text-gray">{$r->introduction}...<a href="newsInfo-{$r->id}.html" title="{$r->introduction}" target="_blank" class="primary">[详细]</a></div>
+							</li>
+							{/loop}
+						</ul>
+					</div>
+				</div>
+
+				<div class="w352 pull-right">
+					<div class="">
+						<h4 class="h4 con-tit font-bold"><div class="pull-right"><a class="text-gray font14 titleMore" href="product.html" target="_blank">更多&gt;</a></div>产品信息</h4>
+						<div class="index-box border-gray">
+							<div class="index-pic">
+								<a href="proInfo-{$chanp->id}.html"><img src="{$chanp->pics}" alt="{$chanp->name}" class="img-responsive"></a>
+							</div>
+							<div class="index-info title-info clear imgBlurBox">
+								<img src="{$chanp->pics}" alt="{$chanp->name}" class="img-responsive imgBlur">
+								<p class="p-l-sm"><span><a href="proInfo-{$chanp->id}.html">{$chanp->name}...</a></span></p>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--第一排结束-->
+<!--第二排-->
+	<div class="container">
+		<div class="">
+			<div class="clearfix m-b-lg m-t-md">
+				<div class="w352 pull-left mr42">
+					<div class="index-box" style="width: 356px;">
+						<h4 class="h4 con-tit font-bold">
+							<div class="pull-right J-tabMore" id="zhuan">
+								<a class="text-gray font14 titleMore" href="about.html" target="_blank">更多&gt;</a></div>
+							<div class="p-r-xs J-tabs tit-tabs">
+								<a class="text-gray font-bold active" href="#zhuan" data-toggle="tab">公司简介</a> 
+							</div>
+						</h4>
+						<div class="swiper-container  swiper-wrapper swiperTab-slide J-swiperTab border-gray div-shadow" style="height:295px">
+							<div class="swiper-slide swiperTab-slide ">
+								<div class="content-slide  mr-info index-pic">
+									<a href="dy-{$d->id}.html" target="_blank"><img src="{$d->pic}" alt="{$d->type}" class="img-responsive"></a>
+									<p></p>
+									<p class="p-r-sm p-l-sm">{$des}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="w352 pull-left">
+					<div class="index-box" style="width: 356px;">
+						<h4 class="h4 con-tit font-bold"><div class="pull-right"><a class="text-gray font14 titleMore" href="news-3.html" target="_blank">更多&gt;</a></div>案例展示</h4>
+						<div class="swiper-container swiper-wrapper border-gray div-shadow" style="height:295px;">
+							<div class="index-pic">
+								<a href="newsInfo-{$anli[0]->id}.html" target="_blank"><img src="{$anli[0]->pics}" alt="{$anli[0]->title}" class="img-responsive"></a>
+								<h4 class="p-r-xs p-l-sm"><a href="newsInfo-{$anli[0]->id}.html" target="_blank">{utf8_substraw($anli[0]->title,0,16)}...</a></h4>
+								<p class="p-r-xs p-l-sm">{utf8_substraw($anli[0]->introduction,0,40)}...</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="w352 pull-right">
+					<div class="index-box" style="width: 356px;">
+						<h4 class="h4 con-tit font-bold">
+							<div class="pull-right J-tabMore1" id="jing"><a class="text-gray font14 titleMore" href="news-9.html" target="_blank">更多&gt;</a></div>
+							<div class="p-r-xs J-tabs1 tit-tabs">
+								<a class="text-gray font-bold active1" href="#jing" data-toggle="tab">精彩视频</a> 
+							</div>
+						</h4>
+						<div class="swiper-container  swiper-wrapper swiperTab-slide J-swiperTab1 border-gray div-shadow" style="height:295px">
+							<div class="swiper-slide swiperTab-slide1" style="width:100%">
+								{loop $shipin as $r}
+								<div class="content-slide  mr-info index-pic">
+									<a class="videoIcon block" href="newsInfo-{$r->id}.html" target="_blank"><img src="{$r->pics}" alt="{$r->title}" class="img-responsive"></a>
+									<h4 class="p-r-sm p-l-sm"><a href="newsInfo-{$r->id}.html" target="_blank">{$r->title}</a></h4>
+									<p class="p-r-sm p-l-sm">{$r->introduction}</p>
+								</div>
+								{/loop}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--第二排结束-->
+
+<div class="picScroll_all">
+	<div class="hd">
+			<h2>店铺展示</h2>
+		</div>
+	<div class="picScrollss">
+		<ul>
+			{loop $list_shop as $r}
+			<li><a  target="_blank" href="product-{$r->id}.html"><img _src="{$r->pic}" src="{$r->pic}" /></a></li>
+			{/loop}
+		</ul>
+
+		<a class="prev" href="javascript:void(0)"></a>
+		<a class="next" href="javascript:void(0)"></a>
+	</div>
+</div>
+
+	<script type="text/javascript">
+jQuery(".picScrollss").slide({ mainCell:"ul", effect:"leftMarquee", vis:5, autoPlay:true, interTime:50, switchLoad:"_src" });
+	</script>
+
+	<div id="footer" class="footer mu-footer" style="margin-top:30px;">
+		<div class="footer-one">
+			<div class="container" style="padding:0px 50px;">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-3" style="width:236px;">
+								<h3>走进颐正</h3>
+								<ul>
+									<li>
+										<a href="about.html" target="_blank">企业简介</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-sm-3"  style="width:256px;">
+								<h3>热点聚焦</h3>
+								<ul>
+									<li>
+										<a href="news.html" target="_blank">新闻动态</a>
+									</li>
+									<li>
+										<a href="news-3.html" target="_blank">案例展示</a>
+									</li>
+									
+								</ul>
+							</div>
+							<div class="col-sm-3"  style="width:256px;">
+								<h3>健康产品</h3>
+								<ul>
+									<li>
+										<a href="product.html" target="_blank">产品简介</a>
+									</li>
+									
+								</ul>
+							</div>
+							<div class="col-sm-3"  style="width:256px;">
+								<h3>服务大厅</h3>
+								<ul>
+									<li>
+										<a href="dy-5.html" target="_blank">联系我们</a>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-second">
+			<div class="container"  style="padding:0px 50px;">
+				<!-- <div class="footer-nav">
+					<span> <a href="http://www.lkkhpg.com/" target="_blank">李锦记健康产品集团</a></span>
+					<span style="padding-left:15px;"> <a href="http://www.saic.gov.cn/" target="_blank">国家工商总局直销行业管理</a></span>
+					<span style="padding-left:15px;"> <a href="https://gbss.infinitus.com.cn/gbss-query/admin/gbss-query-admin/qualityRepor/dealerLogin" target="_blank"> 产品批次报告查询</a></span>
+					<span style="padding-left:15px;"> <a href="http://wwwimg.infinitus.com.cn/up/2014/0508/1399486867324.jpg" target="_blank">国际联网备案登记证书</a></span>
+				</div> -->
+				<div class="copyright">
+					{$set->copyright}
+					<a href="http://www.miitbeian.gov.cn/" target="_blank">[{$set->icp}]</a>
+					<a href="http://www.yzthealth.com/business/login.html" target="_blank" >理疗管理后台</a>
+					<a href="http://small.yzthealth.com/web/merchant.php?i=1" target="_blank" >商城管理后台</a>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

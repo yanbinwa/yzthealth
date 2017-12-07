@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="stylesheet" type="text/css" href="{$CSS}mwm/wcy/wei_canyin.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}mwm/wcy/wei_dialog.css" media="all" />
+    <title></title>
+    <script type="text/javascript" src="{$JS}mwm/wcy/wei_webapp_v2_common.js?w3dd"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no" />
+    <style>
+    .btn_3{ float: left; margin: 0px 4px;}
+    </style>
+</head>
+<body id="page_intelOrder" class="myOrderCon">
+<script>
+$(document).ready(function(){
+    var min_height = $(document).height() - 79;
+    $("#container").css({ "min-height":min_height});
+});
+</script>
+<div class="container">
+    <header id="container">
+        <div>
+            <select class="select_orderType" onchange="self.location.href=options[selectedIndex].value" >
+                <option value="order_wcy.html" {if $s==0} selected {/if} >-----全部-----</option>
+                <option  value="order_wcy.html?s=3" {if $s==3} selected {/if}>未付款，未就餐</option>
+                <option value="order_wcy.html?s=1" {if $s==1} selected {/if}>已付款，未就餐</option>
+                <option value="order_wcy.html?s=2" {if $s==2} selected {/if}>已付款，已就餐</option>
+            </select>
+        </div>
+        <div style="padding:10px 0;" id='list'>
+            <ul class="list_order">
+               {loop $orderlist as $v }
+               <li>
+                    <label style="float:none;" onclick="this.classList.toggle('on');">餐厅：{$v->lbs->name}&nbsp;预约时间：{$v->time_day} {$v->time_hour}:{$v->time_second} </label>
+				
+                    <ol>
+                        <p>订餐人：{$v->guest_name}</p>
+                        <p>订单状态：{$paystatus[$v->pay_status]} {$cfzt[$v->cfzt]} {$makesta[$v->makesta]} {$f_status[$v->f_status]}</p>
+						<p>就餐地址：{$v->address}</p>
+                        <p>付款方式：{$paytype[$v->pay_type]}</p>
+                        <table>
+							<thead>
+                                <tr>
+                                    <td colspan="3" style="font-size:16px;">我的菜单</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:33%">菜名</td>
+                                    <td style="width:20%">单价</td>
+                                    <td style="width:20%">数量</td>
+                                    <td style="width:27%">备注</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {loop $v->parr as $p}
+                            <tr>
+                                <td>{$p->name}</td>
+                                <td>{$p->price}元</td>
+                                <td>{$p->num}份</td>
+                                <td>{$p->description}</td>
+                            </tr>
+                            {/loop}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                 <td colspan="1" style="text-align:left; width:100%;">
+                                    {if $v->pay_status==0 && $v->f_status!=2}
+									<a href="checkOrder.html?aid={$aid}&oid={$v->id}" class="btn_3 confirm_order" >付款</a>
+                                     <!-- <a href="javascript:void(0);" url="payOrder.html?aid={$aid}" o_id="{$v->id}" pc_type="{$v->pay_type}"  class="btn_3 confirm_order" id="confirm_order">付款</a> -->
+                                    {/if}
+                                    {if $v->pay_status==0 && $v->cfzt==0 && $v->makesta==0 && $v->f_status==0}
+                                        <a href="javascript:;" orderid="{$v->id}" class="btn_3 control_order" >取消订单</a>
+                                    {/if}
+                                    {if $v->pay_status==1 && $v->cfzt==0 && $v->makesta==0 && $v->f_status==0}
+                                        <a href="javascript:;" orderid="{$v->id}" class="btn_3 refund_order" >申请退款</a>
+                                    {/if}
+                                 </td>
+                                 <td colspan="3" style="text-align:right;">
+                                        <label>总金额：<span class="red h5">{$v->total}元</span></label>
+                                 </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </ol>
+                </li>
+                {/loop}
+            </ul>
+        </div>
+    </header>
+
+<script>
+    window.selected = {
+            total:0,
+            dishes:{}
+   };
+</script>
+<script>
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+	WeixinJSBridge.call('hideOptionMenu');
+});
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.call('hideToolbar');
+    });
+
+    $(document).ready(function(){
+        //取消订单
+        $('.control_order').click(function(){
+            var oid = $(this).attr('orderid');
+            $.ajax({
+                url: '/wcy_yypk/myorder-del.html',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: oid},
+                success:function(ret){
+                     if(ret.status == 1){
+                        tusi(ret.msg);
+                        location.reload();
+                    }else{
+                        tusi(ret.msg);
+                        return false;
+                    }
+                    
+                }
+            }) 
+        })
+        //取消订单
+        $('.refund_order').click(function(){
+            var oid = $(this).attr('orderid');
+            $.ajax({
+                url: '/wcy_yypk/myorder-refund.html',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: oid},
+                success:function(ret){
+                     if(ret.status == 1){
+                        tusi(ret.msg);
+                        location.reload();
+                    }else{
+                        tusi(ret.msg);
+                        return false;
+                    }
+                }
+            }) 
+        })
+    });
+</script>
+</body>
+</html>

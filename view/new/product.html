@@ -1,0 +1,91 @@
+
+<html lang="">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$shop->name}_{$set->title}</title>
+    <meta name="keywords" content="{$set->keywords}" />
+    <meta name="description" content="{$set->description}" />
+	<link href="{$CSS}web/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css">
+	<link href="{$CSS}web/inner.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/menu.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/slider.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/index.css?v=10.6" rel="stylesheet">
+	<script type="text/javascript" src="{$JS}web/jquery-1.10.2.min.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/menu/mobile_menu.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/menu/main_menu.js?v=10.6"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0">
+    <style>
+.home-icon-2 img {
+    width: 60px;
+	height: 23px;
+	margin-bottom: 6px;
+}
+.inner-nav-1 { font-size:16px;}
+</style>
+</head>
+<body>
+	{T head}
+	<div style="left: 0px;" id="container">
+
+
+		<div class="container">
+
+
+			<div class="inner-nav-1">
+				<span class="home-icon-2">
+					<a href="index.html">
+						<img src="{$IMG}web/location.png" >
+					</a>
+				</span>
+				<a href="product.html">全部商品</a> &gt;
+				<span>{$shop->name}</span>
+			</div>
+
+
+
+			<div class="product-box">
+				<h2>{$shop->name}</h2>
+				<div class="product-fall">
+					<div class="fall-mainbox">
+						<div class="content">
+							<div id="device" class="gridalicious clearfix">
+								{loop $list as $r}
+								<div class="item ">
+									<div class="product-list">
+										<a href="proInfo-{$r->id}.html" data-lightbox="image-1" data-title="My caption">
+											<h4 class="text-center">{$r->name}</h4>
+											<p class="text-center">{$r->guige}</p>
+											<div class="mynews-pic"><img src="{$r->pics}"  alt="{$r->name}" class="img-responsive" /></div>
+										</a>
+									</div>
+								</div>
+								{/loop}
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- 分页条开始 -->
+				<div class="pageBar">
+					<div class="fenye">
+						<div class="ye-num">
+							{P p}
+						</div>
+					</div>
+				</div>
+				<!--  分页条结束-->
+
+			</div>
+
+		</div>
+	</div>
+
+{T footer}
+
+</body>
+</html>    
+    

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+<title>国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate-plugin.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>新建订单
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+                            <form action="" method="post" class="form-horizontal form-validate" id="transform" >
+
+                            	<div class="control-group">
+                                    <label class="control-label" for="keyword">用户账号:</label>
+                                    <div class="controls">
+                                    {$m->text('uname','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">用户手机号:</label>
+                                    <div class="controls">
+                                    {$m->hidden('mid','class="input-xlarge" required="required"')}
+                                    <span id="member-name"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">支付金额:</label>
+                                    <div class="controls">
+                                    {$m->text('total','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline">此金额为交易额的10%</span>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">商品名称:</label>
+                                    <div class="controls">
+                                    {$m->text('good_name','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+									<label class="control-label">销售凭证:</label>
+									<div class="controls">
+										<img class="thumb_img" src="{$m->voucher}" id="pic_pic" relobj="elfinder_nhyk" style="max-height:100px;" />
+										{$m->hidden('voucher',' relobj="elfinder_nhyk"')}
+										<span class="help-inline">
+											<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk" >上传</button>
+										</span>
+										<span class="maroon">*</span>
+                                        <span class="help-inline">请务必上传真实销售凭证</span>
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label">打款凭证:</label>
+									<div class="controls">
+										<img class="thumb_img" src="{$m->voucher2}" id="pic_pic" relobj="elfinder_nhyk2" style="max-height:100px;" />
+										{$m->hidden('voucher2',' relobj="elfinder_nhyk2"')}
+										<span class="help-inline">
+											<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk2" >上传</button>
+										</span>
+										<span class="maroon">*</span>
+                                        <span class="help-inline" style="color: red;font-weight:bold;font-size: 16px;">为了加快订单审核,请务必从转账凭证上清晰的标注"打款人姓名"和"会员登录名"及"会员姓名"</span>
+									</div>
+								</div>
+
+                               {if $supperAdminUser=="235"}
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">关联代理商：</label>
+                                    <div class="controls">
+                                         {$m->select($dailiarray,'belong_dlsid',array('class'=>"input-large chosen-select ",'data-placeholder'=>"关联代理商"),false)}
+                                        <span class="maroon"></span>
+                                        <span class="help-inline">关联到代理商之后此订单业绩归代理商</span>
+                                    </div>
+                                </div>
+								{/if}
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">确认下单</button>
+                                </div>
+                            </form>
+                        </div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+
+<script type="text/javascript" charset="UTF-8" src="{$JS}shop/sproductedit.js?dfaassdd2014"></script>
+<script>
+	$(function(){
+		$('#ordersuname').on('blur', function(event) {
+			$('#ordersmid').val('');
+			$('#member-name').html('');
+			var uname = $(this).val();
+			if (uname == '') return false;
+			$.getJSON('ajax.html', { uname:uname }, function(json, textStatus) {
+				if (json.success) {
+					$('#ordersmid').val(json.mid);
+					$('#member-name').html(json.memberName);
+				}
+			});
+		});
+
+		$('#orderspay_type').on('change', function(event) {
+			var total = $('#orderstotal').val();
+			var select = $(this).children('option:selected').val();
+			if (!total ) {
+				alert('请先填写订单总额');
+				return false;
+			}
+			var other,inte;
+			if (select == 2) inte = integral;
+			if (select == 3) inte = lgintegral;
+			other = total - inte > 0 ? total - inte : 0;
+			if (select != 1 ) {
+				//other = other ? other : 0;
+				$('#integral').html(inte);
+				$('#other').html(other);
+				$('#integral-group').css('display', 'block');
+			}else{
+				$('#integral-group').css('display', 'none');
+			}
+		});
+
+		$('#transform').submit(function(event) {
+			if ( $('#ordersmid').val() == '' ) {
+				alert('请填写有效的用户名');
+				return false;
+			}
+		});
+	})
+</script>
+</body>
+</html>

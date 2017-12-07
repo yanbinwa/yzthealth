@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8" />
+	
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+
+        <script type="text/javascript" src="{$JS}mwm/nhyk/mymain.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dcvalidate.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dater_min.js"></script>
+		
+		<script type="text/javascript" src="{$JS}mwm/nhyk/aSelect.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/aLocation.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+        <script>
+		
+		function loading(type){
+			if(type){
+				window.loader = new iDialog();
+				window.loader.open({
+					classList: "loading",
+					title:"",
+					close:"",
+					content:''
+				});
+			}else{
+					window.loader.die();
+					delete window.loader;
+			}
+		}
+
+
+
+
+        {if $optionrs[2]->is_must=='1'}
+	        $().ready(function(){
+	    		var yy = '{$m2->b_y}';
+	    		var mm = '{$m2->b_m}';
+	    		var dd = '{$m2->b_d}';
+	
+	    		if(yy=='') yy='1970' 
+	    		if(mm=='') mm='01' 
+	    		if(dd=='') dd='01' 
+	    			
+	    		new dater({
+	    			selectYear:document.getElementById("selectYear"),
+	    			selectMonth:document.getElementById("selectMonth"),
+	    			selectDate:document.getElementById("selectDate"),
+	    			
+	    			minDat: new Date("1900/1/1"),
+	    			maxDat: new Date(),
+	    			curDat: new Date(yy+"/"+mm+"/"+dd)
+	    			
+	    		}).init();
+	    	});
+        {/if}
+    	
+        $(function () {
+    		var sel = aSelect({
+    			data: aLocation});
+    		sel.bind('#selectProvince', '');
+    		sel.bind('#selectCity', '');
+    		sel.bind('#selectArea', '');
+    	})
+
+	function bd(){
+		var d = new iDialog();
+		d.open({
+			classList: "valid_phone bd",
+			title:"",
+			close:"",
+			content:'<ul class="list_ul_card">\
+				<form id="form2" action="javascript:;" method="post">\
+					<li data-card>\
+						<table>\
+							<tr class="input wrapInput">\
+								<td>\
+									<label class="pre" style="color:#333333;"> 实体卡手机号：</label> \
+								</td>\
+								<td style="width:100%;">\
+									<input type="text" id="entry_telephone" name="entry_telephone" placeholder="请输入手机号码" maxlength="15" class="input" />\
+								</td>\
+							</tr>\
+							<tr class="input wrapInput">\
+								<td style="width:100%;">\
+									<input type="text" placeholder="验证码：" id="entry_checkcode" name="entry_checkcode" maxlength="10" class="input" />\
+								</td>\
+								<td>\
+								<input type="button" onclick="getReceiveMemberCardVCode(this, event,\'form2\', \'entry_telephone\',2);" class="button vcode" value="获取验证码" />\
+								</td>\
+							</tr>\
+						</table>\
+					</li>\
+				</form>\
+			</ul>',
+			btns:[
+					{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+						submit2();
+					}},
+					{id:"", name:"取消", onclick:"fn.call();", fn: function(self){
+						self.die();
+					}}
+				]
+		});
+	}
+	
+	function submit2(){
+	   
+	    var submit_bool = true;
+	    var show_msg = [];
+	
+	
+		var form = document.getElementById("form2");
+		var entry_telephone = $("#entry_telephone").val();
+		var entry_checkcode = $("#entry_checkcode").val();
+		if(entry_telephone == ""){
+		    tusi("请输入手机号码");
+			return;
+			submit_bool = false ;
+		}
+		
+		if(entry_checkcode == "" || entry_checkcode.length != 6){
+         
+			tusi("验证码格式不正确");
+			return;
+			submit_bool = false ;
+		}
+        if(submit_bool==true){
+		   	loading('数据提交中...');
+			$.ajax({
+				url: "addMember-{bd}.html",
+				type:"POST",
+				data:$("#form2").serialize(),
+				dataType:"json",
+				success: function(res){
+					loading(false);
+					if(res.errno == 0){
+                     if(res.wd==6797969){
+						 alert(123);die;
+//						 alert(res.error, 1500);
+//						 redirect("/dz_wsc2/index.html?wid={$wid}&wxid={$wxid}",1500);
+					 }else{
+						 alert(res.error, 1500);
+						 redirect('index.html',1500);
+					 }
+
+					}else{
+						alert(res.error, 1500);
+						loading(false);
+					}
+				}
+			});
+
+        }
+		
+	}
+
+	function submit1(){
+	    var submit_bool = true;
+	
+		var form = document.getElementById("form1");
+		var name  = $("#micro_membercard_member_listname").val();
+		var phone = $("#micro_membercard_member_listphone").val();
+		
+		if(jmz.GetLength(name)<2){
+			tusi("请输入姓名");
+			return;
+			submit_bool = false ;
+		}
+		if(jmz.GetLength(phone)==0){
+	
+			tusi("请输入正确的手机号");
+			return;
+			 submit_bool = false ;
+		}
+		var checkcode = $("#micro_membercard_infomsg_check").val();
+		var validCode = $("#validCode").val();
+		
+		if(checkcode==0)
+		{
+			if(jmz.GetLength(validCode)==0){
+			
+				tusi("请输入正确的验证码");
+				return;
+				submit_bool = false ;
+			}
+	    }
+        if(submit_bool==true){
+		
+			loading('数据提交中...');
+			$.ajax({
+				url: "addMember.html",
+				type:"POST",
+				data:$("#form1").serialize(),
+				dataType:"json",
+				success: function(res){
+					loading(false);
+					if(res.errno == 0){
+
+							alert(res.error, 1500);
+							redirect('index.html',1500)
+
+					}else{
+						alert(res.error, 1500);
+						loading(false);
+					}
+				}
+			});
+        }
+
+	}
+
+	var jmz = {};
+	jmz.GetLength = function(str) {
+	    ///<summary>获得字符串实际长度，中文2，英文1</summary>
+	    ///<param name="str">要获得长度的字符串</param>
+	    var realLength = 0, len = str.length, charCode = -1;
+	    for (var i = 0; i < len; i++) {
+	        charCode = str.charCodeAt(i);
+	        if (charCode >= 0 && charCode <= 128) realLength += 1;
+	        else realLength += 2;
+	    }
+	    return realLength;
+	};
+</script>
+<div class="container info_tx">
+	<div class="body pt_10">
+		<ul class="list_ul_card">
+			<form id="form1" action="javascript:;" method="post">
+				<li data-card>
+					<header class="center">
+						<label style="display:inline-block;"><span>&nbsp;</span>填写会员卡资料</label>
+					</header>
+					<div class="forms">
+						<dl>
+							<dt>姓 名： </dt>
+							<dd>
+							   {$m->text('name','class="input" placeholder="请输入姓名" maxlength="30" ')}
+							</dd>
+						</dl>
+						<dl>
+							<dt>手 机：</dt>
+							<dd>
+							   {$m->text('phone','class="input" placeholder="请输入手机号码" maxlength="30" ')}
+							</dd>
+						</dl>
+						
+						
+						<!-- 系统字段性别是否必填-->
+						{if $optionrs[2]->is_must=='1'}
+						<dl>
+							<dt>生 日：</dt>
+							<dd>
+								<div class="box select_box">
+									<div>
+										<select name="birth_year" readonly="readonly" class="select" id="selectYear"    ><!--auth Eric_wu--></select>
+									</div>
+									<div>
+										<select name="birth_month" readonly="readonly" class="select" id="selectMonth"   ><!--auth Eric_wu--></select>
+									</div>
+									<div>
+										<select name="birth_date" readonly="readonly" class="select" id="selectDate"    ><!--auth Eric_wu--></select>
+									</div>
+								</div>
+							</dd>
+						</dl>
+						{/if}
+						
+						{if $optionrs[3]->is_must=='1'}
+						<dl>
+							<dt>性 别： </dt>
+							<dd>
+							 {$min->select(array('1'=>'男','2'=>'女'),'sex',array('class'=>"select",'style'=>'width:100%' ),false)}
+							</dd>
+						</dl>
+						{/if}
+						
+						
+					    {if $optionrs[4]->is_must=='1'}
+					     <dl>
+							<dt>地区:</dt>
+							<dd>
+								<div class="box select_box">
+									<div>
+										<select name="addr_prov" class="select" id="selectProvince"  ></select>
+									</div>
+									<div>
+										<select name="addr_city" class="select" id="selectCity"  ></select>
+									</div>
+									<div>
+										<select name="addr_area" class="select" id="selectArea"  ></select>
+									</div>
+								</div>
+							</dd>
+						</dl>
+						<dl>
+							<dt>详细地址:</dt>
+							<dd>
+							   {$min->text('s_addr','class="input" placeholder="请输入详细地址"  required="required"  maxlength="100" ')}
+							</dd>
+						</dl>
+						{/if}
+						
+					    {loop@ind $optionrs as $v}
+						  {if $ind>5}
+						   {if $v->is_must==1} 
+						   <dl>
+								<dt>{$v->option_name}：</dt>
+								<dd>
+								   {if $v->input_type==1}
+								       {$min->text("$v->tname",array('class'=>"input",'placeholder'=>"$v->option_value",'required'=>"required") )}
+								   {/if}
+								   {if $v->input_type==3}
+								       {$min->select($v->option_value,"$v->tname",array('class'=>"select",'style'=>'width:100%','required'=>'required' ),false)}
+								   {/if}
+								</dd>
+							</dl>
+							{/if}
+						 {/if}
+						{/loop}
+						
+						<!-- 系统字段性别是否必填-->
+												<!-- 系统字段生日是否必填-->
+												<!-- 系统字段地址是否必填-->
+										<!-- 自定义字段必填项-->
+						<hr />
+						{if $info->msg_check==0 || $info->cno_set==1}
+						<dl>
+							<dd>
+								<div class="group_input input">
+									<table>
+										<tr>
+											<td><input type="text" name="validCode" id="validCode" placeholder="验证码：" maxlength="10" class="input" /></td>
+											<td style="width:120px;">
+												<input type="button" onclick="getReceiveMemberCardVCode(this, event,'form1', 'micro_membercard_member_listphone',1);" class="button vcode" value="获取验证码" />
+											</td>
+										</tr>
+									</table>
+								</div>
+							</dd>
+						</dl>
+						{/if}
+						{$info->hidden('msg_check')}
+					</div>
+				</li>
+				<ul class="add_op">
+					<li style="padding:10px 0 0;">
+						<a href="javascript:submit1();" style="width:100%;">提&nbsp;&nbsp;&nbsp;交</a>
+					</li>
+					<li>
+						<a  href="javascript:bd();" class="btn_2" style="width:100%;">绑定已有实体卡</a>
+					</li>
+				</ul>
+			</form>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+		
+var intervalId,buttonObj;
+//发送下一条短信需要间隔的秒数
+var seconds = 60;
+function getReceiveMemberCardVCode(clickObj, evt, formId, teleName,stype){
+	var form = document.getElementById(formId);
+	var req = {
+		tel: $.trim($("#"+teleName).val())
+	}
+	if(!req.tel){
+	
+		tusi("请输入手机号");
+		return;
+	}
+	if(stype==2)  var url = "sendCode-{s}.html"
+	else  var url = "sendCode-{bs}.html"
+	clickObj.setAttribute("disabled", "disabled");
+	clickObj.value = "正在发送，请稍候...";
+	$.ajax({
+		url: url,
+		type:"post",
+		data:req,
+		dataType:"JSON",
+		success: function(res){
+			if(0 == res.errno){
+				clickObj.value = '验证码发送成功';
+				buttonObj = clickObj;
+				intervalId = setInterval("ticker()",1000);
+			}else{
+				clickObj.value = '获取验证码';
+				clickObj.removeAttribute("disabled");
+                tusi(res.error);
+                return ;
+			}
+		}
+	});
+}
+function ticker(){
+	seconds --;
+	if(seconds > 55){
+		//提示消息显示5秒钟
+	}else if(seconds>0){
+		buttonObj.value = seconds+"秒后可重新获取";
+	}else{
+		clearInterval(intervalId);
+		buttonObj.removeAttribute("disabled");
+		buttonObj.value = "获取验证码";
+		seconds = 60;
+		buttonObj = null;
+	}
+}
+</script>
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>   
+<div mark="stat_code" style="width:0px; height:0px; display:none;"></div>
+</body>
+</html>
+

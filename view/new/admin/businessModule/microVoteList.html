@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="{$CSS}admin/admin.css"> -->
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<title>我的活动</title>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box">
+                   <div class="box-title">
+                      <div class="span8">
+                        <h3 style="border-bottom: 0;"><i class="icon-table"></i>{$lbs->name}微投票活动</h3>
+                      </div>
+                   </div>
+		
+		<div class="box-content">
+		<div class="alert" style="font-size:15px;">
+		   <span class="member-count" >参与总数: <font color='red'>{$p->totalnum}</font>条</span> 
+		</div>
+<div>
+<form action="microVoteList-{$lbs->id}.html">
+手机号：
+{$tj->text('tel','style="margin-top: 10px;width:100px;" class="input-small-z"')}
+&nbsp;&nbsp;
+开始时间：
+{$tj->datetime('kssj','style="margin-top: 10px;width:140px;" class="input-small-z"')}
+&nbsp;&nbsp;结束时间：
+{$tj->datetime('jssj','style="margin-top: 10px;width:140px;" class="input-small-z"')}
+&nbsp;&nbsp;<button type="submit" class="btn">检索</button>
+
+<a href="microVoteRecordInfo-{$lbs->id}.html" class="btn btn-primary" rel="tooltip" title="数据检测">查看数据统计</a>
+{if Session::get('wid')=='56324'}
+<a href="http://www.weixinguanjia.cn/admin/newyy/hjzuopin.html" class="btn btn-primary" rel="tooltip" title="设置获奖作品">设置获奖作品</a>
+
+{/if}
+</form>
+
+</div>
+<!-- <div>总计：<B>{$p->totalnum}条/{$p->totalpage}页</B></div> -->
+<div class="row-fluid dataTables_wrapper">
+	<table class="table table-bordered table-hover dataTable">
+			<thead>
+				<tr>
+					<th>用户名称</th>
+					<th>用户电话</th>
+					<th>投票时间</th>
+					<th>投票</th>
+					<!-- <th>操作</th> -->
+				</tr>
+			</thead>
+			<tbody>
+			{loop $res as $r}			 
+			      <tr>
+						<td width="8%">{$r->un}</td>
+						<td width="12%">{$r->tel}</td>
+						<td width="16%">{$r->ctime}</td>
+						<td width="56%">
+						{if in_array('1',explode(',',$r->ans))}{$lbs->option1}{/if}
+						{if in_array('2',explode(',',$r->ans))}{$lbs->option2}{/if}
+						{if in_array('3',explode(',',$r->ans))}{$lbs->option3}{/if}
+						{if in_array('4',explode(',',$r->ans))}{$lbs->option4}{/if}
+						{if in_array('5',explode(',',$r->ans))}{$lbs->option5}{/if}
+
+						{if in_array('6',explode(',',$r->ans))}{$lbs->option6}{/if}
+						{if in_array('7',explode(',',$r->ans))}{$lbs->option7}{/if}
+						{if in_array('8',explode(',',$r->ans))}{$lbs->option8}{/if}
+						{if in_array('9',explode(',',$r->ans))}{$lbs->option9}{/if}
+						{if in_array('10',explode(',',$r->ans))}{$lbs->option10}{/if}
+
+						{if in_array('11',explode(',',$r->ans))}{$lbs->option11}{/if}
+						{if in_array('12',explode(',',$r->ans))}{$lbs->option12}{/if}
+						{if in_array('13',explode(',',$r->ans))}{$lbs->option13}{/if}
+						{if in_array('14',explode(',',$r->ans))}{$lbs->option14}{/if}
+						{if in_array('15',explode(',',$r->ans))}{$lbs->option15}{/if}
+
+						{if in_array('16',explode(',',$r->ans))}{$lbs->option16}{/if}
+						{if in_array('17',explode(',',$r->ans))}{$lbs->option17}{/if}
+						{if in_array('18',explode(',',$r->ans))}{$lbs->option18}{/if}
+						{if in_array('19',explode(',',$r->ans))}{$lbs->option19}{/if}
+						{if in_array('20',explode(',',$r->ans))}{$lbs->option20}{/if}
+
+						
+						</td>
+					<!-- 	<td></td> -->
+				  </tr>
+			{/loop}
+			</tbody>
+		</table>
+	<div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
+<script type="text/javascript">
+</script>
+<br/><br/><br/></body></html>

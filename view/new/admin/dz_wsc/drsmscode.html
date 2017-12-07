@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="{$CSS}admin/admin.css"> -->
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+<title>数据监测</title>
+
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script>
+function deldata(id,o){
+	if(confirm('删除后不能恢复，确定要删除？')){
+		ajax('drsmscode-del.html',{ id:id},function(){
+			location.href = location.href;
+		});
+	}
+}
+
+	   function qingkong(){
+			if(confirm('确定要清空？')){
+			    var url = "drsmscode-qk.html";
+				$.ajax({ url:url,type:'POST', data: { },dataType: "json", success: function(m){
+					   alert('删除成功');
+					   location.href = location.href;
+		  
+					}
+				});
+			}
+		}
+	 </script>
+<style>
+img.spec_photo{ width:60px;height:60px;vertical-align:middle; border:1px solid #ccc; margin:0 5px;}
+</style>
+</head>
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box">
+                   <div class="box-title">
+                      <div class="span12">
+                        <h3 style="border-bottom: 0;"><i class="icon-table"></i>充值卡密码导入</h3>
+                      </div>
+                   </div>
+		<div class="box-content">
+		    <div class="row-fluid">
+				    <div class="span8 control-group">
+					 {loop $llarray as $k=>$v}
+                     <a  class="btn"  href="javascript:dr({$k});"  ><i class="icon-cloud-upload"></i>{$v}</a>
+					 {/if}
+					 &nbsp;&nbsp;<a  class="btn"  href="javascript:qingkong();"  ><i class="icon-remove"></i>清空</a>
+					 
+					</div>
+					<div class="span4" style="text-align:right;">
+									
+					</div>
+			</div>
+							
+			<div class="alert" style="font-size:15px;">  
+				<span class="member-count" >充值卡密码总数: <font color='red'>&nbsp;&nbsp;{$allcount}</font></span> 
+				
+				{loop $llarray as $k=>$v}
+				<a  class="btn"  href="drsmscode-{$k}.html">{$v}</a>剩余：<font color='red'>{$ccarray[$k]['cc']}</font>
+				{/if}
+					 
+							
+			</div>
+			<div class="row-fluid dataTables_wrapper">
+				<table class="table table-bordered table-hover dataTable">
+						<thead>
+							<tr>
+							    <th>充值卡类型</th>
+								<th>充值卡密码</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						{loop $rs as $r}			 
+							  <tr>
+							        <td width="40%">{$llarray[$r->smstype]}</td>
+									<td width="40%">{$r->openid}</td>
+									<td width="10%">{$status[$r->status]}</td>
+									<td width="10%"> <a href="javascript:;" class="btn" onclick="deldata({$r->id},this)"><i class="icon-remove"></i>删除</a></td>
+							  </tr>
+						{/loop}
+						</tbody>
+					</table>
+				<div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+
+	
+	  <div id="myModaldr" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="Form1" action="drsmscode-{dr}.html" method="post" class="form-horizontal form-validate form-modal"  enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="icon-plus"></i>导入充值卡密码</h4>
+                    </div>
+                    <div class="modal-body">
+                          <div class="alert alert-info">每次最多只能导入1000条充值卡密码</div>
+                        <p>
+                            <label><a href="http://www.weixinguanjia.cn/bskdz/mycard.csv" target="_blank" class="green">下载模板文件smscode.csv</a></label>
+                        </p>
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <span class="btn btn-file"><span class="fileupload-new">选择文件</span><input type="file" name="filename" id="filename" /></span>
+                            <span class="fileupload-preview"></span>
+                            <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+                        </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<input type="hidden" id="snstype" name="snstype" />
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+	
+	 <script>
+	   var msg = '{$alert}';
+	   if(msg!='')
+		{
+			alert(msg);
+		}
+		
+	   function dr(id)
+	   {
+		   $("#snstype").val(id);
+	       $("#myModaldr").modal("show");
+	   }
+	
+	 </script>
+</body>
+</html>

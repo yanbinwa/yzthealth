@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/font_1459473269_4751618.css?<?php echo time();?>">
+    <link href="{$CSS}yangsheng2/bootstrap.min.css" rel="stylesheet">
+    <link href="{$CSS}yangsheng2/style.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <!-- <script src="{$JS}yangsheng2/jquery.min.js"></script> -->
+    <script src="{$JS}yangsheng2/bootstrap.min.js"></script>
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/menu_elastic.css" />
+    <style type="text/css" media="screen">
+        .fixedAreaBox {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 768px;
+    z-index: 9;
+}
+.fixedAreaBox {
+    display: block;
+}
+.fixedAreaBox .mallFixNavWrap {
+    border-top: 1px solid #ebebeb;
+    text-align: center;
+    background: #fff;
+    overflow: hidden;
+}
+.fixedAreaBox .mallNavBtn {
+    display: inline-block;
+    float: left;
+    width: 33%;
+    height: 5rem;
+    line-height: 5rem;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.mallCartBtn {
+    float: left;
+    display: inline-block;
+    width: 15.6%;
+    height: 3rem;
+    font-size: .45rem;
+    color: #666;
+}
+.mallCartBtn {
+    display: inline-block;
+}
+.fixedAreaBox .mallNavBtnText {
+    height: 100%;
+    width: 100%;
+    line-height: 5rem;
+    border-left: 1px solid #ebebeb;
+    color: #494949;
+    font-size: 1.4rem;
+    white-space: nowrap;
+}
+
+    </style>
+</head>
+<body class="huibg">
+<div class="vipcenter">
+    <div class="vipheader">
+        <a href="javascript:;">
+            <div class="touxiang"><img src="{$fans->headimg}" alt=""></div>
+            <div class="name">{$fans->nickname}</div>
+            <div class="gztt">{if $member->status==0}未认证{elseif $member->status==1}审核中{elseif $member->status==2}认证会员{elseif $member->status==3}认证失败{/if}，已关注</div>
+        </a>
+    </div>
+    <div class="vipsan">
+        <div class="col-xs-4 text-center"><a ><h4>已完成</h4><p>{$orders_arr_num}</p></a></div>
+        <div class="col-xs-4 text-center"><a ><h4>佣金</h4><p>{$member->total}</p></a></div>
+        <div class="col-xs-4 text-center"><a ><h4>待落实</h4><p>{$orders_array_num}</p></a></div>
+    </div>
+    <ul class="vipul">
+        <li>
+            <a href="#">
+                <div class="icc"><i class="iconfont icon-xitongmingpian"></i></div>
+                <div class="lzz">自媒体商城认证</div>
+                {if $member->status==0}
+                <div class="rizi lvzi" id="identification">去认证</div>
+                {elseif $member->status==1}
+                <div class="rizi lvzi">审核中</div>
+                {elseif $member->status==2}
+                <div class="rizi lvzi">已认证</div>
+                {elseif $member->status==3}
+                <div class="rizi lvzi" id="identification">认证失败</div>
+                {/if}
+            </a>
+        </li>
+        <!--<li>
+            <a href="shopOrder.html">
+                <div class="icc"><i class="iconfont icon-huodongfj"></i></div>
+                <div class="lzz">商城订单</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li>-->
+        <li>
+            <a href="ddcenter.html">
+                <div class="icc"><i class="iconfont icon-liebiao"></i></div>
+                <div class="lzz">理疗订单</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li>
+        <li>
+            <a href="mycoupan.html">
+                <div class="icc"><i class="iconfont icon-liebiao"></i></div>
+                <div class="lzz">优惠券</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li> 
+        {if $renzmember->id}
+        <li>
+            <a href="withdrawCash-{$renzmember->id}.html">
+                <div class="icc"><i class="iconfont icon-jifenx"></i></div>
+                <div class="lzz">申请提现</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li> 
+        <li>
+            <a href="withdrawlist-{$renzmember->id}.html">
+                <div class="icc"><i class="iconfont icon-liebiao"></i></div>
+                <div class="lzz">提现记录</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li>         
+        {/if}               
+        <!--<li>
+            <a href="userinfo.html">
+                <div class="icc"><i class="iconfont icon-yonghux"></i></div>
+                <div class="lzz">个人信息</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li>
+        <li>
+            <a href="/nhyk/myaddr.html">
+                <div class="icc"><i class="iconfont icon-chakangonglve"></i></div>
+                <div class="lzz">收货地址</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li>-->
+    </ul>
+</div>
+    <div id="fixedAreaBox" class="fixedAreaBox">
+        <div class='mallFixNavWrap '>
+            <a class='mallNavBtn mallCartBtn' href='/wx/yangsheng.html' title='首页'>
+                <div class='mallNavBtnText mallCartCol'>
+                    <span class='icon-mallNavBtnText'></span>
+                    <span class='mallNavText'>首页</span></div>
+            </a>
+            <a class='mallNavBtn mallCartBtn' href='/wx/apply.html' title='申请合作'>
+                <div class='mallNavBtnText mallCartCol'>
+                    <span class='icon-mallNavBtnText'></span>
+                    <span class='mallNavText'>申请合作</span></div>
+            </a>
+            <a class='mallNavBtn myOrderBtn' href='user.html' title='个人中心'>
+                <div class='mallNavBtnText myOrderCol'>
+                    <span class='icon-mallNavBtnText'></span>
+                    <span class='mallNavText'>个人中心</span></div>
+            </a>
+        </div>
+    </div>
+<!-- <script src="{$JS}yangsheng2/classie.js"></script>
+<script src="{$JS}yangsheng2/main3.js"></script> -->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+    $('#identification').click(function(event) {
+        location.href="m_LRProflies.html";
+    });
+</script>
+</body>
+</html>

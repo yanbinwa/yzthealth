@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>我的账户</title>
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<link rel="stylesheet" href="{$CSS}admin/admin.css">
+<style>
+.username{
+	padding-top: 4px;
+	display: inline-block;
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+<h3>我的账户修改</h3>
+	<form id="accountform" action="#" method="post" class="form-horizontal">
+	  {$user->hidden('id')}
+	  <div class="control-group">
+	    <label class="control-label">用户名 :</label>
+	    <div class="controls">
+	      <span class="username">{$user->un}</span>
+	    </div>
+	  </div>
+	   <div class="control-group">
+	    <label class="control-label">会员级别 :</label>
+	    <div class="controls">
+	      <span class="username">
+	     {translate_level($user->level_id)}
+	      </span>
+	    </div>
+	  </div>
+	   <div class="control-group">
+	    <label class="control-label">到期时间 :</label>
+	    <div class="controls">
+	      <span class="username">{if $user->mendtime == 0}
+	      [永久免费]
+          {else}
+          {$user->mendtime}
+          {/if}
+	      </span>
+	    </div>
+	  </div>
+	   <div class="control-group">
+	   <label class="control-label">升级级别 :</label>
+	    <div class="controls">
+	      <span class="username">
+	        {if $user->next_level_id==''}
+	        [暂无]
+	        {else}
+	        {translate_level($user->next_level_id)}
+	        {/if}
+	      </span>
+	    </div>
+	  </div>
+	   <div class="control-group">
+	    <label class="control-label">未来到期时间 :</label>
+	    <div class="controls">
+	    <span class="username">{if $user->next_mendtime == 0}
+	                       [暂无]
+	       {else}
+	       {$user->next_mendtime}
+	      {/if}
+	      </span>
+	    </div>
+	  </div>
+	  
+	  <div class="control-group">
+	    <label class="control-label" for="newpwd">手机 :</label>
+	    <div class="controls">
+	      {$user->text('telephone')}
+	      <span class="maroon">*</span><span class="help-inline"></span>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="renewpwd">邮箱 :</label>
+	    <div class="controls">
+	     {$user->email('email')}
+	      <span class="maroon">*</span>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="renewpwd">qq :</label>
+	    <div class="controls">
+	    {$user->text('qq',' noneed="1"')}
+	      <span class="maroon">*</span>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <div class="controls">
+	      <button id="submit-btn" type="submit" class="btn btn-primary">保存</button>
+	      <button id="return-btn" type="button" class="btn">返回</button>
+	    </div>
+	  </div>
+	</form>
+</body></html>
+<script type="text/javascript">
+$(function(){
+	$("#accountform").submit(function(){
+		var cansv= true;
+		$(this).find('input[type="text"]').each(function(){
+			if($.trim($(this).val())=='' && $(this).attr('noneed')!='1'){
+				cansv = false;
+				$(this).css('backgroundColor','yellow');
+				$(this).one('focus',function(){
+					$(this).css('backgroundColor','transparent');
+				});
+			}
+		});
+		if(!cansv){
+			tusi('请将信息填写完整');
+			return false;
+		}
+	});
+});
+</script>

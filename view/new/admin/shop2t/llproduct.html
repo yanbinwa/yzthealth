@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>微信管家—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript">
+function deldata(id,o){
+	if(confirm('删除后不能恢复，确定要删除？')){
+		ajax('sproduct-del.html',{ id:id},function(){
+			location.href = location.href;
+		});
+	}
+}
+function down(id,o){
+		ajax('sproduct-down.html',{ id:id},function(){
+			location.href = location.href;
+		});
+}
+function up(id,o){
+	ajax('sproduct-up.html',{ id:id},function(){
+		location.href = location.href;
+	});
+}
+function dlproduct()
+{
+      $("#downloadpro").text("下载中...").addClass("disabled").attr("disabled", "disabled");
+	        var datainfo = {
+					    
+		    };
+			
+            $.ajax({
+                    url: "llproduct-dl.html",
+                    type: "post",
+                    dataType: 'json',
+                    data: datainfo,
+                    success: function (data) {
+                        G.ui.tips.info(data.error); 
+                        $("#downloadpro").text("下载商品").removeClass("disabled").removeAttr("disabled");
+                        location.reload(true);
+                    },
+                    error: function () {
+                        alert("下载失败....");
+                        $this.text("重试").removeClass("disabled").removeAttr("disabled");
+                    }
+          });
+}
+</script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>理疗管理
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+						    {if $isfx==2}
+								<div class="alert">
+								    {if $promcc==0}
+									<span class="member-count">您的总部暂无理疗更新！</span>
+									{else}
+									  您的总部有新产品上架啦！您有：<span class="member-count"><a style="font-size:16px;color:red" href="###" >&nbsp;&nbsp;{$promcc}&nbsp;&nbsp;</a></span>件商品未下载，请马上下载哦~  &nbsp;&nbsp;<button onclick="dlproduct()" id="downloadpro" class="btn btn-primary"><i class="icon-arrow-down"></i>下载理疗</button>
+									{/if}
+								</div>
+							{/if}
+							
+							<div class="row-fluid">
+								<div class="span8 control-group">
+									<a href="llproductadd.html" class="btn"><i class="icon-plus"></i>添加理疗</a>
+								</div>
+								<div class="span4" style="text-align:right;">
+									<form action="" class="form-horizontal form-validate">
+										<input type="text" value="" name="title" id="title" value="{$title}" class="input-large" placeholder="请输入理疗名称"><button class="btn">查询</button>
+									</form>
+								</div>
+								
+								
+								
+							</div>
+							<div class="row-fluid dataTables_wrapper">
+
+								<table id="listTable" class="table table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+										    <th width="2%"><input type="checkbox"  /></th>
+										    <th width="8%" >理疗图片</th>
+											<th width="15%" >理疗名称</th>
+<!-- 											{if $unid==''}
+<th width="10%">团购/分销</th>
+{/if} -->
+											<th width="5%">总库存</th>
+											<th width="5%">总销量</th>
+											<th width="5%">排序</th>
+											<!-- <th width="10%">推荐类型</th> -->
+											<th width="10%">创建时间</th>
+											{if $unid!=''}
+											<th width="10%">审核</th>
+											{/if}
+											<th width="20%">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									{loop $res as $r}
+									<tr>	
+									     <td class="with-checkbox"><input type="checkbox" name="check" value="{$r->id}" /></td>		
+									     <td><img class="thumb_img" src="{$r->pic}"  onclick="window.open($(this).attr('src'))" style="max-height:40px;cursor:pointer;"></td>						  
+									     <td>{$r->name}</td>
+<!-- 										 {if $unid==''}
+											 {if $r->istuan == 1}
+												 <td>团购{if $r->is_fx == 1}
+												   <a style="color:green">分销<a>
+												  {/if} </td>
+												  
+											 {else}
+												<td>非团购{if $r->is_fx == 1}
+												   <a style="color:green">分销<a>
+												  {/if} </td>
+												
+											 {/if}
+{/if} -->
+									     <td>{$r->store_nums}</td>
+									     <td>{$r->sale_nums}</td>
+									      <td>{$r->sort}</td>
+									     <!-- <td>{$zx[$r->zx]}&nbsp;{$tj[$r->tj]}&nbsp;{$rm[$r->rm]}&nbsp;{$tuij[$r->tuij]}&nbsp;{$wptj[$r->wptj]}&nbsp;{$zgtj[$r->zgtj]}</td> -->
+									     <td>{$r->create_time}</td>
+										 {if $unid!=''}
+										  <td>
+											{if $r->sh_status ==0}
+											<span class="label label-satblue">未审核</span>
+											{elseif $r->sh_status ==1}
+											<span class="label label-satgreen">通过</span>
+											
+											{else}
+											<span class="label label-lightred">不通过</span>
+											{/if}
+										</td>	
+										{/if}
+										
+									     <td>
+									     	<a href="llproductadd-{$r->id}.html" class="btn"><i class="icon-edit"></i></a>
+									      									        <!-- {if $r->status==0}
+									      									        									        <a href="javascript:;" class="btn" onclick="down({$r->id},this)" title="点击下架"><i class="icon-arrow-down"></i></a>
+									      									        									        {else}
+									      									        									        <a href="javascript:;" class="btn" onclick="up({$r->id},this)" title="点击上架"><i class="icon-arrow-up"></i></a>
+									      									        									        {/if} -->
+									          <a href="llspcomm-{$r->id}.html" class="btn">{$r->cc}<i class="icon-comment-alt"></i></a>
+									        
+									           <a href="javascript:;" class="btn" onclick="deldata({$r->id},this)"><i class="icon-remove"></i></a>
+									     </td>
+									</tr>
+									{/loop}
+									</tbody>
+								</table>
+								<div class="row-fluid dataTables_wrapper">
+                                     <div class="dataTables_paginate paging_full_numbers"><span>{P p}</span></div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    </body>
+</html>

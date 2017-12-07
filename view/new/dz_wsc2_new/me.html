@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!-- saved from url=(0102)http://mobile.yangkeduo.com/personal.html?ts=1453969580881&at=7d9bc080c3d6b27accb88bad2ff41ec5f45efd83 -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="/css/weui/dist/style/weui.min.css" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wsc/style.css?v=<?php echo time();?>" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wsc/me.css?v=<?php echo time();?>" />
+
+    <title>{$model->title}</title>
+</head>
+
+<body>
+    <style>
+    .footer li {
+        width: 25%;
+    }
+    </style>
+    <section class="main-view container" avalonctrl="root" style="visibility: visible;">
+        <div class="my my_head">
+            <div class="my_head_pic">
+                <img id="uinLogo" class="my_head_img" src="{$userInfo['headimgurl']}">
+            </div>
+            <div class="my_head_info">
+                <h4 id="nickname" class="my_head_name ">{$userInfo['nickname']}</h4>
+            </div>
+        </div>
+       <div class="my_menu">
+            <ul>
+                
+                <li class="tiao" data-url="/nhyk/myaddr.html" onclick="location.href='/nhyk/myaddr.html'"><span class="m2">收货地址</span></li>
+                <li class="tiao" data-url="/nhyk/index.html" id="sCouponLi" onclick="location.href='/nhyk/index.html'"><span class="m3">会员卡<i id="couponNum"></i></span></li>
+                <!-- li class="tiao" data-url="http://weigou.qq.com/wkd/messages/show/cid-cc_idc_212794?_fna=y&amp;jobName=ImmediateMessageTemplate_N_idc1242266_247142"><span class="m5">帮助中心</span></li-->
+            </ul>
+        </div>
+       
+        {if $model->is_useyhj == 1}
+       <style>
+        .my_yhj{
+            border: 1px solid #ccc;
+            border-left: none;
+            border-right: none;
+            background: #fff;
+            padding: 10px 0px;
+            text-align: center;
+            margin-bottom: 5px;
+
+        }
+        .my_yhj li span{
+            color: red;
+        }
+       </style>
+        <div class="my_yhj">
+            <ul>
+                <li class="tiao" data-url="/yhj/my.html" onclick="location.href='/yhj/my.html'"><span class="m2">我的优惠券</span></li>
+            </ul>
+        </div>
+         
+        {/if}
+        
+        <style>
+        .nav_item_bd a {
+            width: 19.9%;
+        }
+        </style>
+        <div class="nav">
+            <div class="nav_item nav_order">
+                <div class="nav_item_order_hd">
+                    <div class="nav_item_order">我的订单</div>
+                   <!--  <div class="nav_item_order_bd" onclick="window.location.href='myorder.html'">查看全部订单</div> -->
+
+                </div>
+                <div class="nav_item_bd">
+                    <a href="me.html" {if $is_all==1}class="select"{/if}>
+                        <div class="nav_item_order_img order_all"></div>
+                        <span class="nav_item_txt">全部
+                        
+                        </span>
+                    </a>
+                    <a href="me-2.html" {if $is_pending==1}class="select"{/if}>
+                        <div class="nav_item_order_img order_unpay"></div>
+                        <span class="nav_item_txt">待付款
+                        <?php if ($countNoPay): ?>
+                        <i class="nav_item_num"><?php echo $countNoPay ?></i>   
+                        <?php endif ?>
+                        </span>
+                    </a>
+                    
+                    <a href="me-3.html" {if $is_send == 1}class="select"{/if}>
+                        <div class="nav_item_order_img order_unsend"></div>
+                        <span class="nav_item_txt">{if $wid == '6765368' || $wid == '6781364'}{$wlzt[0]}{else}待发货{/if}
+                        <?php if ($countReceive): ?>
+                        <i class="nav_item_num"><?php echo $countReceive ?></i>   
+                        <?php endif ?>
+                        </span>
+                    </a>
+                    <a href="me-4.html" {if $is_receipt==1}class="select"{/if}>
+                        <div class="nav_item_order_img order_unreceived"></div>
+                        <span class="nav_item_txt">{if $wid == '6765368' || $wid == '6781364'}{$wlzt[1]}{else}待收货{/if}<!--ms-if--></span>
+                    </a>
+                   
+                    <a href="me-5.html" {if $is_isOver==1}class="select"{/if}>
+                        <div class="nav_item_order_img order_all"></div>
+                        <span class="nav_item_txt">已完成<!--ms-if--></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <ul class="nav_list_order">
+                {loop $order as $dl}
+                    <li class="yddddmdiv{$dl->id} nav_list_order_li">
+                        <div class="selected">
+                            <ul>
+                                <li>
+                                    <span class="left ddid">订单号:{$dl->id}</span>
+                                    <span class="right xdtime">下单时间:{$dl->create_time}</span>
+
+                                </li>
+                                <li>
+                                    <span id="rginfoId">
+                                        <span class="shdz">
+                                            总价:￥{$dl->jg}&nbsp;&nbsp;&nbsp;运费:￥{$dl->yf}
+                                        </span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span id="rginfoId">
+                                        <span class="shdz">
+                                            状态: {$zfzt[$dl->status]},
+
+                                                        {$wlzt[$dl->wlstatus]}
+
+                                            &nbsp;&nbsp;&nbsp;
+                                        </span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <strong>
+                                        <span class="shshr">{$dl->shr}</span>
+                                    </strong>
+                                        <span class="shdh">{$dl->phone}</span>
+                                </li>
+                                {if $dl->wlstatus !='0' }
+                                <li class="error" id="noToneTip">
+                                    <a href="/dz_wsc2/ddlistwl-{$dl->id}.html" >点击查看物流状态</a>
+                                </li>
+                                {/if}
+                            </ul>
+                            {if $dl->wlstatus=='0' && $dl->status=='0' && $dl->pay_type!='0'}
+                                <div onclick="deldd({$dl->id})" class="del_order">
+                                X
+                                </div>
+                            {/if}
+                            
+                            {if $wid == '6781364'}
+
+                            {else}
+                                {if $dl->wlstatus!='0' && $dl->isover=='0'}
+                                    <div style="float:right">
+                                        <button onclick="okdd({$dl->id},this)">确认收货</button>
+                                    </div>
+                                {/if}
+
+                            {/if}
+                            
+                           
+                            {if strtotime($dl->completion_time .'+7 days') >= time()}
+                                {if $dl->wlstatus == '1' && $dl->status == '1' && $dl->isover!='0' && $dl->pay_type != '0'}
+                                    <div style="float:right">
+                                            <button onclick="drawback1({$dl->id})">申请退款</button>
+                                    </div>
+                                {/if}
+                               
+                            {/if}
+                            {if $dl->wlstatus == '1' && $dl->status == '3' && $dl->isover!='0'}
+                            <div class="error" id="noToneTip">
+                                <a href="javascript:;" >退款中</a>
+                            </div>
+                            {/if}
+                            {if $dl->wlstatus == '1' && $dl->status == '4' && $dl->isover!='0'}
+                             <div class="error" id="noToneTip">
+                                <a href="javascript:;" >退款成功</a>
+                            </div>
+                            {/if}
+                            {if $dl->wlstatus == '1' && $dl->status == '5' && $dl->isover!='0'}
+                             <div class="error" id="noToneTip">
+                                <a href="javascript:;" >退款拒绝</a>
+                               <!--  <button onclick="drawback({$dl->id},this)">申请退款</button> -->
+                            </div>
+                            {/if}  
+                       
+                                
+                        </div>
+
+                        {loop $dl->glist as $gl}
+                            <div id="bindJd{$dl->id}" class="account_tips account_tips{$dl->id}">
+                                <div class="imgfl">
+                                    {if $gl->tuan == 1}
+                                        <a href="javascript:void(0);" id="bindJdBtn" class="btn_bind"  onclick="location.href='/dz_wsc2/tuanpro-{$gl->pid}.html'">
+                                    {else}
+                                        <a href="javascript:void(0);" id="bindJdBtn" class="btn_bind"  onclick="location.href='/dz_wsc2/pro-{$gl->pid}.html'">
+                                    {/if}
+                                            <img alt="" src="{$gl->pic}" style="height: 60px; max-width:60px"/>
+                                        </a>
+                                </div>
+                                <div class="ccbox">
+                                    <span class="shshr">{$gl->name}</span>
+                                    <br>
+                                    <span class="shdh">￥{$gl->dj} x {$gl->num}</span>
+                                </div>
+                               
+                                <div class="clear"></div>
+                             
+                                {if $dl->wlstatus!='0' && $dl->isover=='0'}
+                                    <p class="has">
+                                        <input type="text" placeholder="输入评价内容，可以为空" pid="{$gl->pid}" class="pjdinpk">
+                                    </p>
+                                {/if}
+                            </div>
+                        {/loop}
+                    </li>
+                {/loop}
+            </ul>
+        </div>
+    </section>
+
+<div id="orderConfirm" style="display:none">
+    <div class="weui_dialog_confirm">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd"><strong class="weui_dialog_title">是否退款</strong></div>
+            <div class="weui_dialog_bd">是否退款</div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:;" class="weui_btn_dialog default" onclick="$('#orderConfirm').hide();return false;" >取消</a>
+                <a href="javascript:;" class="weui_btn_dialog primary" onclick="drawOrder();">确定</a>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+    <script type="text/javascript">
+        function deldd(id){
+          if(confirm('确定删除该订单吗？')){
+              ajax('ddlistmg-del.html',{ id:id},function(m){
+                  if(m=='ok'){
+                      $('.yddddmdiv'+id).remove();
+                      window.location.reload();
+                  }
+              });
+          }   
+        }
+
+        function okdd(id,o){
+          if($('.account_tips'+id).is(':hidden')){
+              $('.account_tips'+id).show();
+              tusi('请评价产品');
+          }else{
+              var cs = [];
+              $('.account_tips'+id).find('.pjdinpk').each(function(){
+                  if($.trim($(this).val())!=''){
+                      cs[cs.length] = [$(this).attr('pid'),$.trim($(this).val())];
+                  }
+              });
+              ajax('ddlistmg-ok.html',{ id:id,data:$.toJSON(cs)},function(m){
+                  if(m=='ok'){
+                      tusi('确认成功');
+                      $(o).parent().remove();
+                      window.location.reload();
+                  }
+              });
+          }  
+        }
+        function drawback(id,o){
+            if(confirm('确定申请退款吗？')){
+   
+                ajax('ddlistmg-drawback.html',{ id:id,data:$.toJSON(cs)},function(m){
+                  if(m=='ok'){
+                      tusi('申请成功');
+                      $(o).parent().remove();
+                      window.location.reload();
+                  }
+                });
+            }
+               
+        }
+
+        function drawback1(id){ 
+            window.oid= id;
+            $("#orderConfirm").show();
+        }
+        function drawOrder() {
+            ajax('ddlistmg-drawback.html',{ id:window.oid},function(m){
+              if(m=='ok'){
+                  tusi('申请成功');
+                 
+                  window.location.reload();
+              }
+            });
+        }
+    </script>
+    <div class="hoverCart" style="display:none">
+        <a href="#">0</a>
+    </div>
+    {T tp2}
+</body>
+</html>

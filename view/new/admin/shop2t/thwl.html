@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>
+   物流查询    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c4.css">
+    <script type="text/javascript">
+    localStorage.lastbuy = null;
+    localStorage.lastbuynum = null;
+    </script>
+  </head>
+  <body>
+  <div id="content">
+        <div id="c_wg.jdpay_show" style="">
+            <div class="wx_bar">
+                <div class="wx_bar_back">
+                    <a id="indexBack" href="javascript:history.go(-1);">
+                    </a>
+                </div>
+                <div class="wx_bar_tit">
+                                                  订单物流跟踪
+                </div>
+            </div>
+            <div class="wx_wrap">
+            {if empty($result->data)}
+            <div id="bindJd" class="account_tips" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                    <p class="has">
+                                                           物流信息不存在
+                    </p>
+            </div>
+            {else}
+            <div id="sendTo" class="send_to" dzid="2">
+                    <div class="address_defalut" style="padding: 10px 10px ">
+                       <table width="100%" border="0" cellspacing="0" cellpadding="0" id="showtablecontext" style="border-collapse:collapse;border-spacing:0;">
+						    <tbody>
+						    <tr>
+						        <td width="35%" style="background:#64AADB;border:1px solid #75C2EF;color:#FFFFFF;font-size:14px;font-weight:bold;height:28px;line-height:28px;text-indent:15px;">
+						            时间
+						        </td>
+						        <td width="75%" style="background:#64AADB;border:1px solid #75C2EF;color:#FFFFFF;font-size:14px;font-weight:bold;height:28px;line-height:28px;text-indent:15px;">
+						            地点和跟踪进度
+						        </td>
+						    </tr>
+						    {loop $result->data as $v}
+							<tr>
+									<td width="35%" style="border:1px solid #DDDDDD;font-size:12px;line-height:22px;padding:3px 5px;">{$v->time}
+									</td>
+									<td width="75%"  style="border:1px solid #DDDDDD;font-size:12px;line-height:22px;padding:3px 5px;">
+										{$v->context}
+									</td>
+							</tr>
+							{/loop}
+						   </tbody>
+						</table>
+                    </div>
+                </div>
+            {/if}               
+            </div>
+        </div>
+    </div>
+  
+  
+   
+    <!--foot-->
+    <div class="wx_footer">
+        {T /_wf}
+    </div>
+     <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</body>
+  
+
+</html>

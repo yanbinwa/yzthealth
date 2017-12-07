@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/css/wm/uploadify_t.css" media="all" />
+    <title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+    <script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+    <script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+    <script type="text/javascript" src="{$JS}jscolor.js"></script>
+    <script type="text/javascript" src="{$JS}inside.js"></script>
+    <style type="text/css">
+    	.medium{
+    		width:500px;
+    		height:240px;
+    	}
+    </style>
+</head>
+
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+    <div class="container-fluid">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box">
+                    <div class="box-title">
+                        <div class="span10">
+                            <h3><i class="icon-edit"></i>发布营销推广文章</h3>
+                        </div>
+                        <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                    </div>
+
+                    <div class="box-content">
+                        <form action="" method="post" class="form-horizontal form-validate" id="faForm" >
+                         	<div class="control-group">
+                                <label for="name" class="control-label">标题：</label>
+                                <div class="controls">
+                                    {$m->text('title','class="input-xlarge" required="required" data-rule-maxlength="40" ')}
+                                    <span class="maroon">*</span>
+                                </div>
+                            </div>
+                           
+                            <div class="control-group">
+                                <label for="note" class="control-label">内容 ：</label>
+                                <div class="controls">
+                                	{$m->textarea('content','class="medium"')}
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button id="save-btn" type="submit" class="btn btn-primary ">保存</button>
+	                            <button type="button" class="btn" onclick="window.location='tglist.html'">取消</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#faForm").submit(function () {
+        var cansv = true;
+        $(this).find('input[type="text"]').each(function () {
+            if ($.trim($(this).val()) == '') {
+                cansv = false;
+                $(this).css('backgroundColor', 'yellow');
+                $(this).one('focus', function () {
+                    $(this).css('backgroundColor', 'transparent');
+                });
+            }
+        });
+        if (!cansv) {
+            tusi('请将信息填写完整');
+        }
+        return cansv;
+    });
+</script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>颐正国际养生堂连锁店</title>
+    <link href="img/favicon.ico" type="image/x-icon" rel=icon>
+    <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/default.css"/>
+
+</head>
+<body>
+
+<link type="text/css" rel="stylesheet" href="{$CSS}wxy/user_info.css"/>
+<div class="admin-bc">
+	<div class="base" id="debug">
+		<div class="l1" onclick="">
+			<img class="small-cloud" async-src="{$IMG}wx/small-cloud.png" height="22" width="73"
+				 src="img/small-cloud.png">
+			<img class="big-cloud" async-src="{$IMG}wx/big-cloud.png" height="35" width="115"
+				 src="img/big-cloud.png">
+			<img class="head-photo" async-src="{$IMG}wx/admin-photo.png" height="77" width="77"
+				 src="img/admin-photo.png">
+		</div>
+		<div id="user_phone" class="l3"
+			 onclick="document.querySelector('#AlertMask').classList.toggle('active');"></div>
+
+	</div>
+</div>
+<div id="actions">
+	<a href="/getOrderList" class="nav_button pointer"><i class="my-order-i"></i><span>我的订单</span></a>
+	<a href="/getCouponList" class="nav_button pointer"><i class="my-coupon-i"></i><span>优惠券</span></a>
+	<a href="/cardList" class="nav_button pointer"><i class="my-vip-i"></i><span>会员卡</span></a>
+	<a href="/aboutus" class="nav_button pointer"><i class="about-us-i"></i><span>关于我们</span></a>
+	<a href="javascript:;" class="nav_button pointer" id="logoutBtn"><i class="logout-i"></i><span>退出登录</span></a>
+</div>
+<div class="space3" style="height:60px; text-align: left">
+	<a href="/llt" style="font-size: 20px; color: #ededed">ccc</a>
+</div>
+<div id="concat">
+	<a class="medium_button default" href="tel:4006546000">
+		联系客服
+	</a>
+
+	<p>工作时间： 10:00 — 22:00</p>
+</div>
+<div class="space4"></div>
+
+<div class="bottomMenu">
+    <table>
+        <tr>
+            <td class="bottom_menu" lang="1">
+                <img lang="home" src="{$IMG}wx/home.png" alt="" id="ft_btn1"/>
+            </td>
+            <td class="bottom_menu" lang="2">
+                <img lang="try" src="{$IMG}wx/try.png" alt="" id="ft_btn2"/>
+            </td>
+            <td class="bottom_menu" lang="3">
+                <img lang="myorder" src="{$IMG}wx/myorder.png" alt="" id="ft_btn3"/>
+            </td>
+            <td class="bottom_menu" lang="4">
+                <img lang="people" src="{$IMG}wx/people.png" alt="" id="ft_btn4"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="bottom_menu" lang="1" id="ft_btn_title1">
+                首页
+            </td>
+            <td class="bottom_menu" lang="2" id="ft_btn_title2">
+                技师
+            </td>
+            <td class="bottom_menu" lang="3" id="ft_btn_title3">
+                订单
+            </td>
+            <td class="bottom_menu" lang="4" id="ft_btn_title4">
+                我的
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
+
+

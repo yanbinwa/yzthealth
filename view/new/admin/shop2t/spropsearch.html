@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{$CSS}shop.css" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+<title>管理后台</title>
+
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate-plugin.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}shop/spropsearch.js"></script>
+
+</head>
+<body style="width:700px;min-height:400px;" class="{Session::get('maintheme')}">
+<div class="pop_win">
+	<p>
+		<button type="button" class="btn f_r" onclick="addSpec()"><span class="add">增加规格项</span></button>
+		1、增加规格项或选择规格标签 >> 2、添加需要的规格值 >> 保存
+	</p>
+
+	<!--规格按钮-->
+	<ul class="tab"></ul>
+
+
+	<table class="spec" width="95%" cellspacing="0" cellpadding="0" border="0">
+
+		<!--全部的规格,水平样式规格-->
+		<tr>
+			<td id="horizontalBox"></td>
+		</tr>
+
+		<!--已存在的规格,垂直样式规格-->
+		<tr>
+			<td>
+				<div class="cont" id="verticalBox" style='display:none'>
+					<table class="border_table" width="100%">
+						<thead>
+							<tr>
+								<th>规格值</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

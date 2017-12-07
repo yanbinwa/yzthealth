@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	  <script type="text/javascript" src="{$JS}jQuery.js?2014-02-24-4"></script>
+	  <title></title>
+ 
+	<script src="{$JS}bootstrap_min.js" type="text/javascript"></script>
+	<script src="{$JS}jquery_validate_min.js" type="text/javascript"></script>
+	<script src="{$JS}jquery_validate_methods.js" type="text/javascript"></script>
+	<script src="{$JS}jquery_form_min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?key=24ffad3855e675265336a4cfb46d32b4&amp;v=1.1&amp;services=true"></script>
+
+		
+	</head>
+<body class="{Session::get('maintheme')}">
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span12">
+                                <h3><i class="icon-cog"></i>首页频道编辑</h3>
+                            </div>
+                        </div>
+                        <form  method="post" class="form-horizontal form-validate" onsubmit="return checkinfo();">
+                        	{$m->hidden('id')}
+                            <div class="box-content">
+
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">频道名称:</label>
+                                    <div class="controls">
+                                    {$m->text('name','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">频道图：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->banner}" id="pic_pic" relobj="elfinder_img" style="max-height:100px;" />
+											{$m->hidden('banner',' relobj="elfinder_img"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="img" >选择封面</button>
+												<span class="help-inline">建议尺寸：120*80</span>
+											</span>
+										</div>
+								</div>
+                           
+                         
+								
+								
+                                <div id="res_block">
+                                    <div class="control-group">
+                                        <label class="control-label">类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话','map'=>'导航'),'type',array('class'=>'input-medium'))}
+                                         
+                                         <input type="hidden" id="types" value="{$m->type}" />
+                                         <!--  {$m->select(array('link'=>'链接','tel'=>'电话','map'=>'导航','activity'=>'活动','business'=>'业务模块','car'=>'微汽车','estate'=>'微房产','food'=>'微餐饮','shop'=>'微商城','tg'=>'微团购'),'type',array('class'=>'input-medium'))} -->
+                                        </div>
+                                    </div>
+                                    {if $m->type}
+                                    <div class="control-group r-module {if $m->type =='link'} {else} hide {/if}" id="r_link">
+                                        <div class="control-group">
+                                            <label for="source_url" class="control-label">页面URL</label>
+                                            <div class="controls">
+                                              <div class="input-prepend">
+									              <span class="add-on">Url</span>
+									                {$m->text('url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+									          </div>                                               
+									          <span class="maroon">*</span><span class="help-inline">(必填,必须是正确的URL格式)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="control-group r-module {if $m->type =='tel'} {else} hide {/if}" id="r_tel">
+                                        <div class="control-group">
+                                            <label for="tel" class="control-label">电话号码</label>
+                                            <div class="controls">
+                                                <div class="input-prepend">
+									              <span class="add-on">Tel</span>
+									               {$m->text('tel',array("class"=>'input-xlarge',"data-rule-required"=>'true'));}
+									            </div>
+                                                <span class="maroon">*</span><span class="help-inline">(必填,必须是正确的号码)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="control-group r-module {if $m->type =='map'} {else} hide {/if}" id="r_map">
+	                                    <div class="control-group">
+	                                        <label for="suggestId" class="control-label">经纬度</label>
+	                                        <div class="controls">
+	                                            <div class="input-append">
+	                                                 {$m->text('place',array("class"=>'input-xlarge',"data-rule-required"=>'true'));}
+	                                                <button id="positioning" type="button" class="btn">搜索</button>
+	                                            </div>
+	                                            <span class="maroon">注意：这个只是模糊定位，准确位置请地图上标注!</span>
+	                                            <div id="l-map">
+	                                                <i class="icon-spinner icon-spin icon-large"></i>地图加载中...
+	                                            </div>
+	                                            <div id="r-result">
+	                                                {$m->text('jd',array("class"=>'input-xlarge',"data-rule-required"=>'true'));}
+	                                                {$m->text('wd',array("class"=>'input-xlarge',"data-rule-required"=>'true'));}
+	                                            </div>
+	                                        </div>
+	                                    </div>
+                                    </div>
+                                    {else}
+                                    <div class="control-group r-module" id="r_link">
+                                        <div class="control-group">
+                                            <label for="source_url" class="control-label">页面URL</label>
+                                            <div class="controls">
+                                              <div class="input-prepend">
+									              <span class="add-on">Url</span>
+									                {$m->text('url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+									          </div>                                               
+									          <span class="maroon">*</span><span class="help-inline">(必填,必须是正确的URL格式)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="control-group r-module hide" id="r_tel">
+                                        <div class="control-group">
+                                            <label for="tel" class="control-label">电话号码</label>
+                                            <div class="controls">
+                                                <div class="input-prepend">
+									              <span class="add-on">Tel</span>
+									               {$m->text('tel',array("class"=>'input-xlarge',"data-rule-required"=>'true'));}
+									            </div>
+                                                <span class="maroon">*</span><span class="help-inline">(必填,必须是正确的号码)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="control-group r-module hide" id="r_map">
+	                                    <div class="control-group">
+	                                        <label for="suggestId" class="control-label">经纬度</label>
+	                                        <div class="controls">
+	                                            <div class="input-append">
+	                                                 {$m->text('place',array("class"=>'input-xlarge',"data-rule-required"=>'true'));}
+	                                                <button id="positioning" type="button" class="btn">搜索</button>
+	                                            </div>
+	                                            <span class="maroon">注意：这个只是模糊定位，准确位置请地图上标注!</span>
+	                                            <div id="l-map">
+	                                                <i class="icon-spinner icon-spin icon-large"></i>地图加载中...
+	                                            </div>
+	                                            <div id="r-result">
+	                                                {$m->text('jd',array("class"=>'input-xlarge'));}
+	                                                {$m->text('wd',array("class"=>'input-xlarge'));}
+	                                            </div>
+	                                        </div>
+	                                    </div>
+                                    </div>
+                                    {/if}
+                                    
+									<div class="control-group">
+										<label class="control-label" for="keyword">排序:</label>
+										<div class="controls">
+										{$m->text('px','class="input-large" required="required"')}
+										<span class="maroon">*</span>
+										<span class="help-inline">数字越大越靠前</span>
+										</div>
+									</div>
+                                    
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">保存</button>
+                                        <button onclick="window.history.go(-1)" class="btn" type="button">取消</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
+
+<div id="fallr-overlay"></div>
+</body>
+<script type="text/javascript">
+$(function () {
+         var resource = Resource.create();
+         var ins = Resource.instance['res_block'];
+         ins.result = ins.result || {};
+         ins.result.wuid = $('#aid').val();
+                     window.ICON(); 
+     
+});  
+window.document.onkeydown = function(e) {
+		if ('' == document.activeElement.id) {
+				var e=e || event;
+ 				var currKey=e.keyCode || e.which || e.charCode;
+				if (8 == currKey) {
+					return false;
+				}
+		}
+};
+function checkinfo()
+{
+	if (!$("#z02_index_channelname").val()) {
+	        G.ui.tips.info("名称不能为空");
+	        return false;
+	}
+	if ($("#z02_index_channeltype").val()=='link') {
+		if (!$("#z02_index_channelurl").val()) {
+	        G.ui.tips.info("页面URL不能为空");
+	        return false;
+	    }
+    }
+	if ($("#z02_index_channeltype").val()=='tel') {
+		if (!$("#z02_index_channeltel").val()) {
+	        G.ui.tips.info("电话号码不能为空");
+	        return false;
+	    }
+    }
+	 return true;
+}
+
+
+</script>
+<script src="{$JS}resource_member55.js" type="text/javascript"></script>
+<script src="{$JS}inside.js" type="text/javascript"></script>
+<script type="text/javascript" src="{$JS}comm.js"></script>
+<script>
+var types = $("#types").val();
+if(types=='map')
+{
+	//是否从未保存过定位信息，如果从未保存过，并且有填地址信息，那么进入页面后自动定位
+	var located = true;
+	//定位坐标
+	var destPoint = new BMap.Point($('#z02_index_channeljd').val(),$('#z02_index_channelwd').val());
+	$(function(){		
+		/**开始处理百度地图**/
+		var map = new BMap.Map("l-map");
+		map.centerAndZoom(new BMap.Point(destPoint.lng, destPoint.lat), 12);//初始化地图
+		map.enableScrollWheelZoom();
+		map.addControl(new BMap.NavigationControl());
+		var marker = new BMap.Marker(destPoint);
+		map.addOverlay(marker);//添加标注
+		
+		map.addEventListener("click", function(e){
+			if(confirm("确认选择这个位置？")){
+				destPoint = e.point;
+				$('#z02_index_channeljd').val(destPoint.lng);
+				$('#z02_index_channelwd').val(destPoint.lat);
+				map.clearOverlays();
+				var marker1 = new BMap.Marker(destPoint);  // 创建标注
+				map.addOverlay(marker1); 
+			}
+		});
+		
+		
+		
+		var myValue;
+
+		var local;
+		function setPlace(){
+		    map.clearOverlays();    //清除地图上所有覆盖物
+		    local = new BMap.LocalSearch(map, { //智能搜索
+		      renderOptions:{ map: map}
+		    });
+		    located = true;
+		    local.setMarkersSetCallback(callback);
+		    local.search(myValue);
+		}
+		
+		function addEventListener(marker){
+			marker.addEventListener("click", function(data){
+				destPoint = data.target.getPosition(0);
+			});
+		}
+		function callback(posi){
+			$("#z02_index_channelplace").removeAttr("disabled");
+			for(var i=0;i<posi.length;i++){
+				if(i==0){
+					destPoint = posi[0].point;
+				}
+				posi[i].marker.addEventListener("click", function(data){
+					destPoint = data.target.getPosition(0);
+				});  
+			}
+		}
+		
+		
+		$("#positioning").click(function(){
+			if($("#z02_index_channelplace").val() == ""){
+				alert("请输地址！");
+				return ;
+			}
+			$("#locate-btn").prop("disabled",true);
+			local = new BMap.LocalSearch(map, { //智能搜索
+				renderOptions:{ map: map}
+			});
+			located = true;
+			local.setMarkersSetCallback(callback);
+			local.search($("#z02_index_channelplace").val());
+			return false;  
+		});
+	});
+}
+</script> 
+</html>

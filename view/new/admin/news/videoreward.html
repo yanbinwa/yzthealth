@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<!-- <link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" /> -->
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+
+
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+
+
+
+ <script type="text/javascript" src="{$JS}jquery_ui_widget_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+ <script type="text/javascript" src="{$JS}jquery_form_wizard_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<link rel="shortcut icon" href="/favicon.ico" />
+<style>
+.form-horizontal .control-label{
+	font-weight:normal;
+}
+</style>
+</head>
+<body>
+	    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-bar-chart"></i>打赏统计</h3>
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+
+                        <div class="box-content">
+                        	<div class="alert" style="font-size:15px;">
+                                <span class="member-count" style="margin-left: 30px;color: red">打赏总人数：{$countren} &nbsp;&nbsp;打赏总金额：{$countprice} 元</span>
+                            </div>
+                            <ul id="mytab" class="nav nav-tabs">
+                                <li class="active"><a href="#userinfo" data-toggle="tab">打赏数据</a></li>
+                              
+                            </ul>
+                              <div class="tab-content">
+ 
+                                    <div class="tab-pane dataTables_wrapper active" id="userinfo">
+
+                                        <div class="main-title">
+                                            <h3>打赏记录</h3>
+                                            <!-- <a class="btn" id="toexcel" href="toexcel-{$yid}.html"><i class="icon-circle-arrow-down"></i>导出Excel</a> -->
+                                        </div>
+ 
+                                        <div id="testlist">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>序号</th>
+                                                        <th>用户名</th>
+                                                        <th>打赏金额</th>
+                                                        <th>打赏时间</th>
+	                                                </tr>
+			                                    </thead>
+                                                <tbody><?php $i=0;?>
+                                                {loop $res as $r}
+                                                <?php $i++;?>
+                                                 <tr>
+													<td>{$i}</td>
+													<td>{$r->nickname}</td>
+                                                    <td>{$r->rewardprice}</td>
+                                                    <td>{date('Y-m-d H:i:s',$r->rewardtime)}</td>
+												</tr>
+												{/loop}
+                                                </tbody>
+                                            </table>
+<div class="dataTables_paginate paging_full_numbers">{P p}</div>
+                                           
+                                        </div>
+
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+ </body>
+
+<script type="text/javascript">
+    function dellbs(id,o){
+        if(id=='a'){
+            if(confirm('确定删除这些活动信息吗？')){
+                var ids = [];
+                $('td').find('input[type="checkbox"]:checked').each(function(){
+                    ids[ids.length] = $(this).val();
+                });
+                ajax('videoreward-del.html',{ id:ids.join(',')},function(){
+                    $('td').find('input[type="checkbox"]:checked').each(function(){
+                        $(this).parent().remove();
+                    });
+                });
+            }
+        }else{
+            if(confirm('确定删除此条活动信息吗？')){
+                ajax('videoreward-del.html',{ id:id},function(){
+                    $(o).parent().parent().remove();
+                });
+            }
+        }
+    }
+</script>
+
+
+</html>

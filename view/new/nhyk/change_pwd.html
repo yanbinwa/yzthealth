@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>   
+<head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<script type="text/javascript" src="{$JS}mwm/nhyk/mymain.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/aSelect.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/aLocation.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dater_min.js"></script>
+		
+        <title>修改支付密码</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+        <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+        <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+        <meta content="no-cache" http-equiv="pragma">
+        <meta content="0" http-equiv="expires">
+        <meta content="telephone=no, address=no" name="format-detection">
+        <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+
+
+    <body onselectstart="return true;" ondragstart="return false;">
+<div class="container info_tx">
+	<div class="body pt_10">
+		<ul class="list_ul_card">
+			<form id="form1" action="" method="post">
+				<li data-card>
+					<header class="center">
+						<label style="display:inline-block;"><span>&nbsp;</span>修改支付密码</label>
+					</header>
+					<div class="forms">
+						<dl>
+							<dt>原始密码： </dt>
+							<dd>
+								<input type="password" name="oldpassword" id=""  value="{$m->password}" placeholder="第一次修改可不填" maxlength="30" required="required"  class="input"/>
+							</dd>
+						</dl>
+						<dl>
+							<dt>新的密码： </dt>
+							<dd>
+								<input type="password" name="password" id=""   placeholder="请输入新密码" maxlength="30" required="required" class="input"/>
+							</dd>
+						</dl>
+						<dl>
+							<dt>确认密码： </dt>
+							<dd>
+								<input type="password" name="repassword" id="" placeholder="确认密码" maxlength="30" required="required" class="input"/>
+							</dd>
+						</dl>
+				</li>
+				<div class="pt_10 pb_10">
+					<button type="submit"  class="button" style="width:100%">提&nbsp;&nbsp;&nbsp;交</button>
+				</div>
+			</form>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+		
+//发送下一条短信需要间隔的秒数
+
+
+</script>
+      <div mark="stat_code" style="width:0px; height:0px; display:none;"></div>
+	</body>
+</html>
+

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/helper_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+			<style>
+				.fuck{
+
+				}
+			</style>
+
+
+</head>
+    
+    <body onselectstart="return true;" ondragstart="return false;">
+<script type="text/javascript" src="{$JS}LocalResizeIMG.js"></script>
+<script type="text/javascript" src="{$JS}mobileBUGFix_min.js"></script>
+    <script>
+    $(function(){
+    	$('#file_img').localResizeIMG({
+            width: 150,
+            quality: 0.9,
+            success: function(result) {
+    		  $('#head_img').attr({ src:result.base64});
+    		  $.post("/nhyk/add_headimg.html", { wxid: "{$wxid}", wid: "{$wid}",img:result.base64 },
+    				   function(data){
+    				     alert(data,1000);
+    				   });
+              //$("input[name='input_file']").val( result.base64) ;
+            }
+        });
+    });
+</script>	
+        <script>
+	function bd2(){
+		var d = new iDialog();
+		d.open({
+			classList: "valid_phone pay",
+			title:"",
+			close:"",
+			content:'<ul class="list_ul_card">\
+					<form id="form3" action="javascript:;" method="post">\
+						<li data-card>\
+							<table>\
+								<tr class="input wrapInput">\
+									<td style="width:70%;"><input type="number" name="telephone1" placeholder="发送至原手机号" maxlength="15" class="input"></td>\
+									<td>\
+										<input type="button" onclick="getVCode(this, event,\'form3\', \'telephone1\');" class="button vcode" value="获取验证码" />\
+									</td>\
+								</tr>\
+								<tr class="input wrapInput">\
+									<td>\
+										<label class="pre ml_5" style="color:#333333;"> 新手机号码：</label> \
+									</td>\
+									<td style="width:100%;">\
+										<input type="tel" name="telephone2" placeholder="请输入手机号码" maxlength="15" class="input" />\
+									</td>\
+								</tr>\
+								<tr class="input wrapInput">\
+									<td style="width:70%;"><input type="number" placeholder="发送至新手机号" maxlength="30" class="input"></td>\
+									<td>\
+										<input type="button" onclick="getVCode(this, event,\'form3\', \'telephone2\');" class="button vcode" value="获取验证码" />\
+									</td>\
+								</tr>\
+							</table>\
+						</li>\
+					</form>\
+				</ul>',
+			btns:[
+				{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+					var form3 = document.getElementById("form3");
+					var obj = {
+						code:form2.code.value
+					};
+					loading(true);
+					$.ajax({
+						url: "data/bd_tel_new.json",
+						type:"post",
+						data:obj,
+						dataType:"JSON",
+						success: function(res){
+							loading(false);
+							if(1 == res.result){
+								self.die();
+								alert("成功", 1500);
+							}else{
+								alert("失败", 1500);
+							}
+						}
+					});
+				}},
+				{id:"", name:"取消", onclick:"fn.call();", fn: function(self){
+					self.die();
+				}}
+			]
+		});
+	}
+
+
+	function bd1(){
+		var d = new iDialog();
+		d.open({
+			classList: "valid_phone pay",
+			title:"",
+			close:"",
+			content:'<ul class="list_ul_card">\
+					<form id="form1" action="javascript:;" method="post">\
+						<li data-card>\
+							<table>\
+								<tr class="input wrapInput">\
+									<td>\
+										<label class="pre ml_5" style="color:#333333;"> 手机号码：</label> \
+									</td>\
+									<td style="width:100%;">\
+										<input type="tel" name="telephone2" placeholder="请输入手机号码" maxlength="15" class="input" />\
+									</td>\
+								</tr>\
+								<tr class="input wrapInput">\
+									<td style="width:70%;"><input type="number" placeholder="发送至新手机号" maxlength="30" class="input"></td>\
+									<td>\
+										<input type="button" onclick="getVCode(this, event,\'form3\', \'telephone2\');" class="button vcode" value="获取验证码" />\
+									</td>\
+								</tr>\
+							</table>\
+						</li>\
+					</form>\
+				</ul>',
+			btns:[
+				{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+					var form3 = document.getElementById("form3");
+					var obj = {
+						code:form2.code.value
+					};
+					loading(true);
+					$.ajax({
+						url: "data/bd_tel_new.json",
+						type:"post",
+						data:obj,
+						dataType:"JSON",
+						success: function(res){
+							loading(false);
+							if(1 == res.result){
+								self.die();
+								alert("成功", 1500);
+							}else{
+								alert("失败", 1500);
+							}
+						}
+					});
+				}},
+				{id:"", name:"取消", onclick:"fn.call();", fn: function(self){
+					self.die();
+				}}
+			]
+		});
+	}
+</script>
+<div class="container my">
+	<header>
+		<div class="header">
+			<a href="editMemberInfo.html" class="setting">&nbsp;</a>
+			<div>
+				<ul class="tbox">
+					<li>
+						<span id="upload_header">
+						{if $m->head_pic}
+						<img id="head_img"src="{$m->head_pic}" />
+						{else}
+						<img id="head_img"src="../media/images/mwm/nhyk/4.png" />
+							{/if}							
+							<input type="file" accept="image/jpeg, image/jpg, image/png" id="file_img" />
+
+						</span>
+
+
+					</li>
+					<li>
+						<h3>{$m->name}</h3>
+						<p><sban>&nbsp;</sban>{$m->grade}</p>
+						{if $wid==6797969}
+						<lable class="fuck">{$fuck[$m->member_level]}</lable>
+						{/if}
+					</li>
+				</ul>
+			</div>
+			<div>
+				<ul class="box">
+					{if $wid==6765368 || $wid==6780484||$wid==6788906}
+					<li>
+						<a href="myCoupon.html">
+							<label>优惠券</label>
+							<span>{$yhq}</span>
+						</a>
+					</li>
+					<li>
+						<a href="myVoucher.html">
+							<label>代金券</label>
+							<span>{$djq}</span>
+						</a>
+					</li>
+					<li>
+						<a href="bill.html">
+							<label>U币余额</label>
+							<span>{$m->balance}</span>
+						</a>
+						
+					</li>
+					{else}
+					<li>
+						<a href="myCoupon.html">
+							<label>优惠券</label>
+							<span>{$yhq}</span>
+						</a>
+					</li>
+					<li>
+						<a href="myVoucher.html">
+							<label>代金券</label>
+							<span>{$djq}</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="scorelist-1.html">
+							<label>积分</label>
+							<span>{$m->integral}</span>
+						</a>
+					</li>
+					<li>
+						
+						<a href="bill.html">
+							<label>余额</label>
+							<span>{$m->balance}</span>
+						</a>
+					</li>
+					{/if}
+				</ul>
+			</div>
+		</div>
+	</header>
+	<div class="body">
+		<ul class="list_ul">
+			<div>
+				{if $wid==6765368 || $wid==6780484||$wid==6788906}
+					<li class="li_v">
+						<a href="order.html"><label class="label"><i>&nbsp;</i>我的订单<span>&nbsp;</span></label></a>
+					</li>
+					<li class="li_s">
+						<a href="myCoupon.html"><label class="label"><i>&nbsp;</i>我的优惠券<span>&nbsp;</span></label></a>
+					</li>
+					<li class="li_t">
+						<a href="myVoucher.html"><label class="label"><i>&nbsp;</i>我的代金券<span>&nbsp;</span></label></a>
+					</li>
+					<li class="li_u">
+						<a href="myexchangecoupon.html"><label class="label"><i>&nbsp;</i>我的礼品券<span>&nbsp;</span></label></a>
+					</li>
+					<li class="li_x">
+						<a href="myexchangeactivity.html"><label class="label"><i>&nbsp;</i>我的活动<span>&nbsp;</span></label></a>
+					</li>
+					{if $info->yu_e_pay==1 }
+					<li class="li_w">
+						<a href="change_pwd.html"><label class="label"><i>&nbsp;</i>修改会员卡支付密码 <span>&nbsp;</span></label></a>
+					</li>
+					{/if}
+				{else}
+					<li class="li_s">
+						<a href="myCoupon.html"><label class="label"><i>&nbsp;</i>我的优惠券<span>&nbsp;</span></label></a>
+					</li>
+					<li class="li_t">
+						<a href="myVoucher.html"><label class="label"><i>&nbsp;</i>我的代金券<span>&nbsp;</span></label></a>
+					</li>
+					<li class="li_u">
+						<a href="myexchangecoupon.html"><label class="label"><i>&nbsp;</i>我的礼品券<span>&nbsp;</span></label></a>
+					</li>
+					<li class="li_x">
+						<a href="myexchangeactivity.html"><label class="label"><i>&nbsp;</i>我的活动<span>&nbsp;</span></label></a>
+					</li>
+			
+					<li class="li_v">
+						<a href="bill.html"><label class="label"><i>&nbsp;</i>我的账单<span>&nbsp;</span></label></a>
+					</li>
+					{if $info->yu_e_pay==1 }
+					<li class="li_w">
+						<a href="change_pwd.html"><label class="label"><i>&nbsp;</i>修改会员卡支付密码 <span>&nbsp;</span></label></a>
+					</li>
+					{/if}
+				{/if}
+			</div>
+			<div>
+				<li class="li_o">
+					<label class="label"><i>&nbsp;</i>收货地址<a href="myaddr.html" class="button">管  理</a></label>
+				</li>
+				<li class="li_w">
+					<label class="label">
+							<i>&nbsp;</i>
+							{$m->phone}	<a href="editMemberInfo.html" class="button">绑定新号码</a>
+					</label>
+				</li>
+			</div>
+		</ul>
+	</div>
+	{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-4.html}
+		{elseif $wid==6765368 || $wid==6780484||$wid==6788906}
+		  {I footer_yypk.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-4.html}
+        {/if}
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+
+
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+
+
+
+</script></div>        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+   
+	</body>
+
+</html>
+

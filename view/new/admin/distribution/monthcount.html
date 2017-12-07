@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+    <title></title>
+    <script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+    <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span8">
+                                <h3><i class="icon-table"></i>业绩汇总  </h3>
+                            </div>
+
+                        </div>
+
+                        <div class="box-content">
+                            
+                            
+                            <div class="row-fluid dataTables_wrapper">
+
+
+                                <table id="listTable" class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>时间</th>
+                                            <th>店铺数量</th>
+                                            <th>理疗师数量</th>
+                                            <th>提成金额</th>
+                                            <th>业绩状态</th>
+                                        </tr>
+                                    </thead>
+                                    {loop $list as $v}
+                                    <tr>
+                                        <td>{$v[time_name]}</td>
+                                        <td>{$v[sh_num]}</td>
+                                        <td>{$v[lls_num]}</td>
+                                        <td>{$v[money_count]}</td>
+                                        <td>{if $v[deal_status]==1}<span class="label label-satgreen">已提现</span>{else}<span class="label label-lightred">待审核</span>{/if}</td>
+                                    </tr>
+                                    {/loop}
+									</table>
+                                <div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	
+		
+</body>
+</html>

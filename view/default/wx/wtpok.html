@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>投票结束</title>
+<link type="text/css" rel="stylesheet" href="/res/wtp/style/vote.css" />
+</head>
+<body>
+<div class="wrapper" style="margin-top:-8px;">
+	<img class="bg" src="/res/wtp/images/bg.jpg">
+	<div class="top fn-clear">
+		<div class="count-cont">
+			<h3>参与人数</h3>
+			<div class="count">{$cyrs}</div>
+		</div>
+		<div class="title-cont">
+			<p class="title">{$wtp->name}</p>
+			<p class="timeout"><img class="clock" src="/res/wtp/images/clock.png"><span class="text">距离投票结束还有{$end_time}</span></p>
+		</div>
+	</div>
+	<div class="cover">
+		<img class="line" src="/res/wtp/images/ctline.jpg">
+		<img class="cimg" src="{$wtp->pic}">
+		<img class="line" src="/res/wtp/images/cbline.jpg">
+	</div>
+	<div class="summary">{$wtp->ms}</div>
+	<div class="tip-cont">
+		<img class="icon" src="/res/wtp/images/tip_icon.png">
+		投票后才能看到结果 | 最多选1项
+	</div>
+	<div class="option-cont">
+	{if trim($wtp->option1)!=''}
+		<div class="option fn-clear option-statis" data-value="0">
+			<div>{$wtp->option1}</div>
+			<div class="progress"><div data-per="56.52" class="bar bar0" style="width:{$bl1}%;"></div></div><span class="per" style="left: 102.78px;">{$ans1}({$bl1}%)</span>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	{if trim($wtp->option2)!=''}
+		<div class="option fn-clear option-statis" data-value="0">
+			<div>{$wtp->option2}</div>
+			<div class="progress"><div data-per="56.52" class="bar bar0" style="width:{$bl2}%;"></div></div><span class="per" style="left: 102.78px;">{$ans2}({$bl2}%)</span>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	{if trim($wtp->option3)!=''}
+		<div class="option fn-clear option-statis" data-value="0">
+			<div>{$wtp->option3}</div>
+			<div class="progress"><div data-per="56.52" class="bar bar0" style="width:{$bl3}%;"></div></div><span class="per" style="left: 102.78px;">{$ans3}({$bl3}%)</span>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	{if trim($wtp->option4)!=''}
+		<div class="option fn-clear option-statis" data-value="0">
+			<div>{$wtp->option4}</div>
+			<div class="progress"><div data-per="56.52" class="bar bar0" style="width:{$bl4}%;"></div></div><span class="per" style="left: 102.78px;">{$ans4}({$bl4}%)</span>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	</div>
+ 	<p class="page-url">
+		<a href="/" target="_blank" class="page-url-link"></a>
+	</p>
+</div>
+{T /_wf}
+</body>
+</html>

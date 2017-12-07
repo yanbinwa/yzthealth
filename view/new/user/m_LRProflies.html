@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <title>自媒体商城认证</title>
+    <link rel="stylesheet" href="{$CSS}mobile/style.css" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}mobile/reset.css?v=1475113285"/>
+    <link rel="stylesheet" type="text/css" href="{$CSS}mobile/weui1.css" />
+    <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.0.1/weui.css" />
+    <script language="javascript" type="text/javascript" src="/website/js/jquery.form.js"></script>
+    <script src="/website/newhtml/js/common.js"></script>
+    <script src="/website/newhtml/js/user.js"></script>
+    <script src="/website/newhtml/js/jquery.validate.js"></script>
+    <script src="/website/newhtml/js/additional-methods.js"></script>
+    <script src="/website/newhtml/js/jquery.lazyload.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <style>
+        .upload_btn{
+            background-color: green;
+            font-size: 14px;
+            border-radius: 3px;
+            color: white;
+           padding: 4px;
+        }
+        .upload_introduce{
+            height: 30px;
+        }
+        .header_img_wrap{
+            margin-right: 20px;
+            float: right;
+            height: 30px;
+            margin-bottom: 10px;
+        }
+        .zhanshi_img{
+            height: 160px;
+            width: 260px;
+        }
+        .weui-cell__bd{
+            text-align: center;
+        }
+        .weui-cell__bd span{
+            margin-left: -100px;
+        }
+        .weui-btn_primary {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    line-height: 2.55555556;
+    border-radius: 5px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    overflow: hidden;
+    width: 100%;
+}
+.hdbar{
+         display:-webkit-box;
+         display:-ms-flexbox;
+         display:flex;
+         -webkit-box-pack:justify;
+         -ms-flex-pack:justify;
+         justify-content:space-between;
+         -webkit-box-align:center;
+         -ms-flex-align:center;
+         align-items:center;
+         width:100%;
+         height:50px;
+         background-color:#fff;
+         border-bottom:1px solid #ccc;
+         font-size: 1.2rem;
+        }
+
+
+   .i-btn{
+      display:inline-block;
+      width:36px;
+      height:36px;
+      border-radius:100%;
+      vertical-align:middle}
+   .i-back{
+    background: url({$IMG}wx/fanhui.png) center center no-repeat;
+    background-size:100% 100%}
+    .i-home{
+      background:url({$IMG}wx/shouye.png) center center no-repeat;
+    background-size:100% 100%;
+ margin-right: 8px;}
+    </style>
+</head>
+<link rel="stylesheet" type="text/css" href="{$CSS}mobile/profile.css"/>
+<body>
+<script>
+    $(document).ready(function (){
+        $('.m_zq_close').click(function(e){
+            //屏蔽图片的默认事件
+            if (e.preventDefault) {
+                e.preventDefault();
+            }else{
+                e.returnvalue = false;
+            }
+            $('.m_zq_close').hide();
+            $("a.m_top_zq").animate({ height:"0px"});
+        });
+
+    });
+</script>
+<header class="hdbar fixed" style="position: fixed; z-index: 20; top:0;">
+  <a href="javascript:history.back(-1);"><span class="i-btn i-back"></span></a>
+  自媒体商城认证
+  <a href="/wx/yangsheng.html"><span class="i-btn i-home"></span></a>
+</header>
+<div class="main" style="margin-top: 50px;">
+    <div class="main-body">
+        <div class="weui-cells ">
+            <div class="weui-cell lei">
+                <div class="weui-cell__bd lei">
+                    <div class="kaidian_form_div red" style="color:red; text-align:center; font-size:17px; font-weight:bold; ">{if $member->status == 1}等待审核{elseif $member->status==2}实名认证成功{elseif $member->status == 3}您的实名认证失败{else}您还未进行实名认证{/if}</div>
+                    {if $member->status ==3}<div class="kaidian_form_div" style=" text-align:center; font-size:12px; ">( {$member->bz} )</div>{/if}
+                </div>
+            </div>
+        </div>
+        <form name="jsForm" method="post" action="" id="jsForm">
+
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd" ><label class="weui-label" style="margin-left: -20px">真实姓名：</label></div>
+                    <div class="weui-cell__bd">
+                        <input type="hidden" name="mid" value="{$member->id}" />
+                        <input name="lblUserName" type="text" value="{$member->true_name}" id="lblUserName" disabled class="weui-input"  placeholder="请输入真实姓名"/>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label" style="margin-left: -20px">身份证号：</label></div>
+                    <div class="weui-cell__bd">
+                        <input name="lblUserCard" type="text" value="{$member->idcard}" id="lblUserCard" class="weui-input"  placeholder="请输入身份证号码"/>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label" style="margin-left: -20px">选择银行：</label></div>
+                    <div class="weui-cell__bd">
+                        <select name="bank_type" class="weui-input">
+                            <option value="1">中国工商银行</option>
+                            <option value="2">中国农业银行</option>
+                            <option value="3">中国建设银行</option>
+                            <option value="4">中国银行</option>
+                        </select>
+                    </div>
+                </div>
+            </div>            
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label" style="margin-left: -20px">开户银行：</label></div>
+                    <div class="weui-cell__bd">
+                        <input name="bank_name" type="text" value="{$member->bank_name}" id="bank_name" class="weui-input"  placeholder="请输入开户银行"/>
+                    </div>
+                </div>
+            </div>            
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label" style="margin-left: -20px">银行卡号：</label></div>
+                    <div class="weui-cell__bd">
+                        <input name="bank_card" type="text" value="{$member->bank_card}" id="bank_card" class="weui-input"  placeholder="请输入银行卡号"/>
+                    </div>
+                </div>
+            </div>            
+            <div class="weui-cells__title">持证半身照</div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"></div>
+                    <div class="weui-cell__bd">
+                        <img id="img3" class="zhanshi_img" tag="" src="{$member->file2}" />
+                        <input type="hidden" class="file2" value="{$member->file2}" />
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cells__title">说明：只允许上传gif/jpg格式的图片，图片大小不能超过2M。</div>
+                </div>
+                <div class="header_wrap" style="">
+                    <div id="header_img_wrap" class="header_img_wrap" style="border-radius: 0;height: 30px;">
+                        {if $member->status!=2}
+                        <div class="btn2" >
+                            <span class="upload_btn">选择照片</span>
+                            <input id="fileupload2" type="file" class="upload_introduce" name="mypic" style="height: 30px;">
+                        </div>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div>
+        <input type="submit" class="weui-btn_primary" name="btnSave" {if $member->status == 1} value="等待审核" {elseif $member->status ==2} value="审核成功" {elseif $member->status ==3} value="审核失败" {else} value="申请认证"  {/if} id="btnSave" {if $member->status == 1 || $member->status == '2'}disabled = 'disabled'{/if} class="LRsubmit" style="color: #fff;" />
+    </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function(){
+        //图片延迟加载
+        $("img.lazy").lazyload({
+            effect: "fadeIn",
+            threshold: 0,
+            failurelimit : 10
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        var bar2 = $('.bar2');
+        var percent2 = $('.percent2');
+        var showimg2 = $('#showimg2');
+        var progress2 = $(".progress2");
+        var files2 = $(".files2");
+        var btn2 = $(".btn2 span");
+        $("#fileupload2").wrap("<form id='myupload2' action='Upload.html' method='post' enctype='multipart/form-data'></form>");
+        $("#fileupload2").change(function(){
+            $("#myupload2").ajaxSubmit({
+                dataType:  'json',
+                data:{ mid:'{$member->id}','id':'3'},
+                beforeSend: function() {
+                    showimg2.empty();
+                    progress2.show();
+                    var percentVal = '0%';
+                    bar2.width(percentVal);
+                    percent2.html(percentVal);
+                    btn2.html("上传中...");
+                },
+                uploadProgress: function(event, position, total, percentComplete) {
+                    var percentVal = percentComplete + '%';
+                    bar2.width(percentVal);
+                    percent2.html(percentVal);
+                },
+                success: function(data) {
+                    $('#img3').attr("src",data.img);
+                    btn2.html("上传成功");
+                },
+                error:function(xhr){
+                    btn2.html("上传失败");
+                    bar2.width('0')
+                    files2.html(xhr.responseText);
+                }
+            });
+        });
+        
+    });
+$("#btnSave").click(function(){
+    var files2 = $('#fileupload2').val();
+    console.log(files2);
+    if(files2==''||files2==null){
+        alert('请上传身份证照片');
+        return false;
+    } 
+    $('#jsForm').submit(function(){ return true;});   
+})    
+</script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+</body>
+</html>

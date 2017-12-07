@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>申请提现</title>
+    <link rel="stylesheet" href="">
+
+    <link href="{$CSS}yangsheng2/bootstrap.min.css" rel="stylesheet">
+    <link href="{$CSS}yangsheng2/style.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <script src="{$JS}yangsheng2/bootstrap.min.js"></script>
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/menu_elastic.css" />
+    <script src="{$JS}yangsheng2/snap.svg-min.js"></script>
+        <link rel="stylesheet" href="{$CSS}wxy/weui.min.css?<?php echo time();?>">
+<style type="text/css">
+.weui-cells_form{ width: 99%; margin: auto;border: 1px solid #d9d9d9; border-radius: 3px; }
+.weui-vcode-btn{ font-size: 15px;border:1px solid #E5E5E5; background-color: #fff; height: 30px; line-height: 30px; border-radius: 3px; margin-right: .3rem; }
+</style>
+</head>
+<body class="huibg">
+<div class="vipcenter">
+    <div class="vipheader">
+        <a href="javascript:;">
+            <div class="touxiang"><img src="{$fans->headimg}" alt=""></div>
+            <div class="name">{$fans->nickname}</div>
+            <div class="gztt">认证会员，已关注</div>
+        </a>
+    </div>
+    <div class="vipsan">
+        <div class="col-xs-4 text-center"><a ><h4>已完成</h4><p>{$orders_arr_num}</p></a></div>
+        <div class="col-xs-4 text-center"><a ><h4>佣金</h4><p>{$member->total}</p></a></div>
+        <div class="col-xs-4 text-center"><a ><h4>待落实</h4><p>{$orders_array_num}</p></a></div>
+    </div>
+ <form action="" method="post"  id="form1">{tk()}
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">提现金额</label></div>
+            <div class="weui-cell__bd">
+            <input type="number" name="total" class="weui-input" id="membertrue_name" required="required" placeholder="0.00">
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_vcode" style="height: 44px; line-height: 44px; border-bottom: 1px solid #ececec;">
+            <div class="weui-cell__hd">
+                <label class="weui-label">验证码</label>
+            </div>
+            <div class="weui-cell__bd">
+            <input type="text" name="validCode" id="validCode" placeholder="验证码" class="weui-input" />
+            </div>
+            <div class="weui-cell__ft">
+                <input type="button" class="weui-vcode-btn" style="border:1px solid #E5E5E5; background-color: #fff;" onclick="getReceiveMemberCardVCode(this, event,'form1', 'membertelephone',1);" value="获取验证码">
+                
+            </div>
+        </div>
+        <div class="weui-btn-area">
+            <button id="bsubmit" type="submit" class="weui-btn weui-btn_primary">申请提现</button>
+        </div>
+    </div>
+</form>
+</div>
+
+<script type="text/javascript">
+
+    var intervalId,buttonObj;
+    //发送下一条短信需要间隔的秒数
+    var seconds = 60;
+    function getReceiveMemberCardVCode(clickObj, evt, formId, teleName,stype){
+        var form = document.getElementById(formId);
+        var req = {
+            tel: '{$member->telephone}'
+
+        }
+        if(!req.tel){
+
+            tusi("请输入手机号");
+            return;
+        }
+
+        var url = "sendCodetx.html"
+        clickObj.setAttribute("disabled", "disabled");
+        clickObj.value = "正在发送...";
+        
+        $.ajax({
+            url: url,
+            type:"post",
+            data:req,
+            dataType:"JSON",
+            success: function(res){
+                if(0 == res.errno){
+                    clickObj.value = '验证码发送成功';
+                    buttonObj = clickObj;
+                    intervalId = setInterval("ticker()",1000);
+                }else{
+                    clickObj.value = '获取验证码';
+                    clickObj.removeAttribute("disabled");
+                    tusi(res.error);
+                    return ;
+                }
+            }
+        });
+    }
+    function ticker(){
+        seconds --;
+        if(seconds > 55){
+            //提示消息显示5秒钟
+        }else if(seconds>0){
+            buttonObj.value = seconds+"秒后可重新获取";
+        }else{
+            clearInterval(intervalId);
+            buttonObj.removeAttribute("disabled");
+            buttonObj.value = "获取验证码";
+            seconds = 60;
+            buttonObj = null;
+        }
+    }
+</script>
+<div mark="stat_code" style="width:0px; height:0px; display:none;"></div>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+
+</script>
+
+</body>
+</html>

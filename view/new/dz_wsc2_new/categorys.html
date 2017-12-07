@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>商品分类</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://img02.yiguo.com/e/web/130101/cdn/wxm/content/public.v20160224.css" rel="stylesheet" />
+    <script src="http://img02.yiguo.com/e/web/130101/cdn/wxm/scripts/ygop.ajax.client.js"></script>
+    <script src="http://img02.yiguo.com/e/web/130101/cdn/wxm/scripts/Common.v150812.js"></script>
+    <script src="http://img02.yiguo.com/e/web/130101/cdn/wxm/plugin/layer/layer.m.js"></script>
+    <link href="http://img02.yiguo.com/e/web/130101/cdn/wxm/plugin/layer/layer.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="http://api.map.baidu.com/api?v=1.2"></script>
+    <link href="{$CSS}wsc/gps.css" rel="stylesheet" />
+   
+</head>
+<body>
+    <script type="text/javascript">
+        var _wx_JsConfig = {  };
+    </script>
+    
+
+<link href="{$CSS}wsc/catalog.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{$CSS}wsc/style.css?v=<?php echo time();?>" />
+<div class="wrap">
+    <div class="search">
+        <div class="search-box">
+            <label class="icon-search" for="search-input" onclick="doSearch()">搜索</label>
+            <form><input class="search-input" type="search" name="key" onfocus="searchFocus()" id="search-input" placeholder="请输入商品名称"></form>
+        </div>
+        <div id="searchbtn" class="btn-search"><a id="clearbtn" onclick="clearSearhInfo()" style="display:none">取消</a><a id="search-btn">搜索</a></div>
+    </div>
+    <div id="dvProductCategory" class="catalog">
+    </div>
+</div>
+<script type="text/javascript">
+
+    var Genders = [
+        { catCode: "01_channelhome", className: "catg01" },
+        { catCode: "02_channelhome", className: 'catg02' },
+        { catCode: "05_channelhome", className: 'catg03' },
+        { catCode: "06_channelhome", className: 'catg04' },
+        { catCode: "04_channelhome", className: 'catg05' },
+        { catCode: "08_channelhome", className: 'catg06' },
+        { catCode: "03_channelhome", className: 'catg07' },
+        { catCode: "10_channelhome", className: 'catg08' },
+        { catCode: "07_channelhome", className: 'catg09' },
+        { catCode: "09_channelhome", className: 'catg010' },
+        { catCode: "11_channelhome", className: 'catg011' }
+    ];
+    $(function () {
+        $(".footer a").removeClass();
+        $(".footer #category").addClass("current");
+
+        //加载分类列表
+        getCategorylist();
+
+        //搜索
+        $("form").submit(function () {
+            var keyWord = $.trim($("#search-input").val());
+            if (keyWord == "") {
+                YgmJsCommon.popups.alert("请输入关键词");
+                return false;
+            }
+            $("form").attr("action", "./index3.html?key=" + keyWord);
+        });
+    })
+
+    //获取分类列表
+    function getCategorylist() {
+        YgmJsCommon.popups.loading();
+        ygopAjaxClient.async("./getCategory.html", "post", null, function (e) {
+            YgmJsCommon.popups.close();
+            if (e.RspCode == 1) {
+                var html = "";
+                var data = e.RspData.data;
+                for (var i = 0; i < data.length ; i++) {
+                    var count = i + 1;
+                    var count1 = 2;
+                   // var className = getCatId(data[i].id);
+                    var className = '1';
+                    var logo = data[i].img;
+                    html += '<div class="catalog-list">'
+                                + '<div  class="first_catalog ' + className + '">'
+                                + '<a href="javascript:void(0)">'
+                                    + '<div class="icon" style="background:url('+logo+') no-repeat">' + data[i].name + '</div>'
+                                    + '<div class="title">'
+                                            + '<h1>' + data[i].name + '</h1>'
+                                            + '<h2>' + data[i].ms + '</h2>'
+                                    + '</div>'
+                                    + '<div class="arrow"></div>'
+                                + '</a>'
+                                + '</div>'
+                                + '<ul id="' + data[i].id + '" class="second_catalog">'
+                                + '<li><a href="#">全部</a>'
+                    for (var j = 0; j < data[i].Childs.length ; j++) {
+                        html += '<a href="./index1-' + data[i].Childs[j].id + '.html">'
+                                + data[i].Childs[j].name
+                                + '</a>'
+                        if (count1 >= 3) {
+                            html += '</li>'
+                            if ((j+1) < data[i].Childs.length ) {
+                                html += '<li>'
+                            }
+
+                            count1 = 0;
+                        }
+                        count1++;
+                    }
+                    if (count1 <= 3 && count1 != 1) {
+                        for (var j = 3; j >= count1; j--) {
+                            html += '<a href="javascript:void(0)"></a></li>'
+                        }
+                    }
+                    html += '</ul></div>'
+                }
+                $("#dvProductCategory").append(html);
+
+                //商品分类
+                $('.catalog-list .first_catalog').click(function () {
+                    var catalogList = $('.catalog-list .first_catalog').index(this);
+                    if ($("#dvProductCategory .catalog-list").eq(catalogList).hasClass('current')) {
+                        $('.catalog-list').removeClass('current');
+                    }
+                    else {
+                        $('.catalog-list').removeClass('current').eq(catalogList).addClass('current');
+                    }
+                });
+                $('.catalog-list').find('.title span:last').addClass('last');
+            }
+            else {
+                console.log(1);
+                YgmJsCommon.popups.alert(e.RspMsg);
+            }
+        });
+    }
+
+    //关键词搜索
+    function doSearch() {
+        var keyWord = $.trim($("#search-input").val());
+        if (keyWord == "") {
+            YgmJsCommon.popups.alert("请输入关键词");
+            $("#search-input").focus();
+        }
+        else {
+            window.location.href = "./index3.html?key=" + keyWord ;
+        }
+    }
+
+    //删除搜索信息
+    function clearSearhInfo() {
+        $("#search-input").val("");
+    }
+
+    //显示取消按钮
+    function searchFocus() {
+        $("#clearbtn").css("display", "block");
+        $("#search-btn").css("display", "none");
+    }
+
+    function getCatId(code) {
+        for (var i = 0, l = Genders.length; i < l; i++) {
+            var g = Genders[i];
+            if (g.catCode == code) {
+                return g.className;
+            }
+        }
+        return "catg01";
+    }
+</script>
+
+   {T tp2}
+    
+    <script type="text/javascript">
+        _wx_JsConfig.appid = "wx0d4f4f0e0bada80e";
+        if (_wx_JsConfig.imgUrl == null) {
+            _wx_JsConfig.imgUrl = "http://img02.yiguo.com/e/web/150930/00783/155744/wxlogo.jpg";
+        }
+
+        if (_wx_JsConfig.title == null) {
+            _wx_JsConfig.title = "易果生鲜触屏版";
+        }
+
+        if (_wx_JsConfig.content == null) {
+            _wx_JsConfig.content = "全国首家生鲜专业电商，全球优质生鲜产地直供，全年无休生鲜冷链配送";
+        }
+        if (_wx_JsConfig.timeLineLink == null) {
+            _wx_JsConfig.timeLineLink = "http://weixin.m.yiguo.com";
+        }
+
+        _wx_JsConfig.timestamp = "";
+        _wx_JsConfig.nonceStr = "";
+        _wx_JsConfig.signature = "";
+
+        $(function () {
+            YgmJsCommon.domain = "yiguo.com";
+            var jsonWxCfg = decodeURIComponent("%7b%22appId%22%3anull%2c%22timestamp%22%3a%221466471399%22%2c%22nonceStr%22%3a%221311094499%22%2c%22signature%22%3a%22f64d942fa7f028b1368f6cc4ad1f63951722dffb%22%2c%22url%22%3a%22http%3a%2f%2fweixin.m.yiguo.com%2fcategorylist%3fAffiliateId%3d426545%26euid%3d006d92218d99e0752cf3%26cid%3d6340%22%2c%22jsapi_ticket%22%3a%22bxLdikRXVbTPdHSM05e5u_n3yqdZ_9Pt0dvnbtzvrXZevsp9wcl1fiErbU7hz152dbVBCnDBT4YSdiDLMSMaHA%22%7d");
+            var wxJsCfg = JSON.parse(jsonWxCfg);
+            _wx_JsConfig.timestamp = wxJsCfg.timestamp;
+            _wx_JsConfig.nonceStr = wxJsCfg.nonceStr;
+            _wx_JsConfig.signature = wxJsCfg.signature;
+
+            wx.config({
+                //debug: true,
+                appId: _wx_JsConfig.appid,
+                timestamp: _wx_JsConfig.timestamp,
+                nonceStr: _wx_JsConfig.nonceStr,
+                signature: _wx_JsConfig.signature,
+                jsApiList: [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'getLocation'
+                ]
+            });
+
+            myShare();
+
+            getCartCount();
+            
+            showSelectedCityDialog();
+        })
+
+        function myShare() {
+            wx.ready(function () {
+                //分享朋友圈
+                wx.onMenuShareTimeline({
+                    title: _wx_JsConfig.title,
+                    desc: _wx_JsConfig.content, // 分享描述
+                    link: _wx_JsConfig.timeLineLink,
+                    imgUrl: _wx_JsConfig.imgUrl,
+                    trigger: function (res) {
+                    },
+                    success: function (res) {
+                        dplus.track("分享到朋友圈");
+                    },
+                    cancel: function (res) {
+                    },
+                    fail: function (res) {
+                    }
+                });
+                //分享朋友
+                wx.onMenuShareAppMessage({
+                    title: _wx_JsConfig.title,
+                    desc: _wx_JsConfig.content,
+                    link: _wx_JsConfig.timeLineLink,
+                    imgUrl: _wx_JsConfig.imgUrl,
+                    trigger: function (res) {
+                    },
+                    success: function (res) {
+                        dplus.track("分享给朋友");
+                    },
+                    cancel: function (res) {
+                    },
+                    fail: function (res) {
+                    }
+                });
+            });
+
+        }
+
+        //如果查询到CityCookie default=1，表示用户没有选择过城市，则需要弹出选择城市
+        function showSelectedCityDialog() {
+            var objCity = YgmJsCommon.getCityCookie();
+            if (objCity != null && objCity.Default == 1) {
+                $("#divMyCity").css('display', "");
+                $("#divMyCity").modal('show');
+                $("#divMyCity").click(function () {
+                    window.location.href = "/Home/SelectCity?ReturnUrl=" + encodeURIComponent(location.href);
+                })
+            }
+            else {
+                $("#divMyCity").css('display', "none");
+            }
+        }
+
+
+
+        //返回商品数量显示在footer上
+        function getCartCount() {
+            var count = YgmJsCommon.getCartProductsTotalCount();
+            if (count > 0) {
+                $("#fCartProductTotalCount").css("display", "");
+                $("#fCartProductTotalCount").html(count);
+            }
+            else {
+                $("#fCartProductTotalCount").css("display", "none");
+            }
+            return count;
+        }
+
+        //设置云朵的位置
+        $('#divMyCity').on('shown.bs.modal', function () {
+            var win_width = $(this).find(".modal-dialog").width();
+            var win_height = $(this).find(".modal-dialog").height();
+            $(this).find(".modal-dialog").css({ "marginTop": String(-1 * win_height / 2) + "px", "marginLeft": String(-1 * win_width / 2) + "px" });
+
+        });
+
+      
+        window.onload = function () {
+            YgmDplus.init("weixin.m.yiguo.com", "", "");
+        };
+    </script>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-KSWHQZ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+(function (w, d, s, l, i) {
+w[l] = w[l] || []; w[l].push({
+'gtm.start':
+new Date().getTime(), event: 'gtm.js'
+}); var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-KSWHQZ');</script>
+    <!-- End Google Tag Manager -->
+
+    <script type="text/javascript">
+        (function (param) {
+            var c = { query: [], args: param || { } };
+            c.query.push(["_setAccount", "611"]);
+            (window.__zpSMConfig = window.__zpSMConfig || []).push(c);
+            var zp = document.createElement("script");
+            zp.type = "text/javascript";
+            zp.async = true;
+            zp.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//cdn.zampda.net/s.js";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(zp, s);
+        })
+        (window.__zp_tag_params);
+    </script>
+
+    <!-- GrowingIO -->
+    <script type='text/javascript'>
+    var _vds = _vds || [];
+    window._vds = _vds;
+    (function () {
+        _vds.push(['setAccountId', '924b3e14d69b338f']);
+        (function () {
+            var vds = document.createElement('script');
+            vds.type = 'text/javascript';
+            vds.async = true;
+            vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'o8npuqt84.qnssl.com/vds.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(vds, s);
+        })();
+    })();
+    </script>
+    <!-- End GrowingIO -->
+</body>
+</html>

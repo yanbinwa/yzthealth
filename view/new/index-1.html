@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{$set->title}</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<meta name="keywords" content="{$set->keywords}"/>
+	<meta name="description" content="{$set->description}"/>
+
+	<link href="{$CSS}web/index.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="{$JS}web/jquery-1.10.2.min.js"></script> 
+	<script type="text/javascript" src="{$JS}web/mobile_menu.js"></script> 
+	<script type="text/javascript" src="{$JS}web/main_menu.js"></script> 
+	<script type="text/javascript" src="{$JS}web/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="{$JS}web/custom-owl.js"></script>
+	<script type="text/javascript" src="{$JS}web/myjs.js"></script> 
+	<link href="{$CSS}web/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css">
+	<link href="{$CSS}web/bootstrap-slider.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/cn_main_comment.css">
+	<link rel="stylesheet" href="{$CSS}web/cn_mobile.css">
+	<link rel="stylesheet" href="{$CSS}web/owl.carousel.css">
+	<link href="{$CSS}web/inner.css" rel="stylesheet">
+	<link href="{$CSS}web/menu.css" rel="stylesheet">
+	<link href="{$CSS}web/index.css" rel="stylesheet">
+	<style>
+	#nav-cont-wrap ul li{ padding:0px;}
+	.main-content{
+		padding-bottom: 0px;
+	}
+	</style>
+</head>
+<body>
+	<div style="left: 0px;" id="container">
+		{T head}
+	    
+	        <!-- main content -->
+		<div class="main-content">
+			<div id="index-banner" class="carousel slide group-index-banner slide-banner" data-ride="carousel" data-interval="3000"> 
+				<ol class="carousel-indicators"> 
+					{loop $pics as $r}
+						<li data-target="#index-banner" class="" data-slide-to="{$i++}" ></li> 
+					{/loop}
+				</ol>
+
+				<div class="carousel-inner" role="listbox">
+					{loop $pics as $c}
+
+						<div style="background-image: url(&quot;{$c[src]}&quot;);" class="item" data-big-img="{$c[src]}" data-small-img="{$c[src]}">
+						</div> 
+					{/loop}
+					<!-- <div style="background-image: url(&quot;http://wwwimg.infinitus.com.cn/up/2017/0503/1493797842910.jpg&quot;);" class="item active" data-big-img="http://wwwimg.infinitus.com.cn/up/2017/0503/1493797842910.jpg" data-small-img="http://wwwimg.infinitus.com.cn/up/2017/0503/1493797850993.jpg">
+					</div> 
+					<div style="background-image: url(&quot;http://wwwimg.infinitus.com.cn/up/2017/0427/1493254791103.jpg&quot;);" class="item " data-big-img="http://wwwimg.infinitus.com.cn/up/2017/0427/1493254791103.jpg" data-small-img="http://wwwimg.infinitus.com.cn/up/2017/0427/1493254799382.jpg" >
+					</div> 
+					<div style="background-image: url(&quot;http://wwwimg.infinitus.com.cn/up/2017/0413/1492051154754.jpg&quot;);" class="item " data-big-img="http://wwwimg.infinitus.com.cn/up/2017/0413/1492051154754.jpg" data-small-img="http://wwwimg.infinitus.com.cn/up/2017/0412/1491966655597.jpg" >
+					</div> 
+					<div style="background-image: url(&quot;http://wwwimg.infinitus.com.cn/up/2017/0421/1492755389648.jpg&quot;);" class="item " data-big-img="http://wwwimg.infinitus.com.cn/up/2017/0421/1492755389648.jpg" data-small-img="http://wwwimg.infinitus.com.cn/up/2017/0503/1493802138777.jpg">
+					</div> 
+					<div style="background-image: url(&quot;http://wwwimg.infinitus.com.cn/up/2017/0324/1490323706713.jpg&quot;);" class="item " data-big-img="http://wwwimg.infinitus.com.cn/up/2017/0324/1490323706713.jpg" data-small-img="http://wwwimg.infinitus.com.cn/up/2017/0421/1492755406466.jpg">
+					</div> 
+					<div style="background-image: url(&quot;http://wwwimg.infinitus.com.cn/up/2017/0125/1485324789758.jpg&quot;);" class="item " data-big-img="http://wwwimg.infinitus.com.cn/up/2017/0125/1485324789758.jpg" data-small-img="http://wwwimg.infinitus.com.cn/up/2017/0324/1490323716775.jpg" >
+					</div> 
+					<div style="background-image: url(&quot;http://wwwimg.infinitus.com.cn/up/2017/0117/1484637479115.jpg&quot;);" class="item " data-big-img="http://wwwimg.infinitus.com.cn/up/2017/0117/1484637479115.jpg" data-small-img="http://wwwimg.infinitus.com.cn/up/2017/0125/1485324097901.jpg"> -->
+					</div> 
+				</div>
+			<!--é¦–é¡µ é¦–é¡µå¹»ç¯ç‰‡-->
+			    <a href="#index-banner" data-slide="prev" class="left carousel-control" role="button"><span aria-hidden="true"></span> <span class="sr-only"></span> </a> 
+			    <a href="#index-banner" data-slide="next" class="right carousel-control" role="button"><span aria-hidden="true"></span> <span class="sr-only"></span> </a> 
+			</div> 
+		            
+			<div class="container">
+				<div class="main-box">
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="hot-focus">
+								<div class="main-title clearfix">
+									<h3>最新动态</h3>
+									<div class="main-more"><a href="news.html"  target="_blank" >更多 &gt;</a></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										{loop $list1 as $r}
+										<div class="hot-pic">
+											<a href="newsInfo-{$r->id}.html" >
+												<img src="{$r->pics}" alt="{$r->title}" class="img-responsive">
+											</a>
+											<p>
+												<span>
+													<a href="newsInfo-{$r->id}.html" >{$r->title}</a>
+												</span>
+											</p>
+										</div><!--首页 热点聚焦-->
+										{/loop}
+									</div>
+									<div class="col-sm-6">
+										<div class="hot-focus-info">
+											{loop $list as $r}
+											<div class="hfi-item "  >
+												<h4>
+													<a href="newsInfo-{$r->id}.html" title="{$r->title}" target="_blank"  {if $list1->title_col != "#FFFFFF"}style="color:{$list1->title_col}"{/if}>{utf8_substraw($r->title,0,16)}...</a>
+												</h4>
+												<p>{utf8_substraw($r->introduction,0,40)}...
+													<a href="newsInfo-{$r->id}.html" target="_blank" >[详细]</a>
+												</p>	
+											</div>
+											{/loop}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="main-product">
+								<div class="main-title clearfix">
+									<h3>产品信息</h3>
+									<div class="main-more"><a href="product.html" target="_blank"  >更多 &gt;</a></div>
+								</div>
+								<a href="proInfo-{$chanp->id}.html" target="_blank" alt="{$chanp->name}" >
+									<img src="{$chanp->pics}" class="img-responsive"/>
+								</a>
+							<!--首页 产品推广-->
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">
+
+							<div class="in-tab-top clearfix">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="active">
+										<a href="#zhuan"  data-toggle="tab">公司简介</a>
+									</li>
+								</ul>
+								<div class="main-more">
+									<a href="zt/index.htm" target="_blank"  >更多 &gt;</a>
+								</div>
+							</div>
+
+							<!-- Tab panes -->
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="zhuan">
+									<div class="mr-info">
+										<a href="http://hd.infinitus.com.cn/h5/tourism/jy/index.html" target="_blank" >
+											<img src="{$IMG}web/1493777128582.jpg" alt="2017海外培训专站：激扬之旅" class="img-responsive">
+										</a>
+										<h4><a href="ttp://hd.infinitus.com.cn/h5/tourism/jy/index.html" target="_blank" >2017海外培训专站：激扬之旅</a></h4>
+										<p>2017激扬之旅出团伙伴的精彩瞬间，你都可以同步感受！</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="whatsay">
+								<div class="main-title clearfix">
+									<h3>案例展示</h3>
+									<div class="main-more"><a href="anli.html" target="_blank" >更多 &gt;</a></div>
+								</div>
+								<div class="mr-info">
+									<a href="newsInfo-{$anli[0]->id}.html" target="_blank" >
+										<img src="{$anli[0]->pics}" alt="{$anli[0]->title}" class="img-responsive">
+									</a>
+									<h4>
+										<a href="newsInfo-{$anli[0]->id}.html" target="_blank" >{utf8_substraw($anli[0]->title,0,16)}...</a>
+									</h4>
+									<p>{utf8_substraw($anli[0]->introduction,0,40)}...</p>
+								</div>
+							<!--首页 董事长的话-->
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="in-tab-top clearfix">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="active"><a href="#jing"  data-toggle="tab">精彩视频</a></li>
+								</ul>
+								<div class="main-more"><a href="news-9.html"  target="_blank" >更多 &gt;</a></div>
+							</div>
+						<!-- Tab panes -->
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="jing">
+									{loop $shipin as $r}
+									<div class="mr-info">
+										<a href="newsInfo-{$r->id}.html"  target="_blank">
+											<img alt="" src="{$r->pics}"  class="img-responsive" >
+										</a>
+										<h4>
+											<a href="newsInfo-{$r->id}.html" title="{$r->title}" target="_blank">{$r->title}</a>
+											</h4>
+										<p>{$r->introduction}</p>
+									</div>
+									{/loop}
+								</div>
+							<!--首页 精彩视频-->	
+							</div>
+						</div>
+
+					</div>
+				</div>
+			<div >
+
+
+			<div class="mb-slider">
+				<div class="prev">
+					<a href="javascript:void(0)">
+						<img class="img-responsive" alt="" src="{$IMG}web/icon-13.png">
+					</a>
+				</div>
+				<div class="next">
+					<a href="javascript:void(0)">
+						<img class="img-responsive" alt="" src="{$IMG}web/icon-14.png">
+					</a>
+				</div>
+
+				<div class="dian">
+					<div class="dianpu">
+						<p>店铺展示</p>
+					</div>
+					<div class="mb-slider-content" id="power"style="padding-top:38px;">
+						{loop $list_shop as $r}
+						<div class="mbsc-item">
+							<a href="shopInfo-{$r->id}.html" target="_blank" >
+								<img src="{$r->pic}" width="77" height="77" alt="" class="img-responsive">
+							</a>
+						</div>
+						{/loop}
+						
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<!-- main content end-->
+
+
+	
+	{T footer}
+	
+
+</body>
+</html>	
+   
+    

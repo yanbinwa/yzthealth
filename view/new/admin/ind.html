@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<style type="text/css">
+li {
+    line-height: 30px;
+    }
+.main-nav, .icon-nav{
+height: 56px;
+}
+.main-nav li, .icon-nav li,.dropdown{
+height: 56px;
+}
+
+.icon-nav li.subtitle{
+height: 16px;
+}
+.main-nav li a,#navigation .user .dropdown a,.icon-nav li a,.toggle-nav{
+line-height: 36px;
+padding: 10px;
+}
+#navigation .main-nav li a .caret,#navigation .icon-nav li a .caret,#navigation .user .dropdown a .caret{
+margin-top: 14px;
+}
+
+.ssbody{
+-webkit-overflow-scrolling:touch;overflow:auto;
+}
+#user_guide2 {
+     padding: 3px 2px;
+    text-align:center;
+    _display: none;
+     position: absolute;
+    _position: absolute; 
+    z-index: 999;
+    left:100px; 
+      top:270px;
+            font-size: 23px;
+            width: 120px;
+            height: 100px;  
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    transition: bottom 0.9s;
+    -webkit-transition: bottom 0.9s;
+    -moz-transition: bottom 0.9s;
+    -o-transition: bottom 0.9s;
+}
+</style>
+<title>{$_SERVER['WEB_NAME']}</title>
+
+<script type="text/javascript">
+$(function(){
+	setInterval(function(){
+		if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+			
+			if($('#mainFrame').contents().find("body").find('#ipadzsydiv').size()==0){
+				$('#mainFrame').contents().find("body").prepend('<style> #ipadzsydiv{ height:500px;-webkit-overflow-scrolling:touch;overflow:auto;}</style>');
+				$('#mainFrame').contents().find("body").wrapInner('<div style="-webkit-overflow-scrolling:touch;overflow:auto;" id="ipadzsydiv"></div>');
+				$('#mainFrame').contents().find("body").find('#ipadzsydiv').height($('#mainFrame').height());
+			}
+		} 
+		//$('#mainFrame').contents().find("body").attr('style','-webkit-overflow-scrolling:touch;overflow:auto;');
+		
+		
+	},1888);
+	if(window.parent && window.parent != window){
+		window.parent.location.href = location.href;
+	}
+	$('#maincolor').find('span').click(function(){
+		var col = 'theme-'+$(this).attr('class');
+		$('body').removeAttr('class').addClass(col);
+		$('#maincolor').hide();
+		ajax('ind-setcolor.html',{ col:col},function(){
+			$('#mainFrame').contents().find("body").removeAttr('class').addClass(col);
+		});
+	});
+});
+
+
+</script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="user_guide2" style="display:none">
+	<a href="javascript:;"  data-toggle="modal" title="用户指引" class="">
+		<img src='/res/userGuidePic/click_see.png' width='170' height='120' />
+	</a>
+   </div>
+	<div id="navigation">
+        <div class="container-fluid" style="position:relative;">
+            <div>
+                <a href="javascript:;" target="_self" id="brand"><img src="{$_SERVER['LOGO_PIC2']}" style="margin-top: 6px;width:160px;height:40px;"/></a>
+                <a href="javascript:;" target="_self" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation"><i class="icon-reorder"></i></a>
+            </div>
+            <ul class='main-nav' >
+ 
+                <li class='active'>
+                    <a href="main.html" target="_self">
+                        <span>{$_SERVER['WEB_NAME']}功能</span>
+                    </a>
+                </li>
+                
+                <li style="position: absolute;right: 350px;"><a class="shortcut-button" href="main.html" target="_top">
+		          	<img src="/media/images/ht/pencil_48.png" alt="系统首页" title="系统首页">
+			    </a></li>
+
+                <li style="position: absolute;right: 290px;"><a class="shortcut-button" href="/admin/userCenter/updatePwd.html">
+			            <img src="/media/images/ht/paper_content_pencil_48.png" alt="修改密码" title="修改密码">					
+			        </a>
+			    </li>
+			
+
+			    <li style="position: absolute;right: 230px;">
+			   
+			     <a class="shortcut-button" href="/" target="_black">
+			     <img src="/media/images/ht/clock_48.png" alt="首页" title="首页">
+			      </a>
+			      
+			    </li>
+				
+				
+				
+            </ul>
+            <div class="user">
+                <ul class="icon-nav">
+                    <li class='dropdown'>
+                        <a href="javascript:;" class='dropdown-toggle' data-toggle="dropdown" title="消息" style="display:none;"><i class="icon-envelope"></i><span class="label label-lightred">4</span></a>
+                    </li>
+                    <li class="dropdown sett" style="display:none;">
+                        <a href="javascript:;" class='dropdown-toggle' data-toggle="dropdown" title="系统设置"><i class="icon-cog"></i></a>
+                    </li>
+                    <li class='dropdown colo'>
+                        <a href="javascript:;" class='dropdown-toggle' data-toggle="dropdown" title="选择颜色"><i class="icon-tint"></i></a>
+                        <ul class="dropdown-menu pull-right theme-colors" id="maincolor">
+                            <li class="subtitle">请选择系统颜色
+                            </li>
+                            <li>
+                                <span class='red'></span>
+                                <span class='orange'></span>
+                                <span class='green'></span>
+                                <span class="brown"></span>
+                                <span class="blue"></span>
+                                <span class='lime'></span>
+                                <span class="teal"></span>
+                                <span class="purple"></span>
+                                <span class="pink"></span>
+                                <span class="magenta"></span>
+                                <span class="grey"></span>
+                                <span class="darkblue"></span>
+                                <span class="lightred"></span>
+                                <span class="lightgrey"></span>
+                                <span class="satblue"></span>
+                                <span class="satgreen"></span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <a href="javascript:;"  target="_self" class='dropdown-toggle' data-toggle="dropdown" style="width:127px;"><nobr>{$u->un} <span class="caret"></span>                                        {if $u->headpic ==''}                                                                                               <img class="thumb_img" src="/media/images/mlogo.png" id="pic_apartpic" style="max-width:40px" />                                                {else}                                                 <img class="thumb_img" src="{$u->headpic}" id="pic_apartpic" style="max-width:40px" />                                                {/if}                                                                                        </nobr></a>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a  href="ind.html" target="_self">系统设置</a>
+                        </li>
+                        <li>
+                            <a href="/logout.html" target="_self">退出</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="content">
+        <div id="left">
+			<div class="subnav">
+                <div class="subnav-title">
+                    <a href="javascript:void(0);" target="_self" class='toggle-subnav'><i class="icon-angle-right"></i><span><img src="/res/add.png" />{$_SERVER['WEB_NAME']}</span></a>
+                </div>
+                <ul class="subnav-menu" style="display: block">
+                    <li>
+                        <a href="/admin/userCenter/myAccount.html"><img src="/res/add.png" />账户信息</a>
+                    </li>
+                    <li>
+                        <a href="/admin/userCenter/updatePwd.html"><img src="/res/add.png" />修改密码</a>
+                    </li>
+                   
+                       
+                </ul>                              
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="main">
+                <iframe frameborder="0" id="mainFrame" name="mainFrame" src="/admin/userCenter/pubs.html" style="background: url('http://stc.weimob.com/img/loading.gif') center no-repeat"></iframe>
+            </div>
+        </div>
+
+    </div>
+    
+    
+    <script type="text/javascript">
+    $('[data-toggle="dropdown"]').each(function(){
+    	$(this).parent().hover(function(){
+    		$(this).find('ul').show();
+    	},function(){
+    		$(this).find('ul').hide();
+    	});
+    });
+    $('div.subnav > .subnav-title').click(function(){    	
+    	if($(this).parent().find('ul').is(':hidden')){
+    		$('div.subnav').find('ul').slideUp();
+    		$(this).parent().find('ul').stop().slideDown();
+    	}else{
+    		$('div.subnav').find('ul').slideUp();
+    	}
+    });
+    $('div.subnav').find('ul').children('li').click(function(){
+    	$('div.subnav').find('ul').children('li').removeClass('active');
+    	$(this).addClass('active');
+    });
+    $('.toggle-nav').click(function(){
+    	if($('.right').is('.reight_p')){
+    		$('.right').removeClass('reight_p');	
+    		$('#left').show();
+    	}else{
+    		$('.right').addClass('reight_p');
+    		$('#left').hide();
+    	}    	
+    });
+    $('.main-nav').children('li').click(function(){
+    	$('.main-nav').find('li').removeClass('active');
+    	$(this).addClass('active');
+    });
+    
+    function fresh_sys(){
+    	mainFrame.location.reload();
+    	
+    }
+    $('#addservice').click(function(){ 
+    	$('.add').toggle();
+    });
+    </script>
+    <style>
+    #feedback_btn {
+     padding: 3px 2px;
+    text-align:center;
+    _display: none;
+    position: fixed;
+    _position: absolute;
+    z-index: 999;
+    right: 10px; 
+      top:85%;
+            font-size: 23px;
+            width: 32px;
+            height: 50px;  
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    transition: bottom 0.9s;
+    -webkit-transition: bottom 0.9s;
+    -moz-transition: bottom 0.9s;
+    -o-transition: bottom 0.9s;
+}
+ #feedback_btn a { 
+                color: #fff;
+                display: block;
+                text-decoration: none;
+                padding: inherit;
+                margin-bottom: 2px;
+            }
+#feedback_btn:hover {
+    cursor: pointer; 
+}
+/*Switch*/
+.has-switch {
+    border: 0;
+    width: 75px;
+    min-width: 0;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    margin-right: 5px;
+}
+    
+    </style>
+    
+
+</body>
+
+</html>

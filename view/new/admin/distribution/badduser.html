@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>添加商户账号</h3>
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+
+                        <div class="box-content">
+                            <form action="" method="post" id="transform" class="form-horizontal form-validate" onsubmit="return check()" >
+                            	 {tk()}
+                            	 {$m->hidden('id')}
+							   <div class="control-group">
+	                                <label for="name" class="control-label">账号：</label>
+	                                <div class="controls">
+	                                    {$m->text('uname','class="input-large" required="required" ')}
+	                                    <span class="maroon">*</span>
+	                                     {if $errorinfo == 1}
+				                        &nbsp;<span class="help-inline" style="color: red">此用户名已被注册！</span>
+				                        {/if}
+	                                    
+	                                </div>
+	                            </div>
+	                            <div class="control-group">
+	                                <label for="sort" class="control-label">密码：</label>
+	                                <div class="controls">
+	                                    {$m->password('pwd','class="input-large" required="required" ')}
+	                                    <span class="maroon">*</span>
+	                                </div>
+	                            </div>
+								<div class="control-group">
+	                                <label for="sort" class="control-label">手机号码：</label>
+	                                <div class="controls">
+	                                    {$m->text('telephone',' placeholder="请输入正确的手机号" class="yonghu LR_register_input" required="required" ')}
+	                                    <span class="maroon">*</span>
+	                                    {if $errorinfo == 2}
+										  &nbsp;<span class="help-inline" style="color: red">该手机号已被注册！</span>
+										{/if}
+										{if $errorinfo == 3}
+										  &nbsp;<span class="help-inline" style="color: red">手机号格式错误！</span>
+										{/if}
+	                                </div>
+	                            </div>
+								<div class="control-group">
+	                                <label for="sort" class="control-label">联系邮箱：</label>
+	                                <div class="controls">
+	                                    {$m->email('email',' placeholder="请输入正确的电子邮箱,如:“121@163.com”" class="yonghu LR_register_input" ')}
+	                                    <span class="maroon">*</span>
+	                                </div>
+	                            </div>
+	                            
+                                <div class="control-group">
+	                                <label for="sort" class="control-label">注册地点：</label>
+	                                <div class="controls">
+	                                    {$m->mulselect('chinaarea',array('l_sheng','l_shi','l_xianqu'),'class="txtAdressSt" required="required" ')}
+	                                    <span class="maroon">*</span>
+	                                </div>
+	                            </div>
+                             
+                                <div class="control-group">
+                                	<label for="fanslocal" class="control-label">用户状态</label>
+                                	<div class="controls">
+                                		{$m->select($status,'is_freez','class="input-xlarge"')}
+                                	</div>
+                                </div>
+								<div class="control-group">
+	                                <label for="sort" class="control-label">推荐码：</label>
+	                                <div class="controls">
+	                                    {$m->text('tjrnumber','class="input-large"  ')}
+	                                    <span class="maroon"></span>
+	                                </div>
+	                            </div>
+								
+								
+								
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    <button type="button" class="btn" onclick="Javascript:window.history.go(-1)">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+$(function(){
+	$('#memberuname').blur(function(){
+		var name = $(this).val();
+		$.ajax({
+			url: 'badduser-check.html',
+			type: 'POST',
+			dataType: 'JSON',
+			data: { name: name},
+			success:function(ret){
+				if(ret.status ==1){
+					alert('此帐号已注册！请重新选择账号');
+					
+					$('#memberuname').focus();return false;
+				}
+			}
+		})
+		
+	})
+	$('#membertelephone').blur(function(){
+		var tel = $(this).val();
+		$.ajax({
+			url: 'badduser-checktel.html',
+			type: 'POST',
+			dataType: 'JSON',
+			data: { tel: tel},
+			success:function(ret){
+				if(ret.status ==1){
+					alert(ret.msg);
+					
+					$('#membertelephone').focus();return false;
+				}
+			}
+		})
+		
+	})
+})
+
+
+
+function check()
+{
+	var cansv= true;
+	$("#transform").find('input[type="text"],select,textarea,password').filter('[required="required"]').each(function(){
+		if($.trim($(this).val())==''){
+			cansv = false;
+			$(this).css('backgroundColor','yellow');
+			$(this).one('focus',function(){
+				$(this).css('backgroundColor','transparent');
+			});
+		}
+	});
+	if(!cansv){
+		G.ui.tips.info('请将信息填写完整'); 
+		return cansv;
+	}
+}
+</script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>购物车</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="{$CSS}wsc/style.css?v=<?php echo time();?>">
+      <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        localStorage.lastbuy = null;
+        localStorage.lastbuynum = 1;
+    </script>
+    <script type="text/javascript">
+        function delgwc(id){
+            if(confirm('确定将该商品从购物车移除吗？')){
+                location.href="/dz_wsc2_new/gwc-"+id+"-del.html";
+            }
+        }
+    </script>
+  </head>
+  <body>
+    <header>
+        <a href="javascript:history.go(-1);" class="go_back"><</a>
+        <h1>购物车</h1>
+        <a href="/dz_wsc2_new/index3.html" class="rt_searchIcon">&#37;</a>
+    </header>
+
+    <div class="gwc_content">
+        <ul class="gwc_list">
+            {loop $glist as $gl}
+            <li>
+                <div class="gwc_left">
+                    <img src="{$gl->pic}" alt="{$gl->name}" />
+                </div>
+                <div class="gwc_right">
+                    <p>{$gl->name}</p>
+                    <p><em>单价：</em> ￥<span class="price">
+                                    ¥{if $fuck==0}{$gl->pt}{/if}
+									{if $fuck==1}{$gl->one}{/if}
+									{if $fuck==2}{$gl->tow}{/if}
+									{if $fuck==3}{$gl->thr}{/if}</span></p>
+                    <p><em>数量：</em> <span class="num">{$gl->num}</span></p>
+                    <p> <em>{loop $gl->gglist as $k=>$v} {$v}&nbsp;&nbsp;&nbsp; {/loop}</em><span id="canBuyNum" class="last" style="">可购<strong tag="skuNum" class="zzsy">{$gl->kc} </strong>件</span></p>
+                </div>
+                <div onclick="delgwc({$gl->id})" class="gwc_del">
+                    X
+                </div>
+            </li>
+            {/loop}
+        </ul>
+        {if count($glist)>0}
+            <div class="pay_area" id="pay_area">
+                <p class="action">
+                    <a href="/dz_wsc2_new/tobuy.html?showwxpaytitle=1" id="goQQPay" class="qq">
+                            去结算
+                        <em></em>
+                    </a>
+                </p>
+            </div>
+        {else}
+        <div class="pay_area" id="pay_area" >
+            <p class="action">
+                <a href="/dz_wsc2_new/index1.html" id="goQQPay" class="qq">
+                    空空如也，快去逛逛
+                    <em></em>
+                </a>
+            </p>
+        </div>
+        {/if}
+    </div>
+
+
+    
+   <div class="hoverCart" style="display:none">
+        <a href="#">0</a>
+    </div>
+    {T tp2}
+    <!-- <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>-->
+</body>
+  
+
+</html>

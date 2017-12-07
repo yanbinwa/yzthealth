@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>{$model->name}</title>
+	<meta name="keywords"  content="DeathGhost" />
+	<meta name="description" content="http://www.deathghost.cn" />
+	<meta name="author" content="DeathGhost" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name='apple-touch-fullscreen' content='yes'>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="address=no">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="/wsc/style2/style.css?v=<?php echo time();?>" />
+	<script src="/wsc/style2/js/jquery.js"></script>
+	<script src="/wsc/style2/js/swiper.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			var mySwiper = new Swiper('#slide',{
+				autoplay:5000,
+				visibilityFullFit : true,
+				loop:true,
+				pagination : '.pagination',
+			});
+			//product list:Tab
+			$(".tab_proList dd").eq(0).show().siblings(".tab_proList dd").hide();
+			$(".tab_proList dt a").eq(0).addClass("currStyle");
+			$(".tab_proList dt a").click(function(){
+				var liindex = $(".tab_proList dt a").index(this);
+				$(this).addClass("currStyle").siblings().removeClass("currStyle");
+				$(".tab_proList dd").eq(liindex).fadeIn(150).siblings(".tab_proList dd").hide();
+			});
+			//飞入动画，具体根据实际情况调整
+			$(".addToCart").click(function(){
+				var goodsno = $(this).attr('goods-no');
+				alert(goodsno);
+				return false;
+
+
+				$(".hoverCart a").html(parseInt($(".hoverCart a").html())+1);/*悬浮购物车+1*/
+				var shopOffset = $(".hoverCart").offset();
+				var cloneDiv = $(this).parent().siblings(".goodsPic").clone();
+				var proOffset = $(this).parent().siblings(".goodsPic").offset();
+				cloneDiv.css({ "position": "absolute", "top": proOffset.top, "left": proOffset.left });
+				$(this).parent().siblings(".goodsPic").parent().append(cloneDiv);
+				cloneDiv.animate({
+					width:0,
+					height:0,
+					left: shopOffset.left,
+					top: shopOffset.top,
+					opacity:1
+				},"slow");
+			});
+		});
+	</script>
+</head>
+<body>
+	<!--header-->
+	<header>
+		<!-- <a href="#" class="location">西安市</a> -->
+		<h1>{$model->name}</h1>
+		<a href="#" class="rt_searchIcon">&#37;</a>
+	</header>
+	<!--slide-->
+	<div id="slide">
+		<div class="swiper-wrapper">
+			{loop $tjres as $tj}
+			<div class="swiper-slide">
+				<a href="/wsc2/pro-{$tj->id}.html">
+					<img src="{$tj->pic2}"/>
+				</a>
+			</div>
+			{/loop}
+			
+			
+		</div>
+		<div class="pagination"></div>  
+	</div>
+	<!--categoryList-->
+	<ul class="categoryLiIcon">
+		{loop $fls as $fl}
+			<li>
+				<a href="/wsc2/index1-{$fl->id}.html">
+					<img src="{$fl->img}"/>
+					<em>{$fl->ms}</em>
+				</a>
+			</li>
+		{/loop}
+	</ul>
+	<!--Tab:productList-->
+	<dl class="tab_proList">
+		<dt>
+			<a>热销</a>
+			<a>新品</a>
+			<a>打折</a>
+		</dt>
+		<dd>
+			<ul>
+				{loop $tjzr as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/wsc2/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/wsc2/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/wsc2/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/wsc2/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+								<del>{$tj->yj}</del>
+								{if $tj->show_zk}
+									<span class="o2">{$tj->zk}折</span>	
+								{/if}
+							</p>
+							<p>
+								<strong class="price">{$tj->lowest}</strong>
+							</p>
+							<a class="addToCart" goods-no="{$tj->id}">&#126;</a>
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+		<dd>
+			<ul>
+				{loop $tjzx as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/wsc2/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/wsc2/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/wsc2/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/wsc2/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+								<del>{$tj->yj}</del>
+								{if $tj->show_zk}
+									<span class="o2">{$tj->zk}折</span>	
+								{/if}
+							</p>
+							<p>
+								<strong class="price">{$tj->lowest}</strong>
+							</p>
+							<a class="addToCart" goods-no="{$tj->id}">&#126;</a>
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+		<dd>
+			<ul>
+				{loop $tjzk as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/wsc2/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/wsc2/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/wsc2/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/wsc2/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+								<del>{$tj->yj}</del>
+								{if $tj->show_zk}
+									<span class="o2">{$tj->zk}折</span>	
+								{/if}
+							</p>
+							<p>
+								<strong class="price">{$tj->lowest}</strong>
+							</p>
+							<a class="addToCart" goods-no="{$tj->id}">&#126;</a>
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+	</dl>
+	<!--floatCart-->
+	<div class="hoverCart">
+		<a href="#">0</a>
+	</div>
+	{T tp2}
+
+</body>
+</html>

@@ -1,0 +1,1393 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>编辑微投票内容</h3>
+                                <br/>
+                                <span class="bold">当前地址：</span>{getUrl('wtp')}
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+                        <div class="box-content">
+                            <form action="" method="post" id="lbsForm" class="form-horizontal form-wizard ui-formwizard ui-helper-reset ui-widget ui-widget-content ui-corner-all" novalidate="novalidate">
+                            {tk()}{$lbs->hidden('id')}
+                           
+                                <div id="cc1" class="ccc step ui-formwizard-content ui-helper-reset ui-corner-all" id="firstStep" style="display: block;">
+                                    <ul class="wizard-steps steps-3">
+                                        <li class="active">
+                                            <div class="single-step">
+                                                <span class="title">1</span>
+                                                <span class="circle">
+                                                    <span class="active"></span>
+                                                </span>
+                                                <span class="description">活动基本信息
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">2</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动时间设置
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">3</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动详情设置
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    <div class="step-forms">
+                                        <div class="span8">
+                                            <div class="control-group">
+										    	<label class="control-label" for="keyword">微投票名称</label>
+										    	<div class="controls">
+										    	{$lbs->text('name','class="span4"')}
+											    	<span class="maroon">*</span>
+											    	<span class="help-inline">最多只能输入30个字符。</span>
+										    	</div>
+										  	</div>
+										  	<div class="control-group">
+										    	<label class="control-label" for="keyword">微投票关键字</label>
+										    	<div class="controls">
+										    	{$lbs->text('gjz','class="span4"')}
+											    	<span class="maroon">*</span>
+											    	<span class="help-inline">最多只能输入20个字符。</span>
+										    	</div>
+										  	</div>
+										  	<div class="control-group">
+										    	<label class="control-label" for="keyword">页面显示</label>
+										    	<div class="controls" style="vertical-align: middle;padding-top: 5px;">
+										    	{$lbs->radio(array('1'=>' 单排','2'=>' 双排','3'=>' 三排'),'pai','style="margin-top:-2px;"')}
+										    	</div>
+										  	</div>
+										  	
+                                        </div>
+                                        <div class="span4">
+                                            <div>
+                                             <label for="tel" class="control-label">活动展示图片：</label>
+                                                <p id="picsethere"><img  src="{$lbs->pic}" relobj="elfinder_pwtp"></p>
+                                                  {$lbs->hidden('pic',' relobj="elfinder_pwtp"')}
+                                                  <button class="btn select_img" rel="yyuc" relobj="elfinder" id="pwtp"  type="button">选择封面</button>
+                                                <p>建议尺寸：700像素 * 380像素</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span12">
+                                    <div class="form-actions">
+                                        
+                                        <input type="button" class="btn btn-primary ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-active" onclick="$('.ccc').hide();$('#cc2').show();" value="下一步" id="next">
+                                    </div>
+                                </div>
+                                </div>
+                                <div  id="cc2" class="ccc step ui-formwizard-content ui-helper-reset ui-corner-all" id="secondStep" style="display: none;">
+                                    <ul class="wizard-steps steps-3">
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">1</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动基本信息
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="active">
+                                            <div class="single-step">
+                                                <span class="title">2</span>
+                                                <span class="circle">
+                                                    <span class="active"></span>
+                                                </span>
+                                                <span class="description">活动时间设置
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">3</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动详情设置
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                    <div class="step-forms">
+                                        <div class="span8">
+                                            <div class="control-group">
+                                                <label for="keyword" class="control-label">活动开始时间：</label>
+                                                <div class="controls">
+                                               {$lbs->datetime('kssj','class="span4"')}
+                                               <span class="maroon">*</span>
+                                                <span for="keyword" class="help-block error valid" style="display: block;"></span></div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label for="tel" class="control-label">活动结束时间：</label>
+                                                <div class="controls">
+                                                   {$lbs->datetime('jssj','class="span4"')}</div>
+                                            </div>                                            
+                                        </div>
+
+                                        
+                                    </div>
+                                    
+<div class="span12">
+                                    <div class="form-actions">
+                                        <input type="button" class="btn ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-disabled" value="后退" onclick="$('.ccc').hide();$('#cc1').show();" id="back">
+                                        <input type="button" class="btn btn-primary ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-active" onclick="$('.ccc').hide();$('#cc3').show();" value="下一步" id="next">
+                                    </div>
+                                </div>
+                                </div>
+                                <div  id="cc3" class="ccc step ui-formwizard-content ui-helper-reset ui-corner-all" id="thirdStep" style="display: none;">
+                                    <ul class="wizard-steps steps-3">
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">1</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动基本信息
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="single-step">
+                                                <span class="title">2</span>
+                                                <span class="circle"></span>
+                                                <span class="description">活动时间设置
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="active">
+                                            <div class="single-step">
+                                                <span class="title">3</span>
+                                                <span class="circle"></span>
+                                                <span class="active"></span>
+                                                <span class="description">活动详情设置
+                                                </span>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    <div class="control-group">
+                                            <label for="endtite" class="control-label">活动简述：</label>
+                                            <div class="controls">                                                
+											{$lbs->textarea('ms','class="span5" style="height:90px;width:520px;"')}
+                                            <span for="endtite" class="help-block error valid" style="display: block;"></span></div>
+                                   </div>   
+                                    <div class="control-group">
+	    	<label class="control-label" for="keyword">选项1</label>
+	    	<div class="controls">
+	    	{$lbs->text('option1','class="span4"')}
+		    	<span class="maroon">*</span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group">
+		    <label class="control-label" for="">展示图片1</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic1',' relobj="elfinder_pheadpic1"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic1"  type="button">选择封面</button></td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic1">
+				 	   <img  src="{$lbs->headpic1}" relobj="elfinder_pheadpic1" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+		    
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="keyword">选项2</label>
+	    	<div class="controls">
+	    	{$lbs->text('option2','class="span4"')}
+		    	<span class="maroon">*</span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group">
+		    <label class="control-label" for="">展示图片2</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic2',' relobj="elfinder_pheadpic2"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic2"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic2">
+					<img  src="{$lbs->headpic2}" relobj="elfinder_pheadpic2" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="keyword">选项3</label>
+	    	<div class="controls">
+	    	{$lbs->text('option3','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group">
+		    <label class="control-label" for="">展示图片3</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic3',' relobj="elfinder_pheadpic3"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic3"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic3">
+					<img  src="{$lbs->headpic3}" relobj="elfinder_pheadpic3" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group">
+	    	<label class="control-label" for="keyword">选项4</label>
+	    	<div class="controls">
+	    	{$lbs->text('option4','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group">
+		    <label class="control-label" for="">展示图片4</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic4',' relobj="elfinder_pheadpic4"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic4"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic4">
+					<img  src="{$lbs->headpic4}" relobj="elfinder_pheadpic4" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项5</label>
+	    	<div class="controls">
+	    	{$lbs->text('option5','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片5</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic5',' relobj="elfinder_pheadpic5"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic5"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic5">
+					<img  src="{$lbs->headpic5}" relobj="elfinder_pheadpic5" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项6</label>
+	    	<div class="controls">
+	    	{$lbs->text('option6','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片6</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic6',' relobj="elfinder_pheadpic6"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic6"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic6">
+					<img  src="{$lbs->headpic6}" relobj="elfinder_pheadpic6" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项7</label>
+	    	<div class="controls">
+	    	{$lbs->text('option7','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片7</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic7',' relobj="elfinder_pheadpic7"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic7"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic7">
+					<img  src="{$lbs->headpic7}" relobj="elfinder_pheadpic7" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项8</label>
+	    	<div class="controls">
+	    	{$lbs->text('option8','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片8</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic8',' relobj="elfinder_pheadpic8"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic8"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic8">
+					<img  src="{$lbs->headpic8}" relobj="elfinder_pheadpic8" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项9</label>
+	    	<div class="controls">
+	    	{$lbs->text('option9','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片9</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic9',' relobj="elfinder_pheadpic9"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic9"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic9">
+					<img  src="{$lbs->headpic9}" relobj="elfinder_pheadpic9" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项10</label>
+	    	<div class="controls">
+	    	{$lbs->text('option10','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片10</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic10',' relobj="elfinder_pheadpic10"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic10"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic10">
+					<img  src="{$lbs->headpic10}" relobj="elfinder_pheadpic10" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+		    
+		    
+		    
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项11</label>
+	    	<div class="controls">
+	    	{$lbs->text('option11','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片11</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic11',' relobj="elfinder_pheadpic11"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic11"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic11">
+					<img  src="{$lbs->headpic11}" relobj="elfinder_pheadpic11" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项12</label>
+	    	<div class="controls">
+	    	{$lbs->text('option12','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片12</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic12',' relobj="elfinder_pheadpic12"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic12"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic12">
+					<img  src="{$lbs->headpic12}" relobj="elfinder_pheadpic12" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项13</label>
+	    	<div class="controls">
+	    	{$lbs->text('option13','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片13</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic13',' relobj="elfinder_pheadpic13"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic13"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic13">
+					<img  src="{$lbs->headpic13}" relobj="elfinder_pheadpic13" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项14</label>
+	    	<div class="controls">
+	    	{$lbs->text('option14','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片14</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic14',' relobj="elfinder_pheadpic14"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic14"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic14">
+					<img  src="{$lbs->headpic14}" relobj="elfinder_pheadpic14" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项15</label>
+	    	<div class="controls">
+	    	{$lbs->text('option15','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片15</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic15',' relobj="elfinder_pheadpic15"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic15"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic15">
+					<img  src="{$lbs->headpic15}" relobj="elfinder_pheadpic15" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项16</label>
+	    	<div class="controls">
+	    	{$lbs->text('option16','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片16</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic16',' relobj="elfinder_pheadpic16"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic16"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic16">
+					<img  src="{$lbs->headpic16}" relobj="elfinder_pheadpic16" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项17</label>
+	    	<div class="controls">
+	    	{$lbs->text('option17','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片17</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic17',' relobj="elfinder_pheadpic17"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic17"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic17">
+					<img  src="{$lbs->headpic17}" relobj="elfinder_pheadpic17" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项18</label>
+	    	<div class="controls">
+	    	{$lbs->text('option18','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片18</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic18',' relobj="elfinder_pheadpic18"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic18"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic18">
+					<img  src="{$lbs->headpic18}" relobj="elfinder_pheadpic18" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项19</label>
+	    	<div class="controls">
+	    	{$lbs->text('option19','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+		<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片19</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic19',' relobj="elfinder_pheadpic19"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic19"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic19">
+					<img  src="{$lbs->headpic19}" relobj="elfinder_pheadpic19" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项20</label>
+	    	<div class="controls">
+	    	{$lbs->text('option20','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片20</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic20',' relobj="elfinder_pheadpic20"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic20"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic20">
+					<img  src="{$lbs->headpic20}" relobj="elfinder_pheadpic20" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	
+	  	
+	  	{if $wid=='15528' }
+	  	
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项21</label>
+	    	<div class="controls">
+	    	{$lbs->text('option21','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片21</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic21',' relobj="elfinder_pheadpic21"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic21"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic21">
+					<img  src="{$lbs->headpic21}" relobj="elfinder_pheadpic21" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项22</label>
+	    	<div class="controls">
+	    	{$lbs->text('option22','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片22</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic22',' relobj="elfinder_pheadpic22"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic22"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic22">
+					<img  src="{$lbs->headpic22}" relobj="elfinder_pheadpic22" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项23</label>
+	    	<div class="controls">
+	    	{$lbs->text('option23','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片23</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic23',' relobj="elfinder_pheadpic23"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic23"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic23">
+					<img  src="{$lbs->headpic23}" relobj="elfinder_pheadpic23" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项24</label>
+	    	<div class="controls">
+	    	{$lbs->text('option24','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片24</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic24',' relobj="elfinder_pheadpic24"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic24"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic24">
+					<img  src="{$lbs->headpic24}" relobj="elfinder_pheadpic24" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项25</label>
+	    	<div class="controls">
+	    	{$lbs->text('option25','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片25</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic25',' relobj="elfinder_pheadpic25"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic25"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic25">
+					<img  src="{$lbs->headpic25}" relobj="elfinder_pheadpic25" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项26</label>
+	    	<div class="controls">
+	    	{$lbs->text('option26','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片26</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic26',' relobj="elfinder_pheadpic26"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic26"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic26">
+					<img  src="{$lbs->headpic26}" relobj="elfinder_pheadpic26" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项27</label>
+	    	<div class="controls">
+	    	{$lbs->text('option27','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片27</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic27',' relobj="elfinder_pheadpic27"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic27"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic27">
+					<img  src="{$lbs->headpic27}" relobj="elfinder_pheadpic27" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项28</label>
+	    	<div class="controls">
+	    	{$lbs->text('option28','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片28</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic28',' relobj="elfinder_pheadpic28"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic28"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic28">
+					<img  src="{$lbs->headpic28}" relobj="elfinder_pheadpic28" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项29</label>
+	    	<div class="controls">
+	    	{$lbs->text('option29','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片29</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic29',' relobj="elfinder_pheadpic29"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic29"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic29">
+					<img  src="{$lbs->headpic29}" relobj="elfinder_pheadpic29" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项30</label>
+	    	<div class="controls">
+	    	{$lbs->text('option30','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片30</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic30',' relobj="elfinder_pheadpic30"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic30"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic30">
+					<img  src="{$lbs->headpic30}" relobj="elfinder_pheadpic30" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项31</label>
+	    	<div class="controls">
+	    	{$lbs->text('option31','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片31</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic31',' relobj="elfinder_pheadpic31"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic31"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic31">
+					<img  src="{$lbs->headpic31}" relobj="elfinder_pheadpic31" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项32</label>
+	    	<div class="controls">
+	    	{$lbs->text('option32','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片32</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic32',' relobj="elfinder_pheadpic32"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic32"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic32">
+					<img  src="{$lbs->headpic32}" relobj="elfinder_pheadpic32" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项33</label>
+	    	<div class="controls">
+	    	{$lbs->text('option33','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片33</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic33',' relobj="elfinder_pheadpic33"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic33"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic33">
+					<img  src="{$lbs->headpic33}" relobj="elfinder_pheadpic33" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项34</label>
+	    	<div class="controls">
+	    	{$lbs->text('option34','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片34</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic34',' relobj="elfinder_pheadpic34"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic34"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic34">
+					<img  src="{$lbs->headpic34}" relobj="elfinder_pheadpic34" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项35</label>
+	    	<div class="controls">
+	    	{$lbs->text('option35','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片35</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic35',' relobj="elfinder_pheadpic35"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic35"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic35">
+					<img  src="{$lbs->headpic35}" relobj="elfinder_pheadpic35" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项36</label>
+	    	<div class="controls">
+	    	{$lbs->text('option36','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片36</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic36',' relobj="elfinder_pheadpic36"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic36"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic36">
+					<img  src="{$lbs->headpic36}" relobj="elfinder_pheadpic36" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项37</label>
+	    	<div class="controls">
+	    	{$lbs->text('option37','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片37</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic37',' relobj="elfinder_pheadpic37"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic37"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic37">
+					<img  src="{$lbs->headpic37}" relobj="elfinder_pheadpic37" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项38</label>
+	    	<div class="controls">
+	    	{$lbs->text('option38','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片38</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic38',' relobj="elfinder_pheadpic38"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic38"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic38">
+					<img  src="{$lbs->headpic38}" relobj="elfinder_pheadpic38" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项39</label>
+	    	<div class="controls">
+	    	{$lbs->text('option39','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片39</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic39',' relobj="elfinder_pheadpic39"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic39"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic39">
+					<img  src="{$lbs->headpic39}" relobj="elfinder_pheadpic39" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	
+	  	<div class="control-group more" style="display:none;">
+	    	<label class="control-label" for="keyword">选项40</label>
+	    	<div class="controls">
+	    	{$lbs->text('option40','class="span4" noneed="1"')}
+		    	<span class="maroon"></span>
+		    	<span class="help-inline">最多只能输入30个字符。</span>
+	    	</div>
+	  	</div>
+	  	<div class="control-group more" style="display:none;">
+		    <label class="control-label" for="">展示图片40</label>
+		    <div class="controls">
+			    <div class="cover-area">
+					<table style="height: 30px;overflow: hidden;">
+					<tr>
+					<td>
+					{$lbs->hidden('headpic40',' relobj="elfinder_pheadpic40"')}
+					<button class="btn select_img" rel="yyuc" relobj="elfinder" id="pheadpic40"  type="button">选择封面</button>
+					</td>
+					<td valign="top" style="line-height: 30px;color:gray;">建议尺寸：200像素 * 160像素</td>
+					</tr>
+					</table>
+					<p class="img-area cover-bd" id="headpic33">
+					<img  src="{$lbs->headpic40}" relobj="elfinder_pheadpic40" style="max-height: 100px;">
+					</p>
+				</div>
+		    </div>
+	  	</div>
+	  	
+	  	{/if}
+	  	
+	  	<div class="control-group">
+	    	<label class="control-label" for="keyword"><button id="more_vote" type="button">更多选项</button></label>
+	    	<div class="controls">
+	    	
+	    	<span class="help-inline">提示:请依次填写</span>
+	    	</div>
+	  	</div>
+		
+                                        <div class="span12">
+                                    <div class="form-actions">
+                                        <input type="button" class="btn ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-disabled" value="后退" onclick="$('.ccc').hide();$('#cc2').show();" id="back">
+                                        <input type="submit" class="btn btn-primary ui-wizard-content ui-formwizard-button ui-helper-reset ui-state-default ui-state-active" value="提交" id="next">
+                                    </div>
+                                </div>                                 
+                                </div>
+
+                                
+                            </form>
+                        </div>
+                        <script>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script type="text/javascript">
+$(function(){
+	$("#more_vote").click(function(){ 
+		 $(".more").toggle();
+		 
+	 });
+	 $("#lbsForm").submit(function(){
+		var cansv= true;
+		$(this).find('input[type="text"],select,textarea').each(function(){
+			if($.trim($(this).val())=='' && $(this).attr('noneed')!='1'){
+				cansv = false;
+				$(this).css('backgroundColor','yellow');
+				$(this).one('focus',function(){
+					$(this).css('backgroundColor','transparent');
+				});
+			}
+		});
+		if(!cansv){
+			tusi('请将信息填写完整');
+			return false;
+		}
+		$(this).find('input[type="text"],select,textarea').each(function(){
+			if($(this).attr('isint')=='1' && $.trim($(this).val())!=''){
+				var intthis = parseInt2($(this).val());
+				if(intthis+''=='NaN'){
+					cansv = false;
+					$(this).css('backgroundColor','yellow');
+					$(this).one('focus',function(){
+						$(this).css('backgroundColor','transparent');
+					});
+				}else{
+					$(this).val(parseInt($(this).val()));
+				}
+			}
+		});
+		if(!cansv){
+			tusi('标注的项目必须为整数');
+			return false;
+		}
+		
+		$(this).find('input[type="text"],select,textarea').each(function(){
+			if($(this).attr('isfloat')=='1' && $.trim($(this).val())!=''){
+				var intthis = parseFloat($(this).val());
+				if(intthis+''=='NaN'){
+					$(this).val('0');
+					cansv = false;
+					$(this).css('backgroundColor','yellow');
+					$(this).one('focus',function(){
+						$(this).css('backgroundColor','transparent');
+					});
+				}else{
+					$(this).val(parseFloat($(this).val()));
+				}
+			}
+		});
+		if(!cansv){
+			tusi('标注的项目必须为数字');
+			return false;
+		}
+		
+		if($('#picsethere').find('img').size()<1){
+   		cansv = false;
+   		tusi('请上传活动图片');
+   		return false;
+   	}
+   	return cansv;
+   });
+});
+</script>
+<br/><br/><br/></body>
+</html>

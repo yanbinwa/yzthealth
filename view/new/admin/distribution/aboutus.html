@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Apple devices fullscreen -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Apple devices fullscreen -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <base target="mainFrame" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+    <title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#micro_kanjia_setdijia").blur(function () {
+                var num = $(this).val();
+                if(num.length == 0 || num <= 0 ){
+                    alert('最低设置0.01元');
+                    $(this).val('0.01');
+                    $(this).focus();
+                }
+
+            });
+            $("#micro_kanjia_setdaonum2").blur(function () {
+                var daonum2 = $(this).val();
+                var daonum1 = $("#micro_kanjia_setdaonum1").val();
+                if(parseInt(daonum2) < parseInt(daonum1)){
+                    alert('人数需要大于区间1的人数');
+                    $(this).focus();
+                }
+            });
+        });
+
+
+    </script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box">
+                    <div class="box-title">
+                        <div class="span10" style="">
+                            <h3><i class="icon-cog"></i>关于我们设置</h3>
+                        </div>
+                        <div class="span2" style="float: right;display: block">
+                            <a class="btn" href="Javascript:window.history.go(-1)">返回</a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <div class="alert" style="font-size:15px;">
+                            <span class="member-count" style="margin-left: 30px;color: red">关于我们内容中可以添加图片，要好好摸索哦，功能很强大哦，好不好看就看你怎么设计了</span>
+                        </div>
+                        <form action="" method="post" id="accountform" class="form-horizontal form-validate">
+
+
+
+
+
+                            <div class="control-group">
+                                <label class="control-label" for="keyword">关于我们</label>
+                                <div class="controls">
+                                    {$lbs->texteditor('content',7,'820px','600px')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline">最好不要超过1000个字符,图片尺寸建议：宽680像素，高360像素,图片大小不超过300K</span>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="id" value="47">
+                            <div class="form-actions">
+                                <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="{$JS}comm.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /*	$("#accountform").submit(function(){
+
+         var cansv= true;
+         $(this).find('input[type="text"],textarea').each(function(){
+         if($.trim($(this).val())=='' && $(this).attr('noneed')!='1'){
+         cansv = false;
+         $(this).css('backgroundColor','yellow');
+         $(this).one('focus',function(){
+         $(this).css('backgroundColor','transparent');
+         });
+         }
+         });
+         if(!cansv){
+         tusi('请将信息填写完整');
+         return false;
+         }
+
+         });*/
+
+    });
+</script>

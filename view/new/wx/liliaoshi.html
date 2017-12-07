@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>搜索词-{$searchword}</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/font_1459473269_4751618.css">
+    <link href="{$CSS}yangsheng2/bootstrap.min.css" rel="stylesheet">
+    <link href="{$CSS}yangsheng2/style.css" rel="stylesheet">
+    <script src="{$JS}yangsheng2/jquery.min.js"></script>
+    <script src="{$JS}yangsheng2/bootstrap.min.js"></script>
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/menu_elastic.css" />
+    <script src="{$JS}yangsheng2/snap.svg-min.js"></script>
+    <!--[if IE]>
+    <script src="{$JS}yangsheng2/html5.js"></script>
+    <![endif]-->
+    <!--<link type="text/css" rel="stylesheet" href="{$CSS}wxy/default.css"/>-->
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/list.css"/>
+    <link rel="stylesheet" href="{$CSS}weui/dist/style/weui.css"/>
+    <style>
+        a,a:hover{ text-decoration:none; color:#333}
+        .engineer_list{ overflow: hidden;}
+        .fuck{
+            margin-top: -15px;
+        }
+        .tab-content{
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body class="huibg">
+<div class="menu-wrap">
+    <nav class="menu">
+        <div class="icon-list">
+            <a href="yangsheng.html"><i class="iconfont icon-home"></i><span>首页</span></a>
+            <a href="/user/user.html"><i class="iconfont icon-yonghux"></i><span>个人中心</span></a>
+            <a href="/user/ddcenter.html"><i class="iconfont icon-liebiao"></i><span>订单中心</span></a>
+            <!-- <a href="userinfo.html"><i class="iconfont icon-xitongmingpian"></i><span>个人信息</span></a>
+            <a href="dizhi.html"><i class="iconfont icon-dizhi"></i><span>地址信息</span></a> -->
+        </div>
+    </nav>
+    <button class="close-button" id="close-button">Close Menu</button>
+    <div class="morph-shape" id="morph-shape" data-morph-open="M-1,0h101c0,0,0-1,0,395c0,404,0,405,0,405H-1V0z">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+            <path d="M-1,0h101c0,0-97.833,153.603-97.833,396.167C2.167,627.579,100,800,100,800H-1V0z"/>
+        </svg>
+    </div>
+</div>
+<nav class="navbar text-center">
+    <button class="topleft" onclick ="javascript:history.go(-1);"><span class="iconfont icon-fanhui"></span></button>
+    <a class="navbar-tit center-block">{if $area == 1}{$searchword}{else}{$fans->city}{/if}</a>
+    <button class="topnav" id="open-button"><span class="iconfont icon-1"></span></button>
+</nav>
+<br/>
+<ul id="myTab" class="nav nav-tabs fuck">
+    <li><a href="liliao.html?searchword={$searchword}">店铺</a>
+    </li>
+    <li class="active"><a href="#sp1" data-toggle="tab">个人理疗师</a></li>
+
+</ul>
+<div id="myTabContent" class="tab-content">
+    <a class="tab-pane fade in active" id="sp1" href="#">
+        <ul class="engineer_list" id="engineer_list">
+
+        </ul>
+    </a>
+
+
+</div>
+
+<script src="{$JS}yangsheng2/classie.js"></script>
+<script src="{$JS}yangsheng2/main3.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=drawing,geometry,autocomplete,convertor"></script>
+
+<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+<script src="{$JS}wx/dropload.min.js"></script>
+<script>
+
+    $(function(){
+        // 页数
+        var page = 0;
+        // dropload
+        $('#myTabContent').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://www.yzthealth.com/wx/liliaoshi-dropload.html?searchword={$searchword}&page='+page,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.length;
+                        console.log(arrLen);
+                        if(arrLen > 0){
+                            for(var i=0; i<arrLen; i++){
+                                c = new qq.maps.LatLng('{$fans->wd}','{$fans->jd}');
+                                d = new qq.maps.LatLng(data[i].wd,data[i].jd);
+                                result +=   '<a href="engineerInfo-'+data[i].id+'.html"><li class="engineer_li" eid="'+data[i].id+'">'
+                                        +'<div class="engineer_li_left"><img class="headerIcon" src="'+data[i].dz+'" alt=""></div>'
+                                        +'<div class="engineer_li_right">'
+                                        +'<div class="engineer_li_right_mid">'
+                                        +'<div class="info"><b>'+data[i].lxr+'</b></div>'
+                                        +'<div class="right"><img class="loc_i" src="{$IMG}wx/position.png"> <span class="distance">'+parseInt(qq.maps.geometry.spherical.computeDistanceBetween(c, d))/1000 +' km</span></div>'
+                                        +'</div>'
+                                        +'<div class="engineer_li_right_right">'
+                                        +'<div class="left"><img class="order_count_i" src="{$IMG}wx/odt-num.png"> <span class="order_count">'+ data[i].order_number+'单</span></div>'
+                                        +'<div class="loc" style="display: none_block;">位置：'+data[i].address+'</div>'
+                                        +'</div>'
+                                        +'<div class="desc">'+data[i].jianjie+'...</div>'
+                                        +'</div>'
+                                '</li></a>';
+
+                            }
+                            // 如果没有数据
+                        }else{
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                            // 插入数据到页面，放到最后面
+                            $('#engineer_list').append(result);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');
+                        // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+                page++;
+            }
+        });
+    });
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+</body>
+</html>

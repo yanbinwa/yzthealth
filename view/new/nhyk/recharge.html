@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+       <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+
+    <body onselectstart="return true;" ondragstart="return false;">
+        <div class="container success">
+
+            <header>
+            <div class="desc tbox">
+                <div>
+                    <span class="img">&nbsp;</span>
+                </div>
+                <div>
+                    <label>
+                                                           充值成功！<br/>充值金额<r>{$momey}</r>元
+                    </label>
+                </div>
+            </div>
+        </header>
+        <div class="body">
+            <div class="group_btn2">
+                {if $wid == 6765368 || $wid == 6780484 || $wid==6788906}
+               <h6>U币余额：<label>{$m->balance}元</label></h6>
+                {else}
+                <h6>余额：<label>{$m->balance}元</label></h6>
+                {/if}
+               
+                <ul>
+                    <li>
+                        <a href="index.html" class="btn">确&nbsp;&nbsp;定</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+		
+		{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263.html}
+          {elseif $wid==6765368 || $wid==6780484||$wid==6788906}
+          {I footer_yypk.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer.html}
+        {/if}
+
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script></div>        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+	</body>
+
+</html>
+

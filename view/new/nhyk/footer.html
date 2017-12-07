@@ -1,0 +1,42 @@
+<footer>
+	<nav class="nav">
+		<ul class="box">
+			<li>
+				<a href="index.html" {if $sign==0} class="on" {/if} >
+					<p class="card"></p>
+					<span>会员卡</span>
+				</a>
+			</li>
+			<li>
+				<a href="notice.html"  {if $sign==1} class="on" {/if} >
+					<p id="Js-msg-num" class="msg"></p>
+					<span>消息</span>
+				</a>
+			</li>
+			<li>
+				<a href="signin.html"  {if $sign==2} class="on" {/if}>
+					<p class="sign"></p>
+					<span>签到</span>
+				</a>
+			</li>
+			<li>
+				<a href="share.html"  {if $sign==3} class="on" {/if} >
+					<p class="share"></p>
+					<span>分享</span>
+				</a>
+			</li>
+			<li>
+				<a href="my.html"  {if $sign==4} class="on"   {/if}  >
+				    {if $wid=='6764263'}
+					<p class="my" style="height: 30px;" ></p>
+					<span>我的账户</span>
+					{else}
+					<p class="my"  {if $sign==4} style="background-position-y:-40px" {/if} ></p>
+					<span>我的</span>
+					{/if}
+					
+				</a>
+			</li>
+		</ul>
+	</nav>
+</footer>

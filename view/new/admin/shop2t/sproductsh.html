@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>微信管家—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript">
+function deldata(id,o){
+	if(confirm('删除后不能恢复，确定要删除？')){
+		ajax('sproductsh-del.html',{ id:id},function(){
+			location.href = location.href;
+		});
+	}
+}
+function down(id,o){
+		ajax('sproductsh-down.html',{ id:id},function(){
+			location.href = location.href;
+		});
+}
+function up(id,o){
+	ajax('sproductsh-up.html',{ id:id},function(){
+		location.href = location.href;
+	});
+}
+</script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>
+									
+									商品审核
+								
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+						    
+							<div class="row-fluid">
+								<div class="span8 control-group">
+								   
+									<div class="alert">
+										<span class="member-count">总商品数量:<a style="color:red;font-size:16px">&nbsp;&nbsp;{$amount}&nbsp;&nbsp;</a></span> <span>待审核: <a href="sproductsh-w.html" style="color:red;font-size:16px">&nbsp;&nbsp;{$no_amount}&nbsp;&nbsp;</a></span>
+									</div>
+									
+								</div>
+								<div class="span4" style="text-align:right;">
+									<form action="" class="form-horizontal form-validate">
+										<input type="text" value="" name="title" id="title" value="{$title}" class="input-large" placeholder="请输入商品名称"><button class="btn">查询</button>
+									</form>
+								</div>
+							</div>
+							<div class="row-fluid dataTables_wrapper">
+								<table id="listTable" class="table table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+										    <th width="2%"><input type="checkbox"  /></th>
+											<th width="8%">分类</th>
+										    <th width="6%" >商品图片</th>
+											<th width="14%" >商品名称</th>
+											
+											<th width="7%">是否团购</th>
+											<th width="5%">总库存</th>
+											<th width="6%">总销量</th>
+											
+											<th width="10%">推荐类型</th>
+											<th width="9%">店铺名称</th>
+											<th width="13%">创建时间</th>
+											<th width="5%">审核</th>
+											<th width="18%">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									{loop $res as $r}
+									<tr>	
+									     <td class="with-checkbox"><input type="checkbox" name="check" value="{$r->id}" /></td>		
+									     <td>{$typearr[$r->typgg]}</td>
+										 <td><img class="thumb_img" src="{$r->pic}"  onclick="window.open($(this).attr('src'))" style="max-height:40px;cursor:pointer;"></td>						  
+									     <td>{$r->name}</td>
+									     
+									     {if $r->istuan == 1}
+									    	 <td>团购</td>
+									     {else}
+									     	<td>非团购</td>
+									     {/if}
+									     <td>{$r->store_nums}</td>
+									     <td>{$r->sale_nums}</td>
+									    
+									     <td>{$zx[$r->zx]}&nbsp;{$tj[$r->tj]}&nbsp;{$rm[$r->rm]}&nbsp;{$tuij[$r->tuij]}&nbsp;{$wptj[$r->wptj]}&nbsp;{$zgtj[$r->zgtj]}</td>
+										 <td>{$r->shopname}</td>
+									     <td>{$r->create_time}</td>
+										 <td>
+											{if $r->sh_status ==0}
+											<span class="label label-satblue">未审核</span>
+											{elseif $r->sh_status ==1}
+											<span class="label label-satgreen">通过</span>
+											
+											{else}
+											<span class="label label-lightred">不通过</span>
+											{/if}
+										</td>	
+									     <td>
+									     	<a href="sproductshadd-{$r->id}.html" title="审核" class="btn"style="width:16%;padding:2% 0%"><i class="icon-edit"></i></a>
+									      	<!--{if $r->status==0}
+									        <a href="javascript:;" class="btn" onclick="down({$r->id},this)" title="点击下架"style="width:16%;padding:2% 0%"><i class="icon-arrow-down"></i></a>
+									        {else}
+									        <a href="javascript:;" class="btn"  onclick="up({$r->id},this)" title="点击上架"style="width:16%;padding:2% 0%"><i class="icon-arrow-up"></i></a>
+									        {/if}
+											-->
+									          <a href="spcomm-{$r->id}.html"  title="查看评论"  class="btn" >{$r->cc}<i class="icon-comment-alt"></i></a>
+									        
+									           <a href="javascript:;" class="btn"  title="删除" onclick="deldata({$r->id},this)"style="width:17%;padding:2% 0%"><i class="icon-remove"></i></a>
+									     </td>
+									</tr>
+									{/loop}
+									</tbody>
+								</table>
+								<div class="row-fluid dataTables_wrapper">
+                                     <div class="dataTables_paginate paging_full_numbers"><span>{P p}</span></div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    </body>
+</html>

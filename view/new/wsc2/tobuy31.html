@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>确认购买</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c4.css">
+    <script type="text/javascript" src="{$JS}mwm/swipe.js"></script>
+    <style>
+        .others_pay ul li{
+            background-color:#f3f3f3;
+            height:50px;
+            margin-bottom:2px;
+            padding:10px;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+        <div id="c_wg.jdpay_show" style="">
+        <input type="hidden" value={$jifentag} id="jifentagg" />
+        <input type="hidden" value={$shopset->jifencount} id="jifencount" />
+        <input type="hidden" value={$zjf} id="spjizs" />
+            <div class="wx_bar">
+                <div class="wx_bar_back">
+                    <a id="indexBack" href="javascript:void(0);" onclick="clearcook()">
+                    </a>
+                </div>
+                <div class="wx_bar_tit">
+                    确认订单
+                </div>
+            </div>
+            <div class="wx_wrap">
+                {if count($dzres)>0}
+                {loop $dzres as $dz}
+                {if $__i==1}
+                <div id="sendTo" class="send_to" dzid="{$dz->id}" dzmr="{$dz->is_mr}">
+                    <div class="address_defalut">
+                        <h3>送至 </h3>
+                        <ul class="selected" id="editAddBtn" onclick="$('.account_tips').toggle();">
+                            <li>
+                                <span id="rginfoId">
+                                <span class="shdz"   >{$areamap[$dz->s_p]}{$areamap[$dz->s_s]}{$areamap[$dz->s_x]}
+                                {$dz->s_addr}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <strong>
+                                 <span class="shshr">{$dz->shr}</span>
+                                </strong>
+                                <span class="shdh">{$dz->phone}</span>
+                            </li>
+                            <li class="error" id="noToneTip" style="display:block;">
+                                {if $wid == 6765368}
+                                <a href="javascript:void(0);" onclick="tocook()" style="color: inherit;">点击管理收货地址，方便更快收货。</a>
+                                {else}
+                                <a href="/nhyk/myaddr.html" style="color: inherit;">点击管理收货地址，方便更快收货。</a>
+                                {/if}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {else}
+                <div id="bindJd" class="account_tips" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);display: none;"  >
+                   <span class="shshr">{$dz->shr}</span>
+                    <br>
+                    <span class="shdh">{$dz->phone}</span>
+                    <a href="javascript:void(0);" id="bindJdBtn" class="btn_bind" onclick="setthisdz(this);" dzid="{$dz->id}">
+                        使用该地址
+                    </a>
+                    <p class="has">
+                        <span class="shdz">{$areamap[$dz->s_p]}{$areamap[$dz->s_s]}{$areamap[$dz->s_x]}
+                                {$dz->s_addr}</span>
+                    </p>
+                </div>
+                {/if}
+                {/loop}
+                {else}
+                <div id="sendTo" class="send_to" dzid="0">
+                    <div class="address_defalut">
+                        <h3>地址</h3>
+                        <ul class="selected" id="editAddBtn" onclick="$('.account_tips').toggle();">
+                            <li class="error" id="noToneTip" style="display:block;">
+                                {if $wid == 6765368}
+                                <a href="javascript:void(0);" onclick="tocook()" style="color: inherit;">点击添加收货地址，方便收货。</a>
+                                {else}
+                                <a href="/nhyk/myaddr.html" style="color: inherit;">点击添加收货地址，方便收货。</a>
+                                {/if}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {/if}
+                <script type="text/javascript">
+                function setthisdz (o){
+                    var changeid = $(o).attr('dzid');
+                    $.ajax({
+                          type: 'GET',
+                          url: 'changeaddr.html?areaid='+changeid+'&wid='+<?=$wid?>,
+                          dataType: 'json',
+                          success:function(data){
+                            if(data.success){
+                                $('#real-postages').val(data.data[0].postages);
+                                $('#addone').val(data.data[0].addone);
+                                jszjg();
+                                var tp = $(o).parent();
+                                var shshr = $('#sendTo').find('.shshr').text();
+                                var shdh = $('#sendTo').find('.shdh').text();
+                                var shdz = $('#sendTo').find('.shdz').text();
+                                var dzid = $('#sendTo').attr('dzid');
+                                $('#sendTo').find('.shshr').text(tp.find('.shshr').text());
+                                $('#sendTo').find('.shdh').text(tp.find('.shdh').text());
+                                $('#sendTo').find('.shdz').text(tp.find('.shdz').text());
+                                $('#sendTo').attr('dzid',$(o).attr('dzid'));
+                                $(o).attr('dzid',dzid);
+                                tp.find('.shshr').text(shshr);
+                                tp.find('.shdh').text(shdh);
+                                tp.find('.shdz').text(shdz);
+                                $('.account_tips').hide();
+                            }else{
+                                alert(data.msg);
+                                return;
+                            }
+                          }
+                    });
+                }
+
+                $(function(){
+                    //if(localStorage.lastbuy){
+                    //  var lastbuy = $.evalJSON(localStorage.lastbuy);
+                    //  $('.zzdj').text(lastbuy.sell_price);
+                    //  $('.zzsy').text(lastbuy.store_nums);
+                    //}
+                    var tuan = {$tuan};
+                    if(tuan != 1){
+                        if(localStorage.lastbuynum){
+                            if({$zhi} == 1){
+                                if($.cookie('goodsnum')>0){
+                                    var cooknums = parseInt($.cookie('goodsnum'));
+//                            var htmlnums = '<input maxlength="4" class="count zzsl goodsnum" type="tel" value="'+cooknums+'" onblur="jszjg()" onkeyup="jszjg()" onchange="jszjg()" />';
+//                                    alert(cooknums);
+                                    $('.zzsl').val(cooknums);
+                                }else{
+                                    $('.zzsl').val(localStorage.lastbuynum);
+                                }
+
+                            }
+                        }
+                    }
+                    jszjg();
+                });
+                function jszjg(){
+                    var zjg = 0;    //总价格
+                    var zjifen=0;   //总积分\
+                    var wid = {$wid};
+                    slyz(); //数量验证
+
+                    if(wid == 6768392){
+ //积分类型
+                        //
+                        $jftag = $("#jifentagg").val();
+                        $jifencount=parseInt($("#jifencount").val());
+
+                        $('.only').each(function(){
+                             var num = parseInt($.trim($(this).find('.zzsl').val()));
+                            if(num >5){
+                                tusi("单次购买数量不能超过5个")
+                                num = 5;
+                               $.trim($(this).find('.zzsl').val(5))
+                            }else{
+                                num = num;
+                            }
+                            var jg = parseFloat($.trim($(this).find('.zzdj').attr('reljg').replaceAll(',','')))*parseInt(num);
+                            var jifen = parseFloat($.trim($(this).find('.zzdj').attr('reljifen').replaceAll(',','')))*parseInt(num);
+                            zjg += 100*jg;
+                            zjifen += jifen;
+                        });
+                        zjg = zjg/100;
+                    }else{
+                             //积分类型
+                        //
+                        $jftag = $("#jifentagg").val();
+                        $jifencount=parseInt($("#jifencount").val());
+
+                        $('.only').each(function(){
+                            var jg = parseFloat($.trim($(this).find('.zzdj').attr('reljg').replaceAll(',','')))*parseInt($.trim($(this).find('.zzsl').val()));
+                            var jifen = parseFloat($.trim($(this).find('.zzdj').attr('reljifen').replaceAll(',','')))*parseInt($.trim($(this).find('.zzsl').val()));
+                            zjg += 100*jg;
+                            zjifen += jifen;
+                        });
+                        zjg = zjg/100;
+                    }
+       
+                   
+
+                    if ($jftag == 2) {
+                        zjifen = zjg * $jifencount;
+                    };
+                    //修改商品的总价格
+                        $("#spzj").val(zjg);
+                        $("#getjifen").text(parseInt(zjifen));
+                        $('#totalPrice').text('￥'+zjg);
+                    var byj = parseInt($('#totalPrice2').attr('byjg'));
+                    var yfzh = 0;
+                    if(byj<=0 || zjg<byj){
+                        // //不包邮
+                        // $('.dbyfj').each(function(){
+                        //     yfzh = yfzh + parseFloat($(this).attr('yf'));
+                        // });
+                        var count = 0;
+                        yfzh =parseInt($('#real-postages').val());
+                        $('.count').each(function(){
+                            count +=parseInt($(this).val());
+                        });
+                        if(count>1){
+                            yfzh += parseInt((count-1)*($('#addone').val()));
+                        }
+                        //alert((count-1)*($('#addone').val()));
+                    }
+                    if(yfzh==0){
+                        $('#totalPrice2').text('包邮(￥0)');
+                    }else{
+                        $('#totalPrice2').text('￥'+yfzh);
+                    }
+                    //设置商品的总价格
+                    $("#sphj").val((yfzh+zjg));
+                    $('#totalPrice3').text('￥'+(100*yfzh+100*zjg)/100);
+                    $("#checkYhj").text((100*yfzh+100*zjg)/100);
+                    window.myzfy = yfzh+zjg;
+                    $('#cod_total').html((100*zjg+100*yfzh)/100);
+                    $('#cod_yun_nouse').html(yfzh);
+                    window.yfzh = yfzh;
+                    $('#yhj').get(0).selectedIndex = 0;
+                    $('#yhjhidden').val('');
+                }
+                function slyz(){
+                    var goodsnum = $('.goodsnum').val();
+                    if (goodsnum == 0 || goodsnum == null) {
+                        $('.action').hide();
+                        tusi("单次购买数量不能小于1个");
+                    }else{
+                        $('.action').show();
+                    }
+                }
+                
+                function towxzf(){
+                    window.paytyp = '3';
+                    $('#codFloat').show();
+                }
+                function tolizf(){
+                    window.paytyp = '0';
+                    $('#codFloat').show();
+                }
+                function toalzf(){
+                    window.paytyp = '1';
+                    $('#codFloat').show();
+                }
+                function totezf(){
+                    window.paytyp = '2';
+                    $('#codFloat').show();
+                }
+                function ylzf(){
+                    window.paytyp = '8';
+                    $('#codFloat').show();
+                }
+                
+                function torealpay(){
+                    
+                    $yuan = $("#yuan").text();
+                     if($('#codGoPay').hasClass('sending')) {
+                         return false;
+                     }
+                    $('#codGoPay').addClass('sending');
+                    var res = {};
+                    res.yf = window.yfzh;
+                    res.typ = window.paytyp;
+                    res.addid = $('#sendTo').attr('dzid');
+                    res.dzmr = $('#sendTo').attr('dzmr');
+                    res.snum = $('.zzsy').attr('datetype');
+                    res.goodnum = $('.goodsnum').val();
+                    if (res.goodnum == 0 || res.goodnum == null) {
+                        tusi("单次购买数量不能小于1个");
+                        return;
+                    }
+                    if(res.snum==0){
+                        tusi('库存为0，下单失败!');
+                        return;
+                    }
+
+                    if(res.addid=='0'){
+                        tusi('请添加收获地址');
+                        return;
+                    }else if(res.dzmr==0){
+                        tusi('当前选择的地址不是默认,请选为默认！');
+                        return;
+                    }
+                    res.xm = [];
+                    $('.only').each(function(){
+                        var xmtyp = {};
+                        xmtyp.id = $(this).attr('relid');
+                        xmtyp.num = $(this).find('.count').val();
+                        xmtyp.bz = $(this).find('.bz').val();
+                        res.xm[res.xm.length] = xmtyp;
+                    });
+                    //利用积分减少的jine
+                    $('#alldata').val($.toJSON(res));
+                    //积分减少的金额
+                    $yuan = $("#yuan").text();
+                    $dianshu  = $("#jifendianshu").val();
+                    $('#jianshaojine').val($yuan);
+                    $('#dianshu').val($dianshu);
+                    $("#songjifen").val($("#getjifen").text());
+                    $('#zzzfform').submit();
+                }
+
+                </script>
+                <div class="order_info" id="orderList">
+                    <h3> 订单信息 </h3>
+                    {loop $glist as $gl}
+                    <dl class="only" style="position: relative;" relid="{$gl->id}">
+                        <dd>
+                            <ul>
+                                <li class="hproduct">
+                                    <img class="photo" src="{$gl->pic}" alt="">
+                                    <p class="fn">
+                                        {$gl->name}
+                                    </p>
+                                    <p class="sku">
+                                        <em>单价：</em>
+                                        <span>￥<span class="zzdj" reljg="{$gl->jg}" reljifen="{$gl->jifen}">{$gl->jg}</span></span>
+                                    </p>
+                                    <p class="sku">
+                                        <em>数量：</em>
+                                        <span>
+                                            {if $tuan == 1}
+                                               <input maxlength="4" class="count zzsl goodsnum" type="tel" value="{$gl->num}" readonly />
+                                            {else}
+                                               <input maxlength="4" class="count zzsl goodsnum" type="tel" value="{$gl->num}" onblur="jszjg()" onkeyup="jszjg()" onchange="jszjg()" />
+                                            {/if}
+                                        </span>
+                                    </p>
+                                    <p class="sku">
+                                        <em>
+                                            {loop $gl->gglist as $k=>$v}
+                                                {$v}&nbsp;&nbsp;&nbsp;
+                                            {/loop}
+                                        </em>
+                                        <span id="canBuyNum" class="last" style="">可购
+                                            <strong tag="skuNum" class="zzsy" datetype="{$gl->kc}">{$gl->kc}</strong>件
+                                        </span>
+                                    </p>
+                                </li>
+                               
+                                <li class="shipping"><strong>补充说明：</strong>
+                                   <textarea placeholder="选填，可以告诉商家您的要求" name="bz" class='bz' rows="3" cols="40"></textarea>
+                                 </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    {/loop}
+                </div> 
+        <!-- 优惠卷 -->
+                {if $shopset->is_useyhj == 1}
+                <style>
+                    .yhj_box{  
+                        width: 93%;
+                        background:#fff;
+                        overflow: hidden;
+                        margin: 0 auto;
+                        box-shadow: 0px 0px 3px #999;
+                        padding: 2%;
+                    }
+                </style>
+                <div class="yhj_box">
+                    <div id="checkYhj" style="display:none"></div>
+                    <label for="yhj">请选择优惠券：</label>
+                   <select name="yhj" id="yhj">
+                        <option value="0">请选择</option>
+                       {loop $rs as $v}
+                       <option value="{$v->id}" data-price='{$v->info->redcon}'>满{$v->info->maxcon}减{$v->info->redcon}</option>
+                       {/loop}
+                      
+                   </select>
+                </div>
+                <script>
+                    $("#yhj").on('change',function(){ 
+                        var id = $(this).val();
+                        var price = $('#checkYhj').html();
+                        var obj = $(this);
+                        var redcon = $("#yhj option:selected").attr('data-price');
+                        $.ajax({ 
+                            url:"../yhj/my-check.html",
+                            type:"post",
+                            dataType:'json',
+                            data:{ 'id':id,'price':price},
+                            success:function(data){ 
+                                if(data.errno == 200){ 
+                                    var zfje = (price*100 - redcon*100)/100;
+                                    $('#totalPrice3').text('￥'+zfje);
+                                    $('#cod_total').html(zfje);
+                                    $('#yhjhidden').val(id);
+                                }else{ 
+                                    tusi(data.error);
+                                    obj.get(0).selectedIndex = 0;
+                                    $('#yhjhidden').val('');
+                                }
+                            },
+                            error:function(){ 
+                                alert("操作失败....");
+                            }
+                        })  
+                        
+                    })
+                </script>
+                {/if}
+                <!-- 优惠卷end -->
+                {if $wid == '6765368'}
+                <div class="others_pay" style="padding:10px">
+                    <ul >
+                        {if $shopset->balance_permit==1 }
+                                {if $memberdetail->id}
+                     <!--    <li >
+                            <input type="checkbox" id="jifenset" >使用积分：
+                                                        
+                            <div id="divjifen" style="display:none;">
+                                <input type="text"  style="width: 50px;" id="jifendianshu">  点   
+                                <span style="color:red;">-￥ <b id="yuan"> 0.00 </b>元</span>
+                            </div>
+                             <p style="width: 100px;">(可用<b id="jfdian">{$memberdetail->integral}</b>点)</p>
+                            <input type="hidden" id="spzj">
+                            <input type="hidden" id="sphj">
+                        </li> -->
+                        <?php if(isset($balance)) {?>
+                        <li>
+                            <div style="margin-bottom:10px">
+                                U币余额:：<label>￥{$balance}<label>
+                            </div>
+                            <input type="checkbox" id="use_balance">使用U币余额
+                        </li>
+                        <?php }?> 
+                                {else}
+                        <li>
+                            <strong>说明：</strong>领取会员卡可用获取消费积分(<a href="/nhyk/index.html"><b style="color:red;">去领取</b></a>)
+                        </li>
+                                {/if}
+                        {/if}       
+                        
+                    </ul> 
+                            
+                </div>
+                {else}
+                <div class="others_pay" style="padding:10px">
+                    <ul >
+                    {if $shopset->shangpinjifen==1 || $shopset->dianpujifen==1}
+                        {if $memberdetail->id}
+                            <li >
+                                <input type="checkbox" id="jifenset" >使用积分：
+                                							
+                                <div id="divjifen" style="display:none;">
+                                    <input type="text"  style="width: 50px;" id="jifendianshu">  点   
+                                    <span style="color:red;">-￥ <b id="yuan"> 0.00 </b>元</span>
+                                </div>
+    							 <p style="width: 100px;">(可用<b id="jfdian">{$memberdetail->integral}</b>点)</p>
+                                <input type="hidden" id="spzj">
+                                <input type="hidden" id="sphj">
+                            </li>
+                            <?php if(isset($balance)) {?>
+                            <li>
+                                <div style="margin-bottom:10px">
+                                    剩余会员余额：<label>￥{$balance}<label>
+                                </div>
+                                <input type="checkbox" id="use_balance">使用会员余额
+                            </li>
+                            <?php }?> 
+                        {else}
+                            <li>
+                                <strong>说明：</strong>领取会员卡可用获取消费积分(<a href="/nhyk/index.html"><b style="color:red;">去领取</b></a>)
+                            </li>
+                        {/if}
+                    {/if}       
+                        
+                    </ul> 
+                            
+                </div>
+                {/if}
+                <script>
+                    $("#jifenset").click(function(){
+                        if($(this).is(":checked"))
+                            {
+                            $("#divjifen").css("display","inline");
+                            }
+                        else
+                            {
+                                $("#divjifen").css("display","none");
+                            }
+                    });
+                    //积分变动事件
+                    $("#jifendianshu").keyup(function(){
+                        $val = $(this).val();
+                        if( parseInt($val)  >  parseInt ( $("#jfdian").text() ) )
+                        {
+                            alert("您的积分余额不足，请重新填写！");
+                            $("#jifendianshu").val();
+                            return false;
+                        }
+                        //一百个积分抵用一元钱
+                        $yuan = parseFloat(parseFloat(($val/100)));
+                        $("#yuan").text($yuan);
+                        $totalPrice = $("#totalPrice").text();
+						$shijijiage = parseFloat($("#spzj").val()); //sphj
+						$spjghj = $("#sphj").val();
+                        $z = Math.round(($shijijiage - $yuan)*100)/100;
+
+						$c = Math.round(($spjghj - $yuan)*100)/100;
+
+
+
+                        $("#totalPrice").text("￥"+ $z);
+                        $("#totalPrice3").text("￥"+ $c);
+                        //修改弹出框付款金额
+
+						$e = Math.round(($spjghj - $yuan)*100)/100;
+
+                        $('#cod_total').html($e);
+                        zjg = ($spjghj - $yuan);
+                        //设置送的积分
+                        $jftag = $("#jifentagg").val();
+                        $jifencount=parseInt($("#jifencount").val());
+                        if($jftag==2)
+                        {
+                            $("#getjifen").text(parseInt(zjg* $jifencount));
+                        }
+                        if($jftag==1)
+                        {
+                            $("#getjifen").text($("#spjizs").val());
+                        }
+                    });
+
+                    $("#use_balance").click(function(){
+                        if($(this).is(':checked')){
+                            $("#if_balance").val(1);
+                            $("#balance").val({$balance});
+                        }else{
+                            $("#if_balance").val(0);
+                        }
+                    });
+                </script>
+                <script type="text/javascript">
+
+                        if($.cookie('buchong')){
+                            var cooktext = $.cookie('buchong');
+//                            alert(cooktext);
+                            $('.bz').val(cooktext);
+                        }
+                    function tocook(){
+                        var goodsnum = $('.goodsnum').val();
+                        var buchong = $('.bz').val();
+                        $.cookie('goodsnum',goodsnum);
+                        $.cookie('buchong',buchong);
+                        location.href="/nhyk/myaddr.html";
+                    }
+                    function clearcook(){
+                        $.cookie('goodsnum','');
+                        $.cookie('buchong','');
+                        window.history.go(-1);
+                        location.href="pro-"+$.cookie('pid')+".html";
+                    }
+                    function clearcook2(){
+                        $.cookie('goodsnum','');
+                        $.cookie('buchong','');
+                    }
+                </script>
+                <div id="bz"></div>
+                <div class="pay_area" id="pay_area" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                    <p class="price">
+                            总价:<strong id="totalPrice"></strong>&nbsp;&nbsp;
+                            邮费:<strong id="totalPrice2" byjg="{$set->consume}"></strong>&nbsp;&nbsp;
+                            合计:<strong id="totalPrice3"></strong>
+                    </p>
+                    {if $memberdetail->id}
+                        <p style="float: left;margin-left: 158px;margin-top: -13px;">
+                            <strong id="kesongjifen">
+                                (可以获取积分：<b id="getjifen">1</b>点)
+                            </strong>
+                        </p>
+                     {/if}
+                    <br />
+                    <p class="action">
+                    {if $wxpay}
+                        <a href="javascript:void(0);" id="goPay" style="" class="wechat" onclick="clearcook2(),towxzf()">
+                               微信支付
+                        </a>
+                     {/if}
+                     {if $alipay}
+                        <a href="javascript:void(0);" id="goQQPay" class="qq" onclick="clearcook2(),toalzf()">
+                             支付宝支付
+                        </a>
+                    {/if}
+                    {if $linepay}
+                    <a href="javascript:void(0);" id="codGoPayFloat" onclick="clearcook2(),tolizf()">
+                              货到付款
+                        </a>
+                    {/if}
+                    {if $tenpay}
+                        <a href="javascript:void(0);" id="goTenPay" onclick="clearcook2(),totezf()" class="tenpay">
+                             财付通支付
+                        </a>
+                    {/if}
+                    {if $wid=='65371'}
+                     <a href="javascript:void(0);" id="unionPay"  onclick="clearcook2(),ylzf()"  class="online">
+                              银联支付
+                     </a>
+                    {/if}
+                       
+                    </p>
+                    <p class="assure">
+                            腾讯担保，安全支付
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="codFloat" style="display:none;">
+        <div class="wx_mask">
+        </div>
+        <div class="wx_confirm">
+            <div class="wx_confirm_inner">
+                <div class="wx_confirm_hd">
+                    <div class="wx_confirm_tit">
+                        是否确认提交订单 并支付？
+                    </div>
+                    <div class="wx_confirm_close" id="codGoPayCancel2" onclick="$('#codFloat').hide();" title="关闭">
+                    </div>
+                </div>
+                <form id="zzzfform" method="post" target="_self" action="/wsc2/orderpay31.html">
+                    <input type="hidden" name="alldata" id="alldata">
+                    <input type="hidden" name="jianshaojine" id="jianshaojine">
+                    <input type="hidden" name="dianshu" id="dianshu">
+                    <input type="hidden" name="songjifen" id="songjifen">
+                    <input type="hidden" name='yhjhidden' id='yhjhidden'>
+                    <input type="hidden" id="real-postages" 
+                    value="<?=$postageInfo[0]['postages']; ?>">
+                    <input type="hidden" id="addone" 
+                    value="<?=$postageInfo[0]['addone'];?>">
+                    {if $memberdetail->id && $balance>=0}
+                    <input type="hidden" name="if_balance" id="if_balance">
+                    <input type="hidden" name="balance" id="balance">
+                    {/if}
+
+                    <div class="wx_confirm_bd">
+                        <div class="wx_confirm_cont">
+                            <div class="confirm_order">
+                                <p>
+                                     付款金额：
+                                    <span class="price">
+                                        ¥
+                                        <span id="cod_total"></span>
+                                    </span>
+                                </p>
+                                <p class="other">
+                                                                         运费：¥
+                                    <span id="cod_yun_nouse"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="wx_confirm_btns">
+                            <button type="button" id="codGoPay" onclick="torealpay()">
+                                 确认
+                            </button>
+                            <button type="cancel" id="codGoPayCancel" onclick="$('#codFloat').hide();return false;">
+                                   取消
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+    {if $arrres!=''}
+    {loop $arrres as $val}
+    <div style="margin-top:10px;border-top: 1px dotted #e1e1e1;">
+        <div style="float:left;padding:10px 5px;">
+            <div style="float:left;">
+                <div style="float:left;">
+                <input type="hidden" name="ifsd" id="pgesid" value="{$val[id]}" />
+                <input type="hidden" name="ifguid" id="ifguid" value="{$val[guid]}" />
+                    <img   src="{$val[pic]}" width=140 height=80 /> 
+                </div>
+                <div style="float:left;padding-left:20px;overflow:hidden;width:100px;">
+                    <p style="font-size:14px;padding-top:5px;overflow:hidden;">{$val[name]}</p>
+                    <p style="font-size:14px;padding-top:5px;">&yen; <span style="color:#e4393c">{$val[lowest]}</span></p>
+                </div>
+            </div>
+        </div>
+        <div style="float:right;margin-top:40px;">
+            <a href="javascript:;" style="width: 46%;background:#333333;padding:5px;" onclick="togwcadd('{$val[id]}','{$val[guid]}')" ><i style="color:#FFF;">加入购物车</i></a>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    {/loop}
+    {/if}
+    </div>
+    <div style="clear:both;"></div>
+    <!--foot-->
+    <div class="wx_footer">
+        {T /_wf}
+    </div>
+         <script>
+            document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+                WeixinJSBridge.call('hideOptionMenu');
+            });
+            document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+                WeixinJSBridge.call('hideToolbar');
+            });
+   
+        function togwcadd(a,b){
+            var num = 1;
+            location.href="/wsc2/tobuy.html?num="+num+"&piid="+a+"&guid="+b;
+        }
+
+        </script>
+</body>
+</html>
+

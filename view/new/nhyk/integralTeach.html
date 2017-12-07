@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+            <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+		<style>
+		  .integran_teach .body article img {
+max-width: 100%;
+max-height: 100%;
+}
+		</style>
+</head>
+
+    
+    <body onselectstart="return true;" ondragstart="return false;">
+        		<div class="container integral integran_teach">
+			<header>
+				<ul class="tbox tbox_1">
+					<li>
+						<p>&nbsp;</p>
+					</li>
+					<li>
+						<a href="javascript:;" style="padding-top:20px;"><label>积分<br/>攻略</label></a>
+					</li>
+					<li>
+						<p>&nbsp;</p>
+					</li>
+				</ul>
+			</header>
+			<div class="body">
+				<article>
+				  {$m->con}
+     			</article>
+			</div>
+			
+	{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-2.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-2.html}
+        {/if}
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>		</div>        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+	</body>
+
+</html>
+

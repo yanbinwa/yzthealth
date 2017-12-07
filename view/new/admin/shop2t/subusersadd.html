@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<link rel="stylesheet" href="{$CSS}admin/admin.css">
+<title>地理位置定位</title>
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<style type="text/css">
+
+	
+</style>
+
+<title>分销商管理</title>
+</head>
+<body>
+	<h3>添加分销商</h3>
+	
+	<form class="form-horizontal" id="lbsForm" action="" method="post">
+		{tk()}
+		{$m->hidden('id')}
+		<div class="control-group">
+	    	<label class="control-label" for="keyword">用户名</label>
+	    	<div class="controls">
+	    		{$m->text('un','class="span4"')}
+		    	<span class="maroon">*</span>
+		    	<span style="color:red;">{$tips}</span>
+	    	</div>
+	  	</div>
+		<div class="control-group">
+	    	<label class="control-label" for="location_p">密码</label>
+	    	<div class="controls">
+				{$m->text('pwd','class="span4"')}
+				<span class="maroon">*</span>
+	    	</div>
+	  	</div>
+	   	<div class="control-group">
+		    <div class="controls">
+		      <button id="save-btn" type="submit" class="btn btn-primary btn-large">保存</button>
+		    </div>
+	    </div>
+	</form>
+
+<script type="text/javascript">
+
+	 $("#lbsForm").submit(function(){
+		var cansv= true;
+		$(this).find('input[type="text"],textarea').each(function(){
+			if($.trim($(this).val())==''){
+				cansv = false;
+				$(this).css('backgroundColor','yellow');
+				$(this).one('focus',function(){
+					$(this).css('backgroundColor','transparent');
+				});
+			}
+		});
+		if(!cansv){
+			tusi('请将信息填写完整');
+		}
+    	return cansv;
+    });
+});
+</script>
+<br/><br/><br/></body>
+
+</html>

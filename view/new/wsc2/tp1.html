@@ -1,0 +1,42 @@
+<div class="WX_bar" id="mallHead" style="position: fixed;">
+      <form action="" method="get" id="tophidemstopform" class="WX_search_frm" onsubmit="">
+        <input name="key" class="WX_search_txt" placeholder="搜索喜欢的商品" type="search"
+        id="topSearchTxt" autocomplete="off" readonly="true" ontouchstart="location.href='/wsc2/index3.html'" onclick="location.href='/wsc2/index3.html'">
+      </form>
+      {if !$reverse}
+      <div class="WX_tab Top_tab" >
+        <a href="/wsc2/index3.html" class="WX_btn_search">
+          搜索
+        </a>
+        <span class="WX_tab_inner">
+          <a id="__xinTab" href="/wsc2/index.html"
+          {if Request::part_noparam(-1)=='index'}class="on"{/if}>
+             最新
+          </a>
+          <a id="__mallTab" href="/wsc2/index1.html"
+          {if Request::part_noparam(-1)=='index1'}class="on"{/if}>
+            {if $wid==54718}品牌 {else}品类 {/if}
+          </a>
+          <a id="__juhuiTab" href="/wsc2/index2.html"          
+          {if Request::part_noparam(-1)=='index2'}class="on"{/if}>
+           {if $wid==54718}跳楼价 {else}推荐 {/if}
+          </a>
+        </span>
+        <a href="/wsc2/me.html" class="WX_btn_my">
+          个人中心
+        </a>
+      </div>
+      {/if}
+</div>
+<script>
+$(function(){
+	$(window).scroll(function(){
+		if($(window).scrollTop()>44){
+			$('#tophidemstopform').hide();
+		}else{
+			$('#tophidemstopform').show();
+		}
+		
+	});
+});
+</script>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>
+    订单记录    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c4.css">
+    <script type="text/javascript">
+    /*localStorage.lastbuy = null;
+    localStorage.lastbuynum = null;*/
+    </script>
+  </head>
+  <body>
+  <div id="content">
+        <div id="c_wg.jdpay_show" style="">
+            <div class="wx_bar">
+                <div class="wx_bar_back">
+                    <a id="indexBack" href="javascript:history.go(-1);">
+                    </a>
+                </div>
+                <div class="wx_bar_tit">
+                    我的订单记录
+                </div>
+            </div>
+            <div class="wx_wrap">
+                <!-- 
+                <div id="bindJd" class="account_tips" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                    	您可以绑定京东帐号，
+                    <br>
+                   	 使用已有地址、优惠券及京豆！
+                    <a href="javascript:void(0);" id="bindJdBtn" class="btn_bind">
+                       	 立即绑定
+                    </a>
+                    <a href="javascript:void(0);" class="btn_close" id="closeBindJdBtn">
+                        	关闭
+                    </a>
+                    <p class="has">
+                      	  如果未绑定，我们将为您生成一个新的京东帐号
+                    </p>
+                </div> 
+                -->
+                
+            
+{loop $dlist as $dl}
+	<div class="yddddmdiv{$dl->id}">
+	<div id="sendTo" class="send_to" dzid="2">
+	                    <div class="address_defalut2" style="padding: 20px;position: relative;">
+	                        <ul class="selected2" id="editAddBtn2" onclick="$('.account_tips{$dl->id}').toggle();">
+	                        <li>
+	                                <span id="rginfoId">
+	                                <span class="shdz">下单时间:{$dl->create_time}&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+	         	状态: {$zfzt[$dl->status]},{$wlzt[$dl->wlstatus]} </span>
+	                                </span>
+	                            </li>
+	                            <li>
+	                                <span id="rginfoId">
+	                                <span class="shdz">总价:￥{$dl->jg}&nbsp;&nbsp;&nbsp;运费:￥{$dl->yf}</span>
+	                                </span>
+	                            </li>
+	                            <li>
+	                                <span id="rginfoId">
+	                                <span class="shdz">订单号:{$dl->id}&nbsp;&nbsp;&nbsp;</span>
+	                                </span>
+	                            </li>
+	                            <li>
+	                                <strong>
+	                                 <span class="shshr">{$dl->dz->shr}</span>
+	                                </strong>
+	                                <span class="shdh">{$dl->dz->phone}</span>
+	                            </li>
+	                            {if $dl->wlstatus!='0'}
+	                            <li class="error" id="noToneTip" style="display:block;">
+	                                <a href="/wsc2/ddlistwl-{$dl->id}.html" style="color: inherit;color:blue;">点击查看物流状态</a>
+	                            </li>
+	                            {/if}
+	                        </ul>
+	                        {if $dl->wlstatus=='0' && $dl->status=='0' && $dl->pay_type!='0'}
+	                        <div style="display:block;position: absolute;right:10px;top:10px;z-index: 100;font-size: 20px;background:none;" onclick="deldd({$dl->id})">
+	                        X
+	                        </div>
+	                        {/if}
+	                        {if $dl->wlstatus!='0' && $dl->isover=='0'}
+	                        <div style="display:block;position: absolute;right:10px;bottom:10px;z-index: 100;font-size: 20px;background:none;" >
+	                        <button onclick="okdd({$dl->id},this)">确认收货</button>
+	                        </div>
+	                        {/if}
+	                        {if strtotime($dl->completion_time .'+7 days') >= time()}
+                                {if $dl->wlstatus == '1' && $dl->status == '1' && $dl->isover!='0' && $dl->pay_type != '0'}
+                                    <div style="float:right">
+                                        <button onclick="drawback({$dl->id},this)">申请退款</button>
+                                    </div>
+                                {/if}
+                               
+                            {/if}
+                            {if $dl->wlstatus == '1' && $dl->status == '3' && $dl->isover!='0'}
+                            <div class="error" id="noToneTip">
+                                <a href="javascript:;" >退款中</a>
+                            </div>
+                            {/if}
+                            {if $dl->wlstatus == '1' && $dl->status == '4' && $dl->isover!='0'}
+                             <div class="error" id="noToneTip">
+                                <a href="javascript:;" >退款成功</a>
+                            </div>
+                            {/if}
+                            {if $dl->wlstatus == '1' && $dl->status == '5' && $dl->isover!='0'}
+                             <div class="error" id="noToneTip">
+                                <a href="javascript:;" >退款拒绝</a>
+                               <!--  <button onclick="drawback({$dl->id},this)">申请退款</button> -->
+                            </div>
+                            {/if}  
+	                    </div>
+	                </div>
+	                {loop $dl->glist as $gl}
+	                <div id="bindJd" class="account_tips account_tips{$dl->id}" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1); display: none;">
+	                   <span class="shshr">{$gl->name}</span>
+	                    <br>
+	                    <span class="shdh">￥{$gl->dj} x {$gl->num}</span>
+	                    {if $gl->tuan == 1}
+	                    	<a href="javascript:void(0);" id="bindJdBtn" class="btn_bind" style="border: none;background: none;" onclick="location.href='/wsc2/tuanpro-{$gl->pid}.html'">
+	                    {else}
+	                    	<a href="javascript:void(0);" id="bindJdBtn" class="btn_bind" style="border: none;background: none;" onclick="location.href='/wsc2/pro-{$gl->pid}.html'">
+	                    {/if}
+	                     <img alt="" src="{$gl->pic}" style="max-height: 60px;"/>
+	                    </a>
+	                    <p class="has">
+	                        <span class="shdz">
+	                        		{loop $gl->gglist as $k=>$v}
+	                                   {$v}&nbsp;&nbsp;&nbsp;
+	                                {/loop}
+	                        </span>
+	                    </p>
+	                    {if $dl->wlstatus!='0' && $dl->isover=='0'}
+		                    <p class="has">
+		                    	<input type="text" placeholder="输入评价内容，可以为空" pid="{$gl->pid}" class="pjdinpk"  style="width: 100%;height: 22px;">
+		                    </p>
+	                    {/if}
+	                </div>
+	    {/loop}
+	    <div style="height: 12px;background: gray;"></div>
+	    </div>      
+{/loop}
+                
+            </div>
+        </div>
+    </div>
+  <script type="text/javascript">
+	  function deldd(id){
+		  if(confirm('确定删除该订单吗？')){
+			  ajax('ddlistmg-del.html',{ id:id},function(m){
+				  if(m=='ok'){
+					  $('.yddddmdiv'+id).remove();
+				  }
+			  });
+		  }	  
+	  }
+	  
+	  function okdd(id,o){
+		  if($('.account_tips'+id).is(':hidden')){
+			  $('.account_tips'+id).show();
+			  tusi('请评价产品');
+		  }else{
+			  var cs = [];
+			  $('.account_tips'+id).find('.pjdinpk').each(function(){
+				  if($.trim($(this).val())!=''){
+					  cs[cs.length] = [$(this).attr('pid'),$.trim($(this).val())];
+				  }
+			  });
+			  ajax('ddlistmg-ok.html',{ id:id,data:$.toJSON(cs)},function(m){
+				  if(m=='ok'){
+					  tusi('确认成功');
+					  $(o).parent().remove();
+				  }
+			  });
+		  }  
+	  }
+	   function drawback(id,o){
+            var cs = [];
+            $('.account_tips'+id).find('.pjdinpk').each(function(){
+              if($.trim($(this).val())!=''){
+                  cs[cs.length] = [$(this).attr('pid'),$.trim($(this).val())];
+              }
+            });
+            ajax('ddlistmg-drawback.html',{ id:id,data:$.toJSON(cs)},function(m){
+              if(m=='ok'){
+                  tusi('申请成功');
+                  $(o).parent().remove();
+                  window.location.reload();
+              }
+            });
+        }
+  </script>
+    <!--foot-->
+    
+	    <div class="wx_footer">
+	        {T /_wf}
+	    </div>
+	    
+     <script>
+	    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</body>
+  
+
+</html>

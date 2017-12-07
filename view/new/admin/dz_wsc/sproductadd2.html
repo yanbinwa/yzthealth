@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+
+<title>微信管家—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate-plugin.js"></script>
+
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>商品编辑
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+                            <form action="" method="post" class="form-horizontal form-validate" id="transform" >
+                            {tk()}
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">商品名称:</label>
+                                    <div class="controls">
+                                    {$m->text('name','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                 <div class="control-group">
+                                    <label class="control-label" for="title">商品简要描述：</label>
+                                    <div class="controls">
+		 							{$m->textarea('ms','style="height:80px;width:380px;" required="required" ')}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+									<label class="control-label">商品首图：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->pic}" id="pic_pic" relobj="elfinder_nhyk" style="max-height:100px;" />
+											{$m->hidden('pic',' relobj="elfinder_nhyk"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk" >封面</button>
+												<span class="help-inline">建议尺寸：宽128像素，高128像素</span>
+											</span>
+											<img class="thumb_img" src="{$m->pic2}" id="pic_pic2" relobj="elfinder_nhyk2" style="max-height:100px;" />
+											{$m->hidden('pic2',' relobj="elfinder_nhyk2"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk2" >幻灯片</button>
+												<span class="help-inline">建议尺寸：宽375像素，高235像素</span>
+											</span>
+										</div>
+								</div>
+								
+                               
+                                 <div class="control-group">
+                                    <label class="control-label" for="title">所属类别：</label>
+                                    <div class="controls">
+		 							{$m->select($lb_opts,'typ',' required="required" ')}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                 </div>
+								{if $wid=='6768392'}
+								 <div class="control-group">
+                                    <label class="control-label" for="title">流量卡类型：</label>
+                                    <div class="controls">
+		 							{$m->select($llarray,'lltype',' required="required" ',false)}
+		 							<span class="maroon">*</span>
+                                    </div>
+                                </div>
+								{/if}
+
+
+                               <div class="control-group">
+                                    <label class="control-label" for="title">基本数据：</label>
+                                    <div class="controls">
+                                        <div class="con">
+                                            <table class="table table-bordered" >
+                                                <thead id="goodsBaseHead"></thead>
+                                                <tbody id="goodsBaseBody"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="control-group">
+                                    <label class="control-label" for="title">规格：</label>
+                                    <div class="controls">
+                                     <button class="btn" type="button" onclick="selSpec()"><span class="add">添加规格</span></button>
+                                    </div>
+                                </div>
+
+								<!--<div class="control-group">-->
+									<!--<label class="control-label" for="title">二级会员：</label>-->
+									<!--<div class="controls">-->
+										<!--<div class="con">-->
+											<!--<table class="table table-bordered" >-->
+												<!--<thead id="goodsBaseHead1"></thead>-->
+												<!--<tbody id="goodsBaseBody1"></tbody>-->
+											<!--</table>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+
+								<!--<div class="control-group">-->
+									<!--<label class="control-label" for="title">规格：</label>-->
+									<!--<div class="controls">-->
+										<!--<button class="btn" type="button" onclick="selSpec()"><span class="add">添加规格</span></button>-->
+									<!--</div>-->
+								<!--</div>-->
+
+
+
+
+
+
+
+
+
+                                 <div class="control-group">
+                                    <label class="control-label" for="title">商品推荐类型：</label>
+                                    <div class="controls">
+                                       <label class="attr">
+                                        {$m->checkbox('zx')}
+										最新商品
+										 {$m->checkbox('tj')}
+										特价商品
+										 {$m->checkbox('rm')}
+										热卖商品
+										 {$m->checkbox('tuij')}
+										推荐商品
+										</label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="price">标签</label>
+                                    <div class="controls">
+                                         {$m->select($tagarr,'tags',array('class'=>"input-xlarge chosen-select",'data-placeholder'=>"选择标签 ",'multiple'=>"multiple" ),false)}
+	                                     {$m->hidden('tagss')}
+	                                     <script>
+											$(function() {
+											     $("#z02_sproducttags").on("change", function() {$("#z02_sproducttagss").val($("#z02_sproducttags").val());
+												});
+											});
+										 </script>
+                                    </div>
+                                </div>
+                                 <div class="control-group">
+                                    <label class="control-label" for="price">分组</label>
+                                    <div class="controls">
+                                        {$m->select($grouparr,'groupid',array('class'=>"input-xlarge chosen-select",'data-placeholder'=>"选择分组 "),false)}
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+									<label for="prices" class="control-label">商品图片：</label>
+									{$m->hidden('pics')}
+									<div class="controls">
+										<div id="upimg_main">
+											<div id="file_upload" class="uploadify"><button id="file_upload-button" class="btn pl_add btn-primary" rel="yyuc" relobj="elfinder" relfun="setpic1" relmultiple="1"  type="button"><i class="icon-plus-sign"></i>上传图片</button><span class="maroon">*</span><span class="help-inline">建议尺寸：宽375像素，高235像素</span></div><div id="file_upload-queue" class="uploadify-queue"></div>
+											<ul class="ipost-list ui-sortable" id="fileList">
+											</ul><div id="file_upload_queue" class="uploadifyQueue">
+											</div>
+										</div>
+									<span for="imagestexts[40829][]" class="help-block error valid" style=""></span><span for="imagestexts[67544][]" class="help-block error valid" style=""></span><span for="imagestexts[99277][]" class="help-block error valid" style=""></span></div>
+								</div>
+								<div class="control-group">
+                                    <label class="control-label" for="title">商品折扣：</label>
+                                    <div class="controls">
+		 							 {$m->text('zk','class="input-mini" required="required"')} &nbsp;% (例如：90%代表9折)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="title">是否显示折扣：</label>
+                                    <div class="controls">
+		 							 {$m->checkbox('show_zk')} 
+		 							
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="title">商品排序：</label>
+                                    <div class="controls">
+		 							 {$m->text('sort','class="input-mini"')}
+                                    </div>
+                                </div>
+								
+                                
+                                
+                             {if $shopset->shangpinjifen==1}
+                               <div class="control-group">
+                                    <label class="control-label" for="title">赠送积分：</label>
+                                    <div class="controls">
+		 							 {$m->text('jifen','class="input-mini"')} 
+			 							 <span class="maroon">*</span>
+										 <span class="help-inline">购买此商品赠送积分数量</span>
+                                    </div>
+                                </div>
+                                {/if}
+                                
+                                
+                                
+                                <div class="control-group">
+                                    <label class="control-label" for="title">是否参加团购：</label>
+                                    <div class="controls">
+		 							 {$m->checkbox('istuan')} 
+		 							 <input type="hidden" id="tuan" value="{$tuan}" />
+                                    </div>
+                                </div>
+                                 <div class="control-group mm" style="display:none">
+                                    <label class="control-label" for="title">团购开始时间：</label>
+                                    <div class="controls">
+		 							 {$m->datetime('tkssj','class="input-large"')}—{$m->datetime('tjssj','class="input-large"')}
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group mm" style="display:none">
+                                    <label class="control-label" for="title">每次限购数量：</label>
+                                    <div class="controls">
+		 							 	 {$m->text('xgnum','class="input-mini"')}
+                                    </div>
+                                </div>
+                                <div class="control-group mm" style="display:none">
+                                    <label class="control-label" for="title">消费提示：</label>
+                                    <div class="controls">
+                                     {$m->texteditor('saletip',3, '520px','90px' )}
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label class="control-label" for="title">商品属性：</label>
+                                    <div class="controls">
+                                     {$m->texteditor('detailcs',3, '520px','90px' )}
+                                    </div>
+                                </div>
+								 <div class="control-group">
+                                    <label class="control-label" for="title">商品详情：</label>
+                                    <div class="controls">
+                                     {$m->texteditor('detail',3, '520px','90px' )}
+                                    </div>
+                                </div>
+
+                                 {if $wid==6769786}
+                                <div class="control-group">
+                                    <label class="control-label" for="title">包装售后：</label>
+                                    <div class="controls">
+                                     {$m->texteditor('service',3, '520px','90px' )}
+                                    </div>
+                                </div>
+								{/if}
+								
+                                {if $wid==54718}
+                                 <div class="control-group">
+                                    <label class="control-label" for="title">是否推荐加入购物车：</label>
+                                    <div class="controls">
+                                     {$m->text('tujiancart','class="input-mini"')} 1是推荐，0是不推荐 
+                                    </div>
+                                </div>
+                                {/if}
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                </div>
+                            </form>
+                        </div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+  <!--   <script type="text/javascript" src="{$JS}comm.js"></script> -->
+    <script type="text/javascript" src="{$JS}shop.js"></script>
+<script type="text/template" id="picdemo">
+    <li class="imgbox" style="list-type:none">
+    <a class="item_close" href="javascript:void(0)" onclick="$(this).parent().remove();" title="删除">
+	</a>
+	<span class="item_box">
+   	 <img src="" style="max-height:100%;">
+	</span>
+	<span class="item_input">
+    <textarea class="bewrite" cols="3" rows="4" style="resize: none" placeholder="图片描述..." onfocus="$(this).parent().addClass('on');" onblur="$(this).parent().removeClass('on');">
+    </textarea>
+    <i class="shadow hc">
+    </i>
+	</span>
+    </li>
+</script>
+<script>
+
+		//图片上传的回调
+		function setpic1(m,n){
+			addoneing(m,n);
+		}
+		
+		function addoneing(m,n){
+			n = n.split(',');
+			n = n[0];
+			$('#fileList').append($('#picdemo').html());
+			var li = $('#fileList').children('li:last');
+			li.find('img').attr('src',m);
+			li.find('textarea').val(n);
+		}
+		$(function(){
+			$('#transform').submit(function(){
+				var pics = [];
+				$('#fileList').find('li').each(function(){
+					var msg = {};
+					var img = $(this).find('img');
+					msg.src = img.attr('src');
+					msg.txt = $.trim($(this).find('textarea').val());
+					var w = img.width();
+					var h = img.height();
+					w = parseInt(450*w/h);
+					msg.w = w;
+					msg.h = 450;
+					pics[pics.length] = msg;
+				});
+				if(pics.length == 0){
+					tusi('商品图片至少传一张');
+					return false;
+				}
+				$('#dz_wsc_sproductpics').val($.toJSON(pics));
+			});
+			var val = $('#dz_wsc_sproductpics').val();
+			if($.trim(val)==''){
+				val = '[]';
+			}
+			var data = $.evalJSON(val);
+			for(var i=0;i<data.length;i++){
+				var msg = data[i];
+				addoneing(msg.src,msg.txt);
+			}
+		});
+		$(function(){
+			//判断是否参加团购
+			var tuan = $('#tuan').val();
+			if(tuan == 1){
+				$('.mm').css('display','block');
+			}
+			 $('#dz_wsc_sproductistuan').click(function(){
+				 $('.mm').toggle();
+			}); 
+			
+			 $("#bsubmit").submit(function(){
+					var cansv= true;
+					$(this).find('input[type="text"],select,textarea').filter('[required="required"]').each(function(){
+						if($.trim($(this).val())==''){
+							cansv = false;
+							$(this).css('backgroundColor','yellow');
+							$(this).one('focus',function(){
+								$(this).css('backgroundColor','transparent');
+							});
+						}
+					});
+					if(!cansv){
+						tusi('请将信息填写完整');
+					}
+			    	return cansv;
+			    });
+		});
+
+		//默认货号
+		var defaultProductNo = '{"wx".time().rand(10,99)}';
+		$(function()
+		{
+			//存在商品信息
+			var goodsHeadrender = template.compile(goodsHeadTemplateSource);
+			{if isset($specdata)}
+			    var spec_array = {json_encode($specdata)};
+				var goodsHeadHtml = goodsHeadrender({ 'templateData':spec_array});
+			{else}
+				//默认产生一条商品标题空挡
+				var goodsHeadHtml = goodsHeadrender({ 'templateData':[]});
+			{/if}
+			    $('#goodsBaseHead').html(goodsHeadHtml);
+
+
+			var goodsRowrender = template.compile(goodsRowTemplateSource);
+			{if isset($productdata)}
+				var goods = {json_encode($productdata)};
+				var goodsRowHtml = goodsRowrender({ 'templateData':goods});
+			{else}
+				//默认产生一条商品空挡
+				var goodsRowHtml = goodsRowrender({ 'templateData':[[]]});
+			{/if}
+				$('#goodsBaseBody').html(goodsRowHtml);
+		});
+
+
+	</script>
+	<script type="text/javascript" charset="UTF-8" src="{$JS}shop/shopdz.js?dfaassd2017"></script>
+    </body>
+</html>

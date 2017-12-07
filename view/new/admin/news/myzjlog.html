@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_switch.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title></title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+</head>
+<body>
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>民意列表
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+							<div class="row-fluid dataTables_wrapper">
+								<table id="listTable" class="table table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+										    <th>ID</th>
+											<th>姓名</th>
+											<th>邮件</th>
+											<th>标题</th>
+											<th>内容</th>
+											<th>时间</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									{loop $res as $r}
+									<tr>	
+									     <td width="5%">{$r->id}</td>								  
+									     <td width="8%">{$r->name}</td>
+										 <td width="10%">{$r->email}</td>
+										 <td width="20%">{$r->title}</td>
+										 <td width="35%">{$r->content}</td>
+									     <td width="12%" >{$r->create_time}</td>
+									     <td width="10%">
+										            <div class="switch switch-small has-switch" rel="{$r->id}" val="{$r->is_tj}">
+                                                        <div class="switch-animate switch-off"><input type="checkbox" value="1"><span class="switch-left switch-small">推荐</span><label class="switch-small">&nbsp;</label><span class="switch-right switch-small">不推荐</span></div>
+                                                    </div>
+									     </td>
+									</tr>
+									{/loop}
+									</tbody>
+								</table>
+								<div class="row-fluid dataTables_wrapper">
+                                <div class="dataTables_paginate paging_full_numbers"><span>{P p}</span></div>
+                            </div>
+						   </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    	<script type="text/javascript">
+$(function(){
+	$('.switch').each(function(){
+		if($(this).attr('val')=='1'){
+			$(this).children('div').removeClass('switch-off').addClass('switch-on');
+		}else{
+			$(this).children('div').removeClass('switch-on').addClass('switch-off');
+		}
+	});
+	
+	$('.switch').click(function(){
+		var state = $(this).attr('val');
+		if($(this).find('.switch-off').size()>0){
+			$(this).find('.switch-off').removeClass('switch-off').addClass('switch-on');
+			state = '1';
+		}else if($(this).find('.switch-on').size()>0){
+			$(this).find('.switch-on').removeClass('switch-on').addClass('switch-off');
+			state = '0';
+		}
+		    ajax('myzjlog-del.html',{ id:$(this).attr('rel'),val:state},function(m){
+		});
+	});
+});
+</script>
+    </body>
+</html>

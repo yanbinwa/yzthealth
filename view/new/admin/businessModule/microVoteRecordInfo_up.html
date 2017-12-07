@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="{$CSS}admin/admin.css">
+<link type="text/css" rel="stylesheet" href="/res/wtp/style/vote.css" /> 
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+
+<style type="text/css">
+
+.progress {
+	margin: 0 10px 5px 0;
+	width: 400px;
+	height: 20px;
+	float: left;
+}
+
+
+.option-cont {
+	margin: 10px  auto auto 10px;
+}
+
+.option-cont img{
+	margin:0 auto;
+	height:100px;
+}
+.option-cont .option {
+	line-height: 80px;
+	font-size: 20px;
+}
+</style>
+
+
+<title>我的活动</title>
+
+</head>
+<body style="background-color: #ffffff;">
+
+	<div class="main-title">
+		<h3>{$wtp->name}微投票活动</h3>
+	</div>
+	
+<div  class="option-cont" style="width:500px;">
+	
+		
+	{loop $wtkres as $v}
+		{if trim($v->optionz)!=''}
+			<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9; ">
+			{if trim($v->headpic)!= ''}
+				<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$v->headpic}"/>
+				<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+			{else}
+				<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+			{/if}
+			<div>{$v->optionz}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl[$v->paixu]}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans[$v->paixu]}({$bl[$v->paixu]}%)</div>
+			</div>
+			</div>
+		{/if}
+	{/loop}
+	
+	</div>
+
+
+<script type="text/javascript">
+</script>
+<br/><br/><br/></body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+
+	<title></title>
+	<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+	<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate-plugin.js"></script>
+</head>
+ <body class="{Session::get('maintheme')}">
+<div class="container-fluid" id="content">
+        <div id="main">
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="box">
+                            <div class="box-title">
+                                <div class="span10">
+                                    <h3> <i class="icon-cog"></i>
+                                        分销佣金率
+                                    </h3>
+                                </div>
+                                
+                            </div>
+                            <div class="box-content">
+                            	
+                                <form action="" method="POST" id="setBusinessForm" class="form-horizontal form-validate" >
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">一级分销佣金率</label>
+                                        <div class="controls">
+                                            {$set->text('first_rate','class="input-mini" required="required" ')}%
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">二级分销佣金率</label>
+                                        <div class="controls">
+                                            {$set->text('second_rate','class="input-mini" required="required" ')}%
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">理疗店提成</label>
+                                        <div class="controls">
+                                            {$set->text('dptc','class="input-mini" required="required" ')}%
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline">个人理疗师理疗服务所在店面</span>
+                                        </div>
+                                    </div>                                    
+                                                                        
+                                    
+                                    
+                                    <div class="form-actions">
+                                        <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!--   <script type="text/javascript" src="{$JS}comm.js"></script> -->
+    <script type="text/javascript" src="{$JS}shop.js"></script>
+
+<script type="text/template" id="picdemo">
+    <li class="imgbox" style="list-type:none">
+    <a class="item_close" href="javascript:void(0)" onclick="$(this).parent().remove();" title="删除">
+    </a>
+    <span class="item_box">
+     <img src="" style="max-height:100%;">
+    </span>
+    <span class="item_input">
+    <textarea class="bewrite" cols="3" rows="4" style="resize: none" placeholder="图片描述..." onfocus="$(this).parent().addClass('on');" onblur="$(this).parent().removeClass('on');">
+    </textarea>
+    
+    <i class="shadow hc">
+    </i>
+    </span>
+    </li>
+</script>
+
+
+<script type="text/javascript" charset="UTF-8" src="{$JS}shop/sproductedit.js?dfaassd2014"></script>
+</body>
+</html>

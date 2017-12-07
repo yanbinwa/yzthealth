@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$wechatset->title}</title>
+    <link href="img/favicon.ico" type="image/x-icon" rel=icon>
+    <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+
+
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/default.css"/>
+</head>
+<body>
+
+<link type="text/css" rel="stylesheet" href="{$CSS}wxy/orderinfo.css"/>
+<link type="text/css" rel="stylesheet" href="{$CSS}wxy/create_order.css"/>
+
+<div class="orderinfo">
+    <div class="o_state">
+    {if !empty($lxlls)}
+        <div class="o_s_title">
+            <img src="{$IMG}wx/my-coupon-i.png" alt="" width="16px"/>订单类型：<span id="orderState">个人理疗师到店订单</span> 
+        </div>    
+        {/if}    
+        <div class="o_s_title">
+            <img src="{$IMG}wx/odt-st.png" alt="" width="16px"/>订单状态：<span id="orderState">{$order_status} {$remark}</span>
+        </div>
+        <div class="o_s_desc"></div>
+    </div>
+    {if $orders->couponid}
+    <div class="o_coupon" id="o_coupon_btn">
+        <div class="c_cp_title">
+            <img src="{$IMG}wx/m2.png" alt="" width="20px"/>优惠券：<span id="orderInfo_copuon_title"> {$yhq}</span>
+        </div>
+    </div>
+    {/if}
+    <div class="contact_way">
+        <div class="c_w_title">
+            <img src="{$IMG}wx/odt-cont.png" alt="" width="20px"/>联系方式：
+        </div>
+        <div class="c_w_content">
+            联系人：{$orders->full_name}
+            <hr/>
+
+            {if $orders->pay_status && !empty($cusTel)&&empty($lxlls)}
+            电话：{$orders->telephone}
+            <hr/>
+            {/if}
+            理疗地点：{$supplier->address}({$supplier->shopname})
+            <hr/>
+            备注：{$orders->beizhu}
+            <hr/>            
+        </div>
+    </div>
+    <div class="o_info">
+        <div class="o_i_title">
+            <img src="{$IMG}wx/odt-num.png" alt="" width="20px"/>订单号：<span id="order_id"></span>
+        </div>
+        <div class="o_i_content">
+            <div class="o_i_engineer_icon"
+                 style="background:url({$supplier->dz}); background-color: white;
+                 background-size: 100%; background-repeat: no-repeat;background-position : 0px 6px;">
+
+            </div>
+            <div class="o_i_info">
+                项目：{$orders->good_name}
+                <br/>
+                理疗店/推拿师：{$shopSupplier->shopname}
+                <br/>
+                项目数量：{$orders->num}
+                <br/>
+                时间：<span id="appointTime">{$lltime} 分钟</span>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="o_calc">
+        <div class="c_c_title">
+            <img src="{$IMG}wx/odt-sum.png" alt="" width="20px"/>合计：
+        </div>
+        <div class="c_c_content">
+            <div class="c_c_product" id="c_c_product">
+                <div class="c_c_left">{$orders->good_name} × {$orders->num}</div>
+                <div class="c_c_right">￥{$sproduct->lowest} × {$orders->num} = ￥{$totall}
+                </div>
+
+                
+                
+
+            </div>
+            <div class="c_c_product">
+                <div class="c_c_left">应付金额</div>
+                <div class="c_c_right" id="run_result">￥{$totall}</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<div class="bottom_other" style="margin-bottom: 30px;">
+{if $orders->pay_status && !empty($cusTel)&&$orders->status==0&&empty($lxlls)&&empty($lgc_supplier->is_lls)}
+    <a href="tel:{$orders->telephone}">
+        <input class="button_tel" type="button" value="联系 {$orders->full_name}"/>
+    </a>
+     
+{/if}
+{if $orders->pay_status && !empty($shopSupplier->lxrtel)&&$orders->status==0&&!empty($lxlls)&&empty($lgc_supplier->is_lls)}
+    <a href="tel:{$shopSupplier->lxrtel}">
+        <input class="button_tel" type="button" value="联系 {$shopSupplier->shopname} (个人理疗师)"/>
+    </a>
+     
+{/if}
+{if $orders->pay_status && !empty($supplier->lxrtel)&&$orders->status==0&&empty($lxlls)&&!empty($lgc_supplier->is_lls)}
+    <a href="tel:{$supplier->lxrtel}">
+        <input class="button_tel" type="button" value="联系 {$supplier->shopname}"/>
+    </a>
+     
+{/if}
+    <p>工作时间：10:00-22:00</p>
+
+</div>
+
+
+
+

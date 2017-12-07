@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>
+		{$fl->name}
+	</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="x-dns-prefetch-control" content="on">
+
+	<link rel="stylesheet" type="text/css" href="{$CSS}wsc/style.css?v=<?php echo time();?>" />
+	<script src="{$JS}wsc/jquery.js"></script>
+
+
+	<!--script type="text/javascript" src="{$JS}getopenid.js?ded"></script-->
+	<style>
+		.mod_itemgrid .cover img {
+			width: 87%;
+			max-height: 300px;
+		}
+		.mod_itemgrid .cover {
+			min-height: 145px;
+			position: relative;
+			background-color: none;
+			text-align: center;
+		}
+	</style>
+	<script>
+		
+		 var wxid = "{$wxid}";
+		 var appid = "{$pubs->cusid}";
+		 if(wxid=='')
+		 {
+		 	getUserOpenId("http://yyt.laikehu.com/dz_wsc2_new/index1.html",appid);
+		 }
+	</script>
+</head>
+
+<body>
+	<!--header-->
+	<header>
+		<a href="javascript:history.go(-1);" class="go_back"><</a>
+		<h1>{$fl->name}</h1>
+		<a href="/dz_wsc2_new/index3.html" class="rt_searchIcon">&#37;</a>
+	</header>
+
+	<div class="wx_wrap wx_xin_wrap" style="overflow: hidden;{if $reverse} padding-top:45px; {/if}">
+		{if count($tjres)>0}
+			<div class="mod_slider" id="slideList" style="overflow: hidden;">
+				<div class="inner" id="slideWrapper" style="overflow: hidden;">
+					<ul class="pic_list" id="bannerImg" style="overflow: hidden;">
+						{loop $tjres as $tj}
+							<li style="width:380px;max-width:640px;min-width:300px;max-height:240px;overflow: hidden;">
+								<a href="pro-{$tj->id}.html">
+									<img src="{$tj->pic2}" style="width:100%;max-height:240px;min-height:120px;overflow: hidden;">
+								</a>
+							</li>
+						{/loop}
+					</ul>
+				</div>
+				<div class="bar_wrap">
+					<ul class="bar" id="bannerTab">
+						{loop $tjres as $tj}
+							<li id="{$__i}" no="{$__i}" class=""></li>
+						{/loop}
+					</ul>
+				</div>
+			</div>
+		{/if}
+
+		<div class="tm" id="nowDiv">
+			<div class="tm_tit" id="nowTitle">
+				<h3>{$fl->name}</h3>
+				<p>New Arrivals</p>
+			</div>
+			<div class="tm_list" id="nowList">      	
+				{loop $fls as $fl}
+					<a class="tm_item" href="/dz_wsc2_new/index1-{$fl->id}.html">
+						<p class="tm_item_cover">
+							<img src="{$fl->img}" alt="">
+							<span class="limit_time" style="padding-left: 65px;display:none">{$fl->ms}</span>
+						</p>
+						<p class="tm_item_logo" style="padding-left:0;">
+							<em style="overflow:inherit">{$fl->name}</em> <strong></strong>
+						</p>
+					</a>
+				{/loop}
+			</div>
+		</div>
+
+
+
+		{if count($tjs)>0}
+			<script type="text/javascript">
+				//价格排序
+				function pxjg(o){
+					$('.mod_filter_inner').children('a').removeClass('select');
+					$(o).addClass('select');
+					if($(o).is('.state_switch')){
+						//升序
+						$(o).removeClass('state_switch');
+						var prs = $('.hproduct').clone();
+						prs = prs.toArray();
+						prs.sort(function(a,b){
+							//alert(parseFloat($(a).attr('ordjg')));
+							return (parseFloat($(a).attr('ordjg')) - parseFloat($(b).attr('ordjg')));
+						});
+						$('#martList').empty().append(prs);
+					}else{
+						//降序
+						$(o).addClass('state_switch');
+						var prs = $('.hproduct');
+						prs = prs.toArray();
+						prs.sort(function(a,b){
+							return (parseFloat($(b).attr('ordjg'))- parseFloat($(a).attr('ordjg')));
+						});
+						$('#martList').empty().append(prs);
+					}
+				}
+
+				function pxzk(o){
+					$('.mod_filter_inner').children('a').removeClass('select');
+					$('.mod_filter_inner').children('a').removeClass('state_switch');
+					$(o).addClass('select');
+					var prs = $('.hproduct').clone();
+					prs = prs.toArray();
+					prs.sort(function(a,b){
+						return (parseFloat($(a).attr('ordzk')) - parseFloat($(b).attr('ordzk')) <0);
+					});
+					$('#martList').empty().append(prs);
+				}
+				function pxid(o){
+					$('.mod_filter_inner').children('a').removeClass('select');
+					$('.mod_filter_inner').children('a').removeClass('state_switch');
+					$(o).addClass('select');
+					var prs = $('.hproduct').clone();
+					prs = prs.toArray();
+					prs.sort(function(a,b){
+						return (parseFloat($(a).attr('ordid')) - parseFloat($(b).attr('ordid')) <0);
+					});
+					$('#martList').empty().append(prs);
+				}
+
+				function gogwc(id){
+					location.href="/dz_wsc2_new/gwc-"+id+"-add.html?gid=0&num=1";
+				}
+			</script>
+			<div class="wx_wrap">
+				<div class="tm_brandinfo" id="brandInfo" style="display:none;">
+					<h3 id="shopName">0</h3>
+					<p><a href="javascript:;" class="btn_guang" id="guangShop">进店逛逛</a></p>
+				</div>
+
+				<div class="tm_banner" style="display: none;">
+					<img id="brandLogo">
+				</div>
+
+				<div id="baseline"></div>
+
+
+				<div id="filterDiv" class="mod_fixed_wrapper">
+					<div class="mod_filter" id="filterMod">
+						<div class="mod_filter_inner" id="filter">
+							<a href="javascript:;" onclick="pxid(this)" no="1" class="select">默认</a>
+							<a href="javascript:;" onclick="pxjg(this)" no="2" class="">价格<i class="icon_sort"></i></a>
+							<a href="javascript:;" onclick="pxzk(this)" no="3" class="">折扣<i class="icon_sort_single"></i></a>
+						</div>
+					</div>
+				</div>
+	
+				<div class="ju_list">
+		            <ul id="martList" >
+					{loop $tjs as $tj}
+		    
+		            		<li class="hproduct"  ordid="{$tj->id}" ordjg="{$tj->lowest}" ordzk="{$tj->zk}">
+		            			{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1" class="url" style="height:128px;">
+								{elseif $wid==6784797}
+									<a href="#" onclick="gogwc({$tj->id})"  class="url" style="height:128px;">
+								{else}
+									<a href="/dz_wsc2_new/pro-{$tj->id}.html" class="url" style="height:128px;">
+								{/if}
+		            			<!-- <a href="/dz_wsc2_new/pro-{$tj->id}.html" class="url"> -->
+		            				<img class="photo"  src="{$tj->pic}" style="height:128px;" >
+		            				<h3 class="fn">{$tj->name}</h3>
+		            				<p class="price">商城价：<strong>¥{$tj->lowest}</strong></p>
+		            				<p class="other">
+		            					<del class="o1">¥{$tj->yj}</del>
+		            					{if $tj->show_zk == 1}
+		            					<span class="o2">{number_format(($tj->zk/10), 2)}折</span>
+		            					{/if}
+		            					<span class="o3">已售{$tj->sale_nums}件</span>
+		            				</p>
+		            			</a>
+		            		</li>
+		          
+					{/loop}
+		            </ul>
+		           
+		        </div>
+
+
+			</div>
+		{/if}
+
+	</div>
+
+	<div class="hoverCart" style="display:none">
+		<a href="#">0</a>
+	</div>
+	{T tp2}
+	
+</body>
+
+</html>

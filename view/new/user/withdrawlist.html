@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>提现记录</title>
+	<link rel="stylesheet" href="">
+	<link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/font_1459473269_4751618.css?<?php echo time();?>">
+	<link href="{$CSS}yangsheng2/bootstrap.min.css" rel="stylesheet">
+	<link href="{$CSS}yangsheng2/style.css" rel="stylesheet">
+   <script src="{$JS}yangsheng2/bootstrap.min.js"></script>
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/menu_elastic.css" />
+<script src="{$JS}yangsheng2/snap.svg-min.js"></script>
+<!--[if IE]>
+<script src="{$JS}yangsheng2/html5.js"></script>
+<![endif]-->
+   <style type="text/css">
+      .nav-tabs li{ width: 33.3%}
+      .hdbar{
+         display:-webkit-box;
+         display:-ms-flexbox;
+         display:flex;
+         -webkit-box-pack:justify;
+         -ms-flex-pack:justify;
+         justify-content:space-between;
+         -webkit-box-align:center;
+         -ms-flex-align:center;
+         align-items:center;
+         width:100%;
+         height:50px;
+         padding:0 10px;
+         background-color:#fff;
+         border-bottom:1px solid #ccc;
+         font-size: 1.8rem;
+        }
+
+
+   .i-btn{
+      display:inline-block;
+      width:36px;
+      height:36px;
+      border-radius:100%;
+      vertical-align:middle}
+   .i-back{
+    background: url({$IMG}wx/fanhui.png) center center no-repeat;
+    background-size:100% 100%}
+    .i-home{
+      background:url({$IMG}wx/shouye.png) center center no-repeat;
+    background-size:100% 100%}
+   </style>
+</head>
+<body class="huibg">
+<header class="hdbar fixed" style="position: fixed; z-index: 20; top:0;">
+  <a href="javascript:history.back(-1);"><span class="i-btn i-back"></span></a>
+  提现记录
+  <a href="/wx/yangsheng.html"><span class="i-btn i-home"></span></a>
+</header>
+<br/>
+<ul id="myTab" class="nav nav-tabs" style="margin-top: 40px;">
+   <li class="active"><a href="#sp1" data-toggle="tab">全部</a>
+   </li>
+   <li><a href="#sp2" data-toggle="tab">待审核</a></li>
+   <li><a href="#sp3" data-toggle="tab">已提现</a></li>
+
+</ul>
+
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="sp1">
+      <ul class="ddlist">
+      {loop $orders_arr as $v}
+         <li>
+            <a href="/wx/orderInfo-{$v['id']}.html">
+               <p>申请时间：{$v['created_at']}</p>
+               <p>申请金额：{$v['total']}</p>
+               <p>申请状态：{if $v['status']==0}待审核{else}已提现{/if}</p>
+               <!-- <p><span>积分：1200</span></p> -->
+            </a>
+         </li>
+      {/loop}
+      </ul>
+   </div>
+   <div class="tab-pane fade" id="sp2">
+      <ul class="ddlist">
+      {loop $Pending_payment as $v}
+         <li>
+            <a href="/wx/orderInfo-{$v['id']}.html">
+               <p>申请时间：{$v['created_at']}</p>
+               <p>申请金额：{$v['total']}</p>
+               <p>申请状态：{if $v['status']==0}待审核{else}已提现{/if}</p>
+               <!-- <p><span>积分：1200</span></p> -->
+            </a>
+         </li>
+         {/loop}
+      </ul>
+   </div>
+   <div class="tab-pane fade" id="sp3">
+      <ul class="ddlist">
+      {loop $Pending_consumption as $v}
+         <li>
+            <a href="/wx/orderInfo-{$v['id']}.html">
+               <p>申请时间：{$v['created_at']}</p>
+               <p>申请金额：{$v['total']}</p>
+               <p>申请状态：{if $v['status']==0}待审核{else}已提现{/if}</p>
+               <!-- <p><span>积分：1200</span></p> -->
+            </a>
+         </li>
+      {/loop}
+      </ul>
+   </div>
+
+
+</div>
+
+
+
+<script src="{$JS}yangsheng2/classie.js"></script>
+<script src="{$JS}yangsheng2/main3.js?<?php echo time();?>"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+</body>
+</html>

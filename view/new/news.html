@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>{$set->title}</title>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="stylesheet" href="{$CSS}web/news/isploading.css" />
+	<link rel="stylesheet" href="{$CSS}web/news/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="{$CSS}web/news/font-awesome.min.css" type="text/css" />
+	<link rel="stylesheet" href="{$CSS}web/news/v3-framework.css" type="text/css" />
+	<link rel="stylesheet" href="{$CSS}web/news/v3-common.css" type="text/css" />
+	<link rel="stylesheet" href="{$CSS}web/news/idangerous.swiper.css" type="text/css" />
+	<script src="{$JS}web/news/zcms_require.js" contextpath="/front/"></script>
+	<script src="{$JS}web/news/main.js"></script>
+	<link href="{$CSS}web/news/style.css" rel="stylesheet" type="text/css">
+	<link href="{$CSS}web/news/default.css" rel="stylesheet" type="text/css">
+	<link href="{$CSS}web/news/zcms_components.css" rel="stylesheet" type="text/css">
+	<script src="{$JS}web/news/bootstrap.min.js"></script>
+	<script src="{$JS}web/news/hammer.min.js"></script>
+	<script type="text/javascript" src="{$JS}web/news/v3_common.js"></script>
+	<script type="text/javascript" src="{$JS}web/news/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="{$JS}web/news/jquery.cookie.js"></script>
+	<script type="text/javascript" src="{$JS}web/news/idangerous.swiper.min.js"></script>
+	<script type="text/javascript" src="{$JS}web/news/script.js"></script>
+	<script type="text/javascript" src="{$CSS}web/news/isploading.js"></script>
+	<link href="{$CSS}web/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css">
+	<link href="{$CSS}web/bootstrap-slider.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/cn_main_comment.css">
+	<link rel="stylesheet" href="{$CSS}web/cn_mobile.css">
+	<link rel="stylesheet" href="{$CSS}web/owl.carousel.css">
+	<link href="{$CSS}web/inner.css" rel="stylesheet">
+	<link href="{$CSS}web/menu.css" rel="stylesheet">
+	<link href="{$CSS}web/index.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0">
+	<style>
+.fenye a{
+	padding: 0 3px;
+    min-width: 30px;
+    overflow: hidden;
+    display: inline-block;
+    background-color: #dfdfdf;
+    color: #424242;
+    vertical-align: middle;
+    margin: 0 1px;
+}
+.fenye a.paginate_active{
+	background-color: #bc2826;
+    color: #fff;
+    min-width: 38px;
+    line-height: 38px;
+}
+	</style>
+</head>
+
+<body>
+{T head}
+<!-- 主内容 -->
+<div class="main">   
+	<div class="container">
+		<div class="breadcrumb">
+			<a href='news.html'>最新动态 </a> {if $type->id}  &gt;<a href="news-{$type->id}.html">{$type->name}</a>{/if}
+		</div>
+		<div class="">
+			<!-- 左侧开始 -->
+			<div class="w790 pull-left">
+				<div class="b-t">
+					{loop $list as $r}
+					<div class="main_m">
+						<div class="pull-left p-n">
+							<a href="newsInfo-{$r->id}.html" target="_blank">
+								<img src="{$r->pics}" width="260" height="145"/>
+							</a>
+						</div>
+						<div class="detailList-text-hs">
+							<h4 class="font22 color27">
+								<div><a class="ellipsis" href="newsInfo-{$r->id}.html" target="_blank">{$r->title}</a></div>
+							</h4>
+							<h5 class="multi-line-ellipsis line-clamp3 font17">
+								{$r->introduction} 
+							</h5>
+							<div class="">
+								<span class="p-md"></span>
+								<div class="pull-left" id="627"><a class="font15 color88" href="news-{$r->tid}.html">{$trr[$r->tid]}</a></div>
+								<div class="pull-right font15 color88">
+								  {$r->update_time}
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+
+					</div>
+					{/loop}
+				</div>
+				<!-- 分页条开始 -->
+				<div class="pageBar">
+					<div class="fenye">
+						<div class="ye-num">
+							{P p}
+						</div>
+					</div>
+				</div>
+				<!--  分页条结束-->
+			</div>
+			<!-- 左侧结束 -->
+			<!-- 右侧开始 -->
+			<div class="w308 pull-right">
+				<div class="rankingList rightbox p">
+					<h4 class="font22">热门排行</h4>
+					
+					{loop $list_hot as $r}
+					<div class="commentItem h-30" style="clear:both;">
+						<span class="hot-xie color01 p-r-xs pull-left">{$i++}.</span>
+						<a class="font15 color01 ellipsis-line pull-left" href="newsInfo-{$r->id}.html">{$r->title}</a>
+					</div>
+					{/loop}
+					
+				</div>
+				
+
+				<div class="hot rightbox clearfix">
+				<!--切换-->
+					<div class="tabs J-detailTab clearfix">
+						<a href="#hotProduct" class="active" style="width:100%" data-toggle="tab">新品推荐</a>
+					</div>
+					<div class="detailTab active" id="hotProduct">
+						<div class="text-center important_beforeLogin">
+							<a href="proInfo-{$pro->id}.html" target="_blank" >
+								<img class="b-d-g p-t p-b m-b-md" src="{$pro->pics}" style="width:250px;height:100%;" >
+							</a>
+							<p class="font16 color00 text-center ellipsis-line w280">
+								<a href="proInfo-{$pro->id}.html" target="_blank" >{$pro->name}</a>
+							</p>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="wonderfulVideo rightbox">
+					<h4 class="font22 p">精彩视频</h4>
+					<a class="videoIcon-right" href="newsInfo-{$video->id}.html">
+						<img src="{$video->pics}" class="img-responsive" alt="{$video->title}" />
+					</a>
+					<div class="mask font14 text-center" style="height:40px;">
+						<a class="ellipsis-line" href="newsInfo-{$video->id}.html">{$video->title}</a>
+					</div>
+				</div>
+			</div>
+			<!-- 右侧结束 -->
+		</div>
+	</div>
+</div>
+<!-- 底部结束 -->    		
+
+  {T footer}
+
+</body>
+</html>

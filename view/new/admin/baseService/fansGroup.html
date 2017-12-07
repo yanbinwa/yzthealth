@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/victor-client.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+	
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span8">
+                                <h3><i class="icon-table"></i>分组</h3>
+                            </div>
+                            <div class="span4">
+                                
+                            </div>
+                        </div>
+
+                        <div class="box-content">
+                            <div class="row-fluid">
+                                <div class="span8 control-group">
+                                    <div class="span3">
+                                        <a class="btn" href="groupadd.html"><i class="icon-plus"></i>新增分组</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid">
+                                <ul class="qb_clearfix unstyled" id="custom_group_navigator_div">
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_1">今天新增客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount1}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount1}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a1-{$amount1}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_2">全部客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount2}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount2}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a2-{$amount2}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_3">今天联系客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount3}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount3}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a3-{$amount3}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_4">近7天联系客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount4}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount4}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a4-{$amount4}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_1">近30天联系客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount5}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount5}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a5-{$amount5}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_2">近30天未联系客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount6}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount6}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a6-{$amount6}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_3">今天关注客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount7}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount7}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a7-{$amount7}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_4">近7天关注客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount8}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount8}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a8-{$amount8}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_1">近30天关注客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount9}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount9}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a9-{$amount9}.html">详情</a></div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-box">
+                                        <div class="list-box__hd list-box__hd_bg_2">30天前关注客户</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$amount10}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$amount10}人</div>
+                                            </div>
+
+                                            <div class="list-box__links"><a class="margin-right_m" href="fansList-{g}-a10-{$amount10}.html">详情</a></div>
+                                        </div>
+                                    </li>
+                                     
+                                    {loop $fansgroup as $r}
+                                    <li class="list-box">
+                                        
+                                        <div class="list-box__hd list-box__hd_bg_{$r->color}">{$r->name}</div>
+                                        <div class="list-box__bd">
+                                            <div class="list-box__count">
+                                                <strong id="NewToday" class="list-box__total">{$r->groupcount}人</strong>
+                                                <div style="display:none;" id="NewToday1" class="list-box__trend"><i class="icon icon-arrow-down"></i>{$r->groupcount}人</div>
+                                            </div>
+                                            <div class="list-box__links">
+                                                <a class="margin-right_m" href="fansList-{g}-{$r->id}-{$r->groupcount}.html">详情</a>
+                                                <a href="javascript:if(confirm('确定要删除吗？')){ goto('fansGroup-{del}-{$r->id}.html');};" title="删除该分组" class="pull-right">删除</a>
+                                            </div>
+                                        </div>
+                                    </li>
+									{/loop}	
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+            </div>
+    </div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+	</body>
+</html>

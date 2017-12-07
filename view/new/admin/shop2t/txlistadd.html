@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+    <title></title>
+    <script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>编辑提现申请</h3>
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+
+                        <div class="box-content">
+                            <form action="" method="post" class="form-horizontal form-validate" onsubmit="return check()" >
+                                
+                                
+                                <div class="control-group">
+                                    <label for="name" class="control-label">申请日期：</label>
+                                    <div class="controls">
+                                        {$m->text('create_time','class="input-large" disabled="disabled"')}
+                                        <span class="maroon">*</span>
+                                        <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">提现金额：</label>
+                                    <div class="controls">
+                                        {$m->text('amount','class="input-large" required="required" disabled="disabled" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                
+                                 <div class="control-group">
+                                    <label for="sort" class="control-label">姓名：</label>
+                                    <div class="controls">
+                                          {$bankm->text('uname','class="input-large" required="required" disabled="disabled" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                 <div class="control-group">
+                                    <label for="sort" class="control-label">支付方式：</label>
+                                    <div class="controls">
+                                         {$bankm->select($type,'type','disabled="disabled"')}
+                                         
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                
+                                  <div class="control-group">
+                                    <label for="sort" class="control-label">卡号/账号：</label>
+                                    <div class="controls">
+                                          {$bankm->card_no}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>																<div class="control-group">                                    <label for="sort" class="control-label">开户行信息：</label>                                    <div class="controls">                                          {$bankm->address}                                        <span class="maroon">*</span>                                    </div>                                </div>								
+                                
+                                  <hr>
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">微店名称：</label>
+                                    <div class="controls">
+                                        {$wm->text('shop_name','class="input-large" required="required" disabled="disabled" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">代理商姓名：</label>
+                                    <div class="controls">
+                                        {$wm->text('name','class="input-large" required="required" disabled="disabled" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                  <div class="control-group">
+                                    <label for="sort" class="control-label">代理商手机号：</label>
+                                    <div class="controls">
+                                        {$wm->text('tel','class="input-large" required="required" disabled="disabled" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                               
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">代理级别：</label>
+                                    <div class="controls">
+                                       {if $wm->pid!=0 }
+                                                                                                                  二级代理
+                                       {else}
+                                                                                                                   一级代理
+                                       {/if}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                
+                                {if $wm->pid!=0 }
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">父级代理：</label>
+                                    <div class="controls">
+                                        {$wm->text('pwdname','class="input-large" required="required" disabled="disabled" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                {/if}
+                              
+                                
+                                
+                                <hr>
+                                
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">状态：</label>
+                                    <div class="controls">
+                                        {$m->select($status,'status')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">审核备注：</label>
+                                    <div class="controls">
+                                        {$m->textarea('sh_bz','class="input-large"  ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                
+                                 <div class="control-group">
+                                    <label for="sort" class="control-label">审核人：</label>
+                                    <div class="controls">
+                                        {$m->text('shr','class="input-large" required="required" disabled="disabled" ')}
+                                        <span class="maroon"></span>
+                                    </div>
+                                </div>
+                                
+                                 {if $m->status!='0'}
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">处理时间：</label>
+                                    <div class="controls">
+                                        {$m->sh_tm}
+                                        <span class="maroon"></span>
+                                    </div>
+                                </div>
+                                {/if}
+                                 <div class="control-group">                                    <label for="sort" class="control-label">注意：</label>                                    <div class="controls" style="color:red;">                                       * 提现失败会将提现金额返还到账户上，所以不能重复提交，只能提交一次！！                                        <span class="maroon"></span>                                    </div>                                </div>
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    <button type="button" class="btn" onclick="Javascript:window.history.go(-1)">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+function check()
+{
+	var cansv= true;
+	$("#form1").find('input[type="text"],select,textarea,password').filter('[required="required"]').each(function(){
+		if($.trim($(this).val())==''){
+			cansv = false;
+			$(this).css('backgroundColor','yellow');
+			$(this).one('focus',function(){
+				$(this).css('backgroundColor','transparent');
+			});
+		}
+	});
+	if(!cansv){
+		G.ui.tips.info('请将信息填写完整'); 
+		return cansv;
+	}
+}
+</script>
+</html>

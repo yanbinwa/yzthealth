@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>微贺卡 手机贺卡</title>
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta charset="utf-8">
+<link href="/res/xheka/style.css" rel="stylesheet" type="text/css" />
+</head>
+<script>
+window.onload = function ()
+{
+var oWin = document.getElementById("win");
+var oLay = document.getElementById("overlay");	
+var oBtn = document.getElementById("popmenu");
+var oClose = document.getElementById("close");
+oBtn.onclick = function ()
+{
+oLay.style.display = "block";
+oWin.style.display = "block"	
+};
+oLay.onclick = function ()
+{
+oLay.style.display = "none";
+oWin.style.display = "none"	
+}
+};
+</script>
+<body id="listhome3">
+<div id="ui-header">
+<div class="fixed">
+<a class="ui-title" id="popmenu">选择分类</a>
+<a class="ui-btn-left_pre" href="/heka/index.html"></a>
+<a class="ui-btn-write"></a>
+<a class="ui-btn-right" href="javascript:location.reload(true);"></a>
+</div>
+</div>
+<div id="overlay"></div>
+<div id="win">
+<ul class="dropdown">
+{loop $res as $r}
+<li><a href="/heka/sub/hk-{$r->id}.html"><span>{$r->tit}</span></a></li>
+{/loop}
+<div class="clr"></div>
+</ul>
+</div>
+@YYUC-WRAP
+<script type="text/javascript">
+var isSend = false;
+$(".editor_but").click(function(){
+	if(isSend)
+	{
+		alert("数据正在上传中，请等待一下下！");
+		return false;
+	}
+	if($("input[name=fromname]").val()==""){
+		alert("你还没有输入你的名称呢，亲！");
+		return false;
+	}
+	if($("textarea").val()==""){
+		alert("祝福内容也要输入呢，亲！");
+		return false;
+	}
+	if($("input[name=bg]").val()=="")
+	{
+		$("#bgList").show();
+		$("#zfyList").hide();
+		return false;
+	}
+	var url = "f="+encodeURIComponent($("input[name=fromname]").val())+"&t="+$("input[name=c]").val()+"&b="+$("input[name=bg]").val()+"&c="+encodeURIComponent($("textarea").val());
+	$.get('/heka/presend.html?'+url,function(data){
+		window.location="/heka/send-"+data+".html";
+	});
+
+	return false;
+});
+$(function(){
+	$("#bgList").show();
+	if($("input[name=bg]").val()=="")
+	{
+		$("#bgList").show();
+		$("#zfyList").hide();
+		$(".ui-btn-write").hide();
+	}
+	else
+	{
+		$("#bgList").hide();
+		$("#zfyList").show();
+		$(".ui-btn-write").show();
+	}
+	$("#bgList li").click(function(){
+		$("input[name=bg]").val($(this).find("img").attr("src"));
+		$("input[name=style]").val($(this).attr("data"));
+		$("#bgList").hide();
+		var zfkey = $.trim($(this).attr("key"));
+		if(zfkey==""){
+			$("#zfyList ul").html($("#zfyTemp ul").html());
+		}
+		else{
+			var zfids = zfkey.split(",");
+			for(i=0;i<zfids.length;i++){
+				$("#zfyList ul").append('<li class="media mediaFullText">'+ $("#zfy"+zfids[i]).html() +'</li>');
+			}
+			$("#zfyTemp li").each(function(){
+				var zfid = $(this).attr("id").replace("zfy","");
+				for(i=0;i<zfids.length;i++){
+					if(zfids[i]==zfid)
+						$(this).remove();
+				}
+			});
+			$("#zfyList").append("<a class='more'>更多祝福语");
+			$("#zfyList .more").click(function(){
+				$("#zfyList ul").append($("#zfyTemp ul").html());
+				$(this).hide();
+				$("#zfyList li").unbind("click");
+				$("#zfyList li").click(function(){
+					if($(this).find("p").text()!=""){
+					$("textarea").val($(this).find("p").text());
+					$("textarea").text($(this).find("p").text());
+					$("textarea").focus();
+					}
+				});
+			});
+		}
+		$("#zfyList li").unbind("click");
+		$("#zfyList li").click(function(){
+			if($(this).find("p").text()!=""){
+			$("textarea").val($(this).find("p").text());
+			$("textarea").text($(this).find("p").text());
+			$("textarea").focus();
+			}
+		});
+		$("#zfyList").show();
+		$("html,body").animate({ scrollTop:0},400);
+	});
+	$(".ui-btn-write").click(function(){
+		$("textarea").focus();
+	});
+});
+</script>
+<div style="display:none"> </div>
+<script id="txt-desc" type="txt/text">微贺卡，节日贺卡、生日贺卡、爱情贺卡、新婚贺卡、友谊贺卡...手指轻轻一点，即可生成个性贺卡，赶快来DIY送给你的好友吧！</script>
+<script id="txt-title" type="txt/text">微贺卡</script>
+<script>
+
+(function(){
+var onBridgeReady = function () {
+var
+appId = '',
+imgUrl = 'http://www.weixinguanjia.cn/res/xheka/fx1.png',
+link = location.href,
+
+title = getStrFromTxtDom('title'),
+desc = getStrFromTxtDom('desc') || link;
+// 发送给好友;
+WeixinJSBridge.on('menu:share:appmessage', function(argv){
+WeixinJSBridge.invoke('sendAppMessage',{
+"appid" : appId,
+"img_url" : imgUrl,
+"img_width" : "640",
+"img_height" : "640",
+"link" : link,
+"desc" : desc,
+"title" : title
+}, function(res) {})
+});
+// 分享到朋友圈;
+WeixinJSBridge.on('menu:share:timeline', function(argv){
+WeixinJSBridge.invoke('shareTimeline',{
+"img_url" : imgUrl,
+"img_width" : "640",
+"img_height" : "640",
+"link" : link,
+"desc" : desc,
+"title" : title
+}, function(res) {
+});
+});
+// 分享到微博;
+var weiboContent = '';
+WeixinJSBridge.on('menu:share:weibo', function(argv){
+WeixinJSBridge.invoke('shareWeibo',{
+"content" : title + link,
+"url" : link
+}, function(res) {
+});
+});
+// 隐藏右上角的选项菜单入口;
+//WeixinJSBridge.call('hideOptionMenu');
+};
+if(document.addEventListener){
+document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+} else if(document.attachEvent){
+document.attachEvent('WeixinJSBridgeReady' , onBridgeReady);
+document.attachEvent('onWeixinJSBridgeReady' , onBridgeReady);
+}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body class="{Session::get('maintheme')}" data-theme="theme-blue">
+	
+  <div id="main">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="box">
+				<div class="box-title">
+					<div class="span10">
+						<h3><i class="icon-edit"></i>添加支付方式 </h3>
+					</div>
+					<div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+				</div>
+				<div class="box-content">
+					<div class="tab-content">
+						<form action="" id="form_payment_add" method="post" class="form-horizontal form-validate"  >
+							{$payset->hidden('id');}
+							<div class="control-group">
+								<label class="control-label" >支付方式类型:</label>
+								<div class="controls"> 
+									微支付
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="pc_name" class="control-label" title="显示在微支付收银台的收款方企业名称">收款方名称：</label>
+								<div class="controls" title="显示在微支付收银台的收款方企业名称">
+								    {$payset->text('pc_name',array("class"=>'input-large',"required"=>"required"));}
+									<span class="maroon">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="seller_email" class="control-label">公众号身份标识[AppID]：</label>
+								<div class="controls">
+								    {$payset->text('appId',array("class"=>'input-large',"required"=>"required"));}
+									<span class="maroon">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="seller_email" class="control-label">公众平台 API的权限获取所需密钥 Key[AppSecret]：</label>
+								<div class="controls">
+									{$payset->text('appSecret',array("class"=>'input-large',"required"=>"required"));}
+									<span class="maroon">*</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="key" class="control-label">加密的密钥 Key[PaySignKey]：</label>
+								<div class="controls">
+									{$payset->text('paySignKey',array("class"=>'input-large'));}
+									<span class="maroon">（新申请的接口中没有这个参数，无需填写）</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="seller_email" class="control-label">财付通商户身份标识[PartnerId]：</label>
+								<div class="controls">
+									{$payset->text('partner',array("class"=>'input-large',"required"=>"required"));}
+									<span class="maroon">* （新申请的接口中是微信支付商户号（接口文档中的商户号MCHID））</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="partner" class="control-label">财付通商户权限密钥 Key[PartnerKey]：</label>
+								<div class="controls">
+								    {$payset->text('key',array("class"=>'input-large',"required"=>"required"));}
+									<span class="maroon">*</span>
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<label for="pc_order" class="control-label">排序（数字升序）：</label>
+								<div class="controls">
+								   {$payset->text('pc_order',array("class"=>'input-mini'));}
+								   <span class="maroon">数字越大排序越靠前。</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">是否启用：</label>
+								<div class="controls margin-bm10">
+									<label class="radio inline">
+									   {$payset->radio(array("1"=>'启用'),'pc_enabled');}
+									</label>
+									<label class="radio inline" title="买家在下单时将无法使用此支付方式进行付款">
+									   {$payset->radio(array("0"=>'不启用'),'pc_enabled');}
+									</label>
+								</div>
+							</div>
+							
+							<div class="form-actions">
+								<button id="submitbtn" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+								<button type="button" class="btn" onclick="window.location='payset.html'">取消</button>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$("#form_payment_add").submit(function(){
+	var cansv= true;
+	$(this).find('input[type="text"],select,textarea').filter('[required="required"]').each(function(){
+		if($.trim($(this).val())==''){
+			cansv = false;
+			$(this).css('backgroundColor','yellow');
+			$(this).one('focus',function(){
+				$(this).css('backgroundColor','transparent');
+			});
+		}
+		
+	});
+	if(!cansv){
+		tusi('请将信息填写完整');
+	}
+	return cansv;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$wechatset->title}</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=2.0, user-scalable=1"> -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="layoutmode" content="standard">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="renderer" content="webkit">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!--uc浏览器判断到页面上文字居多时，会自动放大字体优化移动用户体验。添加以下头部可以禁用掉该优化-->
+    <meta name="wap-font-scale" content="no">
+    <meta content="telephone=no" name="format-detection" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <script type="text/javascript">//html root的字体计算应该放在最前面，这样计算就不会有误差了/
+    //2016.3.23 wjq update 之所以要加个判断返回一个20.5，是因为当用户在谷歌等浏览器直接输入手机端网站网址时，如果用户设置模块自定义样式的高度比较小，由于这时候的clientWidth为1920px，及返回的_htmlFontSize为40，这时候就会使模块太小，展示不完全，因此先取一个较为准确的值去展示。Mobi.resetHtmlFontSize()顺便也加了
+    var _htmlFontSize = (function() {
+        var clientWidth = document.documentElement ? document.documentElement.clientWidth: document.body.clientWidth;
+        if (clientWidth > 768) clientWidth = 768;
+        document.documentElement.style.fontSize = clientWidth * 1 / 16 + "px";
+        return clientWidth * 1 / 16;
+    })();</script>
+
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng/base.min.css?v=<?php echo time(); ?>" title="default" />
+    <link rel="stylesheet" id="mobiStyleTemplateCss" type="text/css" href="{$CSS}yangsheng/2000_1.min.css?v=<?php echo time(); ?>" />
+    <link rel="stylesheet" href="{$CSS}weui/dist/style/weui.css"/>
+
+<style type="text/css">
+    .pageTitle{
+        text-shadow:#000 1px 0 0,#000 0 1px 0,#000 -1px 0 0,#000 0 -1px 0;
+        -webkit-text-shadow:#000 1px 0 0,#000 0 1px 0,#000 -1px 0 0,#000 0 -1px 0;
+        -moz-text-shadow:#000 1px 0 0,#000 0 1px 0,#000 -1px 0 0,#000 0 -1px 0;
+        *filter: Glow(color=#f44, strength=1);}
+        .webContainerBox{
+            margin-top:10rem;
+        }
+        #module316{
+            position: fixed;
+            top:7rem;
+            left: 0;
+            z-index: 99;
+            width: 100%;
+        }
+        .g_web{ padding-bottom: 0; }
+        a,a:hover{ text-decoration:none; color:#333}
+</style>
+
+</head>
+
+<body faiscoMobi="true" id="g_body" class="g_locale2052 mobiCol3">
+<audio id="bgm" style="display: none" loop="loop" src="{$wechatset->music}" controls="controls" autoplay="autoplay"></audio>
+<div class="webLeft"></div>
+<div id="g_web" class="g_web">
+    <!-- this is loading -->
+    <div id="webTopBox" class="webTopBox  ">
+        <div id="webTop" class="webTop"></div>
+    </div>
+    <div id="webHeaderBox" class="webHeaderBox  ">
+        <div id='webHeader' class='webHeader webHeaderBg '>
+            <div id='mallThemeHeader' class='mallThemeHeader  mallThemeHeaderStyle0'>
+                <div id='headerBgArea' class='headerBgArea' style='background-image:url({$wechatset->pics});background-repeat:no-repeat;background-size:cover;background-color:transparent;'></div>
+                <div class='headerHandlerArea'>
+                    <div class='logoArea'>
+                <span class='pageLogo   ' id='pageLogoMall' sid='0' pw='160' ph='160'>
+                  <div id='pageLogoImgMall' class='logoImg ' style='background-image:url({$fans->headimg});background-size: contain;background-position: center;background-repeat: no-repeat;border-radius:50px;'></div>
+                </span>
+                    </div>
+                    <div class='titleMallArea'>
+                        <div class='titleArea'>
+                            <!-- <span class='pageTitle' id='pageTitleMall'>{$webSet->title}</span> -->
+                            <!-- <img id="bgmgif" src="{$IMG}yangsheng/71336656gc4873962e8ec&690.gif" style="float: right;width: 30px;height: 30px;margin-right: 5px" />
+                            <img id="bgmpng" src="{$IMG}yangsheng/music.png" style="display: none;float: right;width: 30px;height: 30px;margin-right: 5px" /> -->
+                        </div>
+                        <div class='mallUserBtnArea'>
+                            
+                            <a href='javascript:;' hidefocus='true' class='headerItemMenu  userCenter'>
+                                <!--<div class='headerMenuIcon icon-shopping-cart'></div>-->
+                                <div style="margin: 0 auto">
+                                    <img id="bfmusic" src="{$IMG}yangsheng/music_sta.png" style="width: 22px;height: 22px;padding-top: 5px" />
+                                    <img id="breakmusic" src="{$IMG}yangsheng/breakoff.png" style="width: 22px;height: 22px;padding-top: 5px;display: none;" />
+                                </div>
+                                <span class='headerMenuText'>音乐</span></a>
+                            <a class='headerItemMenu myOrder' href='media.html'>
+                                <!--<div class='headerMenuIcon icon-book'></div>-->
+                                <div style="margin: 0 auto">
+                                    <img src="{$IMG}yangsheng/xueyuan.png" style="width: 22px;height: 22px;padding-top: 5px" />
+                                </div>
+                                <span class='headerMenuText'>学苑</span></a>                            
+                            <a class='headerItemMenu myOrder' href='/user/register.html'>
+                                <!--<div class='headerMenuIcon icon-glass'></div>-->
+                                <div style="margin: 0 auto">
+                                    <img src="{$IMG}yangsheng/tiyan.png" style="width: 22px;height: 22px;padding-top: 5px" />
+                                </div>
+                                <span class='headerMenuText'>体验</span></a>
+                        </div>
+                    </div>
+                    <div class='headerMenuBg'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="webContainerBox" class="webContainerBox">
+        <div id="webModuleContainer" class="webModuleContainer">
+
+            <div id='module316' class='form Handle  formStyle26 ' _autoHeight='1' _height='0' _bHeight='0'>
+                <div class='formMiddle formMiddle316'>
+                    <div class='middleLeft middleLeft316'></div>
+                    <div class='middleCenter middleCenter316'>
+                        <div class='formMiddleContent formMiddleContent316 moduleContent'>
+                            <div class='search searchType4  fk-setInputStyle' id='search316' onclick='Mobi.popupSearch({ moduleId:316,lanCode:"", searchProduct:1, hotTopic:[], searchTip:"请输入关键字/城市…", moduleType:4, moduleColor:"rgb(187, 20, 12)", historySearch:1})'>
+                                <div class='icon-mSearchIcon'></div>
+                                <div class='mSearchInput fk-setInputFontStyle'>请输入关键字/城市…</div>
+                                <div class='icon-mSearchBtn'></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='middleRight middleRight316'></div>
+                </div>
+            </div>
+            <style type="text/css">
+                .flot_left{ float: left; }
+                .flot_right{ float: right; }
+                .liliaok{ overflow: hidden; width: 99%; }
+                .liliaod li,.liliaos li{ list-style: none; overflow: hidden; border-bottom: 1px solid #ccc; height: 2.2rem; margin-top: .3rem; }
+                .liliaod li { margin-left: .2rem;}
+                .liliaos li {  }
+                .liliaod,.liliaos{ width: 49%; }
+                .lialiaod_lif{ width: 30%; }
+                .lialiaod_lir{ width: 65%; padding-left: 5%; }
+                .lialiaod_lif img{ height: 2rem; }
+            </style>
+            <div  class='liliaok'>
+                <div class="liliaod flot_left">
+                    <ul id="liliaod">
+                       
+                    </ul>
+                </div>
+                <div class="liliaos flot_right">
+                    <ul id="liliaos">
+                       <!--  <li>
+                                                  <div class="lialiaod_lif flot_left">
+                                                      <img src="http://sta.www.weixinguanjia.cn/ups/2014/10/58484axlg/liliaoshi/zhangxiuyang.jpg">
+                                                  </div>
+                                                  <div class="lialiaod_lir flot_left">
+                                                      <div class='paramNowrap '>
+                                                          <p class='g_link paramName'>找演员找演员</p></div>
+                                                      <p class='g_link productParam paramWrap ' style="font-size: 0.5rem;">
+                                                          <span class='productParamKey'><img class="loc_i" src="{$IMG}wx/position.png" width="12%" >&nbsp;&nbsp; </span>7 km</p>
+                                                  </div>                           
+                                              </li>
+                                              <li>
+                                                  <div class="lialiaod_lif flot_left">
+                                                      <img src="http://sta.www.weixinguanjia.cn/ups/2014/10/58484axlg/liliaoshi/zhangxiuyang.jpg">
+                                                  </div>
+                                                  <div class="lialiaod_lir flot_left">
+                                                      <div class='paramNowrap '>
+                                                          <p class='g_link paramName'>找演员</p></div>
+                                                      <p class='g_link productParam paramWrap ' style="font-size: 0.5rem;">
+                                                          <span class='productParamKey'><img class="loc_i" src="{$IMG}wx/position.png" width="12%" >&nbsp;&nbsp; </span>7 km</p>
+                                                  </div>                           
+                                              </li>  -->                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fixedAreaBox" class="fixedAreaBox">
+        <div class='mallFixNavWrap '>
+            <a class='mallNavBtn mallCartBtn' href='/user/management.html' title='店铺管理'>
+                <div class='mallNavBtnText mallCartCol'>
+                    <span class='icon-mallNavBtnText'></span>
+                    <span class='mallNavText'>店铺管理</span></div>
+            </a>
+            <a class='mallNavBtn mallCartBtn' href='apply.html' title='申请合作'>
+                <div class='mallNavBtnText mallCartCol'>
+                    <span class='icon-mallNavBtnText'></span>
+                    <span class='mallNavText'>申请合作</span></div>
+            </a>
+            <a class='mallNavBtn myOrderBtn' href='/user/user.html' title='个人中心'>
+                <div class='mallNavBtnText myOrderCol'>
+                    <span class='icon-mallNavBtnText'></span>
+                    <span class='mallNavText'>个人中心</span></div>
+            </a>
+        </div>
+    </div>
+
+</div>
+<div class="webRight"></div>
+<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+<script src="{$JS}wx/dropload.min.js"></script>
+<script>
+
+$(function(){
+    // 页数
+    var page = 0;
+    // dropload
+    $('#webContainerBox').dropload({
+        scrollArea : window,
+        loadDownFn : function(me){
+
+            // 拼接HTML
+            var resultd = '';
+            var results = '';
+            $.ajax({
+                type: 'GET',
+                url: 'http://www.yzthealth.com/wx/yangsheng-dropload.html?page='+page,
+                dataType: 'json',
+                success: function(data){
+                    
+                    var lld = data.lld;
+                    var lls = data.lls;
+                    var lldlen = lld.length;
+                    var llslen = lls.length;
+                    var firsted = parseInt('{$firsted}');
+                    if(!firsted){  
+                        // 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData(); 
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                            // 插入数据到页面，放到最后面
+                            $('#liliaod').append(resultd);
+                            $('#liliaos').append(results);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        },20000);                                               
+                    }else{
+                        if(lldlen > 0 || llslen>0){
+                            if (lldlen>llslen) {
+                                var lllen = llslen;
+                            }else{
+                                var lllen = lldlen;
+                            }
+                            for(var i=0; i<lldlen; i++){
+                                resultd +=   '<a href="/wx/therapist.html?uid='+lld[i].id+'"><li>'
+                                                +'<div class="lialiaod_lif flot_left">'
+                                                    +'<img src="'+lld[i].dz+'">'
+                                                +'</div>'
+                                                +'<div class="lialiaod_lir flot_left">'
+                                                    +'<div class="paramNowrap">'
+                                                        +'<p class="g_link paramName">'+lld[i].shopname+'</p></div>'
+                                                    +'<p class="g_link productParam paramWrap" style="font-size: 0.5rem;">'
+                                                        +'<span class="productParamKey"><img class="loc_i" src="{$IMG}wx/position.png" width="12%" >&nbsp;&nbsp; </span>'+lld[i].distance+' km</p>'
+                                                +'</div>'
+                                            +'</li></a>';                                    
+                            }
+                            for(var i=0; i<llslen; i++){
+                                results +=   '<a href="/wx/engineerInfo-'+lls[i].id+'.html"><li>'
+                                                +'<div class="lialiaod_lif flot_left">'
+                                                    +'<img src="'+lls[i].dz+'">'
+                                                +'</div>'
+                                                +'<div class="lialiaod_lir flot_left">'
+                                                    +'<div class="paramNowrap">'
+                                                        +'<p class="g_link paramName">'+lls[i].lxr+'</p></div>'
+                                                    +'<p class="g_link productParam paramWrap" style="font-size: 0.5rem;">'
+                                                        +'<span class="productParamKey"><img class="loc_i" src="{$IMG}wx/position.png" width="12%" >&nbsp;&nbsp; </span>'+lls[i].distance+' km</p>'
+                                                +'</div>'
+                                            +'</li></a>';                                    
+                            }                        
+                        // 如果没有数据
+                        }else{
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }  
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                            // 插入数据到页面，放到最后面
+                            $('#liliaod').append(resultd);
+                            $('#liliaos').append(results);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                        },1000);                                              
+                    }               
+                    
+                    
+                },
+                error: function(xhr, type){
+                    /*alert('Ajax error!');*/
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+            page++;
+        }
+    });
+});
+
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        wx.config({
+            debug:false,
+            appId:'{$signPackage["appId"]}',
+            timestamp:{$signPackage["timestamp"]},
+            nonceStr:'{$signPackage["nonceStr"]}',
+            signature:'{$signPackage["signature"]}',
+            jsApiList:[
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'getLocation'
+                ]
+        });
+        window.shareData = {
+                "imgUrl": "{$wechatset->logo}", 
+                "timeLineLink": "http://www.yzthealth.com/wx/yangsheng.html?wid={$wid}",
+                "sendFriendLink":  "http://www.yzthealth.com/wx/yangsheng.html?wid={$wid}",
+                "tTitle": "{$wechatset->title}",
+                "tContent": "{$wechatset->description}",
+                "fTitle":"{$wechatset->title}",
+                "fContent":  "{$wechatset->description}",
+            };        
+        wx.ready(function(){
+            wx.checkJsApi({
+                jsApiList:[
+                'getLocation'
+                ],
+                success:function(res){
+                    //alert(JSON.stringify(res));
+                    //alert(JSON.stringify(res.checkResult.getLocation));
+                }
+            });
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    var submitData = {
+                        'action': "location",
+                        'jd': res.longitude,
+                        'wd': res.latitude
+                    };
+                    $.post('yangsheng.html',submitData,function(data){});
+                    var geocoder = new qq.maps.Geocoder({
+                        complete: function (result) {   //解析成功的回调函数
+                            /*console.log(result);*/
+                            var addressComponents = result.detail.addressComponents;  //获取详细地址信息
+                            var address = result.detail.address;
+                            
+                            var firsted = parseInt('{$firsted}');
+                            if(!firsted){
+                                location.href="yangsheng.html?city="+addressComponents.city+'&district='+addressComponents.district+'&address='+address;
+                            }
+                        }
+                    });
+                    geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
+
+                },
+                fail: function (res) {
+                },                
+                cancel:function(res){
+                    alert('用户拒绝授权获取地理位置');
+                }
+            });
+            wx.onMenuShareAppMessage({
+              title: window.shareData.fTitle,
+              desc: window.shareData.fContent,
+              link: window.shareData.sendFriendLink,
+              imgUrl: window.shareData.imgUrl,
+              trigger: function (res) {
+                //alert('用户点击发送给朋友');
+              },
+              success: function (res) {
+                sharelog('send_msg','ok');
+              },
+              cancel: function (res) {
+                //alert('已取消');
+              },
+              fail: function (res) {
+                alert(JSON.stringify(res));
+              }
+            });
+            wx.onMenuShareTimeline({
+                  title: window.shareData.fTitle,
+                  link: window.shareData.timeLineLink,
+                  imgUrl: window.shareData.imgUrl,
+                  trigger: function (res) {
+                    //alert('用户点击分享到朋友圈');
+                  },
+                  success: function (res) {
+                    alert('分享成功');
+                    sharelog('timeline','ok');
+                  },
+                  cancel: function (res) {
+                  },
+                  fail: function (res) {
+                    alert(JSON.stringify(res));
+                  }
+            });            
+            
+        });
+
+    });
+
+</script>
+<script>
+    function autoPlayAudio1() {
+        wx.config({
+            // 配置信息, 即使不正确也能使用 wx.ready
+            debug: false,
+            appId: '',
+            timestamp: 1,
+            nonceStr: '',
+            signature: '',
+            jsApiList: []
+        });
+        wx.ready(function() {
+            document.getElementById('bgm').play();
+        });
+    }
+    function autoPlayAudio2() {
+        wx.config({
+            // 配置信息, 即使不正确也能使用 wx.ready
+            debug: false,
+            appId: '',
+            timestamp: 1,
+            nonceStr: '',
+            signature: '',
+            jsApiList: []
+        });
+        wx.ready(function() {
+            document.getElementById('bgm').pause();
+        });
+    }
+    autoPlayAudio1();
+    $('#bgmgif').click(function(){
+        $('#bgmgif').css('display','none');
+        $('#bgmpng').css('display','block');
+        autoPlayAudio2();
+    });
+    $('#bgmpng').click(function(){
+        $('#bgmpng').css('display','none');
+        $('#bgmgif').css('display','block');
+//        var audio = document.getElementById('bgm');
+//        audio.play();
+        autoPlayAudio1();
+    });
+$('#bfmusic').click(function(){
+        $('#bfmusic').hide();
+        $('#breakmusic').show();
+        autoPlayAudio2();
+    });
+    $('#breakmusic').click(function(){
+        $('#breakmusic').hide();
+        $('#bfmusic').show();
+//        var audio = document.getElementById('bgm');
+//        audio.play();
+        autoPlayAudio1();
+    });    
+</script>
+<script type="text/javascript" charset="utf-8" src="{$JS}yangsheng/jqmobi.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$JS}yangsheng/jqmobi_ui.min.js"></script>
+<script id="mobiOperationJS" type="text/javascript" charset="utf-8" src="{$JS}yangsheng/mobi.min.js?a=11"></script>
+<script type="text/javascript" src="{$JS}yangsheng/2052.min.js"></script>
+
+</body>
+
+</html>

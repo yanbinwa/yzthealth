@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>财务管理</title>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="{$CSS}wxy/weui.min.css">
+<link rel="stylesheet" href="{$CSS}wxy/jquery-weui.css">
+<style type="text/css" media="screen">
+
+.demos-title {
+  text-align: center;
+  font-size: 34px;
+  color: #3cc51f;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.demos-sub-title {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+.demos-header {
+  padding: 35px 0;
+}
+.demos-content-padded {
+  padding: 15px;
+}
+.demos-second-title {
+  text-align: center;
+  font-size: 24px;
+  color: #3cc51f;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.weui-grid__icon{ text-align: center; width: 100%; font-weight:bold;  }
+a,a:hover{ text-decoration:none; color:#333}
+</style>
+  </head>
+
+  <body ontouchstart>
+
+    <header class='demos-header'>
+      <h1 class="demos-title">财务管理</h1>
+    </header>
+
+    <div class="weui-grids">
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+          今日订单量
+        </div>
+        <p class="weui-grid__label">
+          {$today_all_nums}
+        </p>
+      </a>
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+          今日成交量
+        </div>
+        <p class="weui-grid__label">
+          {$today_nums}
+        </p>
+      </a>
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+          今日营业额
+        </div>
+        <p class="weui-grid__label">
+          {$today_money}￥
+        </p>
+      </a>      
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+          本月订单量
+        </div>
+        <p class="weui-grid__label">
+          {$month_all_nums}
+        </p>
+      </a>
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+          本月成交量
+        </div>
+        <p class="weui-grid__label">
+          {$month_nums}
+        </p>
+      </a>
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+          本月营业额
+        </div>
+        <p class="weui-grid__label">
+          {$month_money}￥
+        </p>
+      </a>
+      
+    </div>
+
+<script src="{$JS}wx/fastclick.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script src="{$JS}wx/jquery-weui.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+  </body>
+
+</html>

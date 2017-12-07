@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+.body{margin:auto;}
+a {text-decoration: none;}
+.eventslist{ display:block; overflow:hidden;width:94%; margin:10px auto 0px;}
+.eventslist ul{ display:block; overflow:hidden;}
+
+.eventslist{ border:0px;}
+.eventslist li a{position: relative; display:block;}
+.eventslist li a {border-bottom: 1px solid #E7E7E7;height: 66px;overflow: hidden;padding: 10px;}
+.index-list-main-text {height: 44px;overflow: hidden;}
+.index-list-main-title {color: #262B31;font-size: 16px;line-height: 22px;margin: -3px 0 2px;}
+.index-list-main-abs, .index-list-main-time {color: #777777;font-size: 12px;line-height: 22px;}
+.index-list-main-time {margin-top: -2px;}
+.index-list-image {border: 1px solid #E8E8E8;float: right;font-size: 0;height: 64px;margin-left: 10px;overflow: hidden;text-align: center;vertical-align: middle;width: 92px;}
+.index-list-image img {height: 64px;vertical-align: middle;width: 92px;}
+
+/*---------商家活动详细页-----------*/
+.activity ul li p:nth-child(2n+1){ color:#898989; }
+.activity ul li p:nth-child(2n+2){ color:#000000;margin-right:15px;}
+.full{ display:block; overflow:hidden; padding:3%;border-bottom:#c7cacd solid 1px;}
+.full .title{ color:#231f20; font-size:16px; font-weight:bolder; margin-bottom:5px; margin-top:0;}
+.full span{ color:#231f20; font-size:12px; margin-right:10px;}
+.full p{ color:#000; font-size:14px; margin-top:10px;word-wrap:break-word;}
+.full p em{ color:#d7000f;}
+
+.shopname{display:block; overflow:hidden; padding:3%; line-height:25px;}
+.shopname p{ color:#000; font-size:14px;display:block; overflow:hidden;}
+.shopname i{ margin-left:5px; color:#008DC5; font-size:18px;}
+.shopname .left{ color:#008dc5; font-size:16px; line-height:25px; font-weight:bold;}
+.shopname .right{ float:right; border:#1979a0 solid 1px; background-color:#008dc6; color:#FFF; font-size:14px; height:20px; line-height:20px; padding:0% 2%; margin-right:1%;}
+.shopname .icon{ margin:4px 5px 0px 5px; }
+.shopname .icon img{ height:16px; width:auto;}
+.shopname span{}
+.shopname .cell{ color:#008dc5; font-size:14px;}

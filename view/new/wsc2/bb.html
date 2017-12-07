@@ -1,0 +1,26 @@
+<a id="backToTop" href="javascript:;" onclick="$(window).scrollTop(0);" class="WX_backtop">
+      返回顶部
+    </a>
+    <div class="mask_layer">
+    </div>
+    <div class="fav_tips_wrap" id="firstNavFloat">
+      <a href="javascript:void(0);" class="close">
+        <!-- -->
+      </a>
+    </div>
+    <div class="wx_footer">
+      <div class="jd_logo">
+      </div>
+    </div>
+    <script type="text/javascript">
+    $(function(){
+    	$(window).scroll(function(){
+    		if($(window).scrollTop()>44){
+    			$('.WX_backtop').show();
+    		}else{
+    			$('.WX_backtop').hide();
+    		}
+    		
+    	});
+    });
+</script>

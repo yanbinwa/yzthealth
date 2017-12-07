@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$supplier->shopname}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/default.css"/>
+</head>
+<body>
+<link type="text/css" rel="stylesheet" href="{$CSS}wxy/engineer_detail.css?<?php echo time();?>"/>
+<div id="people" eid="{$supplier->id}" ename="{$supplier->shopname}" ehead="{$supplier->dz}" egender="1" estar="{$supplier->estar}">
+    <div class="avatar">
+        <div class="head-photo-circle">
+            <img src="{$supplier->dz}" height="75" width="75">
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="title">
+            <span class="name">{$supplier->shopname}</span>
+            <div class="order-count-box">
+                <i class="order-count-i"></i>
+                <span class="order_count right">{$ordersed_count}单</span>
+            </div>
+        </h1>
+        <div class="cright"></div>
+        <div class="star">
+            {for $i=0;$i<$supplier->estar;$i++}
+            <i class="star_i"></i>&nbsp;
+            {/for}</div>
+        <div class="cright"></div>
+        <div class="position">
+            <img height="16" width="16" src="{$IMG}wx/map.png" onclick="daohang()">
+            <span onclick="daohang()">{$supplier->address}</span>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="hr">
+        <img height="2" src="{$IMG}wx/hr-edetail.png">
+    </div>
+    <div id="desc" onclick="document.querySelector('#people').classList.toggle('expand')">
+        <div title="商家简介">{$supplier->jianjie}</div>
+    </div>
+    <div class="button" onclick="document.querySelector('#people').classList.toggle('expand')">
+        <div class="border">
+            <img class="extend" async-src="{$IMG}wx/arrow-down.png" width="11"
+                 src="{$IMG}wx/arrow-down.png?_=2536">
+            <img class="collapse" async-src="{$IMG}wx/arrow-up.png" width="11"
+                 src="{$IMG}wx/arrow-up.png?_=2536">
+        </div>
+    </div>
+</div>
+<a id="vbase_info" class="nav_button pointer" href="ecommentsList.html?supplier={$unid}">
+    <div class="right">{$favorable_rate}%好评度</div>
+    <div class="text">全部评价<span class="number">（{$remark_count}条）</span></div>
+</a>
+<div id="products">
+    <ul id="services" class="type0 type1 type2 type3">
+{loop $spt_array as $v}
+        <li class="type{$v->id}" id="{$v->id}" title="{$v->name}" star="3" pose="1" titleImage="{$v->pic}" data-rt="{$v->id}" data-mam="6" data-mim="1" data-pe="{$v->lltime}" data-pr="{$v->lowest}">
+            <div class="right">
+                <div class="vr">
+                    <img src="{$IMG}wx/vr-edetail.png" width="2">
+                </div>
+                <div class="checker">
+                    <img src="{$IMG}wx/checked.png" class="checked" height="23" width="23">
+                    <img src="{$IMG}wx/uncheck.png" class="unckeck" height="23" width="23">
+                </div>
+            </div>
+                <img src="{$v->pic}" height="50" width="50" title="{$v->name}" class="titleImage">
+                <div class="title">{$v->name}<span class="price">￥{$v->lowest}</span></div>
+                <div class="desc">{$v->lltime}分钟</div>
+            <div class="clear"></div>
+        </li>
+    {/loop}    
+        {loop $sproduct_array as $v}
+        <li class="type{$v->id}" id="{$v->id}" title="{$v->name}" star="3" pose="1" titleImage="{$v->pic}" data-rt="{$v->id}" data-mam="6" data-mim="1" data-pe="{$v->lltime}" data-pr="{$v->lowest}">
+            <div class="right">
+                <div class="vr">
+                    <img src="{$IMG}wx/vr-edetail.png" width="2">
+                </div>
+                <div class="checker">
+                    <img src="{$IMG}wx/checked.png" class="checked" height="23" width="23">
+                    <img src="{$IMG}wx/uncheck.png" class="unckeck" height="23" width="23">
+                </div>
+            </div>
+                <img src="{$v->pic}" height="50" width="50" title="{$v->name}" class="titleImage">
+                <div class="title">{$v->name}<span class="price">￥{$v->lowest}</span></div>
+                <div class="desc">{$v->lltime}分钟</div>
+            <div class="clear"></div>
+        </li>
+    {/loop}
+    </ul>
+</div>
+<div id="submit_button">
+    <div class="submit primary" onclick="isChoose();">下一步</div>
+</div>
+<div id="bottom_submit_form">
+    <input type="hidden" name="wechat_card_js" value="1">
+    <input type="hidden" name="e" value="">
+    <input id="productId" type="hidden" name="p" value="">
+    <div class="wrap">
+        <div class="line_number">
+            <span class="name">购买数量</span>
+            <div class="number_input right">
+                <div class="left"></div>
+                <input type="number" min="1" max="6" id="multiply" name="multiplier" value="" onfocus="buynumFocuse(this)">
+                <div class="right"></div>
+            </div>
+        </div>
+        <div class="options hide">
+            <script id="ProductOptionsTemplate" type="text/html">
+                <div class="extra_line type{type}" data-value="{price}">
+                    <span>{name}</span>
+                    <div class="right">
+                        <div class="checker">
+                            <img src="{$IMG}wx/checked.png" class="checked" height="23" width="23"/>
+                            <img src="{$IMG}wx/uncheck.png" class="unckeck" height="23" width="23"/>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </script>
+            <div class="hr">
+                <img src="{$IMG}wx/hr-edetail.png" height="2">
+            </div>
+            <div class="list"></div>
+        </div>
+        <div class="price_display">
+            <div class="line_oprice">
+                <span>单价:</span>
+                <span class="right">
+                <span class="price">128</span>
+                元
+                </span>
+            </div>
+            <div class="line_time">
+                <span>时间:</span>
+                <span class="right">
+                <span class="time">45</span>
+                分钟
+                </span>
+            </div>
+            <div class="line_total_price">
+                <span>总价:</span>
+                <span class="right">
+                <span class="price">128</span>
+                元
+                </span>
+            </div>
+        </div>
+        <div class="submit">
+            <div class="medium_button info" onclick="isChoose()">取消</div>
+            <input id="btn_next_toCreatOrder" class="medium_button primary right" type="submit" value="下一步">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function isChoose(){
+        var is_choose = $("#services .active").length;
+        if(is_choose){
+            var arrPrePrice = [];//定义数组  
+            $('#services li').each(function () {
+                if (IndexDemo($(this).attr("class"))>-1) {
+                    arrPrePrice.push($(this).attr('id'));
+                }
+                 
+            }); 
+           
+            location.href = "payment.html?engineerId={$supplier->id}&productId=" + arrPrePrice.join("-"); 
+        }else{
+            alert("您还没有选择服务项目哦 |･ω･｀)")
+        }
+    }
+    $(function (){
+        var last = document.querySelector('#nav .active');
+        if(last){
+            document.querySelector('#nav').addEventListener('click', function (e){
+
+                if(!e.srcElement){
+                    return;
+                }
+                var n = e.srcElement;
+                if(n.nodeName != 'LI'){
+                    return;
+                }
+                if(last){
+                    last.classList.remove('active');
+                }
+                n.classList.add('active');
+                document.querySelector('#services').className = n.dataset.class;
+                last = n;
+
+                if(lastp){
+                    var isshow = lastp.css('display');
+                    if(isshow == 'none'){
+                        active_product.call(undefined);
+                    }
+                }
+            });
+        }
+
+        $('#services li').on('click', function (){
+            active_product($(this));
+        }).filter('.active:first').click();
+
+        var lastp;
+
+        function active_product(dom){        
+            if(dom){
+                var data = dom.data();
+                /*console.log('激活项目', data);*/
+                var classvalue = $('#'+dom.context.id).attr('class');
+                if (IndexDemo(classvalue)>-1) {
+                    dom.removeClass('active');
+                }else{
+                    dom.addClass('active');
+                }
+
+                lastp = dom;
+            } else{
+                lastp = undefined;
+                unselect_product();
+            }
+        }
+    });
+
+function IndexDemo(str2){
+   var str1 = "active";
+   var isbh = str2.indexOf(str1);
+   return isbh;
+}
+</script>
+<script type="text/javascript" src="{$JS}wx/engineer_detail.js"></script>
+<script>
+
+    function buynumFocuse(self){
+        self.blur();
+    }
+    function daohang(){
+    var my_lng = '{$fans->jd}';
+    var my_lat = '{$fans->wd}';
+    var to_lng = '{$supplier->jd}';
+    var to_lat = '{$supplier->wd}';
+    var to_addr = '{$supplier->address}';
+    var tohref="http://apis.map.qq.com/uri/v1/routeplan?type=drive&to="+to_addr+"&fromcoord="+my_lat+","+my_lng+"&tocoord="+to_lat+","+to_lng+"&policy=0&referer=myapp";
+    window.location.href=tohref;
+}
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        wx.config({
+            debug:false,
+            appId:'{$signPackage["appId"]}',
+            timestamp:{$signPackage["timestamp"]},
+            nonceStr:'{$signPackage["nonceStr"]}',
+            signature:'{$signPackage["signature"]}',
+            jsApiList:[
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'getLocation'
+                ]
+        });
+        window.shareData = {
+                "imgUrl": "{$supplier->dz}", 
+                "timeLineLink": "http://www.yzthealth.com/wx/therapist.html?wid={$wid}&opid={$wxid}&uid={$unid}",
+                "sendFriendLink":  "http://www.yzthealth.com/wx/therapist.html?wid={$wid}&opid={$wxid}&uid={$unid}",
+                "tTitle": "{$supplier->shopname}",
+                "tContent": "{$webSet->description}",
+                "fTitle":"{$supplier->shopname}",
+                "fContent":  "{$webSet->description}",
+            };        
+        wx.ready(function(){
+            wx.checkJsApi({
+                jsApiList:[
+                'getLocation'
+                ],
+                success:function(res){
+                    //alert(JSON.stringify(res));
+                    //alert(JSON.stringify(res.checkResult.getLocation));
+                }
+            });
+         wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    var geocoder = new qq.maps.Geocoder({
+                        complete: function (result) {   //解析成功的回调函数
+                            var addressComponents = result.detail.addressComponents;  //获取详细地址信息
+                            var firsted = parseInt('{$firsted}');
+                            if(!firsted){
+                                var submitData = {
+                                    'action': "location",
+                                    'jd': res.longitude,
+                                    'wd': res.latitude,
+                                    'city': addressComponents.city,
+                                    'address': result.detail.address
+                                };                                
+                                $.post('therapist.html',submitData,function(data){});
+                            }
+                        }
+                    });
+                    geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
+
+                },
+                fail: function (res) {
+                },                
+                cancel:function(res){
+                    alert('用户拒绝授权获取地理位置');
+                }
+            });            
+            wx.onMenuShareAppMessage({
+              title: window.shareData.fTitle,
+              desc: window.shareData.fContent,
+              link: window.shareData.sendFriendLink,
+              imgUrl: window.shareData.imgUrl,
+              trigger: function (res) {
+                //alert('用户点击发送给朋友');
+              },
+              success: function (res) {
+                sharelog('send_msg','ok');
+              },
+              cancel: function (res) {
+                //alert('已取消');
+              },
+              fail: function (res) {
+                alert(JSON.stringify(res));
+              }
+            });
+            wx.onMenuShareTimeline({
+                  title: window.shareData.fTitle,
+                  link: window.shareData.timeLineLink,
+                  imgUrl: window.shareData.imgUrl,
+                  trigger: function (res) {
+                    //alert('用户点击分享到朋友圈');
+                  },
+                  success: function (res) {
+                    alert('分享成功');
+                    sharelog('timeline','ok');
+                  },
+                  cancel: function (res) {
+                  },
+                  fail: function (res) {
+                    alert(JSON.stringify(res));
+                  }
+            });            
+            
+        });
+
+    });
+
+</script>

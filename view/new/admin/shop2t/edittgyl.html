@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/daterangepicker.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+  </head>  
+  <body class="{Session::get('maintheme')}">
+    <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>推广活动设置</h3>
+                            </div>         
+                        </div>
+
+                        <div class="box-content">
+                            <form action="" method="post" id="form1" class="form-horizontal form-validate" onsubmit="return check()">
+                                <div class="control-group">
+                                    <label for="title" class="control-label">文章标题：</label>
+                                    <div class="controls">
+                                         {$m->text('name','class="input-large" required="required" ')}
+                                    </div>
+                                </div>
+								
+								 <div class="control-group">
+									<label class="control-label">文章封面：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->pic}" id="pic_pic" relobj="elfinder_nhyk" style="max-height:100px;" />
+											{$m->hidden('pic',' relobj="elfinder_nhyk"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk" >选择封面</button>
+												<span class="help-inline">建议尺寸：宽200像素，高200像素</span>
+											</span>
+										</div>
+								    </div>
+									
+									
+					
+								
+                                <div class="control-group daijqan"  >
+                                    <label class="control-label" for="info">推广软文内容：</label>
+                                    <div class="controls" class="span8" >
+									
+										 {if $m->type!=0}
+										   {loop $m->des as $v}
+											  {if $v->type=='t'}
+												{$v->c}
+											  {else}
+												{if $v->c!=''}
+												  <img src="{$v->c}" style="width:100%;height:auto;" />
+												{/if}
+											  {/if}
+										   {/loop}
+										 {else}
+										  {$m->texteditor('des',3, '840px','550px')}
+										 {/if}
+										 
+                                       
+                                        <span class="help-inline">可插入文字、图片、视频等</span>
+                                    </div>
+                                </div>
+								
+								<div class="control-group">
+									<label class="control-label" for="playperday">分享标题</label>
+									<div class="controls">
+										{$m->text('fxbt','class="span4" style="width:350px;" maxlength="30" placeholder="不可以超过30个字" noneed="1"')}
+									     <span class="help-inline">不能出现“红包”字眼</span>
+									</div>
+								</div>
+							
+								<div class="control-group">
+									<label for="endtite" class="control-label">分享内容</label>
+									<div class="controls">                                                
+									{$m->textarea('fxnr','class="span5" style="height:110px;width:350px;" placeholder="分享内容不可以出现换行，否则分享内容不显示！" noneed="1"')}
+									<span class="help-inline">不能出现“红包”字眼,不能有回车换行</span>
+									
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="keyword"><span class="maroon">*</span>&nbsp;分享缩略图</label>
+									<div class="controls">
+										<p id="endpichere"  > 
+											{$m->hidden('slt',' relobj="elfinder_pwhdyhqefslt"')}
+											<button class="btn select_img"  rel="yyuc" relobj="elfinder" id="pwhdyhqefslt"  type="button">上传图片</button>
+											&nbsp;&nbsp;<span>建议尺寸：100像素 * 100像素</span>
+										</p>
+										<p><img style="max-width:350px;max-height:100px;" src="{$m->slt}" relobj="elfinder_pwhdyhqefslt" ></p>
+									</div>
+								</div>	
+								
+								<div class="control-group">
+									<label class="control-label">状态</label>
+									<div class="controls">
+										<label class="radio inline">
+											{$m->radio(array("1"=>'发布'),'status');}
+										</label>
+										<label class="radio inline">
+											{$m->radio(array("0"=>'不发布'),'status');}
+										 </label>
+									</div>
+								</div>
+								
+								<div class="control-group">
+                                    <label for="title" class="control-label">排序值：</label>
+                                    <div class="controls">
+                                         {$m->text('px','class="input-min" required="required" ')}
+                                    </div>
+                                </div>
+								{if $m->type!=0}
+								<div class="control-group">
+									<label class="control-label">共享状态</label>
+									<div class="controls">
+										<label class="radio inline">
+											{$m->radio(array("1"=>'共享'),'is_gx');}
+										</label>
+										<label class="radio inline">
+											{$m->radio(array("0"=>'不共享'),'is_gx');}
+										 </label>
+									</div>
+								</div>
+								{/if}
+								
+								
+								{if $m->has_id()}
+								 <div class="control-group daijqan"  >
+                                    <label class="control-label" for="info">链接地址：</label>
+                                    <div class="controls">
+                                        {$linkurl}
+                                        <span class="help-inline"></span>
+                                    </div>
+                                </div>
+								{/if}
+								
+								
+                               
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    <button type="button" class="btn" onclick="Javascript:window.history.go(-1)">取消</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+	
+		function setpic(imgid,hideid){
+			window.piccbk = function(m){
+				$('#'+imgid).attr('src',m);
+				$('#'+hideid).val(m);
+				window.piccbk = null;
+			}
+			window.curpic = null;
+			openpicset();	
+		} 
+		
+		function openpicset(){
+			pophtml('<iframe src="../businessModule/wspicif.html" style="width:630px;height:470px;border:none;background-color: #dfdfdf;" width="630px" height="475px"></iframe>',670,510,true);
+		}
+		
+        function check()
+        {
+        	var cansv= true;
+    		$("#form1").find('input[type="text"],select,textarea,password').filter('[required="required"]').each(function(){
+    			if($.trim($(this).val())==''){
+    				cansv = false;
+    				$(this).css('backgroundColor','yellow');
+    				$(this).one('focus',function(){
+    					$(this).css('backgroundColor','transparent');
+    				});
+    			}
+    		});
+    		if(!cansv){
+    			G.ui.tips.info('请将信息填写完整'); 
+    			return cansv;
+    		}
+        }
+    </script>
+</body>
+</html>

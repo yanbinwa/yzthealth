@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>店铺设置</h3>
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+
+                        <div class="box-content">
+                            <form action="myshop.html" method="post" id="transform" class="form-horizontal form-validate" onsubmit="return check()" >
+                                     <div class="control-group">
+                                        <label class="control-label" for="fanslocal">联系人</label>
+                                        <div class="controls">
+                                            {$m->text('lxr','class="input-large"  required="required"  ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                     </div>
+                                     
+                                     <div class="control-group">
+                                        <label class="control-label" for="fanslocal">联系电话</label>
+                                        <div class="controls">
+                                            {$m->text('lxrtel','class="input-large"  required="required" data-rule-phone="true" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                     </div>
+									<div class="control-group">
+									   <label class="control-label">资格证书(正面)</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->yyzz}" id="pic_yyzz" relobj="elfinder_yyzz" style="max-height:100px;" />
+											{$m->hidden('yyzz',' relobj="elfinder_yyzz"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="yyzz" >选择证书</button>
+												<span class="help-inline"></span>
+											</span>
+										</div>
+								    </div>
+									
+									<div class="control-group">
+                                        <label class="control-label" for="location_p">商家所在地区</label>
+                                        <div class="controls">
+										    {$m->mulselect('chinaarea',array('location_p','location_c','location_a'))}
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="fanslocal">商家详细地址</label>
+                                        <div class="controls">
+                                            {$m->hidden('jd')}
+                                            {$m->hidden('wd')}
+                                            {$m->text('address','class="input-xlarge" required="required" data-rule-maxlength="50" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="dtapi" class="control-label">选择地址</label>
+                                        <div class="controls">
+                                            <div class="apicontent" id="apicontent" style="height:400px; width:600px;">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+									
+									
+									
+									 
+									 <div class="control-group">
+										<label class="control-label" for="fanslocal">QQ</label>
+										<div class="controls">
+											{$m->text('qq','class="input-large"  required="required" data-rule-phone="true" ')}
+											<span class="maroon">*</span>
+											<span class="help-inline"></span>
+										</div>
+									 </div>
+									 
+									  <div class="control-group">
+										<label class="control-label" for="fanslocal">邮箱</label>
+										<div class="controls">
+											{$m->email('email','class="input-large"  required="required" data-rule-phone="true" ')}
+											<span class="maroon">*</span>
+											<span class="help-inline"></span>
+										</div>
+									 </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="fanslocal">工作时间</label>
+                                        <div class="controls">
+                                            {$m->text('working_hours','class="input-large"  data-rule-phone="true" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline">如：10:00-22:00</span>
+                                        </div>
+                                     </div>                                      
+									 
+									 <div class="control-group">
+										<label class="control-label" for="title">商家简介：</label>
+										<div class="controls">
+										 {$m->texteditor('jianjie',3, '650px','450px' )}
+										</div>
+									</div>
+									
+							
+
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    <button type="button" class="btn" onclick="Javascript:window.history.go(-1)">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=dcfa9f8a2940f495d0441096189499ec&v=1.4&services=true"></script>
+
+<script type="text/javascript">
+function check()
+{
+	var cansv= true;
+	$("#transform").find('input[type="text"],select,textarea,password').filter('[required="required"]').each(function(){
+		if($.trim($(this).val())==''){
+			cansv = false;
+			$(this).css('backgroundColor','yellow');
+			$(this).one('focus',function(){
+				$(this).css('backgroundColor','transparent');
+			});
+		}
+	});
+	if(!cansv){
+		G.ui.tips.info('请将信息填写完整'); 
+		return cansv;
+	}
+}
+////////
+// 百度地图API功能
+    
+    var map = new BMap.Map("apicontent");  // 创建Map实例
+    var point = new BMap.Point();
+    map.centerAndZoom(point, 15);
+    var opts = { anchor: BMAP_ANCHOR_BOTTOM_LEFT, offset: new BMap.Size(10, 10)}   //本示例将标准地图控件放置在地图的右上角，间隔10个像素。 
+    map.addControl(new BMap.NavigationControl(opts));   //添加平移缩放控件
+    map.addControl(new BMap.ScaleControl());    //添加比例尺控件
+    map.addControl(new BMap.OverviewMapControl());   //添加缩略地图控件
+    map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+    map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用 
+    // 编写自定义函数,创建标注
+    function addMarker(point){ 
+      var marker = new BMap.Marker(point);
+      map.addOverlay(marker);
+    }
+    function myFun(result){
+        var cityName = result.name;
+        map.setCenter(cityName);
+    }
+    var lng = $('#lgc_supplier_userjd').val();
+    var lat = $('#lgc_supplier_userwd').val();
+    var markera = new BMap.Marker(new BMap.Point(lng,lat));
+    map.addOverlay(markera);
+    var cc = $('#lgc_supplier_userlocation_p').find("option:selected").text();
+    //选择城市 更改中心点 
+    $('#lgc_supplier_userlocation_p').change(function(){
+        cc = $(this).find("option:selected").text(); 
+        map.clearOverlays();  
+         map.setCenter(cc);
+    })
+    $('#lgc_supplier_userlocation_c').change(function(){
+        cc = $(this).find("option:selected").text(); 
+        map.clearOverlays();  
+         map.setCenter(cc);
+    })
+    $('#lgc_supplier_userlocation_a').change(function(){
+        cc = $(this).find("option:selected").text(); 
+        map.clearOverlays();  
+         map.setCenter(cc);
+    })
+    $('#lgc_supplier_useraddress').blur(function(){
+        //获取 详细地点
+        var dz =$('#lgc_supplier_useraddress').val();
+        // 地点解析 经纬度
+        if(dz !=null || dz !=''){
+            var myGeo = new BMap.Geocoder();
+            // 将地址解析结果显示在地图上,并调整地图视野
+            myGeo.getPoint(dz, function(point){
+                if (point) {
+                    console.log(point);
+                    $('#lgc_supplier_userjd').val(point.lng);
+                    $('#lgc_supplier_userwd').val(point.lat);
+                    map.clearOverlays();  
+                    map.centerAndZoom(point, 15);
+                    map.addOverlay(new BMap.Marker(point));
+                }else{
+                    alert("您选择地址没有解析到结果!");
+                }
+            },cc); 
+        }
+    })
+        
+
+    var myCity = new BMap.LocalCity();
+    myCity.get(myFun);
+
+    //点击更新点
+    function showInfo(e){
+        $('#lgc_supplier_userjd').val(e.point.lng);
+        $('#lgc_supplier_userwd').val(e.point.lat);
+        map.clearOverlays();
+        map.addOverlay(new BMap.Marker(e.point));
+    }
+    map.addEventListener("click", showInfo);
+</script>
+</html>

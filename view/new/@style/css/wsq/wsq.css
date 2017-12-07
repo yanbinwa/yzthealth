@@ -1,0 +1,18 @@
+/* CSS Document */
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,fieldset,div,strong,label,em{margin:0;padding:0;border:0;}
+ul,ol,li{list-style:none;}
+input,button{margin:0;font-size:12px;vertical-align:middle;}
+body{font-size:12px;font-family:Arial, Helvetica, sans-serif; color:#333; margin:0 auto; }
+table{border-collapse:collapse;border-spacing:0;}
+
+a{color:#333;text-decoration:none;}
+a:hover{color:#c00; text-decoration:underline;}
+
+.area{ width:540px; margin:20px auto;}
+.box01-num{ width:100%; float:left; padding-bottom:3px;}
+.box01-num span{ float:left;}
+.box01-num p{ float:right;    padding: 2px 20px 0 0;}
+.box01-num .num{ font-size:18px; font-style:italic; padding:0 4px 0 2px;}
+.inputarea{border: 1px solid #ccc;border-radius: 3px 3px 3px 3px;box-shadow:1px 1px 4px 0 #DCDCDC inset;margin:7px 0 3px;padding: 5px;position: relative; float:left;}
+.chackTextarea{ width:532px; height:60px; border:none;}
+.box02-num{ width:100%; float:left; padding-top:4px;}

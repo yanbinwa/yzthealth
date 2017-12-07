@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/daterangepicker.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+
+<script>
+    function daochu(){
+        $("#daochu").val("daochu");
+        document.getElementById("form1").submit();
+    }
+    function chaxun(){
+        $("#daochu").val("no");
+    }
+</script>
+
+<style>
+    .daterangepicker .ranges{
+        width: 171px;
+    }
+</style>
+</head>
+<body>
+   <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span4">
+                                <h3><i class="icon-table"></i>商家提现申请</h3>
+                            </div>
+                            <div class="span8" >
+                                <form id="form1" action=""  method="get" class="form-horizontal form-validate">
+                                    <div  style="float:left">
+                                        <input type="text" name="name" id="name" value="{$name}" class="input-large" placeholder="请输入申请人" style="width:100px;">
+                                    </div>
+                                    <div style="float:left">
+                                        <select name="bank" id="bank"  style="width:150px;">
+                                            <option value="0">--请选择银行类型--</option>
+                                            {loop $banktype as $k=>$r}
+                                            <option value="{$k}" {if $k == $bid}selected{/if}>{$r}</option>
+                                            {/loop}
+                                        </select>
+                                    </div>
+                                    <div  style="float:left">
+                                        <select name="status" id="status"  style="width:140px;">
+                                            <option value="0">--请选择审核状态--</option>
+                                            <option value="1" {if $order_status == 1}selected{/if}>审核中</option>
+                                            <option value="2" {if $order_status == 2}selected{/if}>审核通过</option>
+                                            <option value="3" {if $order_status == 3}selected{/if}>已拒绝</option>
+                                        </select>
+                                    </div>
+                                    <div style="float:left">
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                            <input type="text" value="{$time}" name="time" id="time" style="width:200px" class="daterangepick input-xlarge" required="required" readonly="">
+                                        </div>
+                                    </div>
+
+                                    <button class="btn" onclick="chaxun();">查询</button>
+                                    
+                                    <input type="hidden" name="daochu" id="daochu" value="no" />
+                                    <a class="btn" onclick="daochu();">导出</a>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="box-content">
+						   <div class="alert">
+                                <span class="member-count">
+                                    已处理提现： <i style="color:red">{if $succ[0][count]}{$succ[0][count]}{else}0{/if}</i> 笔&nbsp;&nbsp;&nbsp;&nbsp;
+                                    已处理提现总金额：<i style="color:red">{if $stotal}{$stotal}{else}0{/if}</i> 元&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+                                    未处理提现：<i style="color:red">{if $falid[0][count]}{$falid[0][count]}{else}0{/if}</i> 笔&nbsp;&nbsp;&nbsp;&nbsp;
+                                    未处理提现总金额：<i style="color:red">{if $ftotal}{$ftotal}{else}0{/if}</i> 元&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+                                </span>
+                            </div>
+
+                            <div class="row-fluid">
+                                <div class="span12 control-group">
+                                    <div class="span1">
+                                        <a class="btn" id="is_ok_deal" href="javascript:void(0);">审核通过</a>
+                                    </div>
+                                 
+                                    
+                                </div>
+                            </div>
+							
+                            <div class="row-fluid dataTables_wrapper">
+                                    <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                        <thead>
+                                            <tr>
+											
+											    <th><input type="checkbox" class="check_all" onclick="selallck(this);" />&nbsp;id</th>
+											    <th>商户名</th>
+                                                <th>申请人</th>
+                                                <th>申请金额</th>
+                                                <th>卡号/账号</th>
+                                                <th>银行类型</th>
+                                                <th>状态</th>
+                                                <!--<th>创建时间</th>-->
+												<th>处理时间</th>
+                                                <th class="input-xlarge">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listTable">
+                                        {loop $rs as $val}
+                                        <tr>
+										    <td width="7%">
+                                            <?php if ($val['status'] == 1): ?>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <?php elseif ($val['status'] == 2): ?>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <?php else: ?>
+                                                <input type="checkbox" name="is_ck" value="{$val['id']}" />
+                                            <?php endif ?>
+                                                &nbsp;{$val['id']}
+                                            </td>
+										    <!-- <td width="19%"><a href="../sjgl/select-{$val['mid']}.html" alt="点击查看账务明细" title="点击查看账务明细">{$val['shopname']}</a></td> -->
+                                            <td width="19%">{$val['shopname']}</td>
+                                            <td width="8%">{$val['uname']}</td>
+                                            <td width="6%">{$val['total']}</td>
+                                            <td width="18%">{$val['card_no']}</td>
+                                            <td width="8%">{$banktype[$val['type']]}</td>
+                                            <td width="7%">
+                                            <?php if ($val['status'] == 1): ?>
+                                                <span class="label label-success">审核完成</span> 
+                                            <?php elseif ($val['status'] == 2): ?>
+                                                <span class="label label-important">已拒绝</span>
+                                            <?php else: ?>
+                                                <span class="label label-important">审核中</span>
+                                            <?php endif ?>
+                                            </td>
+											
+                                            <!--<td width="12%">{date('Y-m-d H:i:s',$val['created_at'])}</td>-->
+											
+											<td width="12%">
+                                            <?php if($val['status'] == 1):?>
+                                                {date('Y-m-d H:i:s',$val['updated_at'])}
+                                            <?php else:?>
+                                                待处理
+                                            <?php endif ?>
+                                            </td>
+                                            <td width="13%">
+                                                <a href="supplierOrder-{$val['id']}.html?type=2" class="btn" title="详情" alt="详情">
+                                                    <i class="icon-pencil"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {/loop}                                           
+                                        </tbody>
+                                    </table>
+                                  <div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function review(id){
+        $.getJSON('withdrawals.html', { type: '2', oid: id }, function(json, textStatus) {
+            if (json.success) {
+                alert('审核成功');
+            }else{
+                alert(json.msg);
+            }
+            location.reload();
+        });
+    }
+    function selallck(o){ 
+        if($(o).prop('checked')){ 
+            $('td').find('input[type="checkbox"]').prop('checked',true);
+        }else{
+            $('td').find('input[type="checkbox"]').prop('checked',false);
+        }
+    }
+    $(function(){
+            $('#is_ok_deal').click(function(){
+                var obj = document.getElementsByName("is_ck");
+                    var ids = [];
+                    for(k in obj){ 
+                        if(obj[k].checked)
+                            ids.push(obj[k].value);
+                    }
+                if(ids == false){
+                    alert("请选择要审核的记录!");
+                    return false;
+                }
+                var isok = confirm('请核实后点击确认！');
+                var post_type = 'shangjiatixian';
+                if(isok == true){
+                    
+                    $.ajax({
+                        url: 'supplierWithdrawals.html',
+                        type: 'post',
+                        data: { 'types': post_type , 'ids': ids , 'deal_type': '1'},
+                        dataType: 'json',
+                        success:function(data){
+                            if(data.success == true){
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+      });
+
+    </script>
+   </body>
+</html>

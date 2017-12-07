@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		
+		<script type="text/javascript" src="{$JS}mwm/nhyk/mymain.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    <body onselectstart="return true;" ondragstart="return false;">
+        		<div class="container coupon_use cash_coupon_use">
+			<header>
+				<div>
+					<figure>
+						<figcaption>
+							<label>{$mm->name}</label>
+						</figcaption>
+						<div class="img_wrap">
+							<ul class="list_coupon_ul">
+								<li>
+									<a href="javascript:;" class="a2">
+										<p><span>{$mm->dmoney}</span>元</p>
+										<p>★订单满 {$mm->xemoney}元可使用<br>有效期至{$mm->bttime}</p>
+										<p></p>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</figure>
+					<div class="sn">
+						<p><label>序列号：<span>{$m->sn}</span></label></p>
+						<p><label>请提供序列号给工作人员或在当前页面消费 </label></p>
+					</div>
+				</div>
+			</header>
+			<div class="body">
+				<div>
+					<form id="form_1" name="form" action="javascript:;" method="post">
+					 <input type="hidden" value="{$mm->id}" id="qid" name="qid" />
+					 <input type="hidden" id="sub" name="sub" />
+						<ul class="list_input p_10" data-card>
+							<li class="tbox input">
+								<div>
+									<label class="pre">请选择消费门店：</label>
+								</div>
+								<div>
+								    <select class="select" name="store" id="store" style="width:100%;">
+									    <option value="">请选择消费门店：</option>
+										{loop $lbsarr as $key=>$v}
+										<option value="{$key}">{$v}</option>
+										{/loop}
+									</select>
+								</div>
+							</li>
+							<li class="tbox input">
+								<div>
+									<label class="pre">请选择支付方式：</label>
+								</div>
+								<div>
+									<select id="paytype" name="paytype" class="select" style="width:100%;" >
+										<option value="">请选择支付方式：</option>
+										<!-- <option value="4">支付宝支付</option>
+										<option value="3">财付通</option> -->
+										{$optionstr}
+										{if $wid == 6765368 || $wid == 1322}
+										<option value="2">U币支付 </option>
+										{else}
+										<option value="2">余额支付 </option>
+										{/if}
+										<option value="1">现金付款 </option>
+									</select>
+								</div>
+							</li>
+							<li class="tbox input">
+								<div><label class="pre">消费金额：</label></div>
+								<div>
+									<input type="number" name="money"  id="money" class="input" placeholder="请输入实际消费金额" maxlength="10" />
+								</div>
+							</li>
+							<li id="vcode" style="display:none" class="tbox input" >
+								<div style="width:100%;">
+									<input type="text" class="input"  name="validCode" id="validCode" placeholder="验证码：" maxlength="10" />
+								</div>
+								<div style="width:100px;">
+									<input type="button" class="button vcode" style="border:0;" onclick="getReceiveMemberCardVCode(this);" value="获取验证码" />
+								</div>
+							</li>
+							<li class="tbox input" id="password" style="display:none">
+								<div><label class="pre">商家密码：</label></div>
+								<div>
+									<input type="password" placeholder="商家确认密码：" maxlength="30" class="input" name="password" id="password" >
+								</div>
+							</li>
+						</ul>
+					</form>
+				</div>
+			</div>
+			<footer>
+				<nav class="nav_add_addr">
+					<ul class="tbox">
+						<li>
+							<a href="myVoucher-{$sta}.html" class="icons icons_before">&nbsp;</a>
+						</li>
+						<li class="align_right">
+							<a href="javascript:smtpay();" class="btn">确&nbsp;&nbsp;定</a>
+						</li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+		
+		
+		<script>
+		document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+		
+			$("#paytype").change(function(){
+				val = $(this).val();
+				if (val == 2) {
+					$("#vcode").show();
+					$("#password").hide();
+				} else if (val == 1){
+					$("#vcode").hide();
+					$("#password").show();
+				} else {
+					$("#vcode").hide();
+					$("#password").hide();
+				}
+			})
+				//提交支付
+			function smtpay()
+			{
+				var pt = $("#paytype").val();
+				loading('数据提交中...');
+				$.ajax({
+						url: "pay.html",
+						type:"post",
+						data:$("#form_1").serialize(),
+                        dataType:'json',
+						success: function(res){
+					     loading(false);
+                            if(res.errno == '0'){
+                            	if(pt==5)
+								{
+									$('#form_1').attr("action","pay.html");
+									$('#sub').val(res.error);
+									document.forms['form_1'].submit();
+								}
+								else
+								{
+								    window.location.href="my.html"; 
+								}
+                            	
+                            }else{
+                                alert(res.error, 1500);
+                            }
+						}
+				});
+			}
+		</script>
+		
+		<script type="text/javascript">
+		 var intervalId,buttonObj;
+		    //发送下一条短信需要间隔的秒数
+		    var seconds = 60;
+		    function getReceiveMemberCardVCode(clickObj){
+		        var form = document.getElementById("form_1");
+		        var req = {
+		        	tel: {$ml->phone}
+		        }
+		        clickObj.setAttribute("disabled", "disabled");
+		        clickObj.value = "正在发送，请稍候...";
+		        $.ajax({
+		            url: "sendCode.html",
+		            type:"post",
+		            data:req,
+		            dataType:"JSON",
+		            success: function(res){
+		                if(0 == res.errno){
+		                    clickObj.value = '验证码发送成功';
+		                    buttonObj = clickObj;
+		                    intervalId = setInterval("ticker()",1000);
+		                }else{
+		                    alert("失败", 1500);
+		                }
+		            }
+		        });
+		    }
+		    function ticker(){
+		        seconds --;
+		        if(seconds > 55){
+		            //提示消息显示5秒钟
+		        }else if(seconds>0){
+		            buttonObj.value = seconds+"秒后可重新获取";
+		        }else{
+		            clearInterval(intervalId);
+		            buttonObj.removeAttribute("disabled");
+		            buttonObj.value = "获取验证码";
+		            seconds = 60;
+		            buttonObj = null;
+		        }
+		    }
+</script>        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+	</body>
+</html>
+

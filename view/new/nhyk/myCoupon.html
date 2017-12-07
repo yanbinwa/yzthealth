@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+            <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		
+		<script type="text/javascript" src="{$JS}mwm/nhyk/mymain.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    <body onselectstart="return true;" ondragstart="return false;">
+        		<script>
+		 	$().ready(function(){
+				$("#nav_1 a").on("touchstart touchend mouseover mouseout", function(e){
+					switch(e.type){
+						case "touchstart":
+						case "mouseover":
+							this.classList.add("hover");
+						break;
+						case "touchend":
+						case "mouseout":
+							this.classList.remove("hover");
+						break;
+					}
+				});
+			});
+
+
+		 	function del(id){
+				confirm("确定删除吗？", function(){
+					var req = {
+						id: id
+					}
+					loading(true);
+					//提交信息
+					$.ajax({
+						type: "post",  
+						url: "myCoupon-{del}-"+id+".html",
+						dataType: "json",  
+						success: function(html){
+							loading(false);
+					    	if (html.status == 1) {
+								alert(html.msg,1500);
+								setTimeout("location.reload();",1500);
+					    	} else {
+					    		alert(html.msg,1500)
+					    	}
+						}
+					});
+				}, function(){});
+			}
+		</script>
+		<style>
+			.list_coupon{
+				padding-top:10px;
+			}
+			.list_coupon li[data-card]:first-of-type{
+				margin-top:0;
+			}
+			.list_coupon figure.dis-figure label::after {
+				border: 6px solid #DDDDDD;
+    			border-color: transparent #DDDDDD transparent transparent;
+			}
+			.list_coupon figure.dis-figure {
+				background-color: #dddddd;
+			}
+		</style>
+		
+		{if empty($rs)}
+		<div class="container coupon  none" >
+		{else}
+		<div class="container coupon  coupon_my  " >
+		{/if}
+			<header>
+				<nav id="nav_1" class="p_10">
+					<ul class="box">
+						<li><a href="myCoupon-{n}.html" {if $sta==0} class="on" {/if} >未使用</a></li>
+						<li><a href="myCoupon-{y}.html" {if $sta==1} class="on" {/if} >已使用</a></li>
+					</ul>
+				</nav>
+			</header>
+			<div class="body">
+				<ul class="list_coupon">
+					<ol>
+					{loop $rs as $v}
+					 <li data-card>
+							<a href="javascript:;"  onclick="this.classList.toggle('toggle');">
+								<header>
+									<label>{$v->name}</label>
+									<label class="fr"></label>
+								</header>
+								<section data-val="{$v->id}">
+									<?php if(strtotime($v->bttime) <= time() ){ ?>
+									<div class="dis-used">
+										{if $sta==0}
+										<figure class="tbox dis-figure">
+											<div><img src="{$v->pic}" /></div>
+											<div><a href="javascript:void(0)"><label>已过期</label></a></div>
+										</figure>
+										{else}
+										<figure class="tbox dis-figure">
+											<div><img src="{$v->pic}" /></div>
+											<div><label>已使用</label></div>
+										</figure>
+										{/if}
+									</div>
+									<?php }else{ ?>
+									<div>
+									   {if $sta==0}
+										<figure class="tbox">
+											<div><img src="{$v->pic}" /></div>
+											<div><a href="useCoupon-{$sta}-{$v->id}.html"><label>立即<br/>使用</label></a></div>
+										</figure>
+										{else}
+										<figure class="tbox">
+											<div><img src="{$v->pic}" /></div>
+											<div><label>已使用</label></div>
+										</figure>
+										{/if}
+									</div>
+									<?php } ?>
+									<div class="des">
+										<dl>
+											<dt>有效期至{$v->bttime}  
+											<dd>
+												{$v->des} 
+									    	</dd>
+											<dd>
+												<p style="white-space:pre-line;">适用门店： 
+													</p>
+											</dd>
+										</dl>
+									</div>
+								</section>
+							</a>
+						</li>
+						{/loop}
+				   </ol>
+				</ul>
+			</div>
+	{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-4.html}
+		  {elseif $wid==6765368 || $wid==6780484||$wid==6788906}
+		  {I footer_yypk.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-4.html}
+        {/if}
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+</script>		
+</html>
+

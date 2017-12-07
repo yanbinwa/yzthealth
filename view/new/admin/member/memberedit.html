@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>修改会员信息</h3>
+                            </div>
+                            <div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+                        </div>
+
+                        <div class="box-content">
+                            <form action="" method="post" id="transform" class="form-horizontal form-validate" onsubmit="return check()" >
+                             
+								{if $m->status !=0}
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">用户真实姓名：</label>
+                                    <div class="controls">
+                                        {$m->text('true_name','class="input-large"   required="required" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label for="sort" class="control-label">身份证号码：</label>
+                                    <div class="controls">
+                                        {$m->text('idcard','class="input-large"  required="required" ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label for="sort" class="control-label">用户上传照片：</label>
+                                    <div class="controls">
+                                        <!-- <img src="{$m->file}" alt="" width="200" height='160' style="float:left">
+                                        <img src="{$m->file1}" alt="" width="200" height='160' style="float:left"> -->
+                                        <img src="{$m->file2}" alt="" width="200" height='160' style="float:left">
+                                    </div>
+                                </div>
+								{/if}                     			
+								
+							   <!-- <div class="control-group">
+							                                       <label for="name" class="control-label">用户名：</label>
+							                                       <div class="controls">
+							                                           {$m->text('uname','class="input-large" required="required" readonly ')}
+							                                           <span class="maroon">*</span>
+							                                           <span class="help-inline"></span>
+							                                       </div>
+							                                   </div> -->
+                                <!-- <div class="control-group">
+                                    <label for="sort" class="control-label">密码：</label>
+                                    <div class="controls">
+                                        {$m->password('pwd','class="input-large" required="required" readonly ')}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div> -->
+									
+								<div class="control-group">
+                                    <label class="control-label" for="l_sheng">会员所在地区：</label>
+                                    <div class="controls">
+											{$m->select($ar,'l_sheng')}
+                                            {$m->select($ar,'l_shi')}
+                                            {$m->select($ar,'l_xianqu')}
+                                            <script src="{$JS}region_select.js"></script>
+                                            <script type="text/javascript">
+                                                new PCAS("memberT08d9e827ffbba2efe4413cb064bbf847l_sheng", "memberT08d9e827ffbba2efe4413cb064bbf847l_shi", "memberT08d9e827ffbba2efe4413cb064bbf847l_xianqu", "{$m->l_sheng}", "{$m->l_shi}", "{$m->l_xianqu}");
+                                            </script>									    
+                                    </div>
+                                </div>
+								 <div class="control-group">
+                                    <label class="control-label" for="fanslocal">电话：</label>
+                                    <div class="controls">
+                                        {$m->text('telephone','class="input-large"  required="required"  ')}
+                                        <span class="maroon">*</span>
+                                        <span class="help-inline"></span>
+                                    </div>
+								 </div>
+								 
+								 <!-- <div class="control-group">
+								 									<label class="control-label" for="fanslocal">邮箱：</label>
+								 									<div class="controls">
+								 										{$m->text('email','class="input-large"  required="required" data-rule-phone="true" ')}
+								 										<span class="maroon">*</span>
+								 										<span class="help-inline"></span>
+								 									</div>
+								 </div> -->
+								 
+								 <div class="control-group">
+									<label class="control-label" for="fanslocal">注册时间</label>
+									<div class="controls">
+										{$m->text('rtime','class="input-large" disabled="disabled" required="required" ')}
+										<span class="maroon">*</span>
+										<span class="help-inline"></span>
+									</div>
+								 </div>
+								 
+								  
+								 <!-- <div class="control-group">
+								 									<label class="control-label" for="fanslocal">乐购积分</label>
+								 									<div class="controls">
+								 										{$m->text('lg_integral','class="input-large" disabled="disabled"   ')}
+								 										<span class="maroon">*</span>
+								 										<span class="help-inline"></span>
+								 									</div>
+								 </div>
+								 <div class="control-group">
+								 									<label class="control-label" for="fanslocal">公益积分</label>
+								 									<div class="controls">
+								 										{$m->text('gy_integral','class="input-large" disabled="disabled"  ')}
+								 										<span class="maroon">*</span>
+								 										<span class="help-inline"></span>
+								 									</div>
+								 </div> -->
+								 <div class="control-group">
+									<label class="control-label" for="fanslocal">佣金金额：</label>
+									<div class="controls">
+										{$m->text('total','class="input-large" disabled="disabled"  ')}
+										<span class="maroon">*</span>
+										<span class="help-inline"></span>
+									</div>
+								 </div>
+								 <!-- <div class="control-group">
+								 									<label class="control-label" for="fanslocal">冻结积分</label>
+								 									<div class="controls">
+								 										{$m->text('freezing','class="input-large"  disabled="disabled" ')}
+								 										<span class="maroon">*</span>
+								 										<span class="help-inline"></span>
+								 									</div>
+								 </div>
+								 <div class="control-group">
+								 									<label class="control-label" for="fanslocal">返点</label>
+								 									<div class="controls">
+								 										{$m->text('point','class="input-large"  disabled="disabled"   ')}
+								 										<span class="maroon">*</span>
+								 										<span class="help-inline"></span>
+								 									</div>
+								 </div> -->
+								 
+									 
+									 
+								 
+                                   
+								<div class="control-group">
+                                    <label for="sort" class="control-label">用户实名认证状态：</label>
+                                    <div class="controls">
+                                        {$m->select($status,'status','  ',false)}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+								<div class="control-group">
+                                    <label for="sort" class="control-label">审核备注：</label>
+                                    <div class="controls">
+                                        {$m->textarea('bz')}
+                                        <span class="maroon"></span>
+                                    </div>
+                                </div>								
+                 
+
+                                <div class="control-group">
+                                    <label for="sort" class="control-label">状态：</label>
+                                    <div class="controls">
+                                        {$m->select($is_freez,'is_freez',' ',false)}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+
+									
+
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    <button type="button" class="btn" onclick="Javascript:window.history.go(-1)">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+function check()
+{
+	var cansv= true;
+	$("#transform").find('input[type="text"],select,textarea,password').filter('[required="required"]').each(function(){
+		if($.trim($(this).val())==''){
+			cansv = false;
+			$(this).css('backgroundColor','yellow');
+			$(this).one('focus',function(){
+				$(this).css('backgroundColor','transparent');
+			});
+		}
+	});
+	if(!cansv){
+		G.ui.tips.info('请将信息填写完整'); 
+		return cansv;
+	}
+}
+
+</script>
+</html>

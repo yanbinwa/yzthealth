@@ -1,0 +1,4 @@
+<script type="text/javascript">
+window.parseInt3 = window.parseInt;
+</script>
+@YYUC-WRAP

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/daterangepicker.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+
+
+<style>
+    .daterangepicker .ranges{
+        width: 171px;
+    }
+</style>
+
+</head>
+<body>
+   <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span4">
+                                <h3><i class="icon-table"></i>订单</h3>
+                            </div>
+                            <div class="span8" style="text-align:right; float:right; width:auto">
+                                <form action=""  method="get" class="form-horizontal form-validate">
+                                    <div  style="float:left">
+                                        <input type="text" name="trade_no" id="trade_no" value="{$trade_no}" class="input-large" placeholder="订单号码" style="width:150px;">
+                                    </div>
+                                    <div style="float:left">
+                                        <input type="text" name="shopname" id="shopname" value="{$shopname}" class="input-large" placeholder="商户名称" style="width:100px;">
+                                    </div>
+                                    <div style="float:left">
+                                        <input type="text" name="rename" id="rename" value="{$rename}" class="input-large" placeholder="消费人" style="width:100px;">
+                                    </div>
+                                    <button class="btn">查询</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="box-content">
+						    <div class="alert">
+                                <span class="member-count">已结算订单总数: <a style="font-size:16px;color:red" href="javascript:void(0)" >&nbsp;&nbsp;{$zcount}&nbsp;&nbsp;</a>
+                                 订单总金额: <a style="font-size:16px;color:red" href="javascript:void(0)" >&nbsp;&nbsp;{$zamount}&nbsp;&nbsp;</a>总实际收益金额: <a style="font-size:16px;color:red" href="javascript:void(0)" >&nbsp;&nbsp;{$shiji}&nbsp;&nbsp;</a> </span>
+                            </div>
+							
+                            <div class="row-fluid dataTables_wrapper">
+                                    <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>订单号</th>
+                                                <th>商户名称</th>
+                                                <th>消费人</th>
+                                                <th>成交金额</th>
+                                                <th>最终收益</th>
+                                                <th>订单状态</th>
+                                                <th>下单时间 </th>
+                                                <th>预约时间 </th>
+												<th>确认时间 </th>
+                                                <th >操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listTable">
+                                        {loop $rs as $val}
+                                        <tr>
+                                            <td width="10%">{$val['trade_no']}</td>
+                                            <td width="12%">{$val['shopname']}</td>
+											<td width="12%">{$val['full_name']}({$val['telephone']})</td>
+											
+                                           
+                                            <td width="8%">{$val['total']}</td>
+                                            <td width="8%">{$val['amount']}</td>
+                                            <td width="8%">
+                                                {if $val['pay_status']=='1'}
+                                                <span class="label label-satgreen">已支付</span>
+                                                {else}
+                                                <span class="label label-lightred">未支付</span>
+                                                {/if}                                                 
+                                                {if $val['status']=='1'}
+                                                <span class="label label-satgreen">已使用</span>
+                                                {else}
+                                                <span class="label label-lightred">未使用</span>
+                                                {/if}  
+                                                                                                  
+                                            </td>                                   
+
+                                            <td width="10%">{$val['created_at']}</td>
+                                            <td width="10%">{$val['ll_time']}</td>
+
+											<td width="10%">{$val['end_time']}</td>
+                                            <td width="10%">
+                                                <a href="orderview-{$val['id']}.html" class="btn" title="详情" alt="详情" ><i class="icon-table"></i></a>                                                           
+                                                <a class="btn" href="javascript:;" onclick="del_order({$val['id']},this)" title="删除" alt="删除"><i class="icon-remove"></i></a>
+                                            </td>
+                                        </tr>
+                                        {/loop}                                           
+                                        </tbody>
+                                    </table>
+                                  <div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    function del_order(id,o){ 
+        if(confirm('确定删除该订单吗？')){ 
+            $.ajax({ 
+                url:"orders-d.html",
+                type:"post",
+                dataType:'json',
+                data:{ 'id':id},
+                success:function(data){ 
+                    G.ui.tips.info(data.error);
+                    $(o).parent().parent().remove();
+                },
+                error:function(){ 
+                    alert("删除失败....");
+                }
+            })   
+        }   
+    }
+</script>
+   </body>
+</html>

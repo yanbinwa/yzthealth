@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}bootstrap.min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+	<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+	<script type="text/javascript" src="{$JS}bootstrap.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+	<div class="container-fluid" >
+        <div class="row">
+	        <div class="box">
+	        	<div class="box-title">
+	        		<div class="span10">
+	        			<h3><i class="icon-cog"></i>模板选择</h3>
+	        		</div>
+	        	</div>
+	        	
+	        	<style>
+		        	.col-lg-2{
+		        		float: left;
+		        		
+		        	}
+		        	.fl12{ margin-left: 30px;}
+					.thumbnail img{
+						max-width: 203px;
+						max-height:338px ;
+					}
+	  
+
+.cateradio {
+    padding-top: 20px;
+}
+.cateradio input{
+     vertical-align:middle
+}
+    .cateradio li {
+       
+        float: left;
+        margin: 0 0 20px 20px;
+        width: 170px;
+        height: 383px;
+        text-align: center;
+        background: url(/media/images/wm/3radio_iphone0.png) no-repeat center top;
+        position: relative;
+    }
+
+        .cateradio li:hover {
+            background: url(/media/images/wm/4radio_iphone.png) no-repeat center top;
+        }
+
+        .cateradio li:active {
+            background: url(/media/images/wm/4radio_iphone.png) no-repeat center top;
+        }
+
+        .cateradio li.active {
+            background: url(/media/images/wm/4radio_iphone.png) no-repeat center top;
+        }
+           .cateradio li.free { 
+        background: url(/media/images/wm/5radio_iphone0-mf.png) no-repeat center top;
+   
+    } 
+        .cateradio li.free:hover {
+            background: url(/media/images/wm/6radio_iphone_mf.png) no-repeat center top;
+        }
+
+        .cateradio li.free:active {
+            background: url(/media/images/wm/6radio_iphone_mf.png) no-repeat center top;
+        }
+
+        .cateradio li.free.active {
+            background: url(/media/images/wm/6radio_iphone_mf.png) no-repeat center top;
+        }
+
+                .cateradio li.new { 
+        background: url(/media/images/wm/7radio_iphone0-xp.png) no-repeat center top;
+   
+    } 
+        .cateradio li.new:hover {
+            background: url(/media/images/wm/8radio_iphone_xp.png) no-repeat center top;
+        }
+
+        .cateradio li.new:active {
+            background: url(/media/images/wm/8radio_iphone_xp.png) no-repeat center top;
+        }
+
+        .cateradio li.new.active {
+            background: url(/media/images/wm/8radio_iphone_xp.png) no-repeat center top;
+        }
+
+				</style>
+				<div>
+					<form action="" method="post">
+						<ul class="cateradio unstyled">
+							<li class="phoneareali"  miaoshu="简约时尚">
+							<label>
+								<img src="{$IMG}shop3.png">
+								 {$model->radio(array("0"=>'模板1'),'temp_type');}
+							</li>
+							<li class="phoneareali"  miaoshu="简约时尚">
+							<label>
+								<img src="{$IMG}shop5.png" >
+								 {$model->radio(array("2"=>'模板2'),'temp_type');}
+							</li>
+						</ul>
+						<div class="clearfix"></div>
+						<hr>
+						
+						<div class="col-lg-12 fl12" >
+							<button class="btn btn-primary" type="submit">确定</button>
+						</div> 
+					</form>
+				</div>
+				
+
+	        </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

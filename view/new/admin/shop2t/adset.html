@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+	<title>{$_SERVER['WEB_NAME']}</title>
+	<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+	<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+	<script type="text/javascript" src="{$JS}jscolor.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+	</head>
+<body class="{Session::get('maintheme')}">
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span12">
+                                <h3><i class="icon-cog"></i>首页广告位/视频管理</h3>
+                            </div>
+                        </div>
+                        <form  method="post" class="form-horizontal form-validate" onsubmit="return checkinfo();">
+                        	{$m->hidden('id')}
+                            <div class="box-content">
+                                
+								<div class="control-group">
+                                    <label class="control-label" for="bg_bg_color">首页公告条背景颜色：</label>
+                                    <div class="controls">
+                                     {$m->text('titlecolor','class="input-mini color" ')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+								
+								
+                                <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位1名称:</label>
+                                    <div class="controls">
+                                    {$m->text('ad1name','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位1图片：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad1pic}" id="pic_ad1pic" relobj="elfinder_ad1pic" style="max-height:100px;" />
+											{$m->hidden('ad1pic',' relobj="elfinder_ad1pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad1pic" >选择图片</button>
+												<span class="help-inline"></span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位1类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad1type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad1url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <hr>
+								 
+                                 <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位2名称:</label>
+                                    <div class="controls">
+                                    {$m->text('ad2name','class="input-xlarge" required="required"')}
+                                    <span class="maroon">*</span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位2图片：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad2pic}" id="pic_ad1pic" relobj="elfinder_ad2pic" style="max-height:100px;" />
+											{$m->hidden('ad2pic',' relobj="elfinder_ad2pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad2pic" >选择图片</button>
+												<span class="help-inline"></span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位2类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad2type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad2url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <hr>
+								 
+								 <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位3名称:</label>
+                                    <div class="controls">
+                                    {$m->text('ad3name','class="input-xlarge" ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位3图片：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad3pic}" id="pic_ad3pic" relobj="elfinder_ad3pic" style="max-height:100px;" />
+											{$m->hidden('ad3pic',' relobj="elfinder_ad3pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad3pic" >选择图片</button>
+												<span class="help-inline"></span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位3类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad3type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad3url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <hr>
+								 
+								 <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位4名称:</label>
+                                    <div class="controls">
+                                    {$m->text('ad4name','class="input-xlarge" ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位4图片：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad4pic}" id="pic_ad4pic" relobj="elfinder_ad4pic" style="max-height:100px;" />
+											{$m->hidden('ad4pic',' relobj="elfinder_ad4pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad4pic" >选择图片</button>
+												<span class="help-inline"></span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位4类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad4type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad4url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <hr>
+								 
+								 		 <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位5名称:</label>
+                                    <div class="controls">
+                                    {$m->text('ad5name','class="input-xlarge" ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位5图片：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad5pic}" id="pic_ad5pic" relobj="elfinder_ad5pic" style="max-height:100px;" />
+											{$m->hidden('ad5pic',' relobj="elfinder_ad5pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad5pic" >选择图片</button>
+												<span class="help-inline"></span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位5类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad5type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad5url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <hr>
+								 
+								 		 <div class="control-group">
+                                    <label class="control-label" for="keyword">广告位6名称:</label>
+                                    <div class="controls">
+                                    {$m->text('ad6name','class="input-xlarge" ')}
+                                    <span class="maroon"></span>
+                                    <span class="help-inline"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+									<label class="control-label">广告位6图片：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->ad6pic}" id="pic_ad6pic" relobj="elfinder_ad6pic" style="max-height:100px;" />
+											{$m->hidden('ad6pic',' relobj="elfinder_ad6pic"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="ad6pic" >选择图片</button>
+												<span class="help-inline"></span>
+											</span>
+										</div>
+								</div>
+                                <div class="control-group">
+                                        <label class="control-label">广告位6类型：</label>
+                                        <div class="controls">
+                                         {$m->select(array('link'=>'链接','tel'=>'电话'),'ad6type',array('class'=>'input-medium'))}
+                                         
+                                         {$m->text('ad6url',array("class"=>'input-xlarge',"data-rule-required"=>'true',"data-rule-url"=>'true'));}
+                                        </div>
+                                 </div>
+								 <hr>
+								 
+								 
+								 
+								 
+								  <div class="control-group">
+                                        <label class="control-label">视频地址：</label>
+                                        <div class="controls">
+										 {$m->textarea('videourl','class="input-xlarge"  style="width:450px;height:100px" ')} 
+                                        <span class="maroon">*</span>
+                                        <span class="help-inline">将视频上传到腾讯视频，将视频模块代码粘贴到此处，视频代码是 iframe标签包裹的，修改代码中width="300" height="200"。</span>
+										</div>
+										
+										
+                                 </div>
+								 
+								 
+                                  
+                                    
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary" type="submit">保存</button>
+                                        <button onclick="window.history.go(-1)" class="btn" type="button">取消</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+   
+
+<div id="fallr-overlay"></div>
+</body>
+<script type="text/javascript">
+$(function () {
+         var resource = Resource.create();
+         var ins = Resource.instance['res_block'];
+         ins.result = ins.result || {};
+         ins.result.wuid = $('#aid').val();
+                     window.ICON(); 
+     
+});  
+window.document.onkeydown = function(e) {
+		if ('' == document.activeElement.id) {
+				var e=e || event;
+ 				var currKey=e.keyCode || e.which || e.charCode;
+				if (8 == currKey) {
+					return false;
+				}
+		}
+};
+</script>
+<script type="text/javascript" src="{$JS}comm.js"></script>
+
+</html>

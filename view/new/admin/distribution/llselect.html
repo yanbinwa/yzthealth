@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/daterangepicker.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+
+
+<script>
+$(document).ready(function(){
+    $('#export').click(function(){
+        $("#form1").append("<input type=\"hidden\" id=\"etype\" name=\"etype\" value=\"a\"/>");
+        $("#form1").submit(); 
+    });
+    $('#search').click(function(){
+        $('#etype').remove();
+    });
+});
+</script>
+
+
+</head>
+<body class="{Session::get('maintheme')}">
+	 <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span7">
+                                <h3><i class="icon-table"></i>会员信息详情</h3>
+                            </div>
+
+                        </div>
+
+                        <div class="box-content">
+							<div class="row-fluid dataTables_wrapper">
+								<table id="listTable" class="table table-bordered table-hover  dataTable">
+									<thead>
+										<tr>
+											<th colspan="10" style="text-align:center">
+												用户名
+											</th>
+										</tr>
+										<tr>
+											<td colspan="10" style="text-align:center"><span style="color:red">{$m->uname}</span></td>
+										</tr>
+										<tr>
+											<th>累计消费积分</th>
+											<th>累计赠送点</th>
+											<th>现有赠送点</th>
+											<th>累计赠送积分</th>
+											<th>累计提现积分</th>
+											<th>冻结积分</th>
+											<th>累计积分转出</th>
+											<th>累计积分转入</th>
+											<th>现有积分(不含冻结)</th>
+										</tr>
+									</thead>
+									<tbody id="listTable">
+										<tr>
+											<td>{sprintf("%.2f",$sumTotal/10)}</td>
+											<td>{sprintf("%.2f",$point+$sumPoint)}</td>
+											<td>{$point}</td>
+											<td>{sprintf("%.2f",$sumIntegral)}</td>
+											<td>0.00</td>
+											<td>{$m->freezing}</td>
+											<td>{sprintf("%.2f",$sumWithdrawals)}</td>
+											<td>0.00</td>
+											<td>{sprintf("%.2f",$m->total+$m->gy_integral+$m->lg_integral)}</td>
+										</tr>                                       
+									</tbody>
+								</table>
+								
+								<table id="listTable" class="table table-bordered table-hover  dataTable">
+									<thead>
+									    <tr>
+											<th colspan="10" style="text-align:center">
+												订单记录
+											</th>
+										</tr>
+										<tr>
+											<th>订单号</th>
+											<th>会员用户名</th>
+											<th>订单金额</th>
+											<th>商品名称</th>
+											<th>收据</th>
+											<th>下单时间</th>
+											<th>订单审核通过时间</th>
+										</tr>
+									</thead>
+									<tbody id="listTable">
+									    {loop $rs as $vv}
+										<tr>
+											<td>{$vv->trade_no}</td>
+											<td>{$vv->hyname}({$vv->ture_name})</td>
+											<td>{$vv->total/10}</td>
+											<td>{$vv->good_name}</td>
+											<td><a href="javascript:;" onClick="art.dialog({ content: '<img src={$vv->voucher} />'});"><img class="spec_photo" src={$vv->voucher} style="width: 20px;height: 20px" /></a> </td>
+											<td>{date('Y-m-d H:i:s',$vv->created_at)}</td>
+											<td>{date('Y-m-d H:i:s',$vv->updated_at)}</td>
+                                        {/loop}										
+									</tbody>
+								</table>
+
+								
+								<table id="listTable" class="table table-bordered table-hover  dataTable">
+									<thead>
+										<tr>
+											<th colspan="10" style="text-align:center">
+												积分消费详情
+											</th>
+										</tr>
+										
+										<tr>
+                                            <th  style="text-align:center">
+                                                时间
+                                            </th>
+                                            <th  style="text-align:center">
+                                                项目
+                                            </th>
+                                            <th style="text-align:center">
+                                                区分
+                                            </th>
+                                            <th style="text-align:center">
+                                                积分
+                                            </th>
+                                            <th>
+                                            	<table style="width:100%; " >
+                                            		<thead>
+                                            			<tr>
+		                                                    <th colspan='3' style="text-align:center;border-left:none">
+		                                                        现有积分
+		                                                    </th>
+		                                                </tr>
+		                                                <tr>
+		                                                    <th align="center"  width="33%"  style="text-align:center ;border-left:none">
+		                                                        合计
+		                                                    </th>
+		                                                    <th align="center"  width="33%"  style="text-align:center">
+		                                                        安心积分
+		                                                    </th>
+		                                                
+		                                                    <th align="center"  width="33%"  style="text-align:center">
+		                                                        公益积分
+		                                                    </th>
+		                                                </tr>
+                                            		</thead>
+	                                        			
+                                            		
+                                            	</table>
+	                                                
+                                            </th>
+                                        </tr>
+									</thead>
+									<tbody id="listTable">
+										{loop $integralArray as $value}
+                                             <tr>
+                                                <td>
+                                                   {date('Y-m-d',$value->created_at)}
+                                                </td>
+                                                <td >
+                                                    <?= $value->used ==1 ? '积分赠送': '提现'?>
+                                                </td>
+                                                <td >
+                                                    <?= $value->used ==1 ? '收入': '支出'?>
+                                                </td>
+                                                <td >
+                                                    {sprintf("%.2f",$value->total)}
+                                                </td>
+                                                <td width="51%" align="center">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                        <tr>
+                                                            <td width="33%" style="text-align:center ;border-left:none">
+                                                                {sprintf("%.2f",$value->integral+$value->hg_integral+$value->ax_integral)}
+                                                            </td>
+                                                            <td  width="33%" style="text-align:center">
+                                                                {$value->integral}
+                                                            </td>
+                                                           
+                                                            <td  width="33%" style="text-align:center">
+                                                                {$value->ax_integral}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>   
+                                        {/loop}                          
+									</tbody>
+								</table>
+								<div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+							</div>
+                          	
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+ 
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+   </body>
+</html>

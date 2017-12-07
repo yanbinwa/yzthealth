@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<link rel="stylesheet" href="{$CSS}admin/admin.css">
+<title>我的活动</title>
+
+</head>
+<body>
+	<div class="main-title">
+		<h3>{$lbs->name}微调研活动</h3>
+	</div>
+
+<div class="pagination">
+  <ul>
+    {P}
+  </ul>  
+</div>
+<div>
+</div>
+	<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>用户名称</th>
+					<th>用户电话</th>
+					<th>参与时间</th>
+					<th>意见反馈</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			{loop $res as $r}			 
+			      <tr>
+						<td>{$r->un}</td>
+						<td>{$r->tel}</td>
+						<td>{$r->ctime}</td>
+						<td>{if $r->yjfk == ''}未完成
+						   {else}
+						   {$r->yjfk}
+						   {/if}
+						   </td>
+						<td>
+						<span>
+						<a href="microSurveyDetail-{$r->id}-{$r->cid}.html" >查看详情</a>						
+						</span>
+						</td>
+				  </tr>
+			{/loop}
+			</tbody>
+		</table>
+	<div class="tb-toolbar">
+	</div>
+
+<div class="pagination">
+  <ul>
+{P}
+  </ul>
+  
+</div>
+
+<script type="text/javascript">
+
+function toused(id,o){
+	if(confirm('确定标记团购已使用吗？')){
+		ajax('microGroupBuyList-used.html',{ id:id},function(m){
+			if(m=='ok'){
+				$(o).parent().html('已使用');
+			}
+		});
+	}
+	
+}
+</script>
+</body></html>

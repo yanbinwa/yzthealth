@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="{$CSS}admin/admin.css"> -->
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<title>优惠券活动</title>
+</head>
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3 style="border-bottom: 0;"><i class="icon-table"></i>{$lbs->name}优惠券活动</h3>
+								<br/>
+								<!-- <span class="bold">当前地址：</span>http://www.weixinguanjia.cn/yhj/index.html?&wid={$wid}
+								<input type="hidden" id="QRCode" value="http://www.weixinguanjia.cn/yhj/index.html?&wid={$wid}"> -->
+							</div>
+						</div>
+
+						<div class="box-content">
+							<!-- <div class="alert">
+							                                	<strong style="color:red">注：</strong> 目前已打通微商城，添加后可在手机端直接浏览并使用
+							                            </div> -->
+							<div class="row-fluid">
+                                <div class="span12 control-group">
+                                    <div class="span7">
+                                        <a class="btn" href="add.html"><i class="icon-plus"></i>新增优惠券</a>
+                                        <a class="btn" href="javascript:location.reload()"><i class="icon-refresh"></i>刷新</a>
+                                       
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+							<div class="row-fluid dataTables_wrapper">
+								<table class="table table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+											<th>优惠券名称</th>
+											<th>优惠券描述</th>
+											<th>使用条件</th>
+											<th>优惠券数量</th>
+											<th>参与时间</th>
+											<th>当前状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										{loop $rs as $val}
+										<tr>
+											
+											<td width="8%">
+												{$val->name}
+											</td>
+											<td width="20%">
+												{$val->describe}
+											</td>
+											<td width="20%">
+												满{$val->maxcon}元立减{$val->redcon}元
+											</td>
+											<td width="8%">
+												{$val->num}张
+											</td>
+											<td width="20%" style="font-size:12px;">
+												{$val->starttime}至{$val->endtime}
+											</td>
+											<td width="8%">
+												（<a href="look-{$val->id}.html">{$val->is_use}</a>/{$val->num}）
+											</td>
+											<td>
+												<span>
+													{if $val->state == 1}
+													[
+													<a href="javascript:;" class="starUse" date-id="{$val->id}">启用</a>
+													]
+													{else}
+													[
+													<a href="javascript:;" class="stopUse" date-id="{$val->id}">停用</a>
+													]
+													{/if}
+																		
+												</span>
+												[
+												<a href="add-edit.html?id={$val->id}">修改</a>
+												]
+												[
+												<a href="javascript:;" class="del" date-id="{$val->id}">删除</a>
+												]
+											</td>
+										</tr>
+										{/loop}
+									</tbody>
+								</table>
+								<div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+	$(function(){ 
+		$(".stopUse").on('click',function(){ 
+			var obj = $(this);
+			var id = $(this).attr('date-id');
+			$.ajax({ 
+	            url:"index-stop.html",
+	            type:"post",
+	            dataType:'json',
+	            data:{ 'id':id,'state':1},
+	            success:function(data){ 
+	                tusi(data.error);
+	                location.reload() 
+
+	            },
+	            error:function(){ 
+	                alert("操作失败....");
+	            }
+	        })  
+		})
+		$('.starUse').on('click',function(){ 
+			var obj = $(this);
+			var id = $(this).attr('date-id');
+			$.ajax({ 
+	            url:"index-star.html",
+	            type:"post",
+	            dataType:'json',
+	            data:{ 'id':id,'state':0},
+	            success:function(data){ 
+	                tusi(data.error);
+	                location.reload() 
+
+	            },
+	            error:function(){ 
+	                alert("操作失败....");
+	            }
+	        })  
+		})
+		$(".del").on('click',function(){ 
+			var obj = $(this);
+			var id = $(this).attr('date-id');
+			if(confirm('确定删除此条信息吗？')){ 
+				$.ajax({ 
+		            url:"index-del.html",
+		            type:"post",
+		            dataType:'json',
+		            data:{ 'id':id,'state':2},
+		            success:function(data){ 
+		                tusi(data.error);
+		                location.reload() 
+
+		            },
+		            error:function(){ 
+		                alert("操作失败....");
+		            }
+		        })  
+			}
+			
+		})
+	})
+
+</script>
+</body>
+</html>

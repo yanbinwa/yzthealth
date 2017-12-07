@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="stylesheet" type="text/css" href="{$CSS}bootstrap/bootstrap.min.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+ <!-- 地域选择 -->
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/region.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/css/wm/victor-client.css" media="all" />
+  <title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+  <style>
+  #grouping-table{
+    margin-top: 30px;
+  }
+  </style>
+</head>
+
+<body>
+<div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span7">
+                                <h3><i class="icon-table"></i>物流管理</h3>
+                            </div>
+                        </div>
+                        <div class="alert" style="font-size:15px; margin-top:20px;">
+                      <span style="margin-left: 30px;color: red">提示：分组名请使用非数字!</span>
+                      </div>
+                        <div class="box-content">
+                            <form action="" method="post">
+                              <div class="form-group form-inline" >
+                                <label for="grouping">分组名称</label>  
+                                <?php echo $groupModel->text('group_name','class="form-control"');?>
+                                <label for="postage">单件邮费(￥)</label>
+                                <?php echo $groupModel->text('postages','class="form-control"');?>
+                                <label for="postage">每增加一件费用(￥)</label>
+                                <?php echo $groupModel->text('addone','class="form-control"');?>
+                                <input type="hidden" name="newgroupid" value="newgroupid">
+                                <button type="submit" class="btn"><i class="icon-plus"></i>新建分组</button>
+                              </div>
+                              
+                            </form>
+
+                            <table class="table table-striped table-bordered" id="grouping-table">
+                              <tr>
+                                <th width="10%">分组名</th>
+                                <th width="60%">城市</th>
+                                <th width="5%">邮费</th>
+                                <th width="25%">操作</th>
+                              </tr>
+                              <?php foreach($groupArray as $v):?>
+                              <tr>
+                                <td><?=$v['group_name']?></td>
+                                <td>
+                                  <?php $id = $v['id']; foreach ($cityArray[$id] as $value){ echo $value['name'];?>
+                                     (<a href="removecity.html?id=<?php echo $value['id']?>" >删除</a>)&nbsp;&nbsp;&nbsp;
+                                  <?php }?>
+                                </td>
+                                <td><?=$v['postages']?>(<?=$v['addone']?>)</td>
+                                <td>
+                                  <a href="javascript:;" class="btn" id="locate_select_button<?=$v['id']?><?=$v['group_name']?>"  style="width:30%" ><i class="icon-plus"></i>添加城市</a>
+                                  <a href="updateGroup.html?group_id=<?=$v['id']?>" class="btn" style="width:30%"><i class="icon-edit"></i></a>
+                                  <a href="removeGroup.html?group_id=<?=$v['id']?>" class="btn" style="width:30%"><i class="icon-remove"></i></a>
+                                </td>
+                              </tr>
+                            <?php endforeach;?>
+                            <tr>
+                              <td>其他地区</td>
+                              <td>其他未选择区域</td>
+                              <td><?=$m->default_postage;?>(<?=$m->addone;?>)</td>
+                              <td><a href="updateOtherGroup.html" class="btn" style="width:43%"><i class="icon-edit"></i></a></td>
+                            </tr>
+                            </table>
+                            <!-- <div class="row" style="padding:15px">
+                              <a href="addcity.html?wid=<?=$wid?>" class="btn"><i class="icon-plus"></i>添加城市</a>
+                              
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="content_addr" style="display: none;">
+
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <div class="span12" style="margin-top:15%;">
+                        <div class="box" id="fluid_addr" style="width:500px;margin:auto; height:20%;">
+                            <div class="box-title" id="box-title-addr" style="background-color: #fff;">
+                                <div class="span10">
+                                    <h3><i class="icon-cog"></i>配置城市</h3>
+                                </div>
+                                <i id="region_close" class="dialog_addr_x" style="background: url('http://www.weixinguanjia.cn/media/images/wm/ui-dialog__x.png') no-repeat;width: 16px; height: 16px;position: absolute;cursor: pointer;margin-left: 350px;"></i>
+                            </div>
+                            <div class="box-content">
+                                <form action="" method="post">
+                                    <div class="form-group form-inline">
+                                      <div class="col-lg-1" style="width:100px;">
+                                        <label for="postage-groups">分组名称</label>
+                                      </div>
+                                        <select class="form-control group_names" name="group_name" id="postage-groups" disabled>
+                                                                                  
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                      <div class="col-lg-1" style="width:100px;">
+                                        <label for="province">请选择省份</label>  
+                                      </div>
+                                      <a href="javascript:;" class="btn" id="locate_select_button" ><i class="icon-plus"></i>添加城市</a>
+                                      
+                                    </div>
+                                    <div class="tag_wrap" id="locate_select_div1">
+
+                                    </div>
+
+                                    <div class="row col-lg-12">
+                                      <button type="submit" style="margin-left:20px;" class="btn btn-primary">添加</button>
+                                    </div>
+                                    <input type="hidden" name="group_id" id="provid"/>
+                                    <input type="hidden" name="grouplocate" value="grouplocate"/>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    <style type="text/css">
+#content_addr{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+        z-index:100;
+        background-color:gray;
+        filter: alpha(opacity=70); opacity: 0.9;}
+    }
+
+
+</style>
+    <script>
+$(function () {
+            var o = new RegionPicker(regionConfig);
+            $("li.color-picker__item").click(function () {
+                var $this = $(this), v = $this.data("color"), c = $("#fans_groupcolor");
+                if (v) {
+                    c.val(v);
+                    $this.addClass("color-picker-item_current").siblings().removeClass("color-picker-item_current")
+                }
+            })  
+})
+$(function(){
+  $(document).click(function (e) {
+    
+    if ($(e.target).attr('id') != undefined ) {
+      var addrid = $(e.target).attr('id');  // 获取id
+      var addif = addrid.substr(0,20);
+      if (addif == 'locate_select_button') {
+        var paddleft = addrid.replace(/[^0-9]/ig, ""); 
+        var count = parseInt(paddleft.length) + 20; 
+        var areid = parseInt(paddleft); 
+        var arename = addrid.substring(count);
+        $("#postage-groups").append("<option value='"+areid+"'>"+arename+"</option>");
+        $("#provid").val(areid);
+        $('#provid').attr('id','provida');
+        $('#content_addr').show();
+      }
+      
+    }
+  })
+})
+$(document).ready(function(){
+  
+  $('#region_close').click(function() {
+        $('#content_addr').hide();
+        window.location.reload();
+      });
+})
+
+</script>  
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<!-- 地域选择 -->
+<script type="text/javascript" src="{$JS}dialogbox.js"></script>
+<script type="text/javascript" src="{$JS}region.js?ddf"></script>
+<script type="text/javascript" src="{$JS}utils.js?dd"></script>
+</body>
+</html>

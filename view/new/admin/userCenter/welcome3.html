@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html class="app fadeInUp animated js no-touch no-android no-chrome no-firefox no-iemobile no-ie no-ie10 no-ie11 ios" lang="cn"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>平台概况</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="{$CSS}lgc/bootstrap.css" rel="stylesheet" />
+    <link href="{$CSS}lgc/animate.css" rel="stylesheet" />
+	<link href="{$CSS}wm/font-awesome.css" rel="stylesheet" />
+    <link href="{$CSS}lgc/style.css" rel="stylesheet">
+    <style>
+        .text-muted{
+            margin-bottom: 5px;
+        }
+    </style>
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie8/inie8.min.js"></script><![endif]-->
+</head>
+
+<body>
+
+    
+    <section class="vbox">
+        <section class="scrollable padder">
+            <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+                <li><a href="javascript:;"><i class="fa fa-dashboard"></i>平台概况</a></li>
+            </ul>
+            <section class="panel panel-default m-t">
+
+                <div class="row m-l-none m-r-none bg-light lter">
+                    <div class="col-sm-4 col-md-4 padder-v b-r b-light">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <i class="fa fa-circle fa-stack-2x text-info"></i>
+                            <i class="fa fa-truck fa-stack-1x text-white"></i>
+                        </span>
+                        <a class="clear" href="###">
+                            <span class="h3 block m-t-xs"><strong>{$shsh_num}</strong></span>
+                            <small class="text-muted text-uc">商户总数量</small>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 col-md-4 padder-v b-r b-light">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <i class="fa fa-circle fa-stack-2x text-info"></i>
+                            <i class="fa fa-truck fa-stack-1x text-white"></i>
+                        </span>
+                        <a class="clear" href="###">
+                            <span class="h3 block m-t-xs"><strong>{$shlls_num}</strong></span>
+                            <small class="text-muted text-uc">个人理疗师总数量 </small>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 col-md-4 padder-v b-r b-light lt">
+                        <span class="fa-stack fa-2x pull-left m-r-sm">
+                            <i class="fa fa-circle fa-stack-2x text-warning"></i>
+                            <i class="fa fa-legal fa-stack-1x text-white"></i>
+                            <span class="easypiechart pos-abt" data-percent="100" data-line-width="4" data-track-color="#fff" data-scale-color="false" data-size="50" data-line-cap="butt" data-animate="2000" data-target="#bugs" data-update="3000"></span>
+                        </span>
+                        <a class="clear" href="###">
+                            <span class="h3 block m-t-xs"><strong id="bugs">{$momey_count}</strong></span>
+                            <small class="text-muted text-uc">我的总业绩</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+
+</html>

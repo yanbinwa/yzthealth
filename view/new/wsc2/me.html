@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>
+    个人中心
+    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c5.css">
+    <style>
+	.my_menu span:before {
+content: '\20';
+width: 30px;
+height: 25px;
+float: left;
+margin-top: -3px;
+margin-right: 8px;
+background: url(http://static.paipaiimg.com/wx/img/my/icon_my.png?t=2) no-repeat;
+background-size: 300px;
+}
+	</style>
+  </head>
+  <body>
+    <div class="wx_bar" style="">
+        <div class="wx_bar_back" id="back"><a href="javascript:history.go(-1);"></a></div><div class="wx_bar_tit">个人中心</div>
+    </div>
+    
+    <div class="wx_wrap">
+        
+        <!-- 
+        <div class="my_profile">
+            <div class="avatar"><img id="uinLogo" src="" alt=""></div>
+            <div class="nickname" id="nickname"></div>
+            <div class="id" id="qqid"></div>
+        </div>
+        
+        <div class="my_nav">
+            <ul>
+                <li class="tiao" data-url=""><a href="javascript:;">微店订单</a></li>
+                <li class="tiao" data-url=""><a href="javascript:;">京东订单</a></li>
+            </ul>
+        </div>
+         -->
+        <!--div class="my_nav">
+            <ul>
+                <li class="tiao" data-url="http://m.buy.qq.com/p/cart/order/orderlist_v2.shtml?tab=1#wechat_redirect"><a href="javascript:;"><em id="payDeaLNum">...</em>待付款</a></li>
+                <li class="tiao" data-url="http://m.buy.qq.com/p/cart/order/orderlist_v2.shtml?tab=2#wechat_redirect"><a href="javascript:;"><em id="receiveDeaLNum">...</em>待收货</a></li>
+                <li class="tiao" data-url="http://m.buy.qq.com/p/cart/order/orderlist_v2.shtml?tab=3#wechat_redirect"><a href="javascript:;"><em>...</em>所有订单</a></li>
+            </ul>
+        </div-->
+        
+        <div class="my_menu">
+            <ul>
+                <li class="tiao" data-url="/wsc2/gwc.html" onclick="location.href='/wsc2/gwc.html'"><span class="m1">购物车<i id="cartNum"></i></span></li>
+                <li class="tiao" data-url="/nhyk/myaddr.html" onclick="location.href='/nhyk/myaddr.html'"><span class="m2">收货地址</span></li>
+                <li class="tiao" data-url="/nhyk/index.html" id="sCouponLi" onclick="location.href='/nhyk/index.html'"><span class="m3">会员卡<i id="couponNum"></i></span></li>
+                <li class="tiao update" id="jdhbarea" data-url="/wsc2/ddlist.html" onclick="location.href='/wsc2/ddlist.html'"><span class="m6">我的订单<i id="jdhbNum"></i></span></li>
+                <!-- li class="tiao" data-url="http://weigou.qq.com/wkd/messages/show/cid-cc_idc_212794?_fna=y&amp;jobName=ImmediateMessageTemplate_N_idc1242266_247142"><span class="m5">帮助中心</span></li-->
+            </ul>
+        </div>
+         {if $model->is_useyhj == 1}
+       <style>
+        .my_yhj{
+            border: 1px solid #ccc;
+            border-left: none;
+            border-right: none;
+            background: #fff;
+            padding: 10px 0px;
+            text-align: center;
+            margin-bottom: 5px;
+
+        }
+        .my_yhj li span{
+            color: red;
+        }
+       </style>
+        <div class="my_yhj">
+            <ul>
+                <li class="tiao" data-url="/yhj/my.html" onclick="location.href='/yhj/my.html'"><span class="m2">我的优惠券</span></li>
+            </ul>
+        </div>
+         
+        {/if}
+    </div>
+    
+    
+<div class="wx_footer">{T /_wf}</div>
+
+ <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</body>
+
+</html>

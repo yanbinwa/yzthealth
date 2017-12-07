@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>颐正国际养生连锁店</title>
+    <link href="img/favicon.ico" type="image/x-icon" rel=icon>
+    <link href="img/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="{$CSS}weui/dist/style/weui.css"/>
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/default.css"/>
+    <style type="text/css">
+        a,a:hover{ text-decoration:none; color:#333}
+        .engineer_list{ overflow: hidden;}
+    </style>
+</head>
+<body>
+
+<link type="text/css" rel="stylesheet" href="{$CSS}wxy/list.css"/>
+<div id='homeMain'>
+<ul class="engineer_list" id="engineer_list">
+
+</ul>
+</div>
+<div id="hiddenDiv"></div>
+<div style="border:0px red solid;margin-bottom: 50px; height: 30px;text-align: center;font-size: 14px; color: red;"
+     id="emptyTip"></div>
+{T bttom}
+
+<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+<script src="{$JS}wx/dropload.min.js"></script>
+<script>
+
+$(function(){
+    // 页数
+    var page = 0;
+    // dropload
+    $('#homeMain').dropload({
+        scrollArea : window,
+        loadDownFn : function(me){
+
+            // 拼接HTML
+            var result = '';
+            $.ajax({
+                type: 'GET',
+                url: 'http://www.yzthealth.com/wx/engineerList-dropload.html?page='+page,
+                dataType: 'json',
+                success: function(data){
+                    var arrLen = data.length;
+                    if(arrLen > 0){
+                        for(var i=0; i<arrLen; i++){
+                            result +=   '<a href="engineerInfo-'+data[i].id+'.html"><li class="engineer_li" eid="'+data[i].id+'">'
+                                            +'<div class="engineer_li_left">'
+                                                +'<img class="headerIcon" src="'+data[i].dz+'" alt="">'
+                                                +'<div class="star"><div class="star_i"></div>&nbsp;<div class="star_i"></div>&nbsp;<div class="star_i"></div>&nbsp;</div>'
+                                            +'</div>'
+                                            +'<div class="engineer_li_right">'
+                                                +'<div class="engineer_li_right_mid">'
+                                                    +'<div class="info"><b>'+data[i].lxr+'</b> '+data[i].gendered+'</div>'
+                                                    +'<div class="right">'
+                                                        +'<img class="loc_i" src="{$IMG}wx/position.png"> <span class="distance">420米</span>'
+                                                    +'</div>'
+                                                +'</div>'
+                                                +'<div class="engineer_li_right_right">'
+                                                    +'<div class="left">'
+                                                        +'<img class="order_count_i" src="{$IMG}wx/odt-num.png"> <span class="order_count">1006单</span>'
+                                                    +'</div>'
+                                                    +'<div class="loc" style="display: {none_block}">位置：'+data[i].address+'</div>'
+                                                +'</div>'
+                                                +'<div class="desc">'+data[i].jianjie+'...</div>'
+                                            +'</div>'
+                                        '</li></a>';
+                        }
+                    // 如果没有数据
+                    }else{
+                        // 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                    }
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        // 插入数据到页面，放到最后面
+                        $('#engineer_list').append(result);
+                        // 每次数据插入，必须重置
+                        me.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+            page++;
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>填写资料</title>
+<link type="text/css" rel="stylesheet" href="/res/wtp/style/vote.css" />
+<script type="text/javascript">
+	$(function(){
+		$('.option').click(function(){
+			$('.option').each(function(){
+				$(this).find('img').eq(0).show();
+				$(this).find('img').eq(1).hide();
+				$(this).attr('sel','0');
+			});
+			$(this).find('img').eq(0).hide();
+			$(this).find('img').eq(1).show();
+			$(this).attr('sel','sel');		
+		});		
+	});
+</script>
+</head>
+<body>
+<div class="wrapper" style="margin-top:-8px;">
+	<img class="bg" src="/res/wtp/images/bg.jpg">
+	<div class="top fn-clear">
+		<div class="count-cont">
+			<h3>参与人数</h3>
+			<div class="count">{$cyrs}</div>
+		</div>
+		<div class="title-cont">
+			<p class="title">{$wtp->name}</p>
+			<p class="timeout"><img class="clock" src="/res/wtp/images/clock.png"><span class="text">距离投票结束还有{$end_time}</span></p>
+		</div>
+	</div>
+	<div class="cover">
+		<img class="line" src="/res/wtp/images/ctline.jpg">
+		<img class="cimg" src="{$wtp->pic}">
+		<img class="line" src="/res/wtp/images/cbline.jpg">
+	</div>
+	<div class="summary">{$wtp->ms}</div>
+	<div class="tip-cont">
+		<img class="icon" src="/res/wtp/images/tip_icon.png">
+		投票后才能看到结果 | 最多选1项
+	</div>
+	<div class="option-cont">
+	{if trim($wtp->option1)!=''}
+	    <div class="option" data-value="1" onclick="divClick('img1')">
+			<img id="img1" class="oimg" src="/res/wtp/images/checkimg.png">
+			<img id="img11" class="oimg-sel" src="/res/wtp/images/checkimg_check.png">
+			<div>{$wtp->option1}</div>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	{if trim($wtp->option2)!=''}
+	    <div class="option" data-value="2" onclick="divClick('img2')">
+			<img id="img2" class="oimg" src="/res/wtp/images/checkimg.png">
+			<img id="img21" class="oimg-sel" src="/res/wtp/images/checkimg_check.png">
+			<div>{$wtp->option2}</div>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	{if trim($wtp->option3)!=''}
+	    <div class="option" data-value="3" onclick="divClick('img3')">
+			<img id="img3" class="oimg" src="/res/wtp/images/checkimg.png">
+			<img id="img31" class="oimg-sel" src="/res/wtp/images/checkimg_check.png">
+			<div>{$wtp->option3}</div>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	{if trim($wtp->option4)!=''}
+	    <div class="option" data-value="4" onclick="divClick('img4')">
+			<img id="img4" class="oimg" src="/res/wtp/images/checkimg.png">
+			<img id="img41" class="oimg-sel" src="/res/wtp/images/checkimg_check.png">
+			<div>{$wtp->option4}</div>	
+		</div>
+		<img class="sep" src="/res/wtp/images/option_sep.jpg">
+	{/if}
+	</div>
+	<div class="vote-cont" onclick="gotonext()">
+		<div style="height: 10px;"></div>
+		<img class="vote-btn" id="submit" src="/res/wtp/images/vote.png">
+		<div style="height: 10px;"></div>
+	</div>
+ 	<p class="page-url">
+		<a href="/" target="_blank" class="page-url-link"></a>
+	</p>
+</div>
+<script type="text/javascript">
+function gotonext(){
+	var res = $('.option[sel="sel"]').attr('data-value');
+	if($.trim(res)==''){
+		tusi('请选择答案');
+	}else{
+		location.href = 'wtpok-{$yid}-'+res+'.html';
+	}
+	
+}
+</script>
+{T /_wf}
+</body>
+</html>

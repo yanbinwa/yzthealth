@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	 <div id="main" style="margin-bottom:40px">
+        <div class="container-fluid">
+            <div class="row-fluid">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-table"></i>订单详情</h3>
+                            </div>
+                            <div class="span2">
+								<a class="btn" href="Javascript:window.history.go(-1)">返回</a>
+							</div>
+                        </div>
+                        <div class="box-content">
+                            <div class="row-fluid dataTables_wrapper">
+                                    <table id="listTable" class="table table-bordered table-hover  dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>商品图片</th>
+                                                <th>商品名称</th>
+                                                <th>商品规格</th>
+                                                <th>实际价格</th>
+                                                <th>商品数量</th>
+                                                <th>是否团购</th>
+                                                <th>备注</th>
+                                                <th>小计</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listTable">
+                                        {loop $prolist as $key=>$val}
+	                                        <tr>
+	                                            <td width="10%"><img class="thumb_img" src="{$val['pic']}"   onclick="window.open($(this).attr('src'))" style="max-height:40px;cursor:pointer;"></td>
+	                                            <td width="25%">{$val['name']}</td>
+	                                           {if $val['gg'] != ''}
+	                                            <td width="20%"> {loop $val['gg'] as $gg}{$gg}  {/loop}
+	                                            {else}
+	                                             <td width="20%">{$val['name']}</td>
+	                                            {/if}
+												<td width="5%">{$val['dj']}</td>
+												<td width="5%">{$val['num']}</td>
+												{if $val['tuan'] == 1}
+												<td width="10%">团购</td>
+												{else}
+												<td width="10%">非团购</td>
+												{/if}
+												<td width="20%">{$val['bz']}</td>
+												<td width="15%">{$val['dj'] * $val['num']}</td>
+											</tr>
+                                        {/loop}    
+                                        <tr align="center">
+	                                            <td width="20%"  colspan='7'>总计</td>
+												<td width="10%">{$m->jg}</td>
+										</tr>                                       
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                     <div class="row-fluid dataTables_wrapper">
+                          <div class="span4 row-fluid dataTables_wrapper ">
+				                 <table id="listTable" class="table table-bordered table-hover  dataTable">
+				                                       <thead>
+			                                                <tr>
+			                                                    <th colspan="2" >订单金额明细</th>
+			                                                </tr>
+			                                            </thead>
+				                                        <tbody id="listTable">
+					                                        <tr>
+																<td width="50%">商品总额:</td> 
+																<td>{$m->jg}</td>
+															</tr>
+															<tr>
+																<td>配送费用:</td> 
+																<td>{$m->yf}</td>
+															</tr>
+															<tr>
+																<td>积分实付:</td> 
+																<td>{$m->jfsf}</td>
+															</tr>
+															<tr>
+																<td>订单总额:</td> 
+																<td>{$m->jg+$m->yf}</td>
+															</tr>
+				                                        </tbody>
+				                    </table>
+				                     {if $wid==6765368}
+							
+										<table id="listTable" class="table table-bordered table-hover  dataTable">
+											<thead>
+												<tr>
+													<th colspan="2" >使用优惠券信息</th>
+												</tr>
+											</thead>
+											<tbody id="listTable">
+												<tr>
+													<td width="50%">是否使用优惠券:</td> 
+													<td>{if $m->yhjid}使用{else}未使用{/if}</td>
+												</tr>
+												{if $m->yhjid}
+													<tr>
+														<td>优惠券名称:</td> 
+														<td>{$info->info->name}</td>
+													</tr>
+													<tr>
+														<td>优惠券使用条件:</td> 
+														<td>订单金额大于{$info->info->maxcon}元</td>
+													</tr>
+													<tr>
+														<td>优惠券减免金额:</td> 
+														<td>{$info->info->redcon}元</td>
+													</tr>
+												{/if}
+												
+											</tbody>
+										</table>
+							
+		                             {/if}
+                             </div>
+                            
+                              <div class="span4 row-fluid dataTables_wrapper ">
+				                 <table id="listTable" class="table table-bordered table-hover  dataTable">
+				                                       <thead>
+			                                                <tr>
+			                                                    <th colspan="2" > 订单状态</th>
+			                                                </tr>
+			                                            </thead>
+				                                        <tbody id="listTable">
+				                                            <tr>
+																<td>支付状态:</td> 
+																<td>{$pay_status[$m->status]}</td>
+															</tr>
+															<tr>
+																<td>支付方式:</td> 
+																<td>{$pay_type[$m->pay_type]}</td>
+															</tr>
+															<tr>
+																<td>支付平台交易号:</td> 
+																<td>{$m->trade_no}</td>
+															</tr>
+															<tr>
+																<td>订单状态:</td> 
+																<td>{$o_status[$m->wlstatus]}</td>
+															</tr>
+					                                        <tr>
+																<td width="50%">配送方式:</td> 
+																<td>{if $m->kdtype=='-1' } 无需物流{else} {$kuaidi_arr[$m->kdtype]} {/if}</td>
+															</tr>
+															<tr>
+																<td width="50%">物流单号:</td> 
+																<td>{$m->kd_no}</td>
+															</tr>
+															  <tr>
+																<td width="50%">发货日期:</td> 
+																<td>{$m->send_time}</td>
+															</tr>
+															{if count($lrs)>0}
+															{loop $lrs as $v}
+															    <tr>
+																	<td width="50%">密码:</td> 
+																	<td>{$v->cardno}</td>
+																</tr>
+															{/loop}
+															{/if}
+				                                        </tbody>
+				                    </table>
+                             </div>
+                             <div class="span4 row-fluid dataTables_wrapper ">
+				                   <table id="listTable" class="table table-bordered table-hover  dataTable">
+				                                       <thead>
+			                                                <tr>
+			                                                    <th colspan="2">收货人信息</th>
+			                                                </tr>
+			                                            </thead>
+				                                        <tbody id="listTable">
+															<tr>
+																<td width="50%">收货人:</td> 
+																<td>{$dzm->shr}</td>
+															</tr>
+															<tr>
+																<td>联系电话:</td> 
+																<td>{$dzm->phone}</td>
+															</tr>
+															<tr>
+																<td>地址:</td> 
+																<td>{$dzm->addr}</td>
+															</tr>
+															<tr>
+																<td>邮编:</td> 
+																<td>{$dzm->yb}</td>
+															</tr>
+															<tr>
+																<td>备注:</td> 
+																<td><textarea placeholder="选填，可以备注某些要求" name="bz" id='bz' rows="3" cols="40">{$m->bz}</textarea></td>
+															</tr>
+				                                        </tbody>
+				                                        <thead>
+			                                                <tr>
+			                                                    <td></td>
+			                                                    <td><button onclick="tijiao()">确认提交</button></td>
+			                                                </tr>
+			                                            </thead>
+				                    </table>
+                             </div>
+                          
+                             </div>
+                              </div>
+                 </div>
+               
+                   
+              </div>
+      </div>
+    </div>
+ 
+
+
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    <script type="text/javascript">
+	function tijiao(){
+		var id = {$orid};
+		var bz = $('#bz').val();
+		ajax('orderview-ti.html',{ id:id,bz:bz},function(m){
+			if(m == 'ok'){
+				tusi('提交成功');
+			}
+		});
+		
+	}
+</script>
+   </body>
+</html>

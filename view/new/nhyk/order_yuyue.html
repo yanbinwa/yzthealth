@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>{$h->wdyy}</title>
+		    <link rel="stylesheet" type="text/css" href="/css/wm/bootstrap_min.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="/css/wm/inside.css" media="all" />
+        <script type="text/javascript" src="/js/jQuery.js"></script>
+        <script type="text/javascript" src="/js/bootstrap_min.js"></script>
+        <script type="text/javascript" src="/js/inside1.js"></script>
+    <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/hotel/hotels.css" media="all" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <meta name="Keywords" content="" />
+        <meta name="Description" content="" />
+        <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+        <style>
+             img.mm{ width:100%!important;}
+            
+            .footermenu {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 900;
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.footermenu ul {
+border-top: 1px solid #3D3D46;
+position: fixed;
+z-index: 900;
+bottom: 0;
+left: 0;
+right: 0;
+margin: auto;
+display: block;
+width: 100%;
+background: rgba(255,255,255,0.7);
+height: 48px;
+display: -webkit-box;
+display: box;
+-webkit-box-orient: horizontal;
+background: -webkit-gradient(linear, 0 0, 0 100%, from(#697077), to(#3F434E), color-stop(60%, #464A53));
+box-shadow: 0 1px 0 #949494 inset;
+}
+.footermenu ul li{
+width: auto!important;
+height: 100%;
+position: static!important;
+margin: 0;
+border-radius: 0!important;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+-webkit-box-flex: 1;
+box-flex: 1;
+-webkit-box-sizing: border-box;
+box-shadow: none!important;
+background: none;
+}
+.footermenu ul li a {
+color: #fff;
+font-size: 20px;
+line-height: 20px;
+text-align: center;
+display: block;
+text-decoration: none;
+padding-top: 2px;
+position:relative;
+text-shadow:0 1px rgba(0, 0, 0, 0.2);
+}
+.footermenu ul li a.active {
+    background:-webkit-gradient(linear, 0 0, 0 100%, from(#535A5F), to(#17181B), color-stop(60%, #32363A));
+	border: 1px solid rgba(148, 148, 148, 0.6);
+	border-bottom:0;
+}
+.footermenu ul li a .num {
+font-size:10px;
+	position:absolute;
+	left: 55%;
+	top:-5px;
+	background-color:#eb3634;
+	color:#fff;
+	font-family:Verdana;
+	font-weight:normal;
+	line-height:10px;
+	padding:2px 4px;
+	-moz-box-shadow:0 0 0 2px #FFFFFF, 0 2px 5px 3px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow:0 0 0 2px #FFFFFF, 0 2px 5px 3px rgba(0, 0, 0, 0.25);
+	box-shadow:0 0 0 2px #FFFFFF, 0 2px 5px 3px rgba(0, 0, 0, 0.25);
+	border-radius:15px;
+}
+.footermenu ul li a img{
+width:24px;
+height:24px;
+}
+.footermenu ul li a p{
+margin: 2px 0 0 0;
+font-size: 12px;
+display: block !important;
+line-height: 18px;
+text-align: center;
+}
+
+a:hover,a:focus {
+	color: #333;
+    cursor: pointer;
+    text-decoration: none;
+}
+        </style>
+		{if $fkhf == 1}
+		<style>
+			.round li span .no{
+				border-radius: 20px;
+				color: #fff;
+				display: block;
+				font-size: 12px;
+				font-style: normal;
+				line-height: 12px;
+				margin-top: -10px;
+				padding: 4px 8px;
+				position: absolute;
+				right: 70px;
+				text-shadow: 0 0 #ffffff;
+				top: 50%;
+			}
+
+			.round li span .no2{
+				border-radius: 20px;
+				color: #fff;
+				display: block;
+				font-size: 12px;
+				font-style: normal;
+				line-height: 12px;
+				margin-top: -10px;
+				padding: 4px 8px;
+				position: absolute;
+				right: 10px;
+				text-shadow: 0 0 #ffffff;
+				top: 50%;
+			}
+			em.no2 {
+				background-color: #bbbbbb;
+			}
+		</style>
+	{/if}
+    </head>
+        <body id="hotels" ondragstart="return false;" onselectstart="return false;" >
+
+    <section class="body">
+        
+        <div class="cardexplain">
+            
+        <!--普通用户登录时显示-->
+        <!--商家房价及类型-->
+     
+            {loop $ddres as $r}
+            <ul class="round">
+            <li class="title">
+					
+				<span>
+				{if $r->state=='0'||$r->state=='1'}
+					<a href="/yuyue_yypk/mybyxgnew-{$r->id}.html" style="display: block;width:100%;height:100%;">{/if}
+					{date('m月d日 H时i分',strtotime($r->ctime))}详情
+					<em class="no">{if $r->isudel == 1}已取消{else}{$state_arr[$r->state]}{/if}</em>
+					{if $r->state=='0'||$r->state=='1'}</a>{/if}
+					{if $fkhf == 1}
+						<em class="no2">
+						{if $r->back_content}	
+							<a id="various{$r->id}" href="#inline" onclick="get_content({$r->id});" style="line-height: 2px;">已反馈</a>
+							<input type="hidden"  id="content{$r->id}" value="{$r->back_content}">
+						{else}
+							未反馈
+						{/if}		
+						</em>
+					{/if}
+				</span>
+					
+					
+			</li>
+			<li>
+				<div class="text word-wrap:break-word;word-break:break-all;">
+					<p style="word-wrap:break-word;word-break:break-all;">活动名称：{$r->yuyue->tit}</p>
+					{loop $r->nr as $n}
+					{if $n->name}
+					<p style="word-wrap:break-word;word-break:break-all;">{$n->name}：{$n->val}</p>
+					{/if}
+					{/loop}
+					
+					{if $r->use_balance =='1'}
+					<p>
+						<font>U币支付：￥{$r->balance}</font>
+						<br>
+						{if $r->real_money}
+						<font>实际支付：￥{$r->real_money}</font>
+						{/if}
+					</p>
+					{else}
+						{if $r->real_money}
+						<font>实际支付：￥{$r->real_money}</font>
+						{/if}
+					{/if}
+					<p style="word-wrap:break-word;word-break:break-all;">状态：
+						{if $r->state=='0'}
+							<font style="color:red;">未处理(未支付)</font>
+						{/if}
+						{if $r->state=='1'}
+							<font style="color:green;">已确认</font>
+							<font style="color:red;">(未支付)</font>
+						{/if}
+						{if $r->state=='2'}
+							<font>已放弃</font>
+						{/if}
+						{if $r->state=='3'}
+							<font style="color:green;">已完成</font>
+						{/if}
+						{if $r->state=='10'}
+							<font style="color:green;">已支付</font>
+						{/if}
+						
+					</p>
+					<p style="word-wrap:break-word;word-break:break-all;">工单号：{$r->orderno}</p>
+			    </div>
+			</li>
+			   {if $r->showpj==1 && $r->star==0}
+				<a  class="submit" href="/yuyue_yypk/pj-{$r->id}-{$r->yuyue->id}.html" >去评价</a>
+			   {/if}
+			</ul> 
+			{/loop}    
+
+
+			
+                   
+        </div>
+
+        <div class="plugback">
+            <a href="javascript:history.back(-1)">
+                <div class="plugbg themeStyle">
+                    <span class="plugback"></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+<script type="text/javascript">
+
+</script> 
+{T /_wf}
+
+<script type="text/javascript">
+
+
+function set_value(id){
+	$("#inline").html($("#content"+id).val());
+}
+function get_content(id){
+	set_value(id);
+	$("#comment").modal("show");
+}	
+</script>
+
+
+<div id="comment" class="modal  fade" tabindex="-1" role="dialog" style=" margin: 0 auto; width: 80%; position: fixed; z-index: 10001; top: 23px; left: 0px; margin-left: 10%; display: none;" aria-labelledby="myModalLabel" aria-hidden="true">
+<div style="width:96%" class="popLayer">
+<div style="overflow:auto; text-align: center;">
+	<h4>反馈信息</h4>
+</div>
+<div id="inline" style="overflow:auto; text-align: center;word-wrap:break-word;word-break:break-all;">
+	
+</div>
+ </div>
+</div>
+</body>        		
+</html>

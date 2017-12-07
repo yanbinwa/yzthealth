@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+if(window.parent.frames[0]){ window.parent.location.href=location.href;}
+</script>
+
+<title>{$_SERVER['WEB_NAME']}--国内最大的微信公众服务平台</title>
+<link rel="stylesheet" href="{$CSS}wjj/index.css" media="screen">
+<meta name="keywords" content="微管家、微信营销、微信代运营、微信托管、微网站、微商城、微营销、微信定制开发">
+<meta name="description" content="{$_SERVER['WEB_NAME']},国内最大的微信公众智能服务平台,管家十大微体系:微菜单、微官网、微会员、微活动、微商城、微推送、微服务、微统计、微支付、微客服,企业微营销必备。">
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+    <div class="banner" style="position: relative; height: 0px; z-index: 3; display: none;">
+        <div style="width:1296px;margin:auto;height:474px;">
+	        <div style="position:absolute;">
+	            <a href="javascript:;" target="_blank" title="{$_SERVER['WEB_NAME']}联手公益事业，送您500万的梦想">
+	               <img class="ban_png" src="{$IMG}index/sina_lottery.jpg">
+	            </a>
+		        <div style="position:absolute;width:60px;height:63px;top:20px;right:30px;">
+		           <a href="javascript:;" class="close_ban_btn">
+		               <img src="{$IMG}index/close.png">
+		           </a>
+		        </div>
+	        </div>
+        </div>
+    </div>
+	<div id="wxj-header">
+	    <div class="wei_link">
+           <div style="background-image: url(&#39;http://wxj.weixinjia.net/image/start/v3/weihotel_link.png&#39;);"><a href="/" class="link" target="_blank">微酒店-酒店微信营销首选平台</a></div>
+        </div>
+		<div class="container">
+			<img id="logo" src="{$IMG}index/weijuju.png" alt="{$_SERVER['WEB_NAME']}-国内最大的微信公众服务平台">
+			<div class="m-login">
+				<form id="loginform" action="" class="fn-clear" method="post">
+					<button title="点击登录" id="signin-btn" class="green-btn" type="submit"><span class="btn-text">登 录</span></button>
+					{$u->text('un','class="signin-text" placeholder="请输入用户名/邮箱/手机号"')}
+					{$u->password('pwd','class="signin-text" placeholder="请输入密码" maxlength="30"')}
+				</form>
+				<div class="weibo-login">
+					<span style="position: absolute;left: -250px;">选择合作网站账号登录</span> 
+					<a class="weibo-account" href="https://api.weibo.com/oauth2/authorize?client_id=143433709&redirect_uri=/woauth&response_type=code">
+						<img src="{$IMG}index/sina.png" alt="微博登录">
+					</a>
+					<a class="qq-account" href="https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id=801396341&response_type=code&redirect_uri=http%3A%2F%2Fwww.weijuju.com%2Fqoauth">
+						<img src="{$IMG}index/qq.png" alt="QQ微博登录">
+					</a>
+				</div>
+				<div class="reg-now">
+					还没有{$_SERVER['WEB_NAME']}账号？<a href="/reg.html" target="_blank">马上注册</a>
+				</div>
+			</div>
+			<div class="m-reg">
+				<form id="regform" action="/#" class="fn-clear">
+					<button title="点击登录" id="ic_check" class="green-btn" type="submit"><span class="btn-text">下一步</span></button>
+					<input data-empty="请输入邀请码" value="" class="ic-text" id="ic-text" name="ic-text">
+				</form>
+				<div class="reg-now">
+					<a href="javascript:void(0)" class="login">已有{$_SERVER['WEB_NAME']}帐号</a>
+					没有{$_SERVER['WEB_NAME']}邀请码？<a href="/apply/invite" target="_blank">立即申请{$_SERVER['WEB_NAME']}账号</a>
+				</div>
+			</div>
+			<img id="mark-m1" class="mark" src="{$IMG}index/voice.png" style="left:-140px;">
+			<div style="position:absolute;top:120px;left:-90px;width:210px;height:46px;">
+			     <a target="_blank" href="/lightstore.html" style="display:inline-block;width:210px;height:46px;">
+			         <img src="{$IMG}index/app_reg_btn.png">
+			     </a>
+			</div>
+		</div>
+	</div>
+	<div id="wxj-main">
+		<div class="container">
+			<img class="feature" src="{$IMG}index/f10.png" style="margin-bottom:60px;">
+			<div class="desc-seo">
+				{$_SERVER['WEB_NAME']}辅助企业微信营销，是超过五万企业微信公众账户的至爱之选，为众多微信公众账号提供了丰富的微信营销技巧，积累了非常丰富的微信营销案例，是国内最大的微信公众平台。
+			</div>
+			<img class="feature" src="{$IMG}index/f1.jpg">
+			<div class="desc-seo">
+				{$_SERVER['WEB_NAME']}提供N多智能服务瞬间开启，可调教智能客服，刮刮卡抽奖，幸运大转盘，优惠券，微信会员卡等，让您的企业微信营销更加生动,是国内最专业的微信公众平台。
+			</div>
+			<img class="feature" src="{$IMG}index/f6.png">
+			<div class="desc-seo">
+				{$_SERVER['WEB_NAME']}提供微调研、微投票，倾听民意so easy!,让您的微信营销技巧更加丰富,为众多知名的机构提供独家的调研和投票平台服务，也已成为国内最专业的微信公众平台。
+			</div>
+			<img class="feature" src="{$IMG}index/f5.png">
+			<div class="desc-seo">
+				{$_SERVER['WEB_NAME']}的一战到底游戏，是目前微信上最火最好玩的答题游戏,通过此款竞猜类答题游戏“一战到底”，您可以设置的您的赛季和考题，并根据粉丝的答题榜单进行奖品派发，同时您可以利用战前阅读，进行您的品牌宣传。通过让您的企业微信营销更加便捷。
+			</div>
+			<img class="feature" src="{$IMG}index/f2.png">
+			<div class="desc-seo">
+				微信管的微信优惠券,微信刮刮卡，微信大转盘等活动，用于建立有趣的推广活动，派发商品的优惠信息、日常促销等，增加粉丝粘性，提升客户二次到店的几率。让您的企业微信营销更加便捷！
+			</div>
+			<img class="feature" src="{$IMG}index/f3.jpg">
+			<div class="desc-seo">
+				{$_SERVER['WEB_NAME']}的微官网功能,帮助您在5分钟建立您的移动互联门户,在微信公众号里建设一个官方网站的功能，通过几种不同风格的模板，将企业的信息用很优美的形式展现出来，告别以往回复1、回复2这种单调的信息展现形式，同时支持微信自定义菜单 功能，让您的微信交互更加自然，让您的企业微信营销更加深入！
+			</div>
+			<img class="feature" src="{$IMG}index/f4.png">
+			<div class="desc-seo">
+				{$_SERVER['WEB_NAME']}的微信会员卡,微会员卡,微团购等功能，彻底把您的企业搬上微信,实现完整的企业微信营销，并提供和微信公众平台完整差异化体验。
+			</div>
+			<img src="{$IMG}index/flower_logo.jpg" style="position: relative;left:-80px;" alt="{$_SERVER['WEB_NAME']}-国内最大的微信公众服务平台">
+		</div>
+	</div>
+	<div id="wxj-footer">
+		<div class="container">
+			<a href="/news/index.php" target="_blank">{$_SERVER['WEB_NAME']}</a><span class="sep">|</span><a href="/about/contact.html" target="_blank">联系我们</a><span class="sep">|</span><a href="/sitemap.html" target="_blank">网站地图</a>
+			<span class="light">版权所有 © 2013 {$_SERVER['WEB_NAME']}</span>
+			<img class="cxwz" src="{$IMG}index/cxwz.png" alt="可信网址,诚信网址">
+		</div>
+	</div>
+	<div class="overlay"></div>
+	<div id="reg-select">
+		<div class="container">
+			<div id="overlay-content">
+				<div class="close-btn"></div>
+				<div class="title">
+					<h1>请选择你的微信公众号类型：</h1>
+					<h2>注：不同的类型在营销平台中提供的服务模块会有所区别,请按您的公众号类型选择。</h2>
+				</div>
+				<div id="reg-type" class="fn-clear">
+					<a href="/reg.jsp?type=merchant" id="t-merchant"></a>
+					<a href="/#" id="t-taobao"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+<div id="contact">
+	<img src="{$IMG}index/contact.png">
+	<div class="contact_qq">
+       	<ul>
+        	<li><span class="kf-img"><img src="{$IMG}index/qq(1).png"></span><a target="ifra_qq" href="http://wpa.qq.com/msgrd?v=3&uin=2320980777&site=qq&menu=yes" alt="点击这里联系我们" title="点击这里联系我们">客服小佳</a></li>
+        </ul>
+        <div class="tel">18615392555 </div>
+        <div class="daili"><a href="/about/daili.html">合作及代理<br>&nbsp;(猛击此处)</a></div>
+	</div>
+</div>
+
+
+</body></html>

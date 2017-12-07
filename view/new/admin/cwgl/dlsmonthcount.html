@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+    <title></title>
+    <script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	
+    <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span4">
+                                <h3><i class="icon-table"></i>代理商每月业绩汇总  </h3>
+                            </div>
+                            <form action=""  method="post" class="form-horizontal form-validate">
+                            <div class="span8" style="text-align:right; float:right">
+                                <select name="status" id="status"  style="width:140px;">
+                                    <option value="0">--请选择处理状态--</option>
+                                    <option value="1" {if $status == 1}selected{/if}>已处理</option>
+                                    <option value="2" {if $status == 2}selected{/if}>待处理</option>
+                                </select>
+                                <input type="text" name="dlsname" id="dlsname" value="{$dlsname}" class="input-large" placeholder="请输入代理商名称"><button class="btn">查询</button>
+                            </div>
+                            </form>
+                        </div>
+
+                        <div class="box-content">
+                            <div class="row-fluid">
+                                <div class="span12 control-group">
+                                    <div class="span1">
+                                        <a class="btn" id="is_ok_deal" href="javascript:void(0);">审核通过</a>
+                                    </div>
+                                    <!-- <div class="span1">
+                                        <a class="btn" id="is_no_deal" href="javascript:void(0);">待审核</a>
+                                    </div> -->
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row-fluid dataTables_wrapper">
+
+
+                                <table id="listTable" class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="check_all" onclick="selallck(this);" />&nbsp;编号</th>
+                                            <th>时间</th>
+                                            <th>代理商名称</th>
+                                            <th>代理商状态</th>
+                                            <th>商户数量</th>
+                                            <th>理疗师数量</th>
+                                            <th>提成总额</th>
+                                            <th>处理状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    {loop $list as $v}
+                                    <tr>
+                                        <td><input type="checkbox" name="is_ck" value="{$v[id]}" />&nbsp;{$v[id]}</td>
+                                        <td>{$v[time_name]}</td>
+                                        <td>{$v[dis_name]}</td>
+                                        <td>
+                                            <?php if($v[dis_status] == '账号正常'):?>
+                                                <span class="label label-success">{$v[dis_status]}</span> 
+                                            <?php else:?>
+                                                <span class="label label-important">{$v[dis_status]}</span>
+                                            <?php endif;?>
+                                        </td>
+                                        <td>{$v[sh_num]}</td>
+                                        <td>{$v[lls_num]}</td>
+                                        <td>{$v[money_count]}</td>
+                                        <td>
+                                            <?php if($v[deal_status] == '待处理'):?>
+                                                <span class="label label-important">{$v[deal_status]}</span>
+                                                
+                                            <?php else:?>
+                                                <span class="label label-success">{$v[deal_status]}</span> 
+                                            <?php endif;?>
+                                        </td>
+                                        <td>
+                                            <a href="dlsmcview-{$v[id]}.html" id="is_deal" class="btn" title="详情" alt="详情">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {/loop}
+									</table>
+                                <div class="dataTables_paginate paging_full_numbers"><span> {P p} </span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+	<script type="text/javascript">
+        function selallck(o){ 
+            if($(o).prop('checked')){ 
+                $('td').find('input[type="checkbox"]').prop('checked',true);
+            }else{
+                $('td').find('input[type="checkbox"]').prop('checked',false);
+            }
+        }
+        $(function(){
+            $('#is_ok_deal').click(function(){
+                var obj = document.getElementsByName("is_ck");
+                    var ids = [];
+                    for(k in obj){ 
+                        if(obj[k].checked)
+                            ids.push(obj[k].value);
+                    }
+                if(ids == false){
+                    alert("请选择要审核的记录!");
+                    return false;
+                }
+                var mc_id = $('#id').val();
+                var isok = confirm('请核实后点击确认！');
+                var post_type = 'dlsmonthcount';
+                if(isok == true){
+                   
+                    $.ajax({
+                        url: 'dlsmonthcount.html',
+                        type: 'post',
+                        data: { 'types': post_type , 'ids': ids , 'deal_type': '1'},
+                        dataType: 'json',
+                        success:function(data){
+                            if(data.success == true){
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        $(function(){
+            $('#is_no_deal').click(function(){
+                var obj = document.getElementsByName("is_ck");
+                    var ids = [];
+                    for(k in obj){ 
+                        if(obj[k].checked)
+                            ids.push(obj[k].value);
+                    }
+                if(ids == false){
+                    alert("请选择要审核的记录!");
+                    return false;
+                }
+                var mc_id = $('#id').val();
+                var isok = confirm('请核实后点击确认！');
+                var post_type = 'dlsmonthcount';
+                if(isok == true){
+                    
+                    $.ajax({
+                        url: 'dlsmonthcount.html',
+                        type: 'post',
+                        data: { 'types': post_type , 'ids': ids , 'deal_type': '0'},
+                        dataType: 'json',
+                        success:function(data){
+                            if(data.success == true){
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+		
+</body>
+</html>

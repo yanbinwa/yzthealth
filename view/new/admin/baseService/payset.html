@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<script src="http://api.map.baidu.com/api?v=1.5&ak=1b0ace7dde0245f796844a06fb112734"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span8">
+                                <h3><i class="icon-table"></i>支付管理</h3>
+                            </div>
+                            <div class="span4">
+                            </div>
+                        </div>
+                        <div class="box-content nozypadding">
+                            <div class="row-fluid">
+                                <div class="span8 control-group">
+                                    <div class="span3">
+                                        <a class="btn" href="paysetadd.html"><i class="icon-plus"></i>添加支付方式</a>
+                                        <a class="btn" href="javascript:location.reload();"><i class="icon-refresh"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid dataTables_wrapper">
+                                    <table id="listTable" class="table table-hover table-nomargin table-bordered usertable dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th class='with-checkbox'>
+                                                <input type="checkbox" class="check_all" onclick="selallck(this);"></th>
+                                                <th>名称</th>
+                                                <th>支付方式</th>
+                                                <th>收款账户</th>
+                                                <th>排序</th>
+                                                <th>是否启用</th>
+                                                <th>操作</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                        {loop $res as $r}
+											<tr>
+                                                <td class="with-checkbox">
+                                                  <input type="checkbox"  value="{$item->id}">
+                                                </td>
+                                                <td>{$r->pc_name}</td>
+                                                <td>{$r->pc_type}</td>
+                                                <td>{$r->seller_email}</td>
+                                                <td>{$r->pc_order}</td>
+                                                <td width="350">{if $r->pc_enabled == 1}已启用{else}未启用{/if}</td>
+                                                <td class='hidden-480'>
+                                                   {if $r->pc_type == 'alipay'}
+                                                    <a href="alipayadd-{$r->id}.html" class="btn" rel="tooltip" title="Edit"><i class="icon-edit"></i></a>
+                                                    <a href="javascript:void(0);" class="btn" rel="tooltip" title="Delete" attr="" onclick="if(confirm('确定要删除吗？')){ goto('payset-{del}-{$r->id}.html');}"><i class="icon-remove"></i></a>
+                                                   {elseif $r->pc_type == 'wxpay'}
+                                                    <a href="weipayadd-{$r->id}.html" class="btn" rel="tooltip" title="Edit"><i class="icon-edit"></i></a>
+                                                    <a href="javascript:void(0);" class="btn" rel="tooltip" title="Delete" attr="" onclick="if(confirm('确定要删除吗？')){ goto('payset-{del}-{$r->id}.html');}"><i class="icon-remove"></i></a>
+                                                   {elseif $r->pc_type == 'tenpay'}
+                                                    <a href="tenpayadd-{$r->id}.html" class="btn" rel="tooltip" title="Edit"><i class="icon-edit"></i></a>
+                                                    <a href="javascript:void(0);" class="btn" rel="tooltip" title="Delete" attr="" onclick="if(confirm('确定要删除吗？')){ goto('payset-{del}-{$r->id}.html');}"><i class="icon-remove"></i></a>
+                                                   {elseif $r->pc_type == 'ylpay'}
+                                                    <a href="ylpayadd-{$r->id}.html" class="btn" rel="tooltip" title="Edit"><i class="icon-edit"></i></a>
+                                                    <a href="javascript:void(0);" class="btn" rel="tooltip" title="Delete" attr="" onclick="if(confirm('确定要删除吗？')){ goto('payset-{del}-{$r->id}.html');}"><i class="icon-remove"></i></a>
+                                                   {else}
+                                                    <a href="linepayadd-{$r->id}.html" class="btn" rel="tooltip" title="Edit"><i class="icon-edit"></i></a>
+                                                    <a href="javascript:void(0);" class="btn" rel="tooltip" title="Delete" attr="" onclick="if(confirm('确定要删除吗？')){ goto('payset-{del}-{$r->id}.html');}"><i class="icon-remove"></i></a>
+                                                   {/if}
+                                                </td>
+                                            </tr>
+										{/loop}	
+                                        </tbody>
+
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+	</body>
+</html>

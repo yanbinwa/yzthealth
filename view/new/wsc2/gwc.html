@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>
+    购物车    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c4.css">
+    <script type="text/javascript">
+    localStorage.lastbuy = null;
+    localStorage.lastbuynum = 1;
+    </script>
+  </head>
+  <body>
+    <div id="content">
+        <div id="c_wg.jdpay_show" style="">
+            <div class="wx_bar">
+                <div class="wx_bar_back">
+                    <a id="indexBack" href="javascript:history.go(-1);">
+                    </a>
+                </div>
+                <div class="wx_bar_tit">
+                   购物车
+                </div>
+            </div>
+            <div class="wx_wrap">
+                <!-- <div id="bindJd" class="account_tips" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                    您可以绑定京东帐号，
+                    <br>
+                    使用已有地址、优惠券及京豆！
+                    <a href="javascript:void(0);" id="bindJdBtn" class="btn_bind">
+                        立即绑定
+                    </a>
+                    <a href="javascript:void(0);" class="btn_close" id="closeBindJdBtn">
+                        关闭
+                    </a>
+                    <p class="has">
+                        如果未绑定，我们将为您生成一个新的京东帐号
+                    </p>
+                </div> -->
+                
+                <script type="text/javascript">
+                function delgwc(id){
+                	if(confirm('确定将该商品从购物车移除吗？')){
+                		location.href="/wsc2/gwc-"+id+"-del.html";
+                	}
+                }
+                
+                </script>
+                <div class="order_info" id="orderList">
+                    <h3>
+                        购物车列表
+                    </h3>
+                    {loop $glist as $gl}
+                    <dl class="only" style="position: relative;">
+                        <dd>
+                            <ul>
+                                <li class="hproduct">
+                                    <img class="photo" src="{$gl->pic}"
+                                    alt="">
+                                    <p class="fn">
+                                        {$gl->name}
+                                    </p>
+                                    <p class="sku">
+                                        <em>
+                                            单价：
+                                        </em>
+                                        <span>
+                                            ￥<span class="zzdj">{$gl->jg}</span>
+                                        </span>
+                                    </p>
+                                     <p class="sku">
+                                        <em>
+                                            数量：
+                                        </em>
+                                        <span>
+                                            <span class="zzdj">{$gl->num}</span>
+                                        </span>
+                                    </p>
+                                    <p class="sku">
+                                        <em>
+                                           {loop $gl->gglist as $k=>$v}
+                                            {$v}&nbsp;&nbsp;&nbsp;
+                                            {/loop}
+                                        </em>
+                                        <span id="canBuyNum" class="last" style="">可购
+                                            <strong tag="skuNum" class="zzsy">
+                                                {$gl->kc}
+                                            </strong>               件
+                                        </span>
+                                    </p>
+                                </li>
+                                <!-- todox 返赠 || 包含其他情况 -->
+                            </ul>
+                        </dd>
+                        <div style="display:block;position: absolute;right:10px;top:20px;z-index: 100;font-size: 20px;background:none;" onclick="delgwc({$gl->id})">
+                        X
+                        </div>
+                    </dl>
+                    {/loop}
+                </div>
+                {if count($glist)>0}
+                <div class="pay_area" id="pay_area" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+          
+                    <p class="action">
+                        <a href="/wsc2/tobuy.html?showwxpaytitle=1" id="goQQPay" class="qq">
+                            	去结算
+                            <em>
+                            </em>
+                        </a>
+                       
+                    </p>
+                    
+                </div>
+                {else}
+                <div class="pay_area" id="pay_area" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+          
+                    <p class="action">
+                     <a href="/wsc2/index2.html" id="goQQPay" class="qq">
+                            	空空如也，快去逛逛
+                            <em>
+                            </em>
+                        </a>
+                       
+                    </p>
+                    
+                </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+    
+    <!--foot-->
+    <div class="wx_footer">
+        {T /_wf}
+    </div>
+     <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</body>
+  
+
+</html>

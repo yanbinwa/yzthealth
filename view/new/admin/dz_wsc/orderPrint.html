@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="{$CSS}bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+
+    <script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+    <script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+    <script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+    <script type="text/javascript" src="{$JS}jscolor.js"></script>
+    <script type="text/javascript" src="{$JS}inside.js"></script>
+    <style>
+        .ordertitle{
+            text-align:center
+        }
+        .order{
+            margin: 20px 0px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding:10px;
+        }
+        hr{
+            margin: 5px 0;
+        }
+
+    </style>
+</head>
+
+<?php
+$title = '发货单';
+?>
+<body class="{Session::get('maintheme')}">
+<div class="container-fluid">
+    <div class="order" >
+        <div class="ordertitle"><h2>发货单<h2></div>
+        <div class="order-body">
+            <div class="row">
+                <div class="col-lg-3 order-msg"><span>订单编号：{$orderInfo['id']}</span></div>
+                <div class="col-lg-3 order-msg"><span>下单时间：{$orderInfo['create_time']}</span></div>
+                <div class="col-lg-3 order-msg"><span>发货时间：{$orderInfo['send_time']}</span></div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-lg-3 order-msg"><span>收货人：{$orderInfo['shr']}</span></div>
+                <div class="col-lg-3 order-msg"><span>联系方式：{$orderInfo['phone']}</span></div>
+            </div>
+            <hr/>
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-lg-12 order-msg"><span>收货地址：{$orderInfo['s_addr']}</span></div>
+            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>序号</th>
+                    <th>商品编号</th>
+                    <th>商品分类</th>
+                    <th>单价（元）</th>
+                    <th>数量</th>
+                </tr>
+                <?php $i=1;foreach($prolist as $v):?>
+                <tr>
+                    <td><?=$i?></td>
+                    <td>{$v['pid']}</td>
+                    <td>{$v['name']}</td>
+                    <td>{$v['dj']}</td>
+                    <td>{$v['num']}</td>
+                </tr>
+                <?php $i++;endforeach;?>
+                <tr>
+                   <td colspan="5">合计金额：（商品：{$orderInfo['jg']}元  运费：{$orderInfo['yf']}元  实际收款：{$orderInfo['jg']+$orderInfo['yf'] }元） </td>
+                </tr>
+            </table>
+        </div>   
+    </div>
+    <input type="button" class="btn btn-primary" value="开始打印" id="btn" onclick="window.print();">
+</div> 
+ 
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>
+    确认购买
+    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c4.css">
+    
+  </head>
+  <body>
+    <div id="content">
+        <div id="c_wg.jdpay_show" style="">
+            <div class="wx_bar">
+                <div class="wx_bar_back">
+                    <a id="indexBack" href="javascript:history.go(-1);">
+                    </a>
+                </div>
+                <div class="wx_bar_tit">
+                    确认订单
+                </div>
+            </div>
+            <div class="wx_wrap">
+                <!-- <div id="bindJd" class="account_tips" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                    您可以绑定京东帐号，
+                    <br>
+                    使用已有地址、优惠券及京豆！
+                    <a href="javascript:void(0);" id="bindJdBtn" class="btn_bind">
+                        立即绑定
+                    </a>
+                    <a href="javascript:void(0);" class="btn_close" id="closeBindJdBtn">
+                        关闭
+                    </a>
+                    <p class="has">
+                        如果未绑定，我们将为您生成一个新的京东帐号
+                    </p>
+                </div> -->
+                {loop $dzres as $dz}
+                {if $__i==1}
+                <div id="sendTo" class="send_to">
+                    <div class="address_defalut">
+                        <h3>
+                            送至
+                        </h3>
+                        <ul class="selected" id="editAddBtn" onclick="$('.account_tips').toggle();">
+                            <li>
+                                <span id="rginfoId">
+                                <span class="shdz">{$areamap[$dz->s_p]}{$areamap[$dz->s_s]}{$areamap[$dz->s_x]}
+                                {$dz->s_addr}</span>
+                                </span>
+                            </li>
+                            <li>
+                                <strong>
+                                 <span class="shshr">{$dz->shr}</span>
+                                </strong>
+                                <span class="shdh">{$dz->phone}</span>
+                            </li>
+                            <li class="error" id="noToneTip" style="display:block;">
+                                <a href="/nhyk/myaddr.html" style="color: inherit;">点击管理收货地址，方便更快收货。</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {else}
+                <div id="bindJd" class="account_tips" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);display: none;">
+                   <span class="shshr">{$dz->shr}</span>
+                    <br>
+                    <span class="shdh">{$dz->phone}</span>
+                    <a href="javascript:void(0);" id="bindJdBtn" class="btn_bind" onclick="setthisdz(this);">
+                     使用该地址
+                    </a>
+                    <p class="has">
+                        <span class="shdz">{$areamap[$dz->s_p]}{$areamap[$dz->s_s]}{$areamap[$dz->s_x]}
+                                {$dz->s_addr}</span>
+                    </p>
+                </div>
+                {/if}
+                {/loop}
+                <script type="text/javascript">
+                function setthisdz (o){
+                	var tp = $(o).parent();
+                	var shshr = $('#sendTo').find('.shshr').text();
+                	var shdh = $('#sendTo').find('.shdh').text();
+                	var shdz = $('#sendTo').find('.shdz').text();
+                	$('#sendTo').find('.shshr').text(tp.find('.shshr').text());
+                	$('#sendTo').find('.shdh').text(tp.find('.shdh').text());
+                	$('#sendTo').find('.shdz').text(tp.find('.shdz').text());
+                	tp.find('.shshr').text(shshr);
+                	tp.find('.shdh').text(shdh);
+                	tp.find('.shdz').text(shdz);
+                	$('.account_tips').hide();
+                }
+                $(function(){
+                	if(localStorage.lastbuy){
+                		var lastbuy = $.evalJSON(localStorage.lastbuy);
+                		$('.zzdj').text(lastbuy.sell_price);
+                		$('.zzsy').text(lastbuy.store_nums);
+                	}
+                	$('.zzsl').val(localStorage.lastbuynum);
+                	jszjg();
+                });
+                
+                function jszjg(){
+                	var jg = parseFloat($.trim($('.zzdj').text()))*parseInt($.trim($('.zzsl').val()));
+                	$('#totalPrice').text('￥'+jg);
+                }
+                </script>
+                <div class="order_info" id="orderList">
+                    <h3>
+                        订单信息
+                    </h3>
+                    <dl class="only">
+                        <dd>
+                            <ul>
+                                <li class="hproduct">
+                                    <img class="photo" src="{$p->pic}"
+                                    alt="">
+                                    <p class="fn">
+                                        {$p->name}
+                                    </p>
+                                    <p class="sku">
+                                        <em>
+                                            单价：
+                                        </em>
+                                        <span>
+                                            ￥<span class="zzdj">{$p->lowest}</span>
+                                        </span>
+                                    </p>
+                                    <p class="sku">
+                                        <em>
+                                            数量：
+                                        </em>
+                                        <span>
+                                            <input maxlength="4" class="count zzsl" type="tel" value="1" onblur="jszjg()" onkeyup="jszjg()" onchange="jszjg()">
+                                        </span>
+                                        <span id="canBuyNum" class="last" style="">
+                                            可购买
+                                            <strong tag="skuNum" class="zzsy">
+                                                {$p->store_nums}
+                                            </strong>
+                                            件
+                                        </span>
+                                    </p>
+                                </li>
+                                <!-- todox 返赠 || 包含其他情况 -->
+                                <li class="shipping" orderid="1">
+                                    <strong>
+                                        配送方式
+                                    </strong>
+                                    <span id="noSelectPage">
+                                    {if $p->yf=='0'}
+                                        	（免运费）
+                                    {else}
+                                    	（快递：{$p->yf}元）
+                                    {/if}
+                                    </span>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="pay_area" id="pay_area" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                    <p class="price">
+                        总价：
+                        <strong id="totalPrice">
+                            ¥549.00
+                        </strong>
+                    </p>
+                    <p class="action">
+                        <a href="javascript:void(0);" id="goPay" style="display: none;" class="wechat">
+                            微信支付
+                        </a>
+                        <a href="javascript:void(0);" id="goQQPay" style="display:none;" class="qq">
+                            QQ钱包支付
+                            <em>
+                                （新绑卡返5元现金）
+                            </em>
+                        </a>
+                        <a href="javascript:void(0);" id="goTenPay" style="" class="tenpay">
+                            财付通支付
+                        </a>
+                        <a href="javascript:void(0);" id="unionPay" style="display:none;" class="online">
+                            网银在线支付
+                        </a>
+                        <a href="javascript:void(0);" id="codGoPayFloat" style="display:none;">
+                            货到付款
+                        </a>
+                    </p>
+                    <p class="assure">
+                        腾讯担保，安全支付
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="address_tips" style="display:none;" id="alertTip">
+        请完善地址信息
+    </div>
+    <div class="wx_loading" id="wxloading" style="display: none;">
+        <div class="wx_loading_inner">
+            <i class="wx_loading_icon">
+            </i>
+            请求加载中...
+        </div>
+    </div>
+    <div id="codFloat" style="display:none;">
+        <div class="wx_mask">
+        </div>
+        <div class="wx_confirm">
+            <div class="wx_confirm_inner">
+                <div class="wx_confirm_hd">
+                    <div class="wx_confirm_tit">
+                        是否确认提交订单？
+                    </div>
+                    <div class="wx_confirm_close" id="codGoPayCancel2" title="关闭">
+                    </div>
+                </div>
+                <div class="wx_confirm_bd">
+                    <div class="wx_confirm_cont">
+                        <div class="confirm_order">
+                            <p>
+                                付款金额：
+                                <span class="price">
+                                    ¥
+                                    <span id="cod_total">
+                                    </span>
+                                </span>
+                            </p>
+                            <p class="other" style="display:none;">
+                                运费：
+                                <span id="cod_yun_nouse">
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="wx_confirm_btns">
+                        <button type="button" id="codGoPay">
+                            确认
+                        </button>
+                        <button type="cancel" id="codGoPayCancel">
+                            取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--foot-->
+    <div class="wx_footer">
+        <div class="jd_logo">
+        </div>
+    </div>
+     <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</body>
+  
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>店铺管理</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/font_1459473269_4751618.css">
+    <link href="{$CSS}yangsheng2/bootstrap.min.css" rel="stylesheet">
+    <link href="{$CSS}yangsheng2/style.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <script src="{$JS}yangsheng2/bootstrap.min.js"></script>
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="{$CSS}yangsheng2/menu_elastic.css" />
+    <!--[if IE]>
+    <script src="{$JS}yangsheng2/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="huibg">
+<div class="vipcenter">
+    <div class="vipheader">
+        <a href="userinfo.html">
+            <div class="touxiang"><img src="{$fans->headimg}" alt=""></div>
+            <div class="name">{$fans->nickname}</div>
+            <div class="gztt">{$supplier->shopname}</div>
+        </a>
+    </div>
+    <div class="vipsan">
+        <div class="col-xs-4 text-center"><a ><h4>已完成订单</h4><p>{$orders_arr_num}</p></a></div>
+        <div class="col-xs-4 text-center"><a ><h4>未支付订单</h4><p>{$orders_pay_num}</p></a></div>
+        <div class="col-xs-4 text-center"><a ><h4>待落实订单</h4><p>{$orders_array_num}</p></a></div>
+    </div>
+    <ul class="vipul">
+
+        <li>
+            <a href="financial.html">
+                <div class="icc"><i class="iconfont icon-jifenx"></i></div>
+                <div class="lzz">财务管理</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li>
+
+        <li>
+            <a href="shopOrder.html">
+                <div class="icc"><i class="iconfont icon-wenjian2"></i></div>
+                <div class="lzz">店铺订单管理</div>
+                <div class="rizi"><i class="iconfont icon-jiantouri"></i></div>
+            </a>
+        </li>
+
+    </ul>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+</body>
+</html>

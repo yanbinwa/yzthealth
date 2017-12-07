@@ -1,0 +1,138 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9"><meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- Apple devices fullscreen -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- Apple devices fullscreen -->
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<title>{$_SERVER['WEB_NAME']} 代理商登录</title>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="{$CSS}wxb/bootstrap.min.css">
+	<!-- Bootstrap responsive -->
+	<link rel="stylesheet" href="{$CSS}wxb/bootstrap-responsive.min.css">
+	<!-- Theme CSS -->
+	<link rel="stylesheet" href="{$CSS}wxb/style.css">
+	<!-- Color CSS -->
+	<link rel="stylesheet" href="{$CSS}wxb/themes.css">
+	<!-- icheck -->
+	<script src="{$JS}wxb/jquery.icheck.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="{$JS}wxb/bootstrap.min.js"></script>
+
+
+	<!--[if IE]>
+	<style>
+ @font-face{
+ font-family:'FontAwesome';
+ src:url("/font/fontawesome-webfont.eot");
+ src:url("/font/fontawesome-webfont.eot?#iefix") format("embedded-opentype"),
+ url("/font/fontawesome-webfont.woff") format("woff"),
+ url("/font/fontawesome-webfont.ttf") format("truetype"),
+ url("/font/fontawesome-webfont.svg#FontAwesome") format("svg");
+ font-weight:normal;
+ font-style:normal;
+ }
+  @font-face{font-family:'Glyphicons';src:url("../font/glyphicons-regular.eot");
+ src:url("/font/glyphicons-regular.eot?#iefix") format("embedded-opentype"),
+ url("/font/glyphicons-regular.woff") format("woff"),
+ url("/font/glyphicons-regular.ttf") format("truetype"),
+ url("/font/glyphicons-regular.svg#Glyphicons") format("svg");
+ font-weight:normal;
+ font-style:normal;
+ }
+</style>
+		<script src="http://static.uhqq.com/flat/js/plugins/placeholder/jquery.placeholder.min.js"></script>
+		<script>
+			$(function() {	
+				$('input,textarea').placeholder();
+			});
+		</script>
+	<![endif]-->
+	<!-- Apple devices Homescreen icon -->
+	
+<script type="text/javascript">
+if(parent.location!==self.location){ 
+	parent.location.href=self.location.href; 
+} 
+$(function(){
+	$('.wrapper').css('opacity',0);
+	pprsize();
+	setTimeout(function(){
+		$('#manbak').animate({
+			   opacity: 0.9
+		 }, 1000);
+	},500);
+	
+});
+$(window).resize(function(){
+	pprsize();
+});
+function pprsize(){
+	$('#manbak').width($(window).width());
+	$('#manbak').height($(window).height());
+	$('.wrapper').stop().animate({
+		top: ($(window).height()/2-$('.wrapper:visible').height()/2+200)+'px', 
+		   opacity: 0.9
+	 }, 900);
+}
+</script>
+</head>
+
+<body class='login' >
+<img src="/media/images/loginback.png" id="manbak" style="position: absolute;left: 0px;top: 0px;z-index: -1;opacity:0;"/>
+	<div class="wrapper" style="top: -500px;" id="wrapper1">
+		<h1><img style="width: 400px;height: auto;margin: 0;" src="/media/images/reg/htlogo.png"></h1>
+		
+		<div class="login-body">
+		  <h2>{$_SERVER['WEB_NAME']}代理商管理平台！</h2>
+			  <form id="form1" method="post" name="login_form" action="/dls/index.html"  onsubmit="return check()" >
+				<div class="control-group">
+					<div class="email controls">
+						{$m->text('name','tabindex="1" class="input-block-level" placeholder="用户名" autocomplete="off" required="required"  maxlength="100" suggestwidth="340px"')}
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="pw controls">
+					     {$m->password('pwd','tabindex="2" class="input-block-level" placeholder="请输入您的密码" maxlength="20" required="required" autocomplete="off"')}
+					</div>
+				</div>
+				<div class="submit">
+					<div style="float: left;" >
+						{$m->vercode('codearea',60,30,'value="" style="width:100px;float:left;margin-right:10px;" class="base_input code"')}
+						<span id="codearea" style="float:left;"  ></span>
+					</div>
+					
+					<button type="submit" class='btn btn-primary' style="float: right;"><i class="icon-ok-sign"></i>&nbsp;&nbsp;登录</button>
+				</div>
+			</form>
+			<div class="forget">
+				<a href="JavaScript:;"><span>忘记密码请联系管理员</span></a>
+			</div>
+			
+		</div>
+		<h6 align="center">版权归{$_SERVER['WEB_NAME']}所有</h6>
+	</div>
+</body>
+<script type="text/javascript">
+function check()
+{
+	var cansv= true;
+	$("#form1").find('input[type="text"],input[type="password"],select,textarea,password').filter('[required="required"]').each(function(){
+		if($.trim($(this).val())==''){
+			cansv = false;
+			$(this).css('backgroundColor','yellow');
+			$(this).one('focus',function(){
+				$(this).css('backgroundColor','transparent');
+			});
+		}
+	});
+	if(!cansv){
+		G.ui.tips.info('请将信息填写完整'); 
+		return cansv;
+	}
+}
+</script>
+</html>

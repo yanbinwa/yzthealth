@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>微信管家—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript">
+function deldata(id,o){
+	if(confirm('确定要删除该轮播图吗？')){
+		ajax('channel-del.html',{ id:id},function(){
+			location.href = location.href;
+		});
+	}
+}
+</script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>首页频道管理
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+							<div class="row-fluid">
+								<div class="span8 control-group">
+									<a href="channeladd.html" class="btn"><i class="icon-plus"></i>添加频道</a>
+								</div>
+								<div class="span4" style="text-align:right;">
+									
+								</div>
+							</div>
+							<div class="row-fluid dataTables_wrapper">
+								<table id="listTable" class="table table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+										    <th width="20%" >频道名称</th>
+										    <th width="10%" >频道图</th>
+											<th width="10%" >触发类型</th>
+											<th width="40%">链接地址</th>
+											<th width="12%">显示顺序</th>
+											<th width="8%">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									{loop $res as $r}
+									<tr>
+									     <td >{$r->name}</td>
+									     <td ><img class="thumb_img" src="{$r->banner}"  onclick="window.open($(this).attr('src'))" style="max-height:40px;cursor:pointer;">	</td>								  
+									     <td >{$t[$r->type]}</td>
+										 <td >{$r->url}</td>
+									     <td >{$r->px}</td>
+									     <td >
+									     	<a href="channeladd-{$r->id}.html" class="btn"style="width:44%;padding:1% 0%"><i class="icon-edit"></i></a>
+										    <a href="javascript:;" class="btn" onclick="deldata({$r->id},this)"style="width:44%;padding:1% 0%"><i class="icon-remove"></i></a>
+									     </td>
+									</tr>
+									{/loop}
+									  									  									</tbody></table>
+															
+															
+															<div class="row-fluid dataTables_wrapper">
+
+                                <div class="dataTables_paginate paging_full_numbers"><span>{P p}</span></div>
+                            </div>
+															</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    </body>
+</html>

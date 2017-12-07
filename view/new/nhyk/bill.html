@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/helper_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    <body onselectstart="return true;" ondragstart="return false;">
+        <div class="container bill  ">
+	<header>
+		<div class="bill_header">
+			<ul class="bill_detail box">
+				<li>
+					<label>收入:<span>{$ru}</span></label>
+				</li>
+				<li>
+					<label>支出:<span>{$chu}</span></label>
+				</li>
+				<li>
+					<div>
+						<select name="date" id="monthSelectElement">
+						   {loop $d as $v}
+							<option  value="{$v}" {if $date==$v}  selected="selected" {/if} >{$v}</option>
+						   {/loop}
+						</select>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div class="body">
+		<ul class="list_message list_bill">
+		  {if !empty($all)}
+			{loop $all as $v}
+			<li>
+				<a href="javascript:;">
+					<dl class="tbox">
+						<dd>
+							<span class="icon_6"><img src="" class="vhidden"  /></span>
+							{if $v->YYUCSYS_tablename=='micro_membercard_pay_log'}
+							<div>消费</div>
+							{else}
+							<div>收入</div>
+							{/if}
+						</dd>
+						<dd>
+							<h3></h3>
+							<p>{$v->create_time}</p>
+						</dd>
+						<dd>
+							{if $v->YYUCSYS_tablename=='micro_membercard_pay_log'}
+							<label>-{$v->price}元</label>
+							{else}
+							<label>+{$v->price}元</label>
+							{/if}
+						</dd>
+					</dl>
+				</a>
+			</li>
+			{/loop}
+		{/if}
+		</ul>
+	</div>
+	<script>
+	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+		
+			$("#monthSelectElement").on("change",function(){
+				url="bill.html";
+				url= url+"?date="+$("#monthSelectElement").val();
+				setTimeout("location.href='"+url+"'",20);
+			})
+		</script>
+		{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-4.html}
+		  {elseif $wid==6765368 || $wid==6780484||$wid==6788906}
+		  {I footer_yypk.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-4.html}
+        {/if}
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+
+</script></div>     <div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+	</body>
+</html>
+

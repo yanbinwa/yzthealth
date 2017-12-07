@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$webSet->title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="{$CSS}weui/dist/style/weui.css"/>
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/default.css"/>
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/home.css"/>
+    <link type="text/css" rel="stylesheet" href="{$CSS}wxy/list.css"/>
+<style>
+    p, a {
+        font-size: 16px;
+    }
+    .margin-top1{ margin-top: 1rem;}
+</style>
+</head>
+<body>
+
+<div id="homeMain" style="top: 5px;">
+    <div class="margin-top1"></div>
+    <ul class="product_list" id="product_list">
+        
+    </ul>
+</div>
+
+
+<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+<script src="{$JS}wx/dropload.min.js"></script>
+<script>
+
+$(function(){
+    // 页数
+    var page = 0;
+    // dropload
+    $('#homeMain').dropload({
+        scrollArea : window,
+        loadDownFn : function(me){
+
+            // 拼接HTML
+            var result = '';
+            $.ajax({
+                type: 'GET',
+                url: 'http://www.yzthealth.com/wx/therapist-dropload.html?uid={$unid}&page='+page,
+                dataType: 'json',
+                success: function(data){
+                    var arrLen = data.length;
+                    if(arrLen > 0){
+                        for(var i=0; i<arrLen; i++){
+                            result +=   '<li class="p_u_l_click" pid="'+data[i].id+'">'
+                                            +'<div class="product_div">'
+                                                +'<img class="pose" src="{$IMG}wx/product_pose1.png" alt=""/>'
+                                                +'<img class="img_title" data-original="{$IMG}wx/product_pose1.png" src="'+data[i].pic+'" height="75" width="75" title="'+data[i].name+'"/>'
+                                                +'<div class="title">'+data[i].name+' <span class="price">￥'+data[i].rowtemp+'起</span></div>'
+                                                +'<div class="desc"><img src="{$IMG}wx/clock.png" height="13" alt=""><span>'+data[i].lltime+'分钟</span></div>'
+                                                +'<div class="yd_btn">'
+                                                    +'<a href="productId-'+data[i].id+'.html">立即预约</a>'
+                                                +'</div>'
+                                            +'</div>'
+                                        '</li>';
+                        }
+                    // 如果没有数据
+                    }else{
+                        // 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                    }
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        // 插入数据到页面，放到最后面
+                        $('#product_list').append(result);
+                        // 每次数据插入，必须重置
+                        me.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+            page++;
+        }
+    });
+});
+</script>
+</body>
+</html>
+

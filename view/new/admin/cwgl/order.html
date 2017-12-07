@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+</head>
+<body class="{Session::get('maintheme')}" data-theme="theme-blue">
+	
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>提现申请</h3>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <!-- <div class="alert" >
+                                <span style="color:red;font-size:14px;">审核不通过相应的提现金额会返还到提现账户上，请慎重操作！</span>
+                            </div> -->
+                            <form id="form1" action="" method="post" class="form-horizontal form-validate"   onsubmit="return false" >
+                                <div class="control-group">
+                                    <label for="mobile" class="control-label">提现人：</label>
+                                    <div class="controls">
+                                    {$order['rename']}
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label for="mobile" class="control-label">提现总额：</label>
+                                    <div class="controls">
+                                    {$order['total']}
+                                    </div>
+                                </div>
+                                {if $type==1}
+                                <div class="control-group">
+                                    <label for="qq" class="control-label">身份证号：</label>
+                                    <div class="controls">
+                                    {$order['id_card']}
+                                    </div>
+                                </div>
+                                {/if}
+								
+								<div class="control-group">
+                                    <label for="qq" class="control-label">银行类别：</label>
+                                    <div class="controls">
+                                     {$order['bank_name']}
+                                    </div>
+                                </div>
+								
+								 <div class="control-group">
+                                    <label for="qq" class="control-label">账号/卡号：</label>
+                                    <div class="controls">
+                                    {$order['card_num']}
+                                    </div>
+                                </div>
+								
+
+                                <div class="control-group">
+                                    <label for="qq" class="control-label">提现时间：</label>
+                                    <div class="controls">
+                                    {date('Y-m-d H:i:s',$order['created_at'])}
+                                    </div>
+                                </div>
+                               
+                                <div class="control-group">
+                                    <label for="qq" class="control-label">审核状态：</label>
+                                    <div class="controls">
+                                    <?php if ($order['status'] == 1): ?>
+                                        <span class="label label-success">审核完成</span> 
+                                    <?php elseif ($order['status'] == 2): ?>
+                                        <span class="label label-important">已拒绝</span>
+                                    <?php else: ?>
+                                        <span class="label label-important">审核中</span>
+                                    <?php endif ?>
+                                    </div>
+                                </div>
+								<?php if (!$order['status']): ?>
+                                <div class="control-group">
+                                    <button type="button" class="btn btn-success" onclick="review({$order['id']})" style="margin-right:50px">申请通过</button>
+                                    <button type="button" class="btn btn-danger"  onclick="refuse({$order['id']})" >申请拒绝</button>
+                                </div>  
+                                <?php endif ?>
+                                <div class="control-group">
+                                    <label for="qq" class="control-label">
+                                        <?php if ($order['status'] == 1): ?>
+                                            
+                                        <?php elseif ($order['status'] == 2): ?>
+                                            拒绝理由：
+                                        <?php else: ?>
+                                           拒绝理由：
+                                        <?php endif ?>
+                                        
+                                    </label>
+                                    <div class="controls">
+                                        <?php if ($order['status'] == 1): ?>
+                                            
+                                        <?php elseif ($order['status'] == 2): ?>
+                                            {$order['refuse_data']}
+                                        <?php else: ?>
+                                            <input type="text" name="refuse_data" class="refuse_data" id="refuse_data" value="" placeholder="拒绝理由" />
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    
+                                    <h4 style="color: red;">以下是申请提现时的账户信息</h4>
+                                    
+                                    <div class="controls">
+                                        
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="qq" class="control-label">账户名：</label>
+                                    <div class="controls">
+                                    {$order['rename']}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="qq" class="control-label">银行类别：</label>
+                                    <div class="controls">
+                                    {$banktype[$order['bank_id']]}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="qq" class="control-label">银行卡号：</label>
+                                    <div class="controls">
+                                    {$order['card_num']}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function review(id){
+		if (confirm("确定审核通过该提现？")){
+			$.getJSON('withdrawals.html', { type: 'review', oid: id }, function(json, textStatus) {
+				if (json.success) {
+					alert('审核成功');
+				}else{
+					alert(json.msg);
+				}
+				location.reload();
+			});
+		}
+    }
+
+    function refuse(id){
+	  if (confirm("确定拒绝该提现？")){ 
+        var refuse_data = $(".refuse_data").val();
+        $.getJSON('withdrawals.html', { type: 'refuse', oid: id , refuse_data: refuse_data}, function(json, textStatus) {
+            if (json.success) {
+                alert('您已成功拒绝');
+            }else{
+                alert(json.msg);
+            }
+            location.reload();
+        });
+	  }
+    }
+    </script>
+
+</body>
+</html>

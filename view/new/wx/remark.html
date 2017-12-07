@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$wechatset->title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+<link rel="stylesheet" href="{$CSS}wxy/weui.min.css">
+<link rel="stylesheet" href="{$CSS}wxy/jquery-weui.css">
+<style type="text/css" media="screen">
+
+.demos-title {
+  text-align: center;
+  font-size: 34px;
+  color: #3cc51f;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.demos-sub-title {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+.demos-header {
+  padding: 35px 0;
+}
+.demos-content-padded {
+  padding: 15px;
+}
+.demos-second-title {
+  text-align: center;
+  font-size: 24px;
+  color: #3cc51f;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.position{ position: fixed;width: 100%; bottom: 0; left:0;z-index: 99; }
+
+</style>
+</head>
+<body>
+<form action="remark.html" method="post"  id="form1">
+<div class="weui-cells weui-cells_form">
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="name" class="weui-label">评价等级</label></div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" id="mobile" type="text" name="llshop" value="" placeholder="选择评价等级" required="required">
+          <input class="weui-input" id="remark_type" type="hidden" name="remark_type" value="">
+        </div>
+      </div> 
+  
+<div class="weui-cell">
+    <div class="weui-cell__bd">
+      <textarea class="weui-textarea" name="remarks" id="remarks" placeholder="请对理疗服务给予评论" rows="3"></textarea>
+      <div class="weui-textarea-counter"><span>0</span>/200</div>
+    </div>
+  </div>   
+</div>
+ <input class="weui-input" type="hidden" name="remarkId" value="{$orderId}">
+<input type="submit" value="发表评论" class="weui-btn weui-btn_primary position" onclick="return checkform(this.form)">
+
+</form>
+
+<script src="{$JS}wx/fastclick.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script src="{$JS}wx/jquery-weui.js"></script>
+<script>
+$("#mobile").select({
+  title: "选择评价等级",
+  items: [
+    {
+      title: "好评",
+      value: "1",
+    },
+    {
+      title: "中评",
+      value: "2",
+    },
+    {
+      title: "差评",
+      value: "3",
+    }
+  ]
+});  
+function checkform(){
+      var remarks  = $("#remarks").val();
+      var type = $("#mobile").data("values");   
+      console.log(type); 
+      $("#remark_type").val(type);  
+      if(type==undefined){
+         tusi("选择评价等级");
+          return false ;
+      }   
+      return true ;         
+  }  
+    </script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+</body>
+</html>

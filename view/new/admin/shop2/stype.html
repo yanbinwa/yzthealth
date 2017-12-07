@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<title>微信管家—国内最大的微信公众服务平台</title>
+	<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+	<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+	<style type="text/css">
+        a.tag {
+            font-size: 12px;
+            min-height: 27px;
+            display: inline-block;
+            line-height: 27px;
+            padding: 0 10px;
+            position: relative;
+            background-color: #fff;
+            border-radius: 2px;
+            margin: 0 7px 8px 0;
+            border: 1px solid #aaa;
+            cursor: pointer;
+            color: rgb(102, 102, 102);
+            text-decoration: none;
+        }
+        a.tag:hover {
+                background-color: #eaeaea;
+        }
+        a.tag_select, .tag_wrap .tag_select:hover {
+            color: #b46e00;
+            background-color: #ffe690;
+            border: 1px solid #e7b75b;
+        }
+</style>
+
+<script type="text/javascript">
+function addlev1(){
+	$('#lbmain').append($('#lbdemo').html());
+	$('#lbmain').find('table:last').find('tr').eq(1).remove();
+	$('#lbmain').find('table:last').find('tr').find('input[type="text"]').eq(0).focus().select();
+	
+	loadelfinder($('#lbmain').find('table:last').find('tr').find('button'));
+}
+function addsubtyp(o){
+	var tr = $(o).parent().parent();
+	var newtr = addsubtyptr(tr);
+	newtr.find('input[type="text"]').eq(0).focus().select();
+}
+function addsubtyptr(tr){
+	var level = parseInt(tr.attr('level'));
+	var newtr = $('#lbdemo').find('tr').eq(1).clone();
+	newtr.attr('level',level+1);
+	newtr.attr('pid',tr.attr('mid'));
+	newtr.find('.flmctxt').css('marginLeft',(level*10)+'px');
+    var level1 = level+1;
+	var x = 1000;     
+	var y = 50;     
+    var rand = parseInt(Math.random() * (x - y + 1) + y);  
+	    
+	newtr.find('img').eq(0).attr('id','pic_qianczp'+level1+rand);
+	newtr.find('img').eq(0).attr('relobj','elfinder_czp'+level1+rand);	
+	newtr.find('img').eq(1).attr('id','pic_qiancfp'+level1+rand);
+	newtr.find('img').eq(1).attr('relobj','elfinder_cfp'+level1+rand);
+	
+	newtr.find('button').eq(0).attr('id','czp'+level1+rand);
+	newtr.find('button').eq(1).attr('id','cfp'+level1+rand);
+	loadelfinder(newtr.find('button'));
+	
+	var qygtr = tr.parent().find('tr[pid="'+tr.attr('mid')+'"]:last');
+	//var qygtr = tr.parent().find('tr[level="'+(level+1)+'"]:last');
+	if(qygtr.size()==0){
+		qygtr = tr;
+	}
+	qygtr.after(newtr);	
+	return newtr;
+}
+
+function loadsub(tr){
+	ajax('stype.html',{ ld:'ld',id:tr.attr('mid')},function(m){
+		for(var i=0;i<m.length;i++){
+			var str = addsubtyptr(tr);
+			str.find('input[type="text"]').eq(0).val(m[i].name);
+			str.find('input[type="text"]').eq(1).val(m[i].ms);
+			str.find('input[type="text"]').eq(2).val(m[i].img);
+			str.find('input[type="text"]').eq(3).val(m[i].logimg);
+			
+			str.find('img').eq(0).attr('id','pic_qiancz'+m[i].id);
+			str.find('img').eq(0).attr('src',m[i].img);
+			str.find('img').eq(0).attr('relobj','elfinder_cz'+m[i].id);	
+			str.find('img').eq(1).attr('id','pic_qiancf'+m[i].id);
+			str.find('img').eq(1).attr('src',m[i].logimg);
+			str.find('img').eq(1).attr('relobj','elfinder_cf'+m[i].id);
+			
+			
+			str.find('button').eq(0).attr('id','cz'+m[i].id);
+			str.find('button').eq(1).attr('id','cf'+m[i].id);
+			loadelfinder(str.find('button'));
+			
+			str.attr('soname',m[i].name);
+			str.attr('soimg',m[i].img);
+			str.attr('ms',m[i].ms);
+			str.attr('logimg',m[i].logimg);
+			str.attr('mid',m[i].id);
+			str.attr('pid',m[i].pid);
+			loadsub(str);
+		}
+	});
+}
+$(function(){
+	$('#lbmain').find('tr').each(function(){
+		loadsub($(this));
+	});
+});
+function adeltyp(o){
+	if(confirm('确定删除该类别及其子类别吗？')){
+		var tr = $(o).parent().parent();
+		ajax('stype.html',{ cz:'d',id:tr.attr('mid')},function(m){
+			if(m=='ok'){
+				sirdel(tr);
+				tusi('删除成功');
+			}
+		});
+	}
+	
+}
+function sirdel(tr){
+	$('tr[pid="'+tr.attr('mid')+'"]').each(function(){
+		sirdel($(this));
+	});
+	if(tr.find('th').size()>0){
+		if(tr.parent().parent().is('table')){
+			tr.parent().parent().remove();
+		}else if(tr.parent().is('table')){
+			tr.parent().remove();
+		}
+	}else{
+		tr.remove();
+	}
+	
+}
+function syndata(o){
+	var tr = $(o).parent().parent();
+	var cz = 'a';
+	if($.trim(tr.attr('mid'))!=''){
+		cz = 'u';
+	}
+	var name = $.trim(tr.find('input[type="text"]').eq(0).val());
+	var ms = $.trim(tr.find('input[type="text"]').eq(1).val());
+	var img = $.trim(tr.find('img').eq(0).attr('src'));
+	var imgc = $.trim(tr.find('img').eq(1).attr('src'));
+	
+	if(tr.attr('soname')!=name || tr.attr('soimg')!=img || tr.attr('ms')!=ms || tr.attr('logimg')!=imgc ){
+		$('body').mask('同步更新中...');
+		ajax('stype.html',{ cz:cz,id:tr.attr('mid'),pid:tr.attr('pid'),name:name,ms:ms,img:img,imgc:imgc},function(id){
+
+			
+			tr.find('img').eq(0).attr('id','pic_qianczp'+id);
+			tr.find('img').eq(0).attr('relobj','elfinder_czp'+id);	
+			tr.find('img').eq(1).attr('id','pic_qiancfp'+id);
+			tr.find('img').eq(1).attr('relobj','elfinder_cfp'+id);
+			
+			tr.find('button').eq(0).attr('id','czp'+id);
+			tr.find('button').eq(1).attr('id','cfp'+id);
+			
+			tr.attr('mid',id);
+			tr.attr('soname',name);
+			tr.attr('soimg',img);
+			tr.attr('ms',ms);
+			tr.attr('logimg',imgc);
+			$('body').unmask();
+		});
+	}	
+}
+function savetypes()
+{
+	var trlen,img,logimg,j,mid,poststr,poststra;
+	
+    $(function(){
+	    $('body').mask('同步更新中...');
+    	$('#lbmain table').each(function(i){
+    		trlen = $(this).find('tr').length;
+    		for(j=0;j<trlen;j++)
+        	{
+    			 poststr = '';
+            	 img    = $.trim($(this).find('tr').eq(j).find('img').eq(0).attr('src'));
+            	 logimg = $.trim($(this).find('tr').eq(j).find('img').eq(1).attr('src'));
+            	 mid    = $(this).find('tr').eq(j).attr('mid');
+            	 poststr = mid+'|'+img+'|'+logimg;
+				 
+                 if(poststra!='')
+            	 poststra = poststra +','+ poststr;
+                 else
+                 poststra =  poststr;
+        	}
+    		
+        });
+		ajax('stype-st.html',{ poststr:poststra},function(id){
+		  	  $('body').unmask();
+			  alert('保存成功');
+              
+		});
+    });
+}
+</script>
+</head>
+<body class="{Session::get('maintheme')}">
+    <div id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span8">
+                                <h3><i class="icon-table"></i>微商城产品分类设置<small></small></h3>
+                            </div>
+                        </div>
+                        <div class="box-content">
+							<div class="alert" style="font-size:15px;">
+							   <span class="member-count" >温馨提示:    &nbsp;&nbsp;  logo1图片的建议尺寸推荐：375像素X235像素 &nbsp; logo2图片的建议尺寸推荐：130像素X100像素</span>
+							</div>
+                            <div class="row-fluid">
+                            <div class="row-fluid  control-group"><button class="btn btn-primary" id="set_all_customer" onclick="addlev1()">添加一级分类</button></div>
+                            <div class="row-fluid dataTables_wrapper" id="lbmain">
+	                            {loop $res as $r}                            
+	                            <table id="demotable" class="table table-bordered table-hover dataTable">
+	                                    <tr pid='0' mid='{$r->id}' level="1" soname="{$r->name}" soimg="{$r->img}"  ms="{$r->ms}" logimg="{$r->logimg}" >
+	                                            <th style="width:60%;">
+	                                            	<input type="text" class="flmctxt" style="width:10%" value="{$r->name}" onblur="syndata(this)" onclick="$(this).select();"/>
+	                                            	描述：<input type="text" class="flmctxt" style="width:60%"  value="{$r->ms}" onblur="syndata(this)" onclick="$(this).select();"/>                                              	
+	                                            </th>
+	                                            <th>
+			                                       <div class="controls">   
+													    	<img class="thumb_img" src="{$r->img}" id="pic_qian{$r->id}" relobj="elfinder_qian{$r->id}" onclick="window.open($(this).attr('src'))" style="max-height:30px;cursor:pointer;">								
+															<span class="help-inline">
+																<button class="btn select_img" type="button"  rel="yyuc" relobj="elfinder" id="qian{$r->id}" title="600*300">logo1</button>
+																<!-- <span class="help-inline">600*300</span> -->
+															</span>
+															<img class="thumb_img" src="{$r->logimg}" id="pic_qianz{$r->id}" relobj="elfinder_qianz{$r->id}"  onclick="window.open($(this).attr('src'))" style="max-height:30px;cursor:pointer;">								
+															<span class="help-inline">
+																<button class="btn select_img" type="button"  rel="yyuc" relobj="elfinder" id="qianz{$r->id}" title="130*100">logo2</button>
+																<!-- <span class="help-inline">130*100</span> -->
+															</span>
+												   </div>
+	                                            </th>
+	                                            <th  style="width:10%;">
+	                                           <!-- <a href="javascript:;" onclick="addsubtyp(this)">添加</a>
+	                                           	<a href="javascript:;" onclick="adeltyp(this)">删除</a>-->
+												<a href="javascript:;" onclick="addsubtyp(this)" class="btn" rel="tooltip" style="width:40%;padding:1% 0%"><i class="icon-table"></i>添加</a>
+                                                <a href="javascript:;" onclick="adeltyp(this)" class="btn" rel="tooltip" style="width:50%;padding:1% 0%"><i class="icon-remove"></i>删除</a>
+												</th>
+	                                    </tr>  
+	                            </table>
+	                            {/loop}
+                            </div>
+                            <div class="dataTables_paginate paging_full_numbers"><button class="btn btn-primary" onclick="savetypes()">保存</button></div>
+                            
+                            
+							<div class="row-fluid dataTables_wrapper" id="lbdemo" style="display:none;">
+                                <table id="demotable" class="table table-bordered table-hover dataTable">
+                                        <tr pid='0' mid='' level="1">
+                                            <th style="width:60%;">
+                                            	<input type="text" class="flmctxt" style="width:10%"  value="分类名称" onblur="syndata(this)" onclick="$(this).select();"/>
+                                            	描述：<input type="text" class="flmctxt" style="width:60%"  onblur="syndata(this)" onclick="$(this).select();"/>     
+                                            </th>
+                                            <th>
+                                            <div class="controls">                        
+												<img class="thumb_img" src="http://www.weixinguanjia.cn/media/images/shop/mrflei.png"  id="pic_qianc1z" relobj="elfinder_c1z" onclick="window.open($(this).attr('src'))" onchange="syndata(this)" style="max-height:20px;cursor:pointer;">								
+													<span class="help-inline">
+														<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="c1z" >logo1</button>
+														<span class="help-inline"></span>
+													</span>
+											   <img class="thumb_img" src="http://www.weixinguanjia.cn/media/images/shop/mlogo.png" id="pic_qiancf1" relobj="elfinder_cf1" onclick="window.open($(this).attr('src'))"  style="max-height:20px;cursor:pointer;">
+												<span class="help-inline">
+													<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="cf1">logo2</button>
+													<span class="help-inline"></span>
+												</span>
+											</div>
+                                            </th>
+                                            <th  style="width:10%;">
+                                            <a href="javascript:;" onclick="addsubtyp(this)" class="btn" rel="tooltip" style="width:40%;padding:1% 0%"><i class="icon-table"></i>添加</a>
+                                                <a href="javascript:;" onclick="adeltyp(this)" class="btn" rel="tooltip" style="width:50%;padding:1% 0%"><i class="icon-remove"></i>删除</a>
+												</th>
+                                        </tr>
+									    <tr pid='' mid='' level="2">
+                                            <td style="width:60%;">                                            	
+												<input type="text" class="flmctxt" style="width:10%" value="分类名称" onblur="syndata(this)" onclick="$(this).select();"/>
+												描述：<input type="text" class="flmctxt" style="width:60%"  onblur="syndata(this)" onclick="$(this).select();"/>       
+												</td>
+                                            <td>
+                                            <div class="controls">     
+                                                               
+											    <img class="thumb_img" src="http://www.weixinguanjia.cn/media/images/shop/mrflei.png" id="pic_qiancz1" relobj="elfinder_cz1" onclick="window.open($(this).attr('src'))"  style="max-height:20px;cursor:pointer;">
+												<span class="help-inline">
+													<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="cz1" >logo1</button>
+													<span class="help-inline"></span>
+												</span>
+												
+											   <img class="thumb_img" src="http://www.weixinguanjia.cn/media/images/shop/mlogo.png" id="pic_qiancf1" relobj="elfinder_cf1" onclick="window.open($(this).attr('src'))"  style="max-height:20px;cursor:pointer;">
+												<span class="help-inline">
+													<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="cf1">logo2</button>
+													<span class="help-inline"></span>
+												</span>
+												
+											</div>
+                                            </td>
+                                            <td  style="width:10%;">
+                                            <a href="javascript:;" onclick="addsubtyp(this)" class="btn" rel="tooltip" style="width:40%;padding:1% 0%"><i class="icon-table"></i>添加</a>
+                                                <a href="javascript:;" onclick="adeltyp(this)" class="btn" rel="tooltip" style="width:50%;padding:1% 0%"><i class="icon-remove"></i>删除</a>
+												</th>
+                                        </tr>    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+    </div>
+    </body>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    <script type="text/javascript">
+    function setpic(imgid,hideid){
+    	window.piccbk = function(m){
+    		$('#'+imgid).attr('src',m);
+    		$('#'+hideid).val(m);
+    		//window.piccbk = null;
+    	}
+    	window.curpic = null;
+    	openpicset();	
+    } 
+    function openpicset(){
+    	pophtml('<iframe src="../businessModule/wspicif.html" style="width:530px;height:470px;border:none;background-color: #dfdfdf;" width="530px" height="475px"></iframe>',570,510,true);
+    }
+
+    </script>
+</html>

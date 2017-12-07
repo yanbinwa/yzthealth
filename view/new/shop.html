@@ -1,0 +1,88 @@
+
+<html lang="">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$set->title}</title>
+    <meta name="keywords" content="{$set->keywords}" />
+    <meta name="description" content="{$set->description}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="{$CSS}web/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$CSS}web/font-awesome.min.css">
+	<link href="{$CSS}web/inner.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/menu.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/slider.css?v=10.6" rel="stylesheet">
+	<link href="{$CSS}web/index.css?v=10.6" rel="stylesheet">
+	<script type="text/javascript" src="{$JS}web/jquery-1.10.2.min.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/menu/mobile_menu.js?v=10.6"></script> 
+	<script type="text/javascript" src="{$JS}web/menu/main_menu.js?v=10.6"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0">
+	<style>
+.home-icon-2 img {
+    width: 60px;
+	height: 23px;
+	margin-bottom: 6px;
+}
+.inner-nav-1 { font-size:16px;}
+.jian-boxs{ padding: 10px; background-color: #fff;border: 1px solid #e6e6e6;}
+.jian-boxs p{ text-indent: 2rem; margin-top:1rem;}
+</style>
+</head>
+
+<body>
+{T head}
+
+<div class="inner-content-2">
+	<div class="container">
+
+		<div class="inner-nav-1">
+		    <span class="home-icon-2">
+		    	<a href="index.html">
+		    		<img src="{$IMG}web/location.png">
+		    	</a>
+		    </span>
+		    <a href="shop.html">店铺展示</a>
+		</div>
+	             
+		<div class="jian-bottom">
+			<div class="row">
+				{loop $list as $r}
+			    <div class="col-sm-4">
+			        <div class="jian-boxs">
+			            <a href="product-{$r->id}.html" target="_blank">
+			                <div class="jian-brand">
+			                    <table width="100%" border="0">
+			                        <tbody><tr>
+			                            <td>
+			                               
+			                                <div class="jb-text"><h4>{$r->name}</h4></div>
+			                             </td>
+			                         </tr>
+			                    </tbody></table>
+			                 </div>
+			                <div class="jian-pic"><img src="{$r->pic}" alt="{$r->name}" style="height:240px" class="img-responsive"></div>
+			                <p>{$r->introduction}...</p>
+
+			             </a>
+			        </div>
+			    </div>
+			    {/loop} 
+
+		    </div>
+		  <!--健康产品 产品推荐-->
+		</div>
+		<!-- 分页条开始 -->
+				<div class="pageBar">
+					<div class="fenye">
+						<div class="ye-num">
+							{P p}
+						</div>
+					</div>
+				</div>
+				<!--  分页条结束-->
+	</div>
+</div>
+{T footer}
+
+</body>
+</html>        

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <title></title>
+  <meta name="keywords" content="">
+  <link href="{$CSS}hw/vmcss2.css" rel="stylesheet" type="text/css">
+  <link href="{$CSS}hw/main.css" rel="stylesheet" type="text/css">
+  <script src="{$JS}hw/h.js"></script>
+  <script src="{$JS}hw/hianalytics.js"></script>
+  <link href="{$CSS}bootstrap.min.css" rel="stylesheet" type="text/css">
+
+  <style>
+    .button-top{
+      background: rgba(0,0,0, 0.3) url({$IMG}hw/top.png);
+      -webkit-background-size: 100% 100%;
+      background-size: 100% 100%;
+    }
+  </style>
+</head>
+
+
+<body>
+
+<div class="index-top">
+  <!-- 21030531-头部-start -->
+  <header class="header" id="index-header"> <!-- 21030531-logo-start -->
+    
+    <section class="search" style="width:80%;left:3.5em"> 
+      <a id="indexSearch" href="index3.html" onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;click icon3&#39;, &#39;click&#39;, &#39;记录【搜索】按钮的点击次数&#39;])"> 
+        <input type="text" placeholder="查找商品"> 
+        <em class="icon-search"></em> 
+      </a> 
+    </section> 
+  </header>
+  <!-- 21030531-头部-start -->
+</div>
+
+<!-- 21030306-首页焦点图-start -->
+<section class="pro-gallery pro-gallary2">
+	<article class="slider" id="focusImg">
+        <div id="slider" style="overflow: hidden; visibility: visible;">
+            <ul style="width: 5418px; list-style: none; margin: 0px; transition-duration: 300ms; transform: translate3d(-3870px, 0px, 0px);">    
+            {loop $tjres as $tj}            
+                <li style="width: 774px; display: table-cell; vertical-align: top;"><a href="/wsc2/pro-{$tj->id}.html" ><img src="{$tj->pic2}"></a></li>
+            {/loop}
+            </ul>
+        </div>
+        <nav class="slider-btn" id="sliderNav">
+            <span id="slider-btn"><em class=" ">&nbsp;</em>&nbsp;<em class=" ">&nbsp;</em>&nbsp;<em class=" ">&nbsp;</em>&nbsp;<em class=" ">&nbsp;</em>&nbsp;<em class="on">&nbsp;</em>&nbsp;<em class=" ">&nbsp;</em>&nbsp;<em class=" ">&nbsp;</em></span>
+        </nav>
+	</article>
+</section>
+<!-- 21030306-首页焦点图-end -->
+
+<!-- 20140328-快捷九宫格导航-start -->
+<article class="quickNaver">
+  <ul class="clearfix">
+      <li><a href="/wsc2/index1.html"><i class="icon-classify"></i><p>分类</p></a></li>
+      <li><a href="/wsc2/gwc.html"><i class="icon-account"></i><p>购物车</p></a></li>
+      <li><a href="/wsc2/ddlist.html"><i class="icon-orderm"></i><p>订单</p></a></li>
+      <li><a href="/nhyk/index.html"><i class="icon-promo"></i><p>会员卡</p></a></li>
+  </ul>
+</article>
+<!-- 20140328-快捷九宫格导航-end -->
+
+<!--促销商品 update start by dwx285206 20150706-->
+<section class="channel-floor">
+<article class="recs">
+  <header class="h clearfix">
+    </header>
+    <div class="b">
+	 	  	<ul>
+        <?php if(count($tj24)>=3){ ?>
+	 	  		<li>
+	 	  			<div class="first">
+	 	  				<a href="/wsc2/pro-{$tj24['0']->id}.html">
+	 	  					<img src="{$tj24['0']->pic}">
+	 	  					<div class="name">
+	 	  						<h3 class="p-name">{$tj24['0']->name}</h3>
+	              				<p class="p-promotion">{$tj24['0']->ms}</p>
+	             				<p class="p-price"><b>¥ {$tj24['0']->lowest}</b></p>
+	 	  					</div>
+	 	  					<i class="tag-home5"></i>
+	 	  				</a>
+	 	  			</div>
+	 	  		</li>
+	 	  		<li>
+	 	  			<div class="normal">
+	 	  				<a href="/wsc2/pro-{$tj24['1']->id}.html">
+	 	  					<img src="{$tj24['1']->pic}">
+	 	  					<div class="name">
+	 	  						<h3 class="p-name">{$tj24['1']->name}</h3>
+	              				<p class="p-promotion">{$tj24['1']->ms}</p>
+	             				<p class="p-price"><b>¥ {$tj24['1']->lowest}</b></p>
+	 	  					</div>
+	 	  					<i class="tag-home5"></i>
+	 	  				</a>
+	 	  			</div>
+	 	  			<div class="normal">
+	 	  				<a href="/wsc2/pro-{$tj24['2']->id}.html">
+	 	  					<img src="{$tj24['2']->pic}">
+	 	  					<div class="name">
+	 	  						<h3 class="p-name">{$tj24['2']->name}</h3>
+	              				<p class="p-promotion">{$tj24['2']->ms}</p>
+	             				<p class="p-price"><b>¥ {$tj24['2']->lowest}</b></p>
+	 	  					</div>
+	 	  					<i class="tag-home5"></i>
+	 	  				</a>
+	 	  			</div>
+	 	  	</li>
+        <?php }?>
+      </ul>
+      <?php for ($i=0; $i <2 ; $i++) { ?>
+        <ul>
+          <?php for ($n=0; $n <2 ; $n++) {
+              if(isset($tj7[$i*2+$n])){
+           ?>
+            <li>
+              <div class="normal">
+                <a href="/wsc2/pro-{$tj7[$i*2+$n]->id}.html">
+                  <img src="{$tj7[$i*2+$n]->pic}">
+                  <div class="name">
+                    <h3 class="p-name">{$tj7[$i*2+$n]->name}</h3>
+                          <p class="p-promotion">{$tj24['0']->ms}</p>
+                        <p class="p-price"><b>¥ {$tj7[$i*2+$n]->lowest}</b></p>
+                  </div>
+                  <i class="tag-home1"></i>
+                </a>
+              </div>
+            </li>
+          <?php }else break 2;}?>
+        </ul>
+      <?php }?>
+	 </div>
+</article>
+</section>
+<!--促销商品 update end by dwx285206 20150706-->
+
+{if $fcount!=0}
+<!-- 20140703-热门搜索-start -->
+<section class="channel-floor">
+  <article class="hot-search">
+    <header class="h clearfix">
+      <h3 class="title"><span>商品圈</span></h3>
+    </header>
+    <div class="b">
+  		<?php for ($i=0; $i <=1 ; $i++) { ?>
+      <ul>    
+      <?php for ($n=0; $n <=2 ; $n++){ 
+              if(isset($fzres[3*$i+$n])){
+          ?>
+
+          <li><a href="/wsc2/grp-{$fzres[3*$i+$n]->id}.html"><div class="list"> <span><?= $fzres[3*$i+$n]->name ?></span> </div></a> </li>
+      <?php }else break 2; } ?>
+      </ul>
+      <?php } ?>
+    </div>
+  </article>
+</section>
+<!-- 20140703-热门搜索-end -->
+{/if}
+
+<!--20150706 热销商品 start update by dwx285206 -->
+<section class="channel-floor">
+<article class="selects">
+    <header class="h clearfix">
+      <h3 class="title"><span>精品推荐</span><span style="float:right;font-size:12px;margin:5px 10px 0 0"><a href="index2.html">查看更多>> </a></span></h3>
+    </header>
+    <div class="b">
+        <?php for ($i=2; $i <5 ; $i++) { ?>
+        <ul>
+          <?php for ($n=0; $n <2 ; $n++) {
+              if(isset($tj7[$i*2+$n])){
+           ?>
+            <li>
+              <div class="normal">
+                <a href="/wsc2/pro-{$tj7[$i*2+$n]->id}.html">
+                  <img src="{$tj7[$i*2+$n]->pic}">
+                  <div class="name">
+                    <h3 class="p-name">{$tj7[$i*2+$n]->name}</h3>
+                          <p class="p-promotion">{$tj24['0']->ms}</p>
+                        <p class="p-price"><b>¥ {$tj7[$i*2+$n]->lowest}</b></p>
+                  </div>
+                  <i class="tag-home1"></i>
+                </a>
+              </div>
+            </li>
+          <?php }else break 2;}?>
+        </ul>
+      <?php }?>
+    </div>
+  </article>
+</section>
+<!--20150706 热销商品 end update by dwx285206 -->
+<!-- 21040522-悬浮工具栏-start -->
+<section class="hungBar"> <a href="#" class="button-top"><span class="glyphicon glyphicon-chevron-up">返回顶部</span></a> </section>
+<!-- 21040522-悬浮工具栏-end -->
+<script src="{$JS}hw/ecWap.js"></script>
+<script src="{$JS}hw/base.js"></script>
+<script src="{$JS}hw/index.js"></script>
+
+<section id="bottom-area" class="bottom-area">  
+  <p class="copyright"><span>Copyright © 2015-2020</span></p>
+</section>
+</body>
+</html>

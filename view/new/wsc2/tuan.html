@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>团购首页</title>
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <link href="{$CSS}/tuan/main.css" rel="stylesheet" />
+    <link href="{$CSS}/tuan/dialog.css" rel="stylesheet" />
+
+<script>
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    WeixinJSBridge.call('hideToolbar');
+});
+</script>
+
+    <script src="{$JS}mwm/hotel/jquery.min.js"></script>
+    <script src="{$JS}/mwm/tuan/swipe.js"></script>
+    <script src="{$JS}mwm/hotel/dialog_min.js"></script>
+    <script src="{$JS}/mwm/tuan/global.js"></script>
+</head>
+
+<body onselectstart="return true;" ondragstart="return false;" class="gbuy_grid">
+
+<script>
+    $(function(){
+        window.swiper = new Swipe(document.getElementById('list_uls'), {
+            speed:500,
+            // auto:3000,
+            callback: function(){
+                $("#nav_list_uls li").removeClass("on").eq(this.index).addClass("on");
+            }
+        });
+        /* window.shareData = {
+	        "imgUrl": "http://img.weimob.com/aa/76/27/7_120443/image/20140724/20140724143739_63209.jpg", 
+	        "timeLineLink": location.href,
+	        "sendFriendLink": location.href,
+	        "weiboLink": location.href,
+	        "tTitle": "2432",
+            "tContent": "3223",
+	        "fTitle": "2432",
+            "fContent": "3223",
+            "wContent": "3223" 
+        }; */
+    })
+</script>
+
+<div>
+    <div id="container" class="container animate">
+        <header></header>
+        <div class="body ofh">
+            <section>
+                <ul id="nav_list_uls" class="nav_list_uls box">
+                	<li class="on">&nbsp;</li>
+               		{loop $tuan as $k=>$tu}
+               		{if $k >0}
+                   <li>&nbsp;</li>
+                   	{/if}
+                 	{/loop}
+                 
+                </ul>
+            </section>
+            <section id="list_uls" class="list_section box_swipe">
+                <ul class="gbuy_list_grid">
+                	{loop $tuan as $tu}
+                     <li>
+                            <a href="/wsc2/tuanpro-{$tu->id}.html?mm=1" >
+                                <div>
+                                    <figure>
+                                        <span class="span_img">
+                                           <img src="{$tu->pic}" />
+                                        </span>
+                                        <figcaption class="box">
+                                            <dd><label>{ztpd($tu)}</label></dd>
+                                            <dd><label>已售<span>{$tu->sale_nums}</span></label></dd>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="price">
+                                        <h3>￥{$tu->sell}<span><s>￥{$tu->market}</s></span></h3>
+                                    </div>
+                                    <article>
+                                        <h4>
+                                            <label>{$tu->name}</label>
+                                        </h4>
+                                        <p>{nl2br($tu->ms)}</p>
+                                    </article>
+                                </div>
+                            </a>
+                        </li>
+                        {/loop}
+                </ul>
+            </section>
+        </div>
+        <footer>
+    <section class="nav_footer">
+        <ul class="box">
+            <li>
+                <a href="/wsc2/me.html" class="on">
+                    <!-- <span class="nav_tg">&nbsp;</span> -->
+                    <label style="font-size: 18px; line-height: 54px;">我的订单</label>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+    </div>
+</div>
+<script>
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    WeixinJSBridge.call('showOptionMenu');
+});
+</script>
+
+</body>
+
+</html>

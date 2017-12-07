@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<script type="text/javascript" src="{$JS}jQuery.js" ></script>
+<script type="text/javascript" src="{$JS}power.js" ></script>
+<style type="text/css" >
+.first-right label {
+font-weight: bold;
+}
+.first-right p {
+	padding: 0 0 6px 10px;
+	background: #D7D7D7;
+}
+.lower-right li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+ 	width: 200px;
+}
+.third-right label {
+font-weight: normal;
+}
+div.first-right {
+	margin-bottom: 10px;
+}
+.third-right {
+padding-left: 20px;
+display: none;
+}
+</style>
+</head>
+<body class="{Session::get('maintheme')}" data-theme="theme-blue">
+<div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>添加账户</h3>
+                            </div>
+                            <!--<div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>-->
+                        </div>
+
+                        <div class="box-content">
+                            <form action="" name="form1" method="post" class="form-horizontal form-validate" novalidate="novalidate">
+	                            <input type="hidden" name="oluser"   value="{$ouid}"> 
+                                <div class="control-group">
+                                    <label for="name" class="control-label">工号：</label>
+                                    <div class="controls">
+                                        <input type="text" name="identity" id="identity" class="input-medium" data-rule-required="true" value="{$subuser}"> &nbsp;<b>@axg</b>
+                                    </div>
+                                </div>
+                                {if empty($ouid)}
+                                <div class="control-group">
+                                    <label for="name" class="control-label">密码：</label>
+                                    <div class="controls">
+                                        <input type="password" id="pwd" name="password" onblur="checklength()" class="input-medium" data-rule-required="true">
+                                        <span id="prompt_pwd"></span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="password" class="control-label">确认密码：</label>
+                                    <div class="controls">
+                                        <input type="password" onblur="Checkpwd();" id="aff_pwd" name="affirm_password" class="input-medium" data-rule-required="true">
+                                        <span id="prompt_affpwd"></span>
+                                    </div>
+                                </div>
+							{/if}
+
+                                <div class="control-group">
+                                    <label for="name" class="control-label">姓名：</label>
+                                    <div class="controls">
+                                        <input type="text" name="name" class="input-medium" data-rule-required="true" value="{$users->name}">
+                                    </div>
+                                </div>
+ 
+                                
+                                <div class="control-group" id="zw" style="">
+                                    <label for="brand" class="control-label">角色：</label>
+					                <div class="controls">
+                                        <ul class="unstyle inline">
+                                        
+                                        {loop $roles as $r}
+                                            <li style="padding-left:0;">
+                                                <label style="width:150px;" class="inline checkbox">
+                                                    <input type="checkbox" id="role_id{$r->id}" name="role_id[]" value="{$r->id}" {loop $group_id as $g} {if $r->id == $g} checked {/if} {/loop}>&nbsp;{$r->title} 
+                                                </label>
+	                                        </li>													
+                                        {/loop}
+	                                    </ul>
+                                    </div> 
+				                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" id="button" data-loading-text="提交中..." class="btn btn-primary" name="tijiao">保存</button>
+                                    <button type="button" class="btn" onclick="window.history.go(-1)">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<div id="fallr-overlay"></div>
+<script>
+	$("#button").click(function(){
+	// || $("#identity").length <
+		if($("#identity").val() ==''){
+			alert('账户不能为空');
+			return false;
+		}
+
+		if($("#pwd").val() ==''  || $("#pwd").val().length <6){
+			alert('密码不能小于6位');
+			return false;
+		}
+		if($("#aff_pwd").val() =='' || $("#aff_pwd").val().length <6){
+			alert('确认密码不能小于6位');
+			return false;
+		}
+		var state=false;
+		$('input[name="role_id[]"]').each(function(){      
+		   if($(this).is(':checked')){
+		   		state=true;
+		   }
+		   
+	   });   
+		   if(!state){
+				alert('至少选择一个角色!');
+				return false;
+		   }
+		
+		});
+    var $role=$("#role_type input[type='radio']:checked");
+    if($role.length>0&&$role.val()){
+        zwSwitch($role.val());
+    }
+    $("#role_type input[type='radio']").change(function(){
+        zwSwitch($(this).val());
+    });
+    function zwSwitch(val){
+        switch(val){
+            case '1':$("#zw").slideDown();
+                break;
+            case '2':$("#zw").slideUp();
+                break;
+        }
+    } 
+    function checklength(){
+        var re = /^[a-z0-9_-]{6,18}$/;
+        var pwd = $("#pwd").val();
+        if(!re.test(pwd)){
+            $("#prompt_pwd").html("<b id='mm_id'>密码必须为6-18位</b>");
+        }else{
+            $("#mm_id").remove();
+            
+        }
+    }
+    
+    function Checkpwd(){
+       var pwd = $("#pwd").val();
+       var aff_pwd = $("#aff_pwd").val();
+       if( pwd != aff_pwd && pwd !=null){          
+          $("#prompt_affpwd").html("<b id='affmm_id'>两次密码不一致!</b>");
+       }else{
+            $("#affmm_id").remove();
+       }  
+    }
+    
+</script>
+
+<br/>
+<br/>
+<br/>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>团购商品详情</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<title>商品详情</title>
+<link rel="stylesheet" type="text/css" href="{$CSS}wsc/common_css.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}wsc/detail.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}wsc/privileges.css"/>
+</head>
+<style type="text/css">
+
+	#buy_btn {
+    		background: none repeat scroll 0% 0% #AFAFAF;
+			}
+	.detail-area img{
+			width:100%;
+		} 
+
+</style>
+			
+</style>
+<script>
+$(function(){
+	localStorage.lastprice = 0;
+})
+</script>
+<style>
+.w-header{
+	background: #64ab5b;
+}
+.w-buy-btn-normal .buy-btn{
+	background: #64ab5b;
+}
+</style>
+<body mon="position=detail_local">
+	<header class="w-header" mon="type=header">
+		<a class="arrow-wrap" href="javascript:history.back()" mon="content=back">
+		<span class="arrow-left"></span>
+		</a>
+	
+		<a href="/" class="home" mon="content=home"></a>
+		<div class="text">图文详情</div>
+	</header>
+
+
+<div class="w-goods-detail">
+<div class="detail-area bulk_order_details">
+{$p->detail}
+<div class="operate-area">
+<span class="current-price" ><ins class="price-value">{$p->lowest}</ins></span><span class="original-price"><del>{$p->yj}</del></span>
+<div class="btn-wrap">
+
+
+
+<div class="w-buy-btn-normal w-buy-btn-normal-small" id="j-buy-ctn" mon="type=moreDetailBuy">
+{if $kai == 0}
+<a href="javascript:;" class="buy-btn" id="buy_btn" >即将开始</a>
+{else}
+<a href="tuandetail-{$p->id}.html" class="buy-btn" mon="price=18&content=立即抢购">立即抢购</a>
+{/if}
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+

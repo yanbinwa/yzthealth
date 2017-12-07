@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+	<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+	<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+	<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+	<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+	<script type="text/javascript" src="{$JS}jscolor.js"></script>
+	<script type="text/javascript" src="{$JS}inside.js"></script>
+	</head>
+ <body class="{Session::get('maintheme')}">
+<div class="container-fluid" id="content">
+        <div id="main">
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="box">
+                            <div class="box-title">
+                                <div class="span10">
+                                    <h3> <i class="icon-cog"></i>
+                                                                                                       商家设置
+                                    </h3>
+                                </div>
+                                <div class="span2">
+                                    <a class="btn" href="Javascript:window.history.go(-1)">返回</a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <form action="" method="POST" id="setBusinessForm" class="form-horizontal form-validate" >
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">商城名称</label>
+                                        <div class="controls">
+                                            {$m->text('name','class="input-xlarge" required="required" data-rule-maxlength="50" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline">最多只能输入50个字符。</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">触发关键词</label>
+                                        <div class="controls">
+                                            {$m->text('gjz','class="input-large" required="required" data-rule-maxlength="20" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline">用户输入此“关键词”将可以触发商城图文，最多只能输入20个字符。</span>
+                                        </div>
+                                    </div>
+								    <div class="control-group">
+									<label class="control-label">商家logo：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->logo}" id="pic_logo" relobj="elfinder_logo" style="max-height:100px;" />
+											{$m->hidden('logo',' relobj="elfinder_logo"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="logo" >选择封面</button>
+												<span class="help-inline">建议尺寸：宽100像素，高100像素，或同等比例</span>
+											</span>
+										</div>
+								    </div>
+									
+                                    <div class="control-group">
+									<label class="control-label">图文消息封面：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->pic}" id="pic_pic" relobj="elfinder_nhyk" style="max-height:100px;" />
+											{$m->hidden('pic',' relobj="elfinder_nhyk"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk" >选择封面</button>
+												<span class="help-inline">建议尺寸：宽720像素，高400像素</span>
+											</span>
+										</div>
+								    </div>
+									
+									
+                                	<div class="control-group">
+                                        <label for="textfield" class="control-label">
+                                                                                                         封面消息
+                                        </label>
+                                        <div class="controls">
+                                            {$m->textarea('jianjie','class="input-large" required="required" data-rule-maxlength ="140" style="width:450px;height:100px" ')}
+                                        	<span class="maroon">*</span> <span class="help-inline">最多只能输入140个字符。</span>
+                                        </div>
+                                    </div>
+                                  
+								  
+								   <div class="control-group">
+									<label class="control-label">推广二维码模板：</label>
+										<div class="controls">
+											<img class="thumb_img" src="{$m->qtcodepic}" id="pic_qtcodepic" relobj="elfinder_qtcodepicd" style="max-height:100px;" />
+											{$m->hidden('qtcodepic',' relobj="elfinder_qtcodepicd"')}
+											<span class="help-inline">
+												<button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="qtcodepicd" >选择模板</button>
+												<span class="help-inline">建议尺寸：宽640像素，高900像素,二维码和微店名称参考模板图片</span>
+											</span>
+										</div>
+								    </div>
+									
+									
+                                  <div class="control-group">
+                                        <label class="control-label" for="fanslocal">包邮策略</label>
+                                        <div class="controls">
+                                                                                                                      全场满：{$m->text('consume','class="input-mini" ')}  元包邮
+                                            <span class="maroon"></span>
+                                            <span class="help-inline">（为0或空代表不设置）</span>
+                                        </div>
+                                </div>
+                                
+								
+							  <div class="control-group">
+										<label for="traffic_desc" class="control-label">积分设置：</label>
+											<div class="controls">
+												店铺通用积分设置：
+												<span class="help-inline">
+                                           	 		<label class="checkbox inline">{$m->checkbox('dianpujifen')}开启</label>
+                                            	</span>
+                                            	<span class="help-inline"  style="margin-top: 6px;">
+                                            	换算规则：一元赠送     {$m->text('jifencount' , 'class="input-mini" '  , 'id="dpjiid"')}  个积分
+                                            	<span class="maroon">*</span> <span class="help-inline">根据花费金额赠送积分,(消费设置100个积分抵用一元)</span>
+                                            	</span>
+											</div>
+											<div class="controls">
+												单个商品积分设置：
+												<span class="help-inline">
+				                                       <label class="checkbox inline">{$m->checkbox('shangpinjifen'  ,'id="spjiid"')}开启</label>
+				                                       <span class="maroon">*</span> <span class="help-inline">设置购买特定商品赠送的积分</span>
+				                                </span>
+											</div>
+								</div>
+								
+								
+								<div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">最低提现金额</label>
+
+                                        <div class="controls">
+
+                                             {$m->text('minmount','class="input-mini" required="required" ')}  元
+
+                                            <span class="maroon"></span>
+
+                                            <span class="help-inline"></span>
+
+                                        </div>
+
+                                </div>  
+								  
+								  
+
+                                  <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">产品赠送比例设置：</label>
+
+                                        <div class="controls">
+
+                                           <!--{$m->text('rebate','class="input-mini"  required="required" ')} %-->
+										   请从“<a href="/admin/shop2t/stype.html">商品类别</a>”中设置分类赠送
+
+                                            <span class="maroon"></span>
+
+                                            <span class="help-inline"></span>
+
+                                        </div>
+
+                                  </div>
+								 
+								  <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">产品赠送分成设置：</label>
+
+                                        <div class="controls">
+
+                                            例：A发展下级代理B，B发展下级代理C，C购买东西，A级获得销售赠送
+											{$m->text('firstrebatetg','class="input-mini" required="required" ')} %，
+                                            B获得销售赠送 {$m->text('secondrebatetg','class="input-mini" required="required" ')} %
+											C获得销售赠送 {$m->text('thrrebatety','class="input-mini" required="required" ')} %
+                                            <span class="maroon"></span>
+
+                                            <span class="help-inline">此赠送百分比为订单总赠送的百分比，A/B/C赠送的百分比总和为100，例：某笔订单交易额1000元，赠送100，则A获得的赠送为100*10% = 10元</span>
+
+                                        </div>
+
+                                  </div>
+								  
+								  <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">成为合伙人条件：</label>
+
+                                        <div class="controls">
+                                           {$m->radio(array("1"=>'无条件'),'to_dl');}  {$m->radio(array("2"=>'购买套餐'),'to_dl');}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline">无条件：注册连锁店即可成为普通合伙人，购买套餐：购买相应套餐成为相应级别合伙人，请从“套餐管理”里面设置套餐</span>
+                                        </div>
+
+                                  </div>
+								  
+								  
+								  
+                                  <!--								  
+								  <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">入会金额：</label>
+
+                                        <div class="controls">
+
+                                           {$m->text('memberfee','class="input-mini"  required="required" ')} 元
+
+                                            <span class="maroon">*</span>
+
+                                            <span class="help-inline">成为分销商所需缴纳的会员费，只有缴纳了入会费才能看到自己的店铺。</span>
+
+                                        </div>
+
+                                  </div>
+								   <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">高级会员升级费：</label>
+
+                                        <div class="controls">
+
+                                           {$m->text('gjmemberfee','class="input-mini"  required="required" ')} 元 &nbsp;&nbsp;升级后销售赠送：&nbsp;&nbsp;请从“商品类别”中设置分类赠送{$m->text('gjflrate','class="input-mini"  required="required" ')}%
+
+                                            <span class="maroon">*</span>
+
+                                            <span class="help-inline">升级高级会员的费用。</span>
+
+                                        </div>
+
+                                  </div>
+								   <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">至尊会员升级费：</label>
+
+                                        <div class="controls">
+
+                                           {$m->text('zzmemberfee','class="input-mini"  required="required" ')} 元 &nbsp;&nbsp;升级后销售赠送：&nbsp;&nbsp;请从“商品类别”中设置分类赠送{$m->text('zzflrate','class="input-mini"  required="required" ')}%
+
+                                            <span class="maroon">*</span>
+
+                                            <span class="help-inline">升级至尊会员的费用。</span>
+
+                                        </div>
+
+                                  </div>
+								  -->
+								  
+								  <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">合伙人套餐费分成：</label>
+
+                                        <div class="controls">
+										    
+											
+                                            例：A发展下级代理B，B发展下级代理C，C发展下级代理D，D缴费，A级抽成
+											{$m->text('fisrtrebate','class="input-mini" required="required" ')} %，
+                                            B级抽成 {$m->text('secondrebate','class="input-mini" required="required" ')} %，
+											C级抽成 {$m->text('therdrebate','class="input-mini" required="required" ')} %
+
+                                            <span class="maroon">*</span>
+
+                                            <span class="help-inline" style="color:green">请从“<a href="/admin/tcgl/tclist.html">套餐管理</a>”中设置成为合伙人套餐</span>
+
+                                        </div>
+
+                                  </div>
+								  
+								  
+								  {if $wid==71}
+								  
+								   <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">满足经理级销售额：</label>
+
+                                        <div class="controls">
+
+                                           {$m->text('gjxse71','class="input-large"  required="required" ')} 元 &nbsp;&nbsp;累计完成此销售额自动升级完经理级
+
+                                            <span class="maroon">*</span>
+
+                                            <span class="help-inline"></span>
+
+                                        </div>
+
+                                  </div>
+								   <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">满足总裁级销售额：</label>
+
+                                        <div class="controls">
+
+                                           {$m->text('zcxse71','class="input-large"  required="required" ')} 元 &nbsp;&nbsp;累计完成此销售额自动升级完经理级
+
+                                            <span class="maroon">*</span>
+
+                                            <span class="help-inline"></span>
+
+                                        </div>
+
+                                  </div>
+								  
+								  {/if}
+								<!--
+								 <div class="control-group">
+                                        <label class="control-label" for="fanslocal">退换货期限</label>
+                                        <div class="controls">
+                                             {$m->text('thhzq','class="input-mini" ')} 
+                                            <span class="maroon"></span>
+                                            <span class="help-inline">允许退换货的周期，根据发货时间计算。单位：天</span>
+                                        </div>
+                                </div>
+								-->
+                               <!--
+								  <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">会员缴费升级说明</label>
+
+                                        <div class="controls">
+										     
+											 {$m->texteditor('sjdesc',3, '520px','90px' )}
+
+                                             
+
+                                            <span class="maroon"></span>
+
+                                            <span class="help-inline"></span>
+
+                                        </div>
+
+                                  </div>
+								  -->
+								  
+								  {if $wid==65}
+								    <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">商城利润空间：</label>
+
+                                        <div class="controls">
+
+                                           {$m->text('lirqj','class="input-mini"  required="required" ')} &nbsp;&nbsp;%
+
+                                            <span class="maroon">*</span>
+
+                                            <span class="help-inline"></span>
+
+                                        </div>
+
+                                  </div>
+								  {/if}
+								  
+                                  <div class="control-group">
+
+                                        <label class="control-label" for="fanslocal">商城赠送说明</label>
+
+                                        <div class="controls">
+											 {$m->texteditor('fldesc',3, '520px','90px' )}
+											
+                                             
+
+                                            <span class="maroon"></span>
+
+                                            <span class="help-inline"></span>
+
+                                        </div>
+
+                                  </div>
+
+								  <div class="control-group">
+                                    <label for="" class="control-label">商家通知设置：</label>
+								
+                                     <div class="controls">
+                                        <div class="row-fluid">
+                                          	  订单短信通知：{$m->text('sms','class="input-large"')}<span class="help-inline" ><label class="checkbox inline">{$m->checkbox('opensms')}开启</label>
+                                            </span>
+                                        </div><p style="margin-left:83px;">当有新订单时，发送短信到此手机</p>
+                                    </div>
+                                </div>
+					
+                                <div class="control-group">
+										<label for="traffic_desc" class="control-label">链接地址：</label>
+										<div class="controls">
+											{$linkurl}
+										</div>
+								</div>
+								
+                                    <div class="form-actions">
+                                        <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                        <button type="button" class="btn" onclick="window.location='picture-text-repaly.html'">取消</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  	<script>
+  	
+
+  	
+	  	$("#z02_setdianpujifen").click(function(){
+	  		if ($(this).is(":checked")) {
+	  			//$(this).val(1);
+	  			$("#z02_setshangpinjifen").attr("checked", false);
+	  			$("#z02_setjifencount").attr("required" ,"required");
+	        }
+	  		else
+	  		{
+	  			$("#z02_setjifencount").removeAttr("required");
+	  			//$(this).val(0);
+	  			}
+	  	});
+  	
+	  	$("#z02_setshangpinjifen").click(function(){
+	  		if ($(this).is(":checked")) {
+	  			//$(this).val(1);
+	  			$("#z02_setdianpujifen").attr("checked", false);
+	        }
+	  		else
+	  			{
+	  			//$(this).val(0);
+	  			
+	  			}
+	  	});
+		window.document.onkeydown = function(e) {
+			if ('' == document.activeElement.id) {
+				var e=e || event;
+　 				var currKey=e.keyCode || e.which || e.charCode;
+				if (8 == currKey) {
+					return false;
+				}
+			}
+		};
+		
+		function setpic(imgid,hideid){
+			window.piccbk = function(m){
+				$('#'+imgid).attr('src',m);
+				$('#'+hideid).val(m);
+				window.piccbk = null;
+			}
+			window.curpic = null;
+			openpicset();	
+		} 
+		
+		function openpicset(){
+			pophtml('<iframe src="../businessModule/wspicif.html" style="width:630px;height:470px;border:none;background-color: #dfdfdf;" width="630px" height="475px"></iframe>',670,510,true);
+		}
+
+        
+		$(function(){		
+			 $("#setBusinessForm").submit(function(){
+				var cansv= true;
+				$(this).find('input[type="text"],select,textarea').filter('[required="required"]').each(function(){
+					if($.trim($(this).val())==''){
+						cansv = false;
+						$(this).css('backgroundColor','yellow');
+						$(this).one('focus',function(){
+							$(this).css('backgroundColor','transparent');
+						});
+					}
+					
+				});
+				if(!cansv){
+					tusi('请将信息填写完整');
+				}
+		    	return cansv;
+		    });
+		});
+	</script>
+</body>
+</html>

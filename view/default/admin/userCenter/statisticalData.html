@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+<link rel="stylesheet"  href="{$CSS}admin/admin.css"/>
+
+<style>
+	#main-left{
+		border-right: 1px solid #BEBEC5;
+	}
+	#main-right{
+		font-size: 13px;
+	}
+	.intro-title{
+		font-weight: bold;
+		border-bottom: 1px dotted #BEBEC5;
+		margin-top: 20px;
+	}
+	.table{ margin-top:20px;}
+</style>
+<title>欢迎</title>
+</head>
+<body>
+	<table class="table table-bordered">
+			<thead>
+				<tr>
+				
+					<th>今日订阅人数</th>
+			
+					<th>今日接收消息数</th>
+				
+				</tr>
+			</thead>
+			<tbody>
+						 
+			      <tr>
+						<td>
+						{$dy_total}
+						</td>
+						<td>{$xx_total}</td>
+						
+					
+			</tbody>
+		</table>
+</body>
+</html>

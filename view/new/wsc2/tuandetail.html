@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>团购商品详情</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<script>
+var jjgg = {$p->rowtemp};
+var xgnum = {$p->xgnum};
+
+  $(function(){
+	$('#price').html(localStorage.lastprice);
+    }); 
+
+
+function seljsjg(k,o){
+	
+	localStorage.lastbuy = null;
+	localStorage.lastbuynum = null;
+	var ttgg = jjgg;
+	var count = parseInt($('#count').val());
+	
+	var price = parseFloat($('#price').html());
+	var danjia = parseFloat($('#danjia'+k).val());
+	//每种规格的数量限制
+	var mnum = parseInt($('#mnum'+k).val());
+	if(o===1){
+		var bnum = parseInt($('#buyNum'+k).val());
+		$('#buyNum'+k).val(bnum+1);
+		count = count +1;
+		price = price + danjia; 
+	}else if(o===-1){
+		var bnum = parseInt($('#buyNum'+k).val());
+		if(bnum>0){
+			$('#buyNum'+k).val(bnum-1);
+			count = count - 1;
+			price = price - danjia; 
+		}
+	}else if(o){
+			$(o).parent().find('.option').removeClass('option_selected');
+			$(o).addClass('option_selected');
+	}
+
+	var bnum = parseInt($('#buyNum'+k).val());
+	//判断每种规格的产品数量限制
+	if(bnum > mnum){
+		if(bnum >= 1){
+			$('#buyNum'+k).val(bnum-1);
+			count =count - 1;
+		}
+		tusi('此规格的产品库存不够了');
+		return false;
+	}
+	//判断限购数量
+	if(count > xgnum){
+		if(bnum >= 1){
+			$('#buyNum'+k).val(bnum-1);
+			count =count - 1;
+		}
+		tusi('您已经超过限购的数量');
+		return false;
+	}
+	$('#count').val(count);
+	$('#jiagenew').html(danjia);
+	//总价格赋值
+	price = price.toFixed(2);
+	$('#price').html(price);
+	localStorage.lastprice = price;
+}
+
+function tobuy(){
+	var price = parseFloat($('#price').html());
+	if(price > 0){
+		var res = {};
+		res.xm = [];
+		var i=0;
+    	$('.only').each(function(){
+    		var xmtyp = {};
+    		xmtyp.id = $(this).attr('relid');
+    		xmtyp.num = $('#buyNum'+i).val();
+    		res.xm[res.xm.length] = xmtyp;
+    		i = i + 1;
+    	});
+    	
+    	$('#alldata').val($.toJSON(res));
+    	
+	}else{
+		tusi('请选择商品数量');
+		return false;
+	}
+}
+		
+	</script>
+<title>订单详情页</title>
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/order_common.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/submission.css"/>
+<link rel="stylesheet" type="text/css" href="{$CSS}tuan/common_css.css"/>
+</head>
+<body mon="position=pay_submission">
+	<header class="w-header" mon="type=header">
+		<a class="arrow-wrap" href="javascript:history.back()" mon="content=back">
+			<span class="arrow-left"></span>
+		</a>
+		<div class="text">提交订单</div>
+	</header>
+	<form class="p-submission" id="j-order-form-refresh" method="post" action="/wsc2/tobuy-{$p->id}-buy.html?nn=1&mm=1&showwxpaytitle=1">
+	 	<input type="hidden" name="alldata" id="alldata">
+		<section class="order-info">
+			<ul>
+				<input type="hidden" id="tuan" value="1">
+				
+				<li class="order-title">
+					<div class="short-title">{$p->name}</div>
+					{if $p->xgnum > 0}<div class="sub-title">最多购买{$p->xgnum}件</div>{/if}
+				</li>
+				<li class="order-common-item">
+					<dt>单价</dt>
+					<dd>￥<span id="jiagenew">{$p->lowest}</span></dd>
+				</li>
+	
+				{if count($ggres) == 1}
+				<div class="no-combo only" relid="{$ggarr[0]->goods_no}">
+					<li class="j-product-number order-number" data-buyLimit="2">
+						<div class="product-number-changed">
+							<span class="j-linkage order-btn minus minus-disabled" onclick="seljsjg(0,-1);"></span>
+							<input class="j-number" type="tel"  id="buyNum0" value="0" readonly>
+							<span class="j-linkage order-btn plus plus-active" onclick="seljsjg(0,1);"></span>
+							<input type="hidden" id="danjia0" value="{$ggarr[0]->sell_price}" />
+							<input type="hidden" id="mnum0" value="{$ggarr[0]->store_nums}" />
+						</div>
+						<div class="deal-options-title">数量</div>
+					</li>
+				</div>
+				{/if}
+				<input type="hidden" id="count" value="0">
+				<!-- 规格开始 -->
+				{if count($ggres) > 1}
+				<li class="order-common-item">
+				<dt>品类和数量</dt>
+				</li>
+				<div class="j-deal-options">
+				{loop $ggres as $gk=>$gv}
+				
+					{if $ggarr[$gk]->store_nums >0 }
+					<span class="only" relid="{$ggarr[$gk]->goods_no}">
+					<li class="j-product-number order-number" data-buyLimit="{$ggarr[$gk]->store_nums}">
+						<div class="product-number-changed">
+							<span class="j-linkage order-btn minus minus-disabled"  onclick="seljsjg({$gk},-1);" ></span>
+							<input class="j-number" type="tel" id="buyNum{$gk}" data-combo="true" value="0" readonly>
+							<span class="j-linkage order-btn plus plus-active"  onclick="seljsjg({$gk},1);"></span>
+							<input type="hidden" id="danjia{$gk}" value="{$ggarr[$gk]->sell_price}" />
+							<input type="hidden" id="mnum{$gk}" value="{$ggarr[$gk]->store_nums}" />
+						</div>
+						<div class="deal-options-title">{$gv}</div>
+					</li>
+					</span>
+					{else}
+					
+					<span class="only" relid="{$ggarr[$gk]->goods_no}">
+					<li class="j-product-number order-number" data-buyLimit="{$ggarr[$gk]->store_nums}">
+						<div class="product-number-changed">卖光了
+						</div>
+						<div class="deal-options-title">{$gv}</div>
+					</li>
+					</span>
+					{/if}
+				{/loop}
+				{/if}		
+				<!-- 规格结束 -->
+					
+					
+				</div>
+				<li class="order-common-item">
+					<dt>总价</dt>
+					<dd>&yen;<span class="price" id="price">0</span></dd>
+				</li>
+				
+				<li class="order-button">
+				<input class="order-common-button btn-submit j-order-submit" type="submit" onclick="return tobuy();" value="立即购买">
+				</li>
+			
+				<input type="hidden" name="rand" value="0">
+			</ul>
+		</section>
+	</form>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?s" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+<title>微信管家—国内最大的微信公众服务平台</title>
+
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+<style>
+img.spec_photo{ width:20px;height:20px;vertical-align:middle; border:1px solid #ccc; margin:0 5px;}
+</style>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>商品规格管理
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+                            <div class="row-fluid">
+                                <div class="span12 control-group">
+                                    <div class="span7">
+                                    
+                                    {if 'recycle'==Request::get(1)}
+                                        <a href="sprop.html" class="btn"><i class="icon-circle-arrow-left"></i>返回列表</a>
+                                       	<a href="javascript:;" class="btn" onClick="selectAll('id[]');"><i class="icon-check"></i>全部选择</a>
+                                        <a href="javascript:;" class="btn" onClick="spec_delall()"><i class="icon-remove"></i>彻底删除</a>
+                                        <a href="javascript:;" class="btn" onClick="spec_restoreall()"><i class="icon-share-alt"></i>还原</a>
+                                    {else}
+                                        <a href="javascript:;" class="btn" onClick="addNewSpec();"><i class="icon-plus"></i>添加规格</a>
+                                       	<a href="javascript:;" class="btn" onClick="selectAll('id[]');"><i class="icon-check"></i>全部选择</a>
+                                        <a href="javascript:;" class="btn" onClick="spec_delall('recycle')"><i class="icon-remove"></i>批量删除</a>
+                                        <a href="sprop-recycle.html" class="btn"><i class="icon-trash"></i>回收站</a>
+                                    {/if}
+                                         
+                                    </div>
+                                    <div class="span5 datatabletool" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+
+ 
+
+							<div class="row-fluid dataTables_wrapper">
+                            	<form id="specForm" name="specForm" method="post" action="">
+								<table id="listTable" class="table table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+                                        	<th width="4%">选择</th>
+											<th width="15%">规格名称</th>
+                                            <th width="19%">备注说明</th>
+											<th width="7%">显示方式</th>
+											<th width="45%">规格值</th>
+											<th width="10%">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									{loop $res as $r}
+									<tr>
+                                         <td><input type="checkbox" value="{$r->id}" name="id[]"></td>									  
+									     <td>{$r->name}</td>
+									     <td>{$r->note}</td>
+                                         <td>{if $r->type==1}文字{else}图片{/if}</td>
+									     <td>
+                                            {_ $props = json_decode($r->value)}
+                                            {loop $props as $key=>$value}
+                                            {if $r->type==1}
+                                            {$value},
+                                            {else}
+                                            <a href="javascript:;" onClick="art.dialog({ content: '<img src={$value} />'});"><img class="spec_photo" src={$value} /></a>
+                                            {/if}
+                                            {/loop}
+                                         </td>									    
+									     <td>
+                                             <a href="javascript:;" class="btn" onClick="addNewSpec('{$r->id}');"><i class="icon-edit"></i></a>
+                                            {if 'recycle'==Request::get(1)}
+										     <a href="javascript:;" class="btn" onclick="spec_restore({$r->id})"><i class="icon-share-alt"></i></a>
+                                             <a href="javascript:;" class="btn" onclick="spec_del({$r->id})"><i class="icon-remove"></i></a>
+                                            {else}
+										     <a href="javascript:;" class="btn" onclick="spec_del({$r->id},'recycle')"><i class="icon-trash"></i></a>
+                                            {/if}
+									     </td>
+									</tr>
+									{/loop}
+								    </tbody></table>
+                                    </form>
+															
+															
+															<div class="row-fluid dataTables_wrapper">
+
+                                <div class="dataTables_paginate paging_full_numbers"><span>{P p}</span></div>
+                            </div>
+															</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script type="text/javascript" src="{$JS}comm.js"></script>
+    <script type="text/javascript" src="{$JS}shop.js"></script>
+    </body>
+</html>

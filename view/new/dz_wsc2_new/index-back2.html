@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>{$model->name}</title>
+	<meta name="keywords"  content="DeathGhost" />
+	<meta name="description" content="http://www.deathghost.cn" />
+	<meta name="author" content="DeathGhost" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name='apple-touch-fullscreen' content='yes'>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="address=no">
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{$CSS}wsc/style.css?v=<?php echo time();?>" />
+	<script src="{$JS}wsc/jquery.js"></script>
+	<script src="{$JS}wsc/swiper.min.js"></script>
+	<script type="text/javascript" src="{$JS}getopenid.js?v=<?php echo time(); ?>"></script>
+	<link rel="stylesheet" href="{$CSS}wsc/weui.min.css"/>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script>
+
+$(function () { 
+wx.config({ 
+        //debug:true,
+        appId: "{$signPackage['appId']}",
+        timestamp: "{$signPackage['timestamp']}",
+        nonceStr: "{$signPackage['nonceStr']}",
+        signature: "{$signPackage['signature']}",
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'hideOptionMenu',
+        ]
+    });
+
+    window.shareData = { 
+        "imgUrl": "{$model->pic}", 
+        "timeLineLink": "http://www.weixinguanjia.cn/dz_wsc2_new/index.html?wid={$wid} ",
+        "sendFriendLink":  "http://www.weixinguanjia.cn/dz_wsc2_new/index.html?wid={$wid} ",
+        "tTitle": "{$model->name}",
+        "tContent": "",
+        "fTitle":"{$model->name}",
+        "fContent":  "",
+    };
+
+    wx.ready(function () { 
+        wx.checkJsApi({ 
+          jsApiList: [
+            'getNetworkType',
+            'previewImage'
+          ],
+          success: function (res) { 
+            //alert(JSON.stringify(res));
+          }
+
+        });
+
+        wx.onMenuShareAppMessage({ 
+          title: window.shareData.fTitle,
+          desc: window.shareData.fContent,
+          link: window.shareData.sendFriendLink,
+          imgUrl: window.shareData.imgUrl,
+          trigger: function (res) { 
+            //alert('用户点击发送给朋友');
+          },
+          success: function (res) { 
+            sharelog('send_msg','ok');
+          },
+
+          cancel: function (res) { 
+            //alert('已取消');
+          },
+          fail: function (res) { 
+            alert(JSON.stringify(res));
+          }
+        });
+        wx.onMenuShareTimeline({ 
+              title: window.shareData.fTitle,
+
+              link: window.shareData.timeLineLink,
+
+              imgUrl: window.shareData.imgUrl,
+
+              trigger: function (res) { 
+
+                //alert('用户点击分享到朋友圈');
+
+              },
+
+              success: function (res) { 
+
+                alert('分享成功');
+
+                sharelog('timeline','ok');
+
+              },
+
+              cancel: function (res) { 
+
+              },
+
+              fail: function (res) { 
+
+                alert(JSON.stringify(res));
+
+              }
+        });
+    });
+
+});
+</script>
+	<script>
+		$(document).ready(function(){
+			var mySwiper = new Swiper('#slide',{
+				autoplay:5000,
+				visibilityFullFit : true,
+				loop:true,
+				pagination : '.pagination',
+			});
+			//product list:Tab
+			$(".tab_proList dd").eq(0).show().siblings(".tab_proList dd").hide();
+			$(".tab_proList dt a").eq(0).addClass("currStyle");
+			$(".tab_proList dt a").click(function(){
+				var liindex = $(".tab_proList dt a").index(this);
+				$(this).addClass("currStyle").siblings().removeClass("currStyle");
+				$(".tab_proList dd").eq(liindex).fadeIn(150).siblings(".tab_proList dd").hide();
+			});
+
+			var wxid = "{$wxid}";
+			var appid = "{$kefu->cusid}";
+			if(wxid==''){
+				getUserOpenId("http://www.weixinguanjia.cn/dz_wsc2_new/index.html",appid);
+			}
+			
+		});
+	</script>
+</head>
+<body>
+	<!--header-->
+	<header>
+		<!-- <a href="#" class="location">西安市</a> -->
+		<h1>{$model->name}</h1>
+		<a href="/dz_wsc2_new/index3.html" class="rt_searchIcon">&#37;</a>
+	</header>
+	<!--slide-->
+	<div id="slide">
+		<div class="swiper-wrapper">
+			{loop $tjres as $tj}
+			<div class="swiper-slide">
+				<a href="/dz_wsc2_new/pro-{$tj->id}.html">
+					<img src="{$tj->pic2}" height="100%" width="100%"/>
+				</a>
+			</div>
+			{/loop}
+			
+			
+		</div>
+		<div class="pagination"></div>  
+	</div>
+	<!--categoryList-->
+	<style>
+	.categoryLiIcon li a em{
+		font-size: 10px;
+	}
+	</style>
+	
+	<ul class="categoryLiIcon">
+		{loop $fls as $fl}
+			<li>
+				<a href="/dz_wsc2_new/index1-{$fl->id}.html">
+					<img src="{$fl->logimg}"/>
+					<em>{$fl->name}</em>
+				</a>
+			</li>
+		{/loop}
+	</ul>
+	<!--Tab:productList-->
+	<dl class="tab_proList">
+		<dt>
+			<a>热销</a>
+			<a>新品</a>
+			<a>打折</a>
+		</dt>
+		<dd>
+			<ul>
+				{loop $tjzr as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/dz_wsc2_new/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/dz_wsc2_new/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+								<del>{$tj->yj}</del>
+								{if $tj->show_zk}
+
+									<span class="o2">{number_format(($tj->zk/10), 2)}折</span>	
+									
+									
+								{/if}
+							</p>
+							<p>
+								<strong class="price">{$tj->lowest}</strong>
+							</p>
+							<!-- <a class="addToCart" goods-no="{$tj->id}">&#126;</a> -->
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+		<dd>
+			<ul>
+				{loop $tjzx as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/dz_wsc2_new/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/dz_wsc2_new/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+								<del>{$tj->yj}</del>
+								{if $tj->show_zk}
+									<span class="o2">{number_format(($tj->zk/10), 2)}折</span>	
+								{/if}
+							</p>
+							<p>
+								<strong class="price">{$tj->lowest}</strong>
+							</p>
+							<!-- <a class="addToCart" goods-no="{$tj->id}">&#126;</a> -->
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+		<dd>
+			<ul>
+				{loop $tjzk as $tj}
+					<li>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1"  class="goodsPic">
+						{else}
+							<a href="/dz_wsc2_new/pro-{$tj->id}.html"  class="goodsPic">
+						{/if}
+								<img src="{$tj->pic}"/>
+							</a>
+						<div class="goodsInfor">
+							<h2>
+								{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+									<a href="/dz_wsc2_new/tuanpro-{$tj->id}.html?mm=1" >
+								{else}
+									<a href="/dz_wsc2_new/pro-{$tj->id}.html" >
+								{/if}
+										{$tj->name}
+									</a>
+							</h2>
+							<p>
+								<del>{$tj->yj}</del>
+								{if $tj->show_zk}
+									<span class="o2">{number_format(($tj->zk/10), 2)}折</span>	
+								{/if}
+							</p>
+							<p>
+								<strong class="price">{$tj->lowest}</strong>
+							</p>
+							<!-- <a class="addToCart" goods-no="{$tj->id}">&#126;</a> -->
+						</div>
+						{if $tj->istuan == 1 && $tj->tjssj > date('Y-m-d H:i:s',time())}
+							<input type='hidden' class='is_tuan' value="1" />
+						{else}
+							<input type='hidden' class='is_tuan' value="0" />
+						{/if}
+					</li>
+				{/loop}
+			</ul>
+		</dd>
+	</dl>
+	<!--floatCart-->
+	<div class="hoverCart" style="display:none">
+		<a href="#">0</a>
+	</div>
+	{T tp2}
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+   <div class="topnav" style="position: relative;">
+        	<a class="tel">免费热线：<span>400-623-2003</span> </a>
+        	<div style="position: absolute;right: 51px;top:3px; cursor: pointer;">
+        	<a href="http://www.cainiaoapp.cn" target="_blank" class="fb orange">企业APP</a>
+        	<a href="/reg.html" target="_blank">申请入驻</a>|
+            <a href="http://wpa.qq.com/msgrd?v=3&uin=4006232003&site=qq&menu=yes" target="_blank">渠道代理</a>|
+            <a href="http://wpa.qq.com/msgrd?v=3&uin=4006232003&site=qq&menu=yes" target="_blank">接口定制</a>|
+            <a href="http://wpa.qq.com/msgrd?v=3&uin=4006232003&site=qq&menu=yes" target="_blank" class="fb orange">微信托管</a>
+            
+        	</div>
+            
+        </div>

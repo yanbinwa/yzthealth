@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="{$CSS}admin/admin.css">
+<link type="text/css" rel="stylesheet" href="/res/wtp/style/vote.css" /> 
+<link rel="stylesheet" href="{$CSS}admin/bootstrap.min.css">
+
+<style type="text/css">
+
+.progress {
+	margin: 0 10px 5px 0;
+	width: 400px;
+	height: 20px;
+	float: left;
+}
+
+
+.option-cont {
+	margin: 10px  auto auto 10px;
+}
+
+.option-cont img{
+	margin:0 auto;
+	height:100px;
+}
+.option-cont .option {
+	line-height: 80px;
+	font-size: 20px;
+}
+</style>
+
+
+<title>我的活动</title>
+
+</head>
+<body style="background-color: #ffffff;">
+
+	<div class="main-title">
+		<h3>{$wtp->name}微投票活动</h3>
+	</div>
+	
+<div  class="option-cont" style="width:500px;">
+	
+	{if trim($wtp->option1)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9; ">
+	        {if trim($wtp->headpic1)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic1}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option1}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl1}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans1}({$bl1}%)</div>
+		</div>
+	</div>
+	{/if}	
+
+	{if trim($wtp->option2)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9; ">
+	        {if trim($wtp->headpic2)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic2}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option2}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl2}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans2}({$bl2}%)</div>
+		</div>
+	</div>
+	{/if}	
+	
+	
+	{if trim($wtp->option3)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9; ">
+	        {if trim($wtp->headpic3)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic3}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option3}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl3}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans3}({$bl3}%)</div>
+		</div>
+	</div>
+	{/if}	
+	
+	{if trim($wtp->option4)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic4)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic4}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option4}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl4}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans4}({$bl4}%)</div>
+		</div>
+	</div>
+	{/if}	
+	
+	
+	{if trim($wtp->option5)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	    {if trim($wtp->headpic5)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic5}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option5}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl5}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans5}({$bl5}%)</div>
+		</div>
+	</div>
+	{/if}	
+	
+	
+	{if trim($wtp->option6)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic6)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic6}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option6}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl6}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans6}({$bl6}%)</div>
+		</div>
+	</div>
+	{/if}	
+	
+	{if trim($wtp->option7)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic7)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic7}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option7}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl7}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans7}({$bl7}%)</div>
+		</div>
+	</div>
+	{/if}	
+	
+	
+	{if trim($wtp->option8)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic8)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic8}"/>
+			
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option8}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl8}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans8}({$bl8}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option9)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic9)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic9}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option9}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl9}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans9}({$bl9}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option10)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic10)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic10}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option10}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl10}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans10}({$bl10}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option11)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic11)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic11}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option11}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl11}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans11}({$bl11}%)</div>
+		</div>
+	</div>
+	{/if}
+
+	{if trim($wtp->option12)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic12)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic12}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option12}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl12}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans12}({$bl12}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option13)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic13)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic13}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option13}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl13}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans13}({$bl13}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	
+	
+	{if trim($wtp->option14)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic14)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic14}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option14}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl14}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans14}({$bl14}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option15)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic15)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic15}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option15}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl15}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans15}({$bl15}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option16)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic16)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic16}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option16}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl16}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans16}({$bl16}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option17)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic17)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic17}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option17}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl17}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans17}({$bl17}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option18)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic18)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic18}"/>
+			
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option18}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl18}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans18}({$bl18}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option19)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic19)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic19}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+			<div>{$wtp->option19}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl19}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans19}({$bl19}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	{if trim($wtp->option20)!=''}
+	<div style="width: 600px; height:120px; border-radius:15px; background-color: #f9f9f9;">
+	        {if trim($wtp->headpic20)!= ''}
+			<img  width="100" height="80" style="margin: 10px 5px auto 20px; float: left;" src="{$wtp->headpic20}"/>
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 150px; width: 300px; height: 80px;" data-value="0" >
+		{else}
+		<div class="option fn-clear option-statis" style="margin: 10px auto auto 30px; width: 300px; height: 80px;" data-value="0" >
+		{/if}
+		
+			<div>{$wtp->option20}</div>
+			<div class="progress" ><div data-per="56.52" class="bar bar0" style="width:{$bl20}%;"></div></div><div  class="per" style="left:300px ;top: 85px;">{$ans20}({$bl20}%)</div>
+		</div>
+	</div>
+	{/if}
+	
+	
+	</div>
+
+
+<script type="text/javascript">
+</script>
+<br/><br/><br/></body></html>

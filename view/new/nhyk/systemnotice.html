@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    
+    <body onselectstart="return true;" ondragstart="return false;">
+        	<script>
+		 	$().ready(function(){
+				$("#nav_1 a").on("touchstart touchend mouseover mouseout", function(e){
+					switch(e.type){
+						case "touchstart":
+						case "mouseover":
+							this.classList.add("hover");
+						break;
+						case "touchend":
+						case "mouseout":
+							this.classList.remove("hover");
+						break;
+					}
+				});
+			});
+
+			function readMsg(thi, evt,id){
+				var li = thi.parentNode;
+				li.classList.toggle("on");
+				li.removeAttribute("data-read");
+				var img = new Image();
+				img.src = "http://www.fynut.com";
+
+				if ($(li).hasClass("Js-read"))
+					return false;
+				$(li).addClass("Js-read");
+
+				$("#Js-msg-num").attr("data-count",parseInt($("#Js-msg-num").attr("data-count")) - 1);
+				
+				//已经阅读
+				$.ajax({
+					type: "post",  
+					url: "/Webnewmemannounce/systemread?pid=1071&bid=&wechatid=osXr8jse4OQ6PUXeEg5Z3G7SUpUI&id="+id,
+					dataType: "json",  
+					success: function(html){
+				    	//@todo 业务处理
+					}
+				});
+				
+			}
+
+
+		</script>
+	
+		<div class="container coupon message ">
+			<header>
+				<nav class="p_10">
+					<ul id="nav_1" class="box">
+						<li><a href="notice.html">广播</a></li>
+						<li><a href="javascript:;"  class="on">系统消息</a></li>
+					</ul>
+				</nav>
+			</header>
+			<div class="body">
+				<ul class="list_message">
+				
+				    {loop $rs as $v}
+				    <li   class="Js-read">
+						<a href="javascript:;" onclick="readMsg(this, event,{$v->id});">
+							<dl class="tbox">
+								<dd>
+								<!-- 1:现金消费2：消费送礼3：消费送券 -->
+								  {if $v->type==3}
+								  <span class="icon_4"></span>
+								  {elseif $v->type==2}
+								  <span class="icon_1"></span>
+								  {elseif $v->type==1}
+								  <span class="icon_5"></span>
+								  {/if}
+								</dd>
+								<dd>
+									<h3>{$v->title}</h3>
+									<p>{$v->create_time}</p>
+								</dd>
+							</dl>
+						</a>
+						<ol>
+							{$v->content}
+						</ol>
+					</li>
+					{/loop}
+				</ul>
+			</div>
+			{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-1.html}
+		  {elseif $wid==6765368 || $wid==6780484||$wid==6788906}
+		  {I footer_yypk.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-1.html}
+        {/if}
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>		</div>
+        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+</body>
+</html>
+

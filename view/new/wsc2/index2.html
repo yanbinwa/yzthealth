@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>
+      精选商品
+    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c2.css">
+    <script type="text/javascript" src="{$JS}mwm/swipe.js"></script>
+    <script>
+		$(function(){			
+			new Swipe(document.getElementById('slideWrapper'), {
+				speed:500,
+				auto:3000,
+				callback: function(index, elem){
+					var lis = $('#bannerTab').children();
+					lis.removeClass("cur").eq(index).addClass("cur");
+				}
+			});
+			
+		});
+		
+	</script>
+  </head>
+  
+  <body>
+    {T tp1}
+    <div class="wx_wrap wx_xin_wrap" style="overflow: hidden;">
+      <div class="mod_slider" id="slideList" style="overflow: hidden;">
+        <div class="inner" id="slideWrapper" style="overflow: hidden;">
+          <ul class="pic_list" id="bannerImg" style="overflow: hidden;">
+           {loop $tjres as $tj}
+            <li style="width:380px;max-width:640px;min-width:300px;max-height:240px;overflow: hidden;">
+              <a href="/wsc2/pro-{$tj->id}.html">
+                <img src="{$tj->pic2}" style="width:100%;max-height:240px;min-height:120px;overflow: hidden;">
+              </a>
+            </li>
+            {/loop}
+          </ul>
+        </div>
+        <div class="bar_wrap">
+          <ul class="bar" id="bannerTab">
+          {loop $tjres as $tj}
+            <li id="{$__i}" no="{$__i}" class="">
+            </li>
+          {/loop}
+          </ul>
+        </div>
+      </div>
+      
+      
+     <!-- <ul class="act_portal">
+      <li id="subjectImgs">
+		{loop $fzres as $fz}
+		      <a class="url" href="/wsc/grp-{$fz->id}.html" target="_blank">
+		      <img src="{$fz->img}"></a>
+		{/loop} 
+		</li>
+    </ul>-->
+    <script type="text/javascript">
+    function swithclb(){
+    	if($('#categoryFloat').is(':hidden')){
+    		$('#categoryFloat').show();
+    		$('#clsSwitcher').addClass('expand');
+    	}else{
+    		$('#categoryFloat').hide();
+    		$('#clsSwitcher').removeClass('expand');
+    	}
+    }
+    
+    
+    function seltyp(o){
+    	$('#categoryFloat').children('a').removeClass('select');
+    	$(o).addClass('select');
+    }
+    function seltyp1(o){
+    	$('.ppoksel').removeClass('select');
+    	$(o).addClass('select');
+    }
+    window.ord = 'iddesc';
+    window.typ = '0';
+    window.limit = 0;
+    function reselect(ord,typ,limit){
+    	$('#categoryFloat').hide();
+    	$('#_downLine101').show();
+    	if (window.agprogress) {
+    		window.agprogress.abort();
+    	}
+    	if(ord!==null){
+    		window.ord = ord;
+    	}
+    	if(typ!==null){
+    		window.typ = typ;
+    	}
+    	if(limit!==null){
+    		window.limit = limit;
+    	}
+    	window.isajax = true;
+    	if(window.limit==0){
+			$('#martList').empty();
+		}
+    	window.agprogress = ajax('index2.html',{ ord:window.ord,typ:window.typ,limit:window.limit},function(m){
+    		if(m.length<10){
+    			//隐藏刷新券
+    			$('#_downLine101').hide();
+    		}else{
+    			//显示刷线券
+    			$('#_downLine101').show();
+    		}    		
+    		
+    		for(var i=0;i<m.length;i++){
+    			var mm = m[i];
+    			var impspan = '';
+    			if(parseFloat(mm.zk)<5){
+    				impspan = '<span class="important">巨优惠</span>';
+    			}
+                 if(mm.show_zk == 1){
+                        $('#martList').append('<div id="uudata'+mm.id+'"><li class="hproduct" style="height: 158px;border-top: 1px dotted #e1e1e1;"><a href="/wsc2/pro-'+mm.id+'.html"  class="url">'+impspan+'<img class="photo"  style="height: 128px" src="'+mm.pic+'" ><h3 class="fn">'+mm.name+'</h3><p class="price">商城价：<strong>¥'+mm.lowest+'</strong></p><p class="other"><del class="o1">¥'+mm.yj+'</del><span class="o2">'+Math.round((mm.zk / 10)*100)/100+'折</span>   <span class="o3">已售'+mm.sale_nums+'件</span></p></a></li></div>');
+
+                    }else{
+                        $('#martList').append('<div id="uudata'+mm.id+'"><li class="hproduct" style="height: 158px;border-top: 1px dotted #e1e1e1;"><a href="/wsc2/pro-'+mm.id+'.html"  class="url">'+impspan+'<img class="photo"  style="height: 128px" src="'+mm.pic+'" ><h3 class="fn">'+mm.name+'</h3><p class="price">商城价：<strong>¥'+mm.lowest+'</strong></p><p class="other"><del class="o1">¥'+mm.yj+'</del>   <span class="o3">已售'+mm.sale_nums+'件</span></p></a></li></div>');
+                    }
+    			
+    		}
+    		window.limit = window.limit+10;
+    		window.isajax = false;
+    	},function(){
+    		window.isajax = false;
+    	});
+    	
+    }
+    
+    //此处添加滚动时的触发
+    
+    $(function(){
+    	$(window).scroll(function(){
+    		if($('#_downLine101').is(':visible') && ($('body').scrollTop()+$(window).height()+50) > $('body').height() && !window.isajax){
+    			reselect(null,null,null);
+    		}
+    	});
+    	reselect(null,null,null);
+    });
+    </script>
+      <div id="sortTopLine"></div>
+      <div class="mod_fixed_wrapper">
+        <div class="mod_filter " id="clsSwitcher" style="top: 0px;">
+            <div class="mod_filter_inner">
+                <a class="category" href="javascript:;" onclick="swithclb();" attr-tag="clsType">
+                    <i class="icon_filter"></i>
+                    筛选
+                </a>
+                <a class="no_icon select ppoksel" href="javascript:;" onclick="seltyp1(this);reselect('iddesc',null,0);" attr-tag="sort" attr-sorttype="0">
+                    默认
+                </a>
+                <a class="ppoksel" href="javascript:;" onclick="seltyp1(this);reselect('zk',null,0);" attr-tag="sort" attr-sorttype="1">
+                    折扣
+                    <i class="icon_sort_single"></i>
+                </a>
+                <a class="state_switch ppoksel" href="javascript:;" onclick="seltyp1(this);reselect('sale_nums',null,0);" attr-tag="sort" attr-sorttype="2">
+                    销量
+                    <i class="icon_sort_single"></i>
+                </a>
+            </div>
+            <div class="more_wrapper" style="position: relative;">
+                <div class="more_category" id="categoryFloat">
+                <a href="javascript:;" onclick="seltyp(this);reselect(null,0,null);" id="clstype_0" class="select">全部</a>
+                {loop $yylb as $ylb}
+                <a href="javascript:;" id="clstype_1" onclick="seltyp(this);reselect(null,'{$ylb['typ']}',0);" class="">{$fls[$ylb['typ']]}</a>
+                {/loop}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="ju_list">
+	<div id="_tempUp101" style="height: 0px;">
+	</div>
+	<div id="_upLine101">
+	</div>
+	<ul id="martList">
+		
+		
+	</ul>
+	<div id="_downLine101" attr-autoload="1">
+		<div class="wx_loading2">
+			<i class="wx_loading_icon">
+			</i>
+		</div>
+	</div>
+</div>
+    
+    {T /_wf}
+    
+    
+    </div>
+   {T /wsc2/bb}
+   
+    <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+  </body>
+
+</html>

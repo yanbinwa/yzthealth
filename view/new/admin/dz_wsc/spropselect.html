@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理后台</title>
+<link rel="stylesheet" type="text/css" href="/css/shop.css" />
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate-plugin.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}shop/spropselect.js"></script>
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+</head>
+<body style="width:700px;min-height:400px;" class="{Session::get('maintheme')}">
+<div class="pop_win">
+	<table class="spec" width="95%" cellspacing="0" cellpadding="0" border="0">
+		<col width="40%" />
+		<col width="65%" />
+		<tr>
+			<td>
+				<h3>请选择规格</h3>
+				<div class="cont" style='height:285px;'>
+					<ul id="specs"></ul>
+				</div>
+				<p>没有找到需要的规格？</p>
+				<p><button type="button" class="btn" onclick="addNewSpec()"><span class="add">添加新规格</span></button></p>
+			</td>
+			<td>
+				<h4>规格预览区</h4>
+				<div class="cont" style="width:360px;">
+					<p>请在左侧列表选择规格！</p>
+					<ul class="goods_spec_box"></ul>
+
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<script type='text/javascript'>
+$(function(){
+	var specListrender = template.compile(specListTemplateSource);
+	var specListHtml = specListrender({ 'templateData':{json_encode($res)}});
+	$('#specs').html(specListHtml);
+	
+});
+</script>
+</body>
+</html>

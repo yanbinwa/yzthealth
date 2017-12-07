@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<script type="text/javascript" src="/res/mbaudio/inc/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="/res/mbaudio/inc/jquery.mb.miniPlayer.js"></script>
+<link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
+<script type="text/javascript" src="/uploadify/jquery.uploadify.js"></script>
+<link rel="stylesheet" type="text/css" href="/res/mbaudio/css/miniplayer.css" title="style" media="screen"/>
+<script type="text/javascript" src="/uploadify/jquery.zclip.js"></script>
+<script type="text/javascript" src="/uploadify/set.js"></script>
+</head>
+ <body class="{Session::get('maintheme')}">
+<div class="container-fluid" id="content">
+        <div id="main">
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="box">
+                            <div class="box-title">
+                                <div class="span10">
+                                    <h3> <i class="icon-cog"></i>
+                                        微理疗设置
+                                    </h3>
+                                </div>
+                                <div class="span2">
+                                    <a class="btn" href="Javascript:window.history.go(-1)">返回</a>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                            	
+                                <form action="" method="POST" id="setBusinessForm" class="form-horizontal form-validate" >
+                                <div class="control-group">
+                                    <label class="control-label">logo：</label>
+                                        <div class="controls">
+                                            <img class="thumb_img" src="{$set->logo}" id="pic_logo" relobj="elfinder_nhyk" style="max-height:100px;" />
+                                            {$set->hidden('logo',' relobj="elfinder_nhyk"')}
+                                            <span class="help-inline">
+                                                <button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk" >选择logo</button>
+                                                <span class="help-inline"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">官网标题</label>
+                                        <div class="controls">
+                                        	{$set->hidden('id')}
+                                            {$set->text('title','class="input-xlarge" required="required" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">官网关键词</label>
+                                        <div class="controls">
+                                            {$set->text('keywords','class="input-xlarge" required="required" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">官网描述</label>
+                                        <div class="controls">
+                                            {$set->text('description','class="input-xlarge" required="required" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                    <label class="control-label" for="brief">背景音乐</label>
+                                    <div class="controls">
+                                    <table>
+                                    <tr>
+                                     <td class="audiotd"><a id="m1" class="audio { skin:'blue'}" href="{$set->music}" >......</a></td>
+                                      <td><button id="file_upload-button" class="btn pl_add btn-primary" type="button"><span class="uploadify-button-text"><i class="icon-plus-sign"></i> 音乐</span></button></td>
+                                     <td style="padding-left:50px;">&nbsp;&nbsp;文件格式：mp3{if trim($set->music) != ''},您已上传了音乐,请点击试听{/if}</td>
+                                    </tr>
+                                    </table>
+                                    {$set->hidden('music','rel="music"')}
+                                    </div>
+                                    
+                                </div>                                  
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">申请合作邮箱</label>
+                                        <div class="controls">
+                                            {$set->text('email','class="input-xlarge" required="required" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="keyword">申请审核电话</label>
+                                        <div class="controls">
+                                            {$set->text('telephone','class="input-xlarge" required="required" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div>                                                                        
+
+                                    <div class="control-group">
+                                    <label class="control-label">首页banner</label>
+                                        <div class="controls">
+                                            <img class="thumb_img" src="{$set->pics}" id="pic_pics" relobj="elfinder_pics" style="max-height:100px;" />
+                                            {$set->hidden('pics',' relobj="elfinder_pics"')}
+                                            <span class="help-inline">
+                                                <button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="pics" >选择图片</button>
+                                                <span class="help-inline">建议尺寸：375*117 px</span>
+                                            </span>
+                                        </div>
+                                    </div>                                    
+                                    <div class="control-group">
+                                    <label class="control-label">学院搜索页banner</label>
+                                        <div class="controls">
+                                            <img class="thumb_img" src="{$set->search_pic}" id="pic_search_pic" relobj="elfinder_search_pic" style="max-height:100px;" />
+                                            {$set->hidden('search_pic',' relobj="elfinder_search_pic"')}
+                                            <span class="help-inline">
+                                                <button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="search_pic" >选择图片</button>
+                                                <span class="help-inline"></span>
+                                            </span>
+                                        </div>
+                                    </div>  
+                                    <div class="control-group">
+                                        <label class="control-label" for="title">禁忌症状：</label>
+                                        <div class="controls">
+                                         {$set->texteditor('detailcs',3, '650px','450px' )}
+                                        </div>
+                                    </div>  
+                                    <div class="control-group">
+                                        <label class="control-label" for="title">服务协议：</label>
+                                        <div class="controls">
+                                         {$set->texteditor('fwxy',3, '650px','450px' )}
+                                        </div>
+                                    </div>                                     
+                                    <div class="control-group">
+                                        <label class="control-label" for="title">服务规范：</label>
+                                        <div class="controls">
+                                         {$set->texteditor('fwgf',3, '650px','450px' )}
+                                        </div>
+                                    </div>                                                                                                          
+                                    <!-- <div class="control-group">
+                                        <label class="control-label" for="keyword">版权描述</label>
+                                        <div class="controls">
+                                            {$set->text('copyright','class="input-xlarge" required="required" ')}
+                                            <span class="maroon">*</span>
+                                            <span class="help-inline"></span>
+                                        </div>
+                                    </div> -->
+                                    
+                                    <div class="form-actions">
+                                        <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+$(function(){
+    $('#file_upload-button').uploadify({
+        height        : 20,
+        swf           : '/uploadify/uploadify.swf',
+        uploader      : '/uploadify.html',
+        width         : 70,
+        multi         : true ,
+        buttonText    : '<span class="uploadify-button-text"><i class="icon-plus-sign"></i>上传音乐</span>',
+        buttonClass   : 'btn pl_add btn-primary',
+        onUploadSuccess    : function (a, b, c, d, e){
+            $('input[rel="music"]').val(b);
+            $('.audiotd').html('<a id="m1" class="audio { skin:\'blue\'}" href="'+b+'" >......</a>');
+            $(".audio").mb_miniPlayer({
+                width:50,
+                inLine:false
+            });
+        }
+    });
+    
+     $(".audio").mb_miniPlayer({
+            width:50,
+            inLine:false
+     });
+});
+
+
+        window.document.onkeydown = function(e) {
+            if ('' == document.activeElement.id) {
+                var e=e || event;
+　               var currKey=e.keyCode || e.which || e.charCode;
+                if (8 == currKey) {
+                    return false;
+                }
+            }
+        };
+
+</script>
+<script type="text/javascript" src="{$JS}comm.js"></script>
+</body>
+</html>

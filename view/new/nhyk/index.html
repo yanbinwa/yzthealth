@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/font-awesome.css" media="all" />
+       
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+        <style>
+		.mc {
+		    margin-left: -30px;
+		    max-height: 150px;
+		    max-width: 200px;
+		    position: absolute;
+		    top: 2px;
+		}
+        </style>
+</head>
+    <body onselectstart="return true;" ondragstart="return false;">
+{if $info->bton_show==1}
+	{if $wid==6765368 || $wid==6780484 ||$wid==6788906}
+    <script>
+	    var yu_e_pay="{$info->yu_e_pay}";
+		function charge(){
+			var d = new iDialog();
+	        var payment = "{$optionstr}";
+	        //payment +='<option value="4">支付宝支付</option>';
+			//  payment +='<option value="5">微支付</option>';
+				        	
+			d.open({
+				classList: "valid_phone charge",
+				title:"",
+				close:"",
+				content:'<ul class="list_ul_card">'+
+						'<form id="form1" action="recharge.html" method="post">'+
+							'<li data-card>'+
+								'<table>'+
+									'<tr class="input wrapInput">'+
+										'<td><label class="pre" style="color:#333333;">充值金额：</label></td>'+
+										'<td style="width:100%;"><input type="text" name="money" id="money" placeholder="请输入充值金额" maxlength="15" class="input" /></td>'+
+									'</tr><tr><td colspan="2" style="height:15px;"></td></tr>'+
+									'<tr class="input wrapInput">'+
+										'<td><label class="pre pl_10" style="color:#333333;">充值方式:</label></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select id="paytype_type" name="paytype" class="select">'+
+	                                            payment+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+								'</table>'+
+							'</li>'+
+						'</form>'+
+					'</ul>',
+				btns:[
+					{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+						var form1 = document.getElementById("form1");
+						var obj1 = {
+							money: $("#money").val()
+						}
+						if(parseFloat(obj1.money) <=0 || obj1.money==''){
+							alert("请输入正确的充值金额", 1500);
+							return false;
+						}
+						var paytypevalue =$("#paytype_type").find("option:selected").val();
+						if(paytypevalue=="undefined" ||paytypevalue=="" ||paytypevalue==null){
+							alert("请选择充值方式！", 1500);
+							return false;
+						}
+						document.forms['form1'].submit();
+						
+					}},
+					{id:"", name:"取消", onclick:"fn.call();", fn: function(self){
+						self.die();
+					}}
+				]
+			});
+		}
+		function pay(){
+			var d = new iDialog();
+			 var payment = "{$optionstr}";
+	                    // payment += '<option value="4">' + '支付宝'+'</option>';
+	                    //payment += '<option value="5">' + '微支付'+'</option>';
+	                    
+	           d.open({
+				classList: "valid_phone pay",
+				title:"",
+				close:"",
+				content:'<ul class="list_ul_card">'+
+						'<form id="form2" action="javascript:;" method="post">'+
+							'<li data-card>'+
+								'<table>'+
+									'<tr class="input wrapInput">'+
+										'<td><input type="hidden" id="sub" name="sub" ></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select name="store" class="select">'+
+												'<option value="0">请选择消费门店：</option>'+
+												'{$str}'+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput">'+
+										'<td></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select name="discount" class="select">'+
+												'<option value="0">请选择所需优惠：</option>'+
+												'{$stryhq}'+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput">'+
+										'<td></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select name="paytype" class="select" onChange="SelectCode(this);">'+
+												'<option value="0">请选择支付方式：</option>'+
+												payment+
+												'<option value="2">U币支付 </option>'+
+												'<option value="1">现金付款 </option>'+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput">'+
+										'<td>'+
+											'<label class="pre ml_5" style="color:#333333;"> 消费金额：</label> '+
+										'</td>'+
+										'<td style="width:100%;">'+
+											'<input name="money" type="number" placeholder="请输入实际消费金额" maxlength="15" class="input" />'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput" id="vcode" style="display:none">'+
+										'<td style="width:70%;"><input type="text" placeholder="验证码：" maxlength="30" class="input" name="vcode"></td>'+
+										'<td>'+
+											'<input  class="button vcode" type="button" id="codeing" onclick="getReceiveMemberCardVCode(this);" style="width:120px;" value="获取验证码" />'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput" id="pay_pwd_tr" style="display:none">'+
+									'<td style="width:70%;"><input type="password" placeholder="自定义支付密码" maxlength="30" class="input" name="pay_pwd"></td>'+
+									'<td>&nbsp;</td>'+
+								'</tr>'+
+									'<tr class="input wrapInput" id="password" style="display:none">'+
+										'<td style="width:70%;"><input type="password" placeholder="商家确认密码：" maxlength="30" class="input" name="password"></td>'+
+										'<td>&nbsp;</td>'+
+									'</tr>'+
+								'</table>'+
+							'</li>'+
+						'</form>'+
+					'</ul>',
+				btns:[
+					{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+						var form2 = document.getElementById("form2");
+						var obj = {
+				            store: form2.store.value,
+				            qid: form2.discount.value,
+							paytype: form2.paytype.value,
+							money: form2.money.value,
+				            validCode: form2.vcode.value,
+							password: form2.password.value,
+							sub: form2.sub.value,
+							pay_pwd:form2.pay_pwd.value
+						}
+	                   
+				        if(obj.paytype == 0){
+				            alert("请选择支付方式", 1500);
+				            return false;
+				        }else if(obj.paytype == 2){
+				        	//yu_e_pay
+				            if(obj.validCode == ''&&yu_e_pay==0){
+				                alert("验证码不能为空", 1500);
+				                return false;
+				            }
+				        }else if(obj.paytype == 1){
+							if(obj.password == ''){
+								alert("商家确认密码不能为空", 1500);
+								return false;
+							}
+						}
+				        if(parseFloat(obj.money) <= 0){
+				            alert("请输入正确的消费金额",1500);
+				            return false;
+				        }
+						loading('提交中...');
+						$.ajax({
+								url: "pay.html",
+								type:"post",
+								data:obj,
+					            dataType:'json',
+								success: function(res){
+									loading(false);
+									if(res.errno == '0'){
+										if(obj.paytype==5)
+										{
+											$('#form2').attr("action","pay.html");
+											$('#sub').val(res.error);
+											document.forms['form2'].submit();
+										}
+										else
+					                	setTimeout('location.href="pay.html?m='+res.error+'"' ,20);
+					                }else{
+					                    alert(res.error, 1500);
+					                    return false;
+					                }
+
+								}
+							});
+					}},
+					{id:"", name:"取消", onclick:"fn.call();", fn: function(selfs){
+	                    selfs.die();
+					}}
+				]
+			});
+		}
+	    $(document).ready(function(){
+	        $("#codeing").on(function(){
+	            alert("请输入正确的消费金额",1500);
+	        });
+	    });
+
+	   
+	</script>
+	{else}
+	<script>
+	    var yu_e_pay="{$info->yu_e_pay}";
+		function charge(){
+			var d = new iDialog();
+	        var payment = "{$optionstr}";
+	        //payment +='<option value="4">支付宝支付</option>';
+			//  payment +='<option value="5">微支付</option>';
+				        	
+			d.open({
+				classList: "valid_phone charge",
+				title:"",
+				close:"",
+				content:'<ul class="list_ul_card">'+
+						'<form id="form1" action="recharge.html" method="post">'+
+							'<li data-card>'+
+								'<table>'+
+									'<tr class="input wrapInput">'+
+										'<td><label class="pre" style="color:#333333;">充值金额：</label></td>'+
+										'<td style="width:100%;"><input type="text" name="money" id="money" placeholder="请输入充值金额" maxlength="15" class="input" /></td>'+
+									'</tr><tr><td colspan="2" style="height:15px;"></td></tr>'+
+									'<tr class="input wrapInput">'+
+										'<td><label class="pre pl_10" style="color:#333333;">充值方式:</label></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select id="paytype_type" name="paytype" class="select">'+
+	                                            payment+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+								'</table>'+
+							'</li>'+
+						'</form>'+
+					'</ul>',
+				btns:[
+					{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+						var form1 = document.getElementById("form1");
+						var obj1 = {
+							money: $("#money").val()
+						}
+						if(parseFloat(obj1.money) <=0 || obj1.money==''){
+							alert("请输入正确的充值金额", 1500);
+							return false;
+						}
+						var paytypevalue =$("#paytype_type").find("option:selected").val();
+						if(paytypevalue=="undefined" ||paytypevalue=="" ||paytypevalue==null){
+							alert("请选择充值方式！", 1500);
+							return false;
+						}
+						document.forms['form1'].submit();
+						
+					}},
+					{id:"", name:"取消", onclick:"fn.call();", fn: function(self){
+						self.die();
+					}}
+				]
+			});
+		}
+		function pay(){
+			var d = new iDialog();
+			 var payment = "{$optionstr}";
+	                    // payment += '<option value="4">' + '支付宝'+'</option>';
+	                    //payment += '<option value="5">' + '微支付'+'</option>';
+	                    
+	           d.open({
+				classList: "valid_phone pay",
+				title:"",
+				close:"",
+				content:'<ul class="list_ul_card">'+
+						'<form id="form2" action="javascript:;" method="post">'+
+							'<li data-card>'+
+								'<table>'+
+									'<tr class="input wrapInput">'+
+										'<td><input type="hidden" id="sub" name="sub" ></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select name="store" class="select">'+
+												'<option value="0">请选择消费门店：</option>'+
+												'{$str}'+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput">'+
+										'<td></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select name="discount" class="select">'+
+												'<option value="0">请选择所需优惠：</option>'+
+												'{$stryhq}'+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput">'+
+										'<td></td>'+
+										'<td style="width:100%;" colspan="2">'+
+											'<select name="paytype" class="select" onChange="SelectCode(this);">'+
+												'<option value="0">请选择支付方式：</option>'+
+												payment+
+												'<option value="2">余额支付 </option>'+
+												'<option value="1">现金付款 </option>'+
+											'</select>'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput">'+
+										'<td>'+
+											'<label class="pre ml_5" style="color:#333333;"> 消费金额：</label> '+
+										'</td>'+
+										'<td style="width:100%;">'+
+											'<input name="money" type="number" placeholder="请输入实际消费金额" maxlength="15" class="input" />'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput" id="vcode" style="display:none">'+
+										'<td style="width:70%;"><input type="text" placeholder="验证码：" maxlength="30" class="input" name="vcode"></td>'+
+										'<td>'+
+											'<input  class="button vcode" type="button" id="codeing" onclick="getReceiveMemberCardVCode(this);" style="width:120px;" value="获取验证码" />'+
+										'</td>'+
+									'</tr>'+
+									'<tr class="input wrapInput" id="pay_pwd_tr" style="display:none">'+
+									'<td style="width:70%;"><input type="password" placeholder="自定义支付密码" maxlength="30" class="input" name="pay_pwd"></td>'+
+									'<td>&nbsp;</td>'+
+								'</tr>'+
+									'<tr class="input wrapInput" id="password" style="display:none">'+
+										'<td style="width:70%;"><input type="password" placeholder="商家确认密码：" maxlength="30" class="input" name="password"></td>'+
+										'<td>&nbsp;</td>'+
+									'</tr>'+
+								'</table>'+
+							'</li>'+
+						'</form>'+
+					'</ul>',
+				btns:[
+					{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+						var form2 = document.getElementById("form2");
+						var obj = {
+				            store: form2.store.value,
+				            qid: form2.discount.value,
+							paytype: form2.paytype.value,
+							money: form2.money.value,
+				            validCode: form2.vcode.value,
+							password: form2.password.value,
+							sub: form2.sub.value,
+							pay_pwd:form2.pay_pwd.value
+						}
+	                   
+				        if(obj.paytype == 0){
+				            alert("请选择支付方式", 1500);
+				            return false;
+				        }else if(obj.paytype == 2){
+				        	//yu_e_pay
+				            if(obj.validCode == ''&&yu_e_pay==0){
+				                alert("验证码不能为空", 1500);
+				                return false;
+				            }
+				        }else if(obj.paytype == 1){
+							if(obj.password == ''){
+								alert("商家确认密码不能为空", 1500);
+								return false;
+							}
+						}
+				        if(parseFloat(obj.money) <= 0){
+				            alert("请输入正确的消费金额",1500);
+				            return false;
+				        }
+						loading('提交中...');
+						$.ajax({
+								url: "pay.html",
+								type:"post",
+								data:obj,
+					            dataType:'json',
+								success: function(res){
+									loading(false);
+									if(res.errno == '0'){
+										if(obj.paytype==5)
+										{
+											$('#form2').attr("action","pay.html");
+											$('#sub').val(res.error);
+											document.forms['form2'].submit();
+										}
+										else
+					                	setTimeout('location.href="pay.html?m='+res.error+'"' ,20);
+					                }else{
+					                    alert(res.error, 1500);
+					                    return false;
+					                }
+
+								}
+							});
+					}},
+					{id:"", name:"取消", onclick:"fn.call();", fn: function(selfs){
+	                    selfs.die();
+					}}
+				]
+			});
+		}
+	    $(document).ready(function(){
+	        $("#codeing").on(function(){
+	            alert("请输入正确的消费金额",1500);
+	        });
+	    });
+
+	   
+	</script>
+	{/if}
+{/if}
+<div class="container card">
+	<header>
+		<div class="header card"> <!--6775903 -->
+			<div id="card" data-role="card" onclick="this.classList.toggle('on');" >
+				<div class="front" style="background-image:url({if $info->icbg==0}{$info->cbg}{else}{$info->cbg_my}{/if});">
+				     {if $info->clogo_show==1 && $info->clogo!=''}
+				       <div class="logo">
+				         <img src="{$info->clogo}" >
+				       </div>
+                     {/if}
+                    <?php if ($wid == 6775903): ?>  
+                    <div style="top:25px;left:10px;">
+                    	<img alt="" src="bcode.html?text={$m->cardno}" style="display:block;margin:10px" />
+                    </div>	
+                    <?php endif ?>
+					<span class="name" style='color:{$info->cname_color}'>{$info->cname}</span>
+					<span class="no" style='color:{$info->cno_color}; font-size: 18px '>{$m->cardno}</span>
+				</div>
+				<div class="back" style="background-image:url({if $info->icbgb==0}{$info->cbk_img}{else}{$info->cbk_img_my}{/if});">
+					<span style='color:{$info->cbk_color};'>
+					    {if $info->show_des=='1'}
+							{if $info->des!=''}<h3>使用说明：</h3>{/if}
+							<pre style="white-space:pre-line;height: 84px;overflow:hidden;">
+								{$info->des}							
+						    </pre>
+					    {/if}
+						<label class="addr"> {if $set->show_addr=='1'}{if $set->addr!=''}地址：{/if}{$set->addr}{/if}</br>{if $set->show_tel=='1'}{if $set->tel!=''}电话：{/if}{$set->tel}{/if}</label>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		{if $info->bton_show==1}
+		<div>
+			<ul class="box group_btn">
+				<li><a href="javascript:charge();" >充值</a></li>
+				<li><a href="javascript:pay();" >付款</a></li>
+			</ul>
+		</div>
+		{/if}
+        
+		{if $wid=='6764263'}
+		<div class="integral">
+		    <header>
+				
+				<nav class="nav_integral">
+					<ul class="box">
+					    
+						<li style="width: 80px;height: 40px;">
+							<a href="myCoupon.html" style="color: #ffffff;display: block;text-align: center;padding-top: 7px;">
+								<label>优惠券</label>
+								<p>{$yhq}</p>
+							</a>
+						</li>
+						<li style="width: 80px;height: 40px;">
+							<a href="myexchangecoupon.html" style="color: #ffffff;display: block;text-align: center;padding-top: 7px;">
+								<label>兑换券</label>
+								<p>{$djq}</p>
+							</a>
+						</li>
+						<li style="width: 80px;height: 40px;">
+							<a href="scorelist-1.html" style="color: #ffffff;display: block;text-align: center;padding-top: 7px;">
+								<label>积分</label>
+								<p>{$m->integral}</p>
+							</a>
+						</li>
+						<li style="width: 80px;height: 40px;">
+							<a href="bill.html" style="color: #ffffff;display: block;text-align: center;padding-top: 7px;">
+								<label>余额</label>
+								<p>{$m->balance}</p>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
+		</div>
+		{/if}	
+			
+	</header>
+	<div class="body">
+		<ul class="list_ul">
+			<div>
+                {loop $mprs as $v}
+                <li class="li_a">
+					<label class="label" onclick="this.parentNode.classList.toggle('on');">
+					<i>&nbsp;</i>{$v->title} <span>&nbsp;</span></label>
+					<ol>
+						{$v->des}				
+				    </ol>
+				</li>
+                {/loop}				
+				<li class="li_b">
+					<a href="listCoupon.html"><label class="label"><i>&nbsp;</i>{if $wid=='6764263'}我的优惠{else}会员优惠{/if}<span>&nbsp;</span></label></a>
+				</li>
+				{if $wid==6765368 || $wid==6780484||$wid==6788906}
+				{else}
+				<li class="li_c">
+					<a href="exchangelist.html"><label class="label"><i>&nbsp;</i>{if $wid=='6764263'}积分兑换商城{else}积分兑换{/if}<span>&nbsp;</span></label></a>
+				</li>
+				{/if}
+				<li class="li_d">
+					<a href="editMemberInfo.html"><label class="label"><i>&nbsp;</i>完善会员卡资料 <span>&nbsp;</span></label></a>
+				</li>
+				{loop $rs as $v}
+				<li class="li_e">
+					<label class="label" onclick="this.parentNode.classList.toggle('on');"><i>&nbsp;</i>{$v->title}<span>&nbsp;</span></label>
+					<ol>
+					{$v->content}		
+				    </ol>
+				</li>
+				{/loop}
+				
+				{loop $rrgh as $ghv}
+					<li class="li_e">
+						<label class="label" onclick="this.parentNode.classList.toggle('on');"><i>&nbsp;</i>{$ghv->title}<span>&nbsp;</span></label>
+						<ol>
+						{$ghv->des}		
+					    </ol>
+					</li>
+				{/loop}
+			</div>
+			
+			{if !empty($rs1)}
+			<div>
+			  {loop $rs1 as $val}
+				            {if $val->type =='tel'}
+							<li class="li_g">
+								<a href="tel:{$val->tel}"><label class="label"><i class="{$val->icon}">&nbsp;</i>{$val->name}<span>&nbsp;</span></label></a>
+							</li>
+							{elseif $val->type =='map'}
+							<li class="li_g">
+								<a href="http://api.map.baidu.com/marker?location={$val->wd},{$val->jd}&title={$val->place}&name={$val->place}&content={$val->place}&output=html&src=weiba|weiweb"><label class="label"><i class="{$val->icon}">&nbsp;</i>{$val->name}<span>&nbsp;</span></label></a>
+							</li>
+							{else}
+							<li class="li_g">
+								<a href="{$val->url}"><label class="label"><i class="{$val->icon}">&nbsp;</i>{$val->name}<span>&nbsp;</span></label></a>
+							</li>
+							
+							{/if}
+			   {/loop}
+			</div>
+			{/if}
+			
+			<div>
+				<li class="li_i">
+					<a class="label" href="tel:{$set->tel} "><i>&nbsp;</i>{$set->tel} <span>&nbsp;</span></a>
+				</li>
+				<li class="li_j">
+					<a href="http://api.map.baidu.com/marker?location={$set->wd},{$set->jd}&title={$set->dz}&name={$set->dz}&content={$set->dz}&output=html&src=weiba|weiweb">
+					<label class="label"><i>&nbsp;</i><p class="mutipleLine">{$set->dz}</p> <span>&nbsp;</span></label>
+					</a>
+			    </li>
+				<!-- 门店-->
+				{if $wid=="6765368" || $wid == '6780484' ||$wid==6788906}
+					<li class="li_k">
+						<a href="/weiweb/6780484/148934361ccd339b74e02768.html"><label class="label"><i>&nbsp;</i>在线预定<span>&nbsp;</span></label></a>
+					</li>
+				{else}
+					<li class="li_k">
+						<a href="store.html"><label class="label"><i>&nbsp;</i>适用门店<span>&nbsp;</span></label></a>
+					</li>
+				{/if}
+				
+			</div>
+		</ul>
+	</div>
+	
+{if $wid=='6764263'}
+  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263.html}
+  {elseif $wid==6765368 || $wid==6780484||$wid==6788906}
+		  {I footer_yypk.html}
+{else}
+  {I http://houtai.weixinguanjia.cn/nhyk/footer.html}
+{/if}
+	
+</div>
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+	WeixinJSBridge.call('hideOptionMenu');
+});
+
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+WeixinJSBridge.call('hideToolbar');
+});
+		
+   var intervalId,buttonObj;
+   //发送下一条短信需要间隔的秒数
+   var seconds = 60;
+	function getReceiveMemberCardVCode(clickObj){
+	    var form = document.getElementById("form2");
+	    var req = {
+	    	tel: {$m->phone}
+	    }
+	    clickObj.setAttribute("disabled", "disabled");
+	    clickObj.value = "正在发送，请稍候...";
+	    $.ajax({
+	        url: "sendCode.html",
+	        type:"post",
+	        data:req,
+	        dataType:"JSON",
+	        success: function(res){
+	            if(0 == res.errno){
+	                clickObj.value = '验证码发送成功';
+	                buttonObj = clickObj;
+	                intervalId = setInterval("ticker()",1000);
+	            }else{
+	                alert("失败", 1500);
+	            }
+	        }
+	    });
+	}
+	function ticker(){
+	    seconds --;
+	    if(seconds > 55){
+	        //提示消息显示5秒钟
+	    }else if(seconds>0){
+	        buttonObj.value = seconds+"秒后可重新获取";
+	    }else{
+	        clearInterval(intervalId);
+	        buttonObj.removeAttribute("disabled");
+	        buttonObj.value = "获取验证码";
+	        seconds = 60;
+	        buttonObj = null;
+	    }
+	}
+    function SelectCode(obj){
+        var val = $(obj).val();
+        if(val != 2){
+            $("#vcode").hide();
+            $("#pay_pwd_tr").hide();
+        }else if(val==2&&yu_e_pay==0){
+        	//yu_e_pay pay_pwd_tr
+            $("#vcode").show();
+            $("#pay_pwd_tr").hide();
+        }else if(val==2&&yu_e_pay==1){
+        	//yu_e_pay
+            $("#vcode").hide();
+            $("#pay_pwd_tr").show();
+        }
+		if(val == 1){
+			$("#vcode").hide();
+			$("#password").show();
+		}else{
+			$("#password").hide();
+		}
+    }
+
+</script>
+     <div mark="stat_code" style="width:0px; height:0px; display:none;"></div>
+</body>
+
+
+</html>
+

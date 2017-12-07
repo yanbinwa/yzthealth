@@ -1,0 +1,52 @@
+.content_panel {
+	background: #FFE84D;
+	height: 943px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 100px;
+}
+.share_title {
+	background: #FFF;
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 1.2em;
+}
+.hongbao {
+	background: url('/res/tg/images/success.png?e') no-repeat;
+	width: 620px;
+	height: 840px;
+	background-position-x: -15px;
+	background-position-y: -73px;
+	position: relative;
+}
+.fahongbao {
+	background: url('/res/tg/images/fahongbao.png?e') no-repeat;
+	height: 72px;
+	position: absolute;
+	top: 540px;
+	width: 278px;
+	left: 166px;
+}
+.tip {
+	font-size: 0.8em;
+	position: absolute;
+	top: 358px;
+	width: 269px;
+	left: 177px;
+	color: #FFF;
+}
+.shate_panel_special {
+	display: none;
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	margin: 0px;
+	background: url('/res/tg/images/share_tip.png') 0px 0px no-repeat;
+	background-color: rgba(0, 0, 0, 0.701961);
+	position: absolute;
+	background-position-x: 20px;
+}
+
+
+
+

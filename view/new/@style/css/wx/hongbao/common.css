@@ -1,0 +1,116 @@
+html {
+    color: #000;
+    background: #FFF;
+}
+body {
+    font-size: 62.5%;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    -ms-content-zooming: none;
+    -ms-user-select: none;
+}
+@viewport {
+width: 640px;
+}
+@-ms-viewport {
+width: 640px;
+}
+
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+input, textarea, select {
+    font-size: 100%;
+}
+body {
+    font-size: 32px;
+    color: #63605D;
+    min-width: 640px;
+    margin: 0 auto;
+    padding: 0px;
+    font-family: "Microsoft YaHei";
+}
+a {
+    text-decoration: none;
+    color: #323333;
+}
+a:link {
+    color: #333;
+}
+a:active {
+    color: #333;
+}
+nav ul {
+    list-style: none;
+}
+ul {
+    list-style: none;
+}
+.main {
+    /*width: 640px;*/
+    margin: 0px auto;
+    background: #E8E7E4;
+    padding-top: 25px;
+    padding-bottom: 38px;
+}
+/* 閸愬懎顔愰崠鍝勭厵 */
+.com_body {
+    padding: 23px 0px;
+    min-height: 480px;
+}
+/* city */
+.com_textfield {
+    height: 59px;
+    padding: 0px 15px;
+    line-height: normal;
+    color: #333;
+    border: 1px solid #C5C5C5;
+    box-shadow: 0px 0px 0px #999 inset;
+    border-radius: 4px;
+    font-size: 32px;
+}
+.com_list_table {
+    display: table;
+    width: 100%;
+    height: 85px;
+    font-size: 32px;
+    border-bottom: 1px solid #D0D0D0;
+}
+.com_list_table_lcell, .com_list_table_rcell {
+    display: table-cell;
+    vertical-align: middle;
+}
+.com_list_table_lcell {
+    padding-left: 37px;
+    width: 145px;
+}
+.com_list_table_rcell {
+    text-align: right;
+    padding-right: 23px;
+}
+.com_list_table .com_list_rcell_cont {
+    display: block;
+    height: 85px;
+    line-height: 85px;
+    overflow: hidden;
+    width: 300px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/*loading閹貉冨煑閺�*/
+#loading_gif {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: none;
+    left: 50%;
+    top: 50%;
+    background-image: url(../images/loading.gif);
+    background-repeat: no-repeat no-repeat;
+}

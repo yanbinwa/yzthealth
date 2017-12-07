@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/daterangepicker.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<title>微信管家—国内最大的微信公众服务平台</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+
+<script type="text/javascript">
+function deldata(id,o){
+	if(confirm('确定要删除该类型的分组吗？')){
+		ajax('sgroup-del.html',{ id:id},function(){
+			location.href = location.href;
+		});
+	}
+}
+
+function modstatus(type)
+{
+    if(type==2){ 
+        var msg = '请先选择要审核通过的记录';
+        var btn = 'cg';
+    }
+    if(type==3){
+        var msg = '请先选择要驳回的记录';
+        var btn = 'bh';
+    }
+   
+    
+	var $set_items = $("#listTable tbody input[type='checkbox']:checked");
+    var $len = $set_items.length;
+    if (0 == $len) { G.ui.tips.info(msg); return; } else {
+        var c = new Array;
+        $set_items.each(function () { c.push($(this).val()) });
+        var ids = c.join(",");
+    }
+    var datainfo = {
+		    "tp"    : type,
+            "ids"   : ids
+    };
+
+	$("#"+btn).text("提交中...").addClass("disabled").attr("disabled", "disabled");
+	$.ajax({
+	        url: "txlist-pl.html",
+	        type: "post",
+	        dataType: 'json',
+	        data: datainfo,
+	        success: function (data) {
+	            G.ui.tips.info(data.error); 
+	            if(btn=='cg')
+	            $("#"+btn).text("审核通过").removeClass("disabled").removeAttr("disabled");
+	            else
+	            $("#"+btn).text("申请驳回").removeClass("disabled").removeAttr("disabled");
+	            location.reload(true);
+	        },
+	        error: function () {
+	            alert("设置失败....");
+	            $this.text("重试").removeClass("disabled").removeAttr("disabled");
+	        }
+	});
+}
+
+</script>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>赠送明细列表
+									<small></small>
+								</h3>
+							</div>
+							 <input type="hidden" id="customer_id" />
+							 <input type="hidden" id="uptype" />
+						</div>
+						<div class="box-content">						    <div class="alert">                                <span class="member-count">已完成赠送: <a style="font-size:16px;color:red" href="flmx-1.html" >&nbsp;&nbsp;{$ywccc}笔&nbsp;&nbsp;总金额：{$yflzje}元</a>&nbsp;&nbsp;未完成赠送: <a style="font-size:16px;color:red" href="flmx-0.html" >&nbsp;&nbsp;{$wwccc}笔&nbsp;&nbsp;总金额：{$wwczje}元</a></span>                            </div>														<div class="row-fluid">								<div class="span4 control-group">									<a href="javascript:location.reload();" class="btn"><i class="icon-refresh"></i>刷新</a>								</div>								<div class="span8" style="text-align:right;">									<form action="" method="get" class="form-horizontal form-validate">										<input type="text"  name="keyvalue" id="keyvalue" value="{$keyvalue}" class="input-large" placeholder="请输入关键词">										 <select id="keytype" name="keytype" >										    <option value="fkwdnam">付款人姓名</option>											<option value="hflrname">获赠送人姓名</option>											<option value="hflrphone">获赠送人手机</option>										 </select>										<button class="btn" type="submit">查询</button>									</form>								</div>							</div>														
+							<div class="row-fluid dataTables_wrapper">
+								<table id="listTable" class="table table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+										    <th class='with-checkbox'><input type="checkbox" class="check_all" onclick="selallck(this);"></th>
+										    <th>订单号</th>
+										    <th>付款微店名/购买微店名</th>																						<th>付款人姓名</th>
+										    <th>成交金额</th>
+											<th>赠送金额</th>
+											<th>下单时间</th>
+											<th>获赠送人</th>
+										    <th>获赠送人手机号</th>
+											<th>状态</th>											
+										</tr>
+									</thead>
+									<tbody>
+									{loop $res as $r}
+									<tr>
+									     <td width="5%"><input type="checkbox" value="{$r->id}"></td>
+									     <td width="10%">{if $r->type==0}<a href="orderview-{$r->order_id}.html">{$r->order_id}<span style="color:red;">(购物)</span></a>{else}{$r->order_id}{/if}</td>
+									     <td width="15%">{$r->fkwdname}</td>										 										 <td width="11%">{$r->fkwdnam}</td>
+									     <td width="8%">{$r->order_amount}</td>
+									     <td width="8%">{$r->fl_amount}</td>
+									     <td width="15%">{$r->create_time}</td>
+									     
+									     <td width="10%">{$r->name}</td>
+									     <td width="10%">{$r->tel}</td>
+									    
+									     <td width="8%">
+									            {if $r->status=='0'}
+												<span class="label label-lightred">未完成</span>
+												{elseif $r->status=='1'}
+												<span class="label label-satgreen">已完成</span>
+												{/if}
+												
+									     </td>
+									</tr>
+									{/loop}
+									</tbody>
+								</table>
+															
+															
+								<div class="row-fluid dataTables_wrapper">
+
+                                <div class="dataTables_paginate paging_full_numbers"><span>{P p}</span></div>
+                            </div>
+															</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="{$JS}comm.js"></script>
+    </body>
+</html>

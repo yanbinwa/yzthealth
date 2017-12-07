@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>{$wtp->name}</title>
+<link type="text/css" rel="stylesheet" href="/res/wtp/style/vote_up.css" />
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	 $(function(){
+		 $('.option-{$wtp->pai}').each(function(){
+				$(this).find('img').eq(0).show();
+				$(this).find('img').eq(1).hide();
+				$(this).attr('sel','0');
+			}); 
+			$('.option-{$wtp->pai}').click(function(){
+				if($(this).attr("sel") == 0){
+					$(this).find('img').eq(0).hide();
+					$(this).find('img').eq(1).show();
+					$(this).attr('sel','sel');	
+				}else{
+					$(this).find('img').eq(0).show();
+					$(this).find('img').eq(1).hide();
+					$(this).attr('sel','0');	
+				}
+			});		
+		}); 
+</script>
+<style type="text/css">
+.option-cont img{
+	margin:0 auto;
+}
+
+</style>
+</head>
+<body>
+<div class="form-5" style="margin-top:-8px;">
+	<div class="top fn-clear">
+	<!--	<div class="count-cont">
+			<h3>参与人数</h3>
+			<div class="count">{$cyrs}</div>
+		</div>-->
+		<div class="title-cont">
+			<p class="titles">{$wtp->name}</p>
+			<p class="timeout"><img class="clock" src="/res/wtp/images/clock.png"><span class="text">距离投票结束还有{$end_time}</span></p>
+		</div>
+	</div>
+
+	<div class="cover">
+		<img class="cimg" src="{$wtp->pic}" style='max-height:380px;border:1px solid #ccc;' width='100%'>
+	</div>
+
+	<div class="summary">{nl2br($wtp->ms)}</div>
+	
+	<div class="tip-cont">
+		投票后才能看到结果 {if $wid==34407} | 每人只能投一票 {else}| 每次最多选择{$wtp->mrmtzcs}项(还剩{$sycs}次){/if}<br/>
+		<span>共有 {$cyrs} 人参与投票</span>
+	</div>
+	 <table class="option-cont" width="100%" border="0" cellspacing="0" cellpadding="0">	{loop $wtkres as $v}
+	
+		{if trim($v->optionz)!=''}
+			<tr class="war_k01">
+			{if trim($v->headpic)!=''}
+				<td colspan='2'><img style="max-height:200px;width:85%;border:1px solid #ccc;" src="{$v->headpic}"/></td>
+			{/if}
+			</tr>
+			<tr class="war_k02">
+				<td class="option-{$wtp->pai}" data-value="{$v->paixu}" style="width:10%;">
+				<img id="img1" class="neimg" src="/res/wtp/images/checkimg.png">
+				<img id="img11" class="neimg" src="/res/wtp/images/checkimg_check.png">
+				</td>
+				<td><div class="war_wenzi">{$v->optionz}</div>	</td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>
+		{/if}
+	{/loop}
+	</table> 
+	<div class="vote-cont" onclick="gotonext()">
+		<img class="vote-btn" id="submit" src="/res/wtp/images/vote.png">
+	</div>
+<!-- 	<p class="page-url">
+		<a href="/" target="_blank" class="page-url-link"></a>
+	</p>-->
+</div>
+<div class="form-6">
+{T /_wf}
+</div><script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script><script type="text/javascript">
+function gotonext(){
+	var result = '';
+	var ponum = 0;
+	$('.option-{$wtp->pai}[sel="sel"]').each(function(){
+	  var res = $(this).attr('data-value')+',';
+		result += res;
+		ponum++;
+	}); 
+	if($.trim(result)==''){
+		tusi('请选择答案');
+	}else{        var wid = '{$wid}';        if(wid=='34407')        {        	if (ponum>{$wtp->mrmtzcs}) {    			tusi('最多只能选择{$wtp->mrmtzcs}个');    		}else{    			location.href = 'wtpok_up-{$yid}-'+result+'.html?wxid={$wxid}&wid={$wid}';    		}                    }        else        {        	var ssnum={$sycs};        	if (ponum>ssnum) {    			tusi('最多只能选择'+ssnum+'个');    		}else{    			location.href = 'wtpok_up-{$yid}-'+result+'.html?wxid={$wxid}&wid={$wid}';    		}                    }        
+		
+	}
+}
+function showbxgz(){
+	$('body').append('<div style="position:fixed;left:0px;top:0px;width:100%;height:100%;background-color: rgba(0,0,0,0.5);text-align:right;" ontouchmove="return true;" ><img src="http://stc.weimob.com/img/instruction_iphone.png" style="margin-top:10px;margin-right:30px;"></div>');
+}
+$(function(){
+	if(location.href.indexOf('@001')>0){
+		showbxgz();
+		return;
+	}
+});wx.config({   // debug:true,    appId: "{$signPackage['appId']}",    timestamp: "{$signPackage['timestamp']}",    nonceStr: "{$signPackage['nonceStr']}",    signature: "{$signPackage['signature']}",    jsApiList: [	    'checkJsApi',        'onMenuShareTimeline',        'onMenuShareAppMessage',		'showOptionMenu'    ]});wx.ready(function () {		wx.checkJsApi({		  jsApiList: [			'getNetworkType',			'previewImage'		  ],		  success: function (res) {		  }		         });        	//	wx.showOptionMenu();	    window.shareData = {			        "imgUrl": "http://www.weixinguanjia.cn/res/wtp/wtp.png",			        "timeLineLink": location.href.replace('wxid=','wxid=@001'),			        "sendFriendLink": location.href.replace('wxid=','wxid=@001'),			        "weiboLink": location.href.replace('wxid=','wxid=@001'),			        "tTitle": "{$wtp->name}",			        "tContent": "{$wtp->name}",			        "fTitle": "{$wtp->name}",			        "fContent": "{$wtp->name}",			        "wContent": "{$wtp->name}"		};		wx.onMenuShareAppMessage({				  title: window.shareData.fTitle,		  desc: window.shareData.fContent,		  link: window.shareData.sendFriendLink,		  imgUrl: window.shareData.imgUrl,		  trigger: function (res) {			//alert('用户点击发送给朋友');		  },		  success: function (res) {			//sharelog('send_msg','ok');		  },		  cancel: function (res) {			//alert('已取消');		  },		  fail: function (res) {			alert(JSON.stringify(res));		  }		});		wx.onMenuShareTimeline({		  title: window.shareData.fTitle,		  link: window.shareData.timeLineLink,		  imgUrl: window.shareData.imgUrl,		  trigger: function (res) {			//alert('用户点击分享到朋友圈');		  },		  success: function (res) {			//sharelog('timeline','ok');		  },		  cancel: function (res) {			//alert('已取消');		  },		  fail: function (res) {			alert(JSON.stringify(res));		  }		});  });
+</script>
+</body>
+</html>

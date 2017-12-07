@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+
+  <link rel="stylesheet" type="text/css" href="{$CSS}bootstrap/bootstrap.min.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+  <link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+
+  <script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+  <script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+  <script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+  <script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+  <script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+  <script type="text/javascript" src="{$JS}jscolor.js"></script>
+  <script type="text/javascript" src="{$JS}inside.js"></script>
+  <style>
+    h1,h2,h3,h4{
+      padding:0px;
+      margin: 0px;
+    }
+    #grouping-table{
+      margin-top: 30px;
+    }
+    .checkbox-inline{
+      margin-left: 10px;
+      font-size: 18px;
+    }
+    checkbox{
+      width:100px;
+      height:100px;
+    }
+    #city-list{
+      border:1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 15px;
+      min-height: 100px;
+      
+    }
+    
+  </style>
+</head>
+ <body class="{Session::get('maintheme')}">
+    <div class="container-fluid" id="content">
+        <div id="main">
+            <div class="container-fluid">
+
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="box">
+                            <div class="box-title">
+                                <div class="span10">
+                                    <h3><i class="icon-cog"></i>配置城市</h3>
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <form action="" method="post">
+                                    <div class="form-group form-inline row">
+                                      <div class="col-lg-1">
+                                        <label for="postage-groups">请选择地区</label>
+                                      </div>
+                                        <select class="form-control group_names" name="group_name" id="postage-groups" required>
+                                          <?php foreach($groupArray as $v):?>
+                                          <option value="<?=$v['id']?>"> <?=$v['group_name']?></option>
+                                          <?php endforeach;?>  
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-inline row">
+                                      <div class="col-lg-1">
+                                        <label for="province">请选择省份</label>  
+                                      </div>
+                                      <select class="form-control" id="postage-province" name="province" onchange="change()">
+                                        <?php foreach($provinceArray as $v):?>
+                                        <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                        <?php endforeach;?>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">请选择城市</label> 
+                                      <div id="city-list">
+                                        <?php foreach($cityArray as $v): ?>
+                                        <label class="checkbox-inline">
+                                          <input type="checkbox" name="checkcity[]" class="inlineCheckbox" value="<?=$v['ord']?>" <?php if(in_array($v['ord'], $checkArray)){ echo 'checked=true';} ?> ><?=$v['name']?>
+                                        </label>
+                                        <?php endforeach;?>
+                                      </div>
+                                    </div>
+                                      
+                                    <div class="row col-lg-12">
+                                      <button type="submit" class="btn btn-primary">添加</button>
+                                      <button type="button" class="btn" id="check-all" style="margin-left:20px">全选</button>
+                                    </div>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <script>
+  $(function(){
+      $('#check-all').click(function(){
+          $('.inlineCheckbox').attr("checked",true);
+      });
+  });
+
+  //省市二级联动
+  function change(){
+    var province = $('#postage-province').val();
+    //alert(province);
+    $.ajax({
+          type: 'GET',
+          url: 'addcity.html?province='+province+'&wid='+<?=$wid?>,
+          dataType: 'json',
+          success:function(data){
+            if(data.success){
+              var span = '';
+              $("#city-list").empty();
+              $.each(data.data,function(n,value){
+                  span += '<label class="checkbox-inline">';
+                  //将obj转化为json字符串
+                  value = JSON.stringify(value);
+                  span += '<input type="checkbox" id="'+$.evalJSON(value).ord+'" name="checkcity[]" class="inlineCheckbox" value="'+$.evalJSON(value).ord+'">'+$.evalJSON(value).name;
+                  span += '</label>';
+              });
+              $("#city-list").append(span);
+              $.each(data.checked,function(n,value){
+                  value = JSON.stringify(value);
+                  $('#'+$.evalJSON(value).city_id).attr("checked",true);
+              });
+            }  
+          }
+      });
+  };
+
+  </script>
+
+  </body>
+  </html>
+

@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/resource.css" media="all" />
+<title>{$_SERVER['WEB_NAME']}</title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+
+</head>
+<body class="{Session::get('maintheme')}" data-theme="theme-blue">
+	
+    <div id="main">
+        <div class="container-fluid">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="box">
+                        <div class="box-title">
+                            <div class="span10">
+                                <h3><i class="icon-edit"></i>代理商业绩处理</h3>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            
+                            <form onsubmit="return false;" class="form-horizontal form-validate" method="post" action="" id="form1">
+                                <div class="control-group">
+                                    <label class="control-label" for="mobile">时间段：</label>
+                                    <div class="controls">
+                                    {$rs["time_name"]}
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="mobile">代理商：</label>
+                                    <div class="controls">
+                                    {$rs["dis_name"]}
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="qq">处理状态：</label>
+                                    <div class="controls">
+                                    <?php if($rs["dis_status"]==1):?>
+                                    <span class="label label-success">账号正常</span> 
+                                    <?php else:?>
+                                    <span class="label label-important">封号</span>
+                                    <?php endif;?>
+                                </div>
+                                </div>
+
+                               
+
+                                <div class="control-group">
+                                    <label class="control-label" for="mobile">商户数量：</label>
+                                    <div class="controls">
+                                    {$rs["sh_num"]}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="mobile">个人理疗师数量：</label>
+                                    <div class="controls">
+                                    {$rs["lls_num"]}
+                                    </div>
+                                </div>                                
+
+                                <div class="control-group">
+                                    <label class="control-label" for="mobile">交易额：</label>
+                                    <div class="controls">
+                                    {$rs["money_count"]}
+                                    </div>
+                                </div>
+                                                                
+                                <div class="control-group">
+                                    <label class="control-label" for="qq">生成时间：</label>
+                                    <div class="controls">
+                                    {$rs["create_time"]}
+                                    </div>
+                                </div>
+                                
+                                 <div class="control-group">
+                                    <label class="control-label" for="qq">处理时间：</label>
+                                    <div class="controls">
+                                    {$rs["update_time"]}
+                                    </div>
+                                </div>
+
+                               
+                                <div class="control-group">
+                                    <label class="control-label" for="qq">处理状态：</label>
+                                    <div class="controls">
+                                    <?php if($rs["deal_status"] == 1):?>
+                                    <span class="label label-success">已处理</span> 
+                                    <?php else:?>
+                                    <span class="label label-important">待处理</span>
+                                    <?php endif;?>
+                                </div>
+                                </div>
+                                <?php if($rs["deal_status"] == 0):?>
+                                
+                                    <div class="control-group">
+                                        <input type="hidden" name="id" id="id" value="{$rs['id']}" />
+                                        <button style="margin-right:50px" id="is_deals" class="btn btn-success" type="submit">
+                                            确认处理
+                                        </button>
+                                    </div>
+                                
+                                <?php endif;?>
+                                
+                                                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(function(){
+        $('#is_deals').click(function(){
+            var mc_id = $('#id').val();
+            var isok = confirm("确认处理");
+            if(isok == true){
+                $.ajax({
+                    url: 'dlsmcview.html',
+                    type: 'post',
+                    data: { 'id': mc_id},
+                    dataType: 'json',
+                    success:function(data){
+                        if(data.success == true){
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>

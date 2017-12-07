@@ -1,0 +1,322 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<base target="mainFrame" />
+
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/daterangepicker.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap_button.css?dsad" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/region.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/victor-client.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+
+<title>{$_SERVER['WEB_NAME']}—国内最大的微信公众服务平台</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+</head>
+<body class="{Session::get('maintheme')}">
+	<div id="main">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="box">
+				<div class="box-title">
+					<div class="span10">
+						<h3><i class="icon-edit"></i>添加分组 </h3>
+					</div>
+					<div class="span2"><a class="btn" href="Javascript:window.history.go(-1)">返回</a></div>
+				</div>
+				<div class="box-content">
+					<div class="row-fluid">
+					
+					</div>
+					<div class="box-content">
+                            <form action=""  id="fans_groupForm"  method="post" class="form-horizontal form-validate" onsubmit="return checkinfo();">
+
+                                <div class="control-group">
+                                    <label for="name" class="control-label">分组名称：</label>
+                                    <div class="controls">
+                                       {$fansgroup->text('name',array("class"=>'input-large',"placeholder"=>'最多20个字符',"data-rule-maxlength"=>20));}
+                                        <span class="maroon">*</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="name" class="control-label">分组颜色：</label>
+                                    
+                                    <div class="controls">
+                                        <ul class="color-picker unstyled">
+                                            {if $fansgroup->color ==1}
+                                            <li class="color-picker__item color-picker__item_bg1 color-picker-item_current" data-color="1"></li>
+                                            {else}
+                                            <li class="color-picker__item color-picker__item_bg1" data-color="1"></li>
+                                            {/if}
+                                            
+                                            {if $fansgroup->color ==2}
+                                            <li class="color-picker__item color-picker__item_bg2 color-picker-item_current" data-color="2"></li>
+                                            {else}
+                                            <li class="color-picker__item color-picker__item_bg2" data-color="2"></li>
+                                            {/if}
+                                            
+                                             {if $fansgroup->color ==3}
+                                            <li class="color-picker__item color-picker__item_bg3 color-picker-item_current" data-color="3"></li>
+                                            {else}
+                                            <li class="color-picker__item color-picker__item_bg3" data-color="3"></li>
+                                            {/if}
+                                            
+                                             {if $fansgroup->color ==4}
+                                            <li class="color-picker__item color-picker__item_bg4 color-picker-item_current" data-color="4"></li>
+                                            {else}
+                                            <li class="color-picker__item color-picker__item_bg4" data-color="4"></li>
+                                            {/if}
+                                            
+                                        </ul>
+                                       {$fansgroup->hidden('color');}
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">成员更新方式：</label>
+                                    <div class="controls">
+                                        <label class="radio inline">
+                                            {$fansgroup->radio(array("1"=>'自动更新'),'ftype');}
+                                        </label>
+                                        <label class="radio inline">
+                                           {$fansgroup->radio(array("0"=>'手动更新'),'ftype');}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">成员更新规则：</label>
+                                    <div class="controls" id="show_group_rule">
+                                                                                                          系统会在每天上午10:00左右，按照您预设的条件自动更新组内成员
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend><small>成员选择条件</small></legend>
+                                    <div class="control-group disabled">
+                                        <label class="control-label checkbox">
+                                            <input type="checkbox" value="check_gz" class="input_checkbox" name="gz_check_box" />选择关注时间 ：</label>
+                                        <div class="controls">
+                                             <div class="input-prepend manually hide">
+                                                <span class="add-on"><i class="icon-calendar"></i></span>
+                                                {$fansgroup->text('gztime',array("class"=>'daterangepick input-xlarge input_size_s',"disabled"=>'disabled',"readonly"=>'readonly'));}
+                                            </div>
+                                            <div class="automatic">
+                                              {$fansgroup->select(array('1'=>'今天关注客户','2'=>'近7天关注客户','3'=>'近30天关注客户','4'=>'30天前关注客户'),'atten_time_auto',array('disabled'=>'disabled','data-nosearch'=>true,'class'=>'select input_size_m chosen-select'))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group disabled">
+                                        <label class="control-label checkbox">
+                                            <input type="checkbox" value="check_lx" class="input_checkbox" name="lx_check_box" />选择联系时间 ：</label>
+                                        <div class="controls">
+                                          <div class="input-prepend manually hide">
+                                                <span class="add-on"><i class="icon-calendar"></i></span>
+                                                 {$fansgroup->text('lxtime',array("class"=>'daterangepick input-xlarge input_size_s',"disabled"=>'disabled',"readonly"=>'readonly'));}
+                                            </div>
+                                            <div class="automatic">
+                                             {$fansgroup->select(array('1'=>'今天联系客户','2'=>'近7天联系客户','3'=>'近30天联系客户','4'=>'近30天未联系客户'),'link_time_auto',array('disabled'=>'disabled','data-nosearch'=>true,'class'=>'select input_size_m  chosen-select'))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="control-group disabled">
+                                        <label class="control-label checkbox">
+                                            <input type="checkbox" name="tag_check_box" class="input_checkbox" value="check_tag">选择用户标签 ：</label>
+                                          <div class="controls">
+                                          {$fansgroup->select($tag_arr,'tagss',array('disabled'=>'disabled','style'=>'width:300px','multiple'=>"multiple","tabindex"=>"-1",'class'=>'select input_size_m chosen-select select2-offscreen'))}
+                                         
+                                          {$fansgroup->hidden('tags');}
+                                          <script>
+											$(function() {
+														$("#fans_grouptagss").on("change", function() { $("#fans_grouptags").val($("#fans_grouptagss").val());
+														});
+													});
+										  </script>
+                                        </div>
+                                    </div>
+                       
+                                    <div class="control-group disabled">
+                                        <label class="control-label checkbox">
+                                            <input type="checkbox" value="check_locate" class="input_checkbox" name="locate_check_box" />选择用户地域 ：</label>
+                                        <div class="controls">
+                                            <a href="javascript:;" style="color: #999" id="locate_select_button_disabled">选择</a>
+                                            <a href="javascript:;" style="color: #000" id="locate_select_button" class="hide">选择</a>
+                                            <div class="tag_wrap" id="locate_select_div1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--  
+                                    <div class="control-group disabled">
+                                        <label class="control-label checkbox">
+                                            <input type="checkbox" value="check_sex" class="input_checkbox" name="sex_check_box" />选择用户性别 ：</label>
+                                        <div class="controls">
+                                          {$fansgroup->select(array('0'=>'不限','1'=>'男','2'=>'女','3'=>'未知'),'sex',array('disabled'=>'disabled','data-placeholder'=>"选择","tabindex"=>"-1",'class'=>'chosen-select'))}
+                                        </div>
+                                    </div>-->
+                                </fieldset>
+                                <div class="form-actions">
+                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+                                    <button type="button" class="btn" onclick="window.location='fansGroup.html'">取消</button>
+                                </div>
+                            </form>
+                        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+var jmz = {};
+jmz.GetLength = function(str) {
+    ///<summary>获得字符串实际长度，中文2，英文1</summary>
+    ///<param name="str">要获得长度的字符串</param>
+    var realLength = 0, len = str.length, charCode = -1;
+    for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+    }
+    return realLength;
+};
+
+$(function () {
+   
+    $(":radio[name='fans_groupT08d9e827ffbba2efe4413cb064bbf847ftype']").click(function () {
+       
+        var $this = $(this), v = $this.val(), t = $("#show_group_rule");
+        if (v == "1") {
+            t.html("系统会在每天上午10:00左右，按照您预设的条件自动更新组内成员");
+            $("div.automatic").removeAttr("disabled").show();
+            $("div.manually").hide();
+        } else if (v == "0") {
+            t.html("分组创建完成后成员不会自动更新，如果要更新组内成员需手动修改条件");
+            $("div.automatic").hide();
+            $("div.manually").removeAttr("disabled").show();
+        }
+    });
+
+    $("input.input_checkbox").click(function () {
+        var div = $(this).closest(".control-group"), div_input_select = div.find(".input_size_m,.input_size_s,.chosen-select,.select2-offscreen");
+        if (this.checked) {
+            div.removeClass("disabled");
+            if (this.value == "check_locate") {
+                $("#locate_select_button").show();
+                $("#locate_select_button_disabled").hide();
+            }
+            div_input_select.each(function () {
+                var s = $(this);
+                s.removeAttr("disabled");
+                if (s.hasClass("chosen-select")) {
+                    s.trigger("liszt:updated");
+                }
+            });
+        } else {
+            div.addClass("disabled");
+            if (this.value == "check_locate") {
+                $("#locate_select_button").hide();
+                $("#locate_select_button_disabled").show();
+            }
+            div_input_select.each(function () {
+                var s = $(this);
+                s.attr("disabled", "disabled");
+                if (s.hasClass("chosen-select")) {
+                    s.trigger("liszt:updated");
+                }
+            });
+        }
+    });
+    
+})
+$(function () {
+            var o = new RegionPicker(regionConfig);
+            $("li.color-picker__item").click(function () {
+                var $this = $(this), v = $this.data("color"), c = $("#fans_groupcolor");
+                if (v) {
+                    c.val(v);
+                    $this.addClass("color-picker-item_current").siblings().removeClass("color-picker-item_current")
+                }
+            })  
+})
+function checkinfo() {
+    	var gname = $.trim($("#fans_groupname").val());
+    	if (gname == '') {
+    		 G.ui.tips.info("分组名称不能为空");
+             return false;
+    	}
+    	if(jmz.GetLength(gname)>20)
+    	{
+    		G.ui.tips.info("分组名称不要超过20个字符");
+            return false;
+    	}
+    	
+        var l='';
+        $("input.input_checkbox").each(function () {
+            if (this.checked) {
+                l += $(this).val();
+            }
+        });
+        
+        if (l.length > 0) {
+        	var ftype=$('input:radio[name="fans_groupT08d9e827ffbba2efe4413cb064bbf847ftype"]:checked').val();
+        	if(ftype=='0')
+            {
+        		if ($(":checkbox[name='gz_check_box']").is(":checked")) {
+                    if (!$("#fans_groupgztime").val()) {
+                        G.ui.tips.info("请选择关注时间");
+                        return false;
+                    }
+                }
+        		if ($(":checkbox[name='lx_check_box']").is(":checked")) {
+                    if (!$("#fans_grouplxtime").val()) {
+                        G.ui.tips.info("请选择联系时间");
+                        return false;
+                    }
+                }
+            }
+            if ($(":checkbox[name='tag_check_box']").is(":checked")) {
+                if (!$("#fans_grouptags").val()) {
+                    G.ui.tips.info("请选择用户标签");
+                    return false;
+                }
+            }
+            if ($(":checkbox[name='locate_check_box']").is(":checked")) {
+                if ($("#locate_select_div1").html().trim().length==0) {
+                    G.ui.tips.info("请选择用户地域");
+                    return false;
+                }
+            }
+        } else {
+            G.ui.tips.info("请至少选择一个成员分组条件");
+            return false;
+        };
+        return true;
+    }
+</script>
+
+
+
+<script type="text/javascript" src="{$JS}jquery_validate_min.js"></script>
+<script type="text/javascript" src="{$JS}jquery_validate_methods.js"></script>
+<script type="text/javascript" src="{$JS}jquery_form_min.js"></script>
+<script type="text/javascript" src="{$JS}daterangepicker.js"></script>
+<script type="text/javascript" src="{$JS}moment_min.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" src="{$JS}dialogbox.js"></script>
+<script type="text/javascript" src="{$JS}region.js?ddf"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}utils.js?dd"></script>
+</body>
+</html>

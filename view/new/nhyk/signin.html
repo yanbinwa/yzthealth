@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/calendar.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    
+    <body onselectstart="return true;" ondragstart="return false;">
+        <style type="text/css"> 
+			.Calendar { 
+				font-family:Verdana; 
+				background-color:#EEE; 
+				text-align:center; 
+				height: 300px;
+				line-height:1.5em; 
+			}
+			.Calendar .icons{
+				display: block;
+				width:40px;
+				height:40px;
+				background: url(../media/images/mwm/nhyk/icons4.png) no-repeat center -300px;
+				-webkit-background-size:50px auto;
+			}
+			.Calendar .icons_after{
+				background-position: center -350px;
+			}
+			.Calendar header{
+				font-size:14px;
+				color:#888e8e;
+				line-height:50px;
+				height:50px;
+				background:#ffffff;
+				box-shadow: 0 5px 5px rgba(100,100,100,0.1);
+			}
+			.Calendar a{ 
+				color:#0066CC; 
+			} 
+			.Calendar table{ 
+				width:280px;
+				margin:auto;
+				border:0; 
+			} 
+			.Calendar table thead{
+			color:#acacac;} 
+			.Calendar table td {
+				color:#989898;
+				border:1px solid #ecf9fa;
+				width:40px;
+				height:40px;
+				margin:1px;
+				background: #ffffff;
+				-webkit-box-sizing:border-box;
+			}
+			.Calendar thead td, .Calendar td:empty{
+				background:none;
+				border:0;
+			}
+			.Calendar thead td{
+				color:#72bec9;
+				font-size:13px;
+				font-weight:bold;
+			}
+			#idCalendarPre{ 
+				cursor:pointer; 
+				float:left; 
+			} 
+			#idCalendarNext{ 
+				cursor:pointer; 
+				float:right;
+			} 
+
+			#idCalendar td a.checked{ 
+				display: block;
+				height:100%;
+				border:1px solid #58c4d1; 
+				line-height:38px;
+				color:#989898;
+			}
+			#idCalendar td.onToday, #idCalendar td.onToday a{
+				color:#ff3600!important;
+			}
+		</style>
+		<script>
+			/**
+ 			 * 积分签到
+			*/
+			function dosignin() {
+				//提交信息
+				$.ajax({
+					type: "post",  
+					url: "signin-{qd}.html",
+					dataType: "json",  
+					success: function(html){
+				    	if (html.status == 1) {
+							alert(html.msg,1500);
+							setTimeout("location.reload();",1500);
+				    	} else {
+				    		alert(html.msg,1500)
+				    	}
+					}
+				});
+			}
+		</script>
+		<div class="container integral">
+			<header>
+				<ul class="tbox tbox_1">
+					<li >
+						<p class="pre">
+							<label>{$mm->integral}</label>
+							可用积分
+						</p>
+					</li>
+					<li>
+					  {if $cc==0}
+					  <a href="javascript:void(0)" onclick="dosignin()" ><label>签到</label></a>
+					  {else}
+					  <a href="javascript:void(0)" ><label>已签到</label></a>
+					  {/if}
+					</li>
+					<li>
+						<p class="pre">
+							<label>{$allcc}</label>
+							签到次数
+						</p>
+					</li>
+				</ul>
+				<nav class="nav_integral">
+					<ul class="box">
+						<li><a href="exchangelist-{lp}.html"><span class="icons icons_prize">&nbsp;</span><label>兑换礼品</label></a></li>
+						<li><a href="exchangelist-{cj}.html"><span class="icons icons_luck">&nbsp;</span><label>积分抽奖</label></a></li>
+						<li><a href="signlist.html"><span class="icons icons_record">&nbsp;</span><label>签到记录</label></a></li>
+						<li><a href="integralTeach.html"><span class="icons icons_teach">&nbsp;</span><label>积分攻略</label></a></li>
+					</ul>
+				</nav>
+			</header>
+		
+			<div class="body">
+				<div>
+					<div class="Calendar"> 
+						<header>
+							<div id="idCalendarPre"><span class="icons icons_before">&nbsp;</span></div> 
+						    <div id="idCalendarNext"><span class="icons icons_after">&nbsp;</span></div> 
+							<span id="idCalendarYear">0</span>年 <span id="idCalendarMonth">0</span>月 
+						</header>
+						<table cellspacing="0"> 
+							<thead> 
+								<tr> 
+									<td>日</td> 
+									<td>一</td> 
+									<td>二</td> 
+									<td>三</td> 
+									<td>四</td> 
+									<td>五</td> 
+									<td>六</td> 
+								</tr> 
+							</thead> 
+							<tbody id="idCalendar"> 
+							</tbody> 
+						</table> 
+					</div>
+					<script language="JavaScript"> 
+						var cale = new Calendar("idCalendar", {
+							Year : {$year},
+							Month : {$month}, 
+							onToday: function(o){ o.className = "onToday"; }, 
+							onFinish: function(){ 
+								this.Year = {$year};
+								this.Month = {$month}; 
+								$$("idCalendarYear").innerHTML = this.Year;
+								$$("idCalendarMonth").innerHTML = this.Month; 
+								
+								var flag = [{$verstr}];
+								for(var i = 0, len = flag.length; i < len; i++){ 
+									this.Days[flag[i]].innerHTML = "<a href='javascript:void(0);' class='checked'>" + flag[i] + "</a>"; 
+								} 
+							}
+						}); 
+						$$("idCalendarPre").onclick = function(){ location.href = "signin.html?y="+{$pyear}+"&m="+{$prem}; } 
+						$$("idCalendarNext").onclick = function(){ location.href = "signin.html?y="+{$nyear}+"&m="+{$nextm}; } 
+					</script>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+			{if $cc==0}
+			&nbsp;
+		    {else}
+		    {if $tj7!=''}
+		    {loop $tj7 as $val}
+		    <div style="margin-top:50px;border-top: 1px dotted #e1e1e1; ">
+		    	<div style="float:left;padding:10px 5px;">
+		    		<div style="float:left;">
+		    			<div style="float:left;">
+			    			<a href="/wsc2/pro-{$val->id}.html">
+			    				<img   src="{$val->pic}" width=150 height=100 /> 
+			    			</a>
+		    		 	</div>
+		    		 	<div style="float:left;padding-left:20px; " >
+			    			<p style="font-size:14px;padding-top:10px;overflow:hidden;"  >{$val->name}</p>
+			    			<p style="font-size:14px;padding-top:10px;"  >&yen; <span style="color:#e4393c">{$val->lowest}</span></p>
+		    			</div>
+		    		</div>
+		    	</div>
+		    	 
+		    </div>
+		    {/loop}		
+		    {/if} 
+		    <div style="clear:both;"></div>
+		    {/if}
+		     
+		{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-2.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-2.html}
+        {/if}
+
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+			WeixinJSBridge.call('hideOptionMenu');
+		});
+		
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>		</div>
+		
+		
+        		<div mark="stat_code" style="width:0px; height:0px; display:none;">
+					</div>
+	</body>
+</html>
+

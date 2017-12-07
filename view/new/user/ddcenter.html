@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>理疗订单</title>
+	<link href="{$CSS}yangsheng2/bootstrap.min.css" rel="stylesheet">
+	<link href="{$CSS}yangsheng2/style.css" rel="stylesheet">
+   <script src="{$JS}yangsheng2/bootstrap.min.js"></script>
+
+
+<!--[if IE]>
+<script src="{$JS}yangsheng2/html5.js"></script>
+<![endif]-->
+   <style type="text/css">
+      .nav-tabs li{ width: 25%}
+      .hdbar{
+         display:-webkit-box;
+         display:-ms-flexbox;
+         display:flex;
+         -webkit-box-pack:justify;
+         -ms-flex-pack:justify;
+         justify-content:space-between;
+         -webkit-box-align:center;
+         -ms-flex-align:center;
+         align-items:center;
+         width:100%;
+         height:50px;
+         padding:0 10px;
+         background-color:#fff;
+         border-bottom:1px solid #ccc;
+         font-size: 1.8rem;
+        }
+
+
+   .i-btn{
+      display:inline-block;
+      width:36px;
+      height:36px;
+      border-radius:100%;
+      vertical-align:middle}
+   .i-back{
+    background: url({$IMG}wx/fanhui.png) center center no-repeat;
+    background-size:100% 100%}
+    .i-home{
+      background:url({$IMG}wx/shouye.png) center center no-repeat;
+    background-size:100% 100%}
+   </style>
+</head>
+<body class="huibg">
+
+<header class="hdbar fixed" style="position: fixed; z-index: 20; top:0;">
+  <a href="javascript:history.back(-1);"><span class="i-btn i-back"></span></a>
+  理疗订单
+  <a href="/wx/yangsheng.html"><span class="i-btn i-home"></span></a>
+</header>
+<br/>
+<ul id="myTab" class="nav nav-tabs" style="margin-top: 40px;">
+   <li class="active"><a href="#sp1" data-toggle="tab">全部</a>
+   </li>
+   <li><a href="#sp2" data-toggle="tab">待付款</a></li>
+   <li><a href="#sp3" data-toggle="tab">待消费</a></li>
+   <li><a href="#sp4" data-toggle="tab">已完成</a></li>
+
+</ul>
+
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="sp1">
+      <ul class="ddlist">
+      {loop $orders_arr as $v}
+         <li>
+            <a href="/wx/orderInfo-{$v['id']}.html">
+               <p>订单时间：{$v['created_at']}</p>
+               <p>订单号：{if empty($v['trade_no'])}未支付{else}{$v['trade_no']}{/if}</p>
+               <p>服务项目： {$v['good_name']}</p>
+               <!-- <p><span>积分：1200</span></p> -->
+            </a>
+         </li>
+      {/loop}
+      </ul>
+   </div>
+   <div class="tab-pane fade" id="sp2">
+      <ul class="ddlist">
+      {loop $Pending_payment as $v}
+         <li>
+            <a href="/wx/orderInfo-{$v['id']}.html">
+               <p>订单时间：{$v['created_at']}</p>
+               <p>订单号：{if empty($v['trade_no'])}未支付{else}{$v['trade_no']}{/if}</p>
+               <p>服务项目： {$v['good_name']}</p>
+               <!-- <p><span>积分：1200</span></p> -->
+            </a>
+         </li>
+         {/loop}
+      </ul>
+   </div>
+   <div class="tab-pane fade" id="sp3">
+      <ul class="ddlist">
+      {loop $Pending_consumption as $v}
+         <li>
+            <a href="/wx/orderInfo-{$v['id']}.html">
+               <p>订单时间：{$v['created_at']}</p>
+               <p>订单号：{$v['trade_no']}</p>
+               <p>服务项目： {$v['good_name']}</p>
+               <!-- <p><span>积分：1200</span></p> -->
+            </a>
+         </li>
+      {/loop}
+      </ul>
+   </div>
+   <div class="tab-pane fade" id="sp4">
+      <ul class="ddlist">
+         {loop $Completed as $v}
+         <li>
+            <a href="/wx/orderInfo-{$v['id']}.html">
+               <p>订单时间：{$v['created_at']}</p>
+               <p>订单号：{$v['trade_no']}</p>
+               <p>服务项目： {$v['good_name']}</p>
+               <!-- <p><span>积分：1200</span></p> -->
+            </a>
+         </li>
+      {/loop}
+      </ul>
+   </div>
+
+
+</div>
+
+
+
+<script src="{$JS}yangsheng2/classie.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+
+</script>
+</body>
+</html>

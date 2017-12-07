@@ -1,0 +1,100 @@
+.hotel-sprite,.hotel-comp,.hotel-et,.hotel-huiyishi,.hotel-jianshenfang,.hotel-shangwu,.hotel-sopt,.hotel-wifi,.hotel-youy {
+	background: url('/res/wm/hotel-sa53de09f92.png') no-repeat
+}
+.hotel-comp {
+	background-position: 0 -112px;
+	height: 16px;
+	width: 16px
+}
+.hotel-et {
+	background-position: 0 -80px;
+	height: 16px;
+	width: 16px
+}
+.hotel-huiyishi {
+	background-position: 0 -32px;
+	height: 16px;
+	width: 16px
+}
+.hotel-jianshenfang {
+	background-position: 0 -16px;
+	height: 16px;
+	width: 16px
+}
+.hotel-shangwu {
+	background-position: 0 0;
+	height: 16px;
+	width: 16px
+}
+.hotel-sopt {
+	background-position: 0 -96px;
+	height: 16px;
+	width: 16px
+}
+.hotel-wifi {
+	background-position: 0 -48px;
+	height: 16px;
+	width: 16px
+}
+.hotel-youy {
+	background-position: 0 -64px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-sprite,.hotel_type-chuang,.hotel_type-food,.hotel_type-isadd,.hotel_type-kzhu,.hotel_type-louceng,.hotel_type-m2,.hotel_type-wifi,.hotel_type-wind,.hotel_type-yugang {
+	background: url('/res/wm/hotel_type-s2637845d25.png') no-repeat
+}
+.hotel_type-chuang {
+	background-position: 0 -80px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-food {
+	background-position: 0 -48px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-isadd {
+	background-position: 0 -32px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-kzhu {
+	background-position: 0 -64px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-louceng {
+	background-position: 0 -16px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-m2 {
+	background-position: 0 -96px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-wifi {
+	background-position: 0 0;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-wind {
+	background-position: 0 -128px;
+	height: 16px;
+	width: 16px
+}
+.hotel_type-yugang {
+	background-position: 0 -112px;
+	height: 16px;
+	width: 16px
+}
+.hotel-sprite,.hotel-comp,.hotel-et,.hotel-huiyishi,.hotel-jianshenfang,.hotel-shangwu,.hotel-sopt,.hotel-wifi,.hotel-youy,.hotel_type-sprite,.hotel_type-chuang,.hotel_type-food,.hotel_type-isadd,.hotel_type-kzhu,.hotel_type-louceng,.hotel_type-m2,.hotel_type-wifi,.hotel_type-wind,.hotel_type-yugang {
+	margin: 5px 7px;
+	display: inline-block;
+	vertical-align: bottom
+}
+.icon-line {
+	display: inline-block;
+	margin: 0px 10px 10px 0px
+}

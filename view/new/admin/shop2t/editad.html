@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/index.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/bootstrap_responsive_min.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/chosen.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/themes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/todc_bootstrap.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/inside.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/album.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}wm/uploadify_t.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{$CSS}artdialog/blue.css" />
+
+<title></title>
+<script type="text/javascript" src="{$JS}bootstrap_min.js"></script>
+<script type="text/javascript" src="{$JS}inside.js"></script>
+<script type="text/javascript" src="{$JS}chosen_jquery_min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/artDialog.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artdialog/plugins/iframeTools.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate.js"></script>
+<script type="text/javascript" charset="UTF-8" src="{$JS}artTemplate/artTemplate-plugin.js"></script>
+<style type="text/css">
+table tr{ height:50px;}
+</style>
+</head>
+<body class="{Session::get('maintheme')}">
+<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span8">
+								<h3>
+									<i class="icon-table"></i>广告编辑
+									<small></small>
+								</h3>
+							</div>
+						</div>
+						<div class="box-content">
+                            <form action="" method="post" class="form-horizontal form-validate" id="transform" >
+                            {tk()}
+								<table>
+									<tbody>
+										<?php foreach ($adarr as $k => $v): ?>
+											<tr>
+											<td>
+				                                    <label class="control-label" for="name" style="text-align: center;width:50px;">广告位:</label>
+				                                    <div class="controls" style="margin-left:55px;">
+				                                     <input type="text"   value="{$v['name']}" class="input" style="width:140px;" disabled/>
+				                                    
+				                                    </div>
+				                            </td>
+											<td>
+				                                    <label class="control-label" for="url" style="text-align: center;width:50px;">链接：</label>
+				                                    <div class="controls" style="margin-left:55px;">
+				                                    <input type="text"   value="{$v['url']}" name="url[]" id="adverturl" class="input-xlarge"/>
+						 							
+				                                    </div>
+											</td>
+											<td>
+				                                    <label class="control-label" for="title" style="text-align: center;width:50px;">标题：</label>
+				                                    <div class="controls" style="margin-left:55px;">
+				                                    <input type="text"   value="{$v['title']}" name="title[]" id="adverturl" class="input" style="width:160px;"/>
+				                                    </div>
+											</td>
+											<td>
+				                                    
+			                                        <div class="controls" style="margin-left:10px;">
+			                                            <img class="thumb_img" onclick="javascript:window.open('{$v['pic']}');" src="{$v['pic']}" id="pic_pic{$k}" relobj="elfinder_nhyk{$k}" style="max-height:50px;width:100px;" />
+			                                            <input type="hidden" value = "{$v['pic']}" name="pic[]" id="advertpic{$k}"  relobj="elfinder_nhyk{$k}"/>
+			                                            <span class="help-inline">
+				                                            <button class="btn select_img" type="button" rel="yyuc" relobj="elfinder" id="nhyk{$k}" >广告图片</button>
+				                                            {if $v['id'] == 1}<span class="help-inline">尺寸：宽1000像素，高72像素</span>{/if}
+				                                            {if $v['id'] == 2}<span class="help-inline">尺寸：宽198像素，高160像素</span>{/if}
+				                                            {if $v['id'] == 3}<span class="help-inline">尺寸：宽218像素，高80像素</span>{/if}
+				                                            {if $v['id'] == 4}<span class="help-inline">尺寸：宽549像素，高80像素</span>{/if}
+				                                            {if $v['id'] == 5}<span class="help-inline">尺寸：宽219像素，高80像素</span>{/if}
+				                                            {if $v['id'] == 6}<span class="help-inline">尺寸：宽218像素，高80像素</span>{/if}
+				                                            {if $v['id'] == 7}<span class="help-inline">尺寸：宽549像素，高80像素</span>{/if}
+				                                            {if $v['id'] == 8}<span class="help-inline">尺寸：宽219像素，高80像素</span>{/if}
+				                                            {if $v['id'] == 9}<span class="help-inline">尺寸：宽1000像素，高98像素</span>{/if}
+				                                            {if $v['id'] == 10}<span class="help-inline">尺寸：宽796像素，高74像素</span>{/if}
+				                                            {if $v['id'] == 11}<span class="help-inline">尺寸：宽194像素，高70像素</span>{/if}
+				                                            {if $v['id'] == 12}<span class="help-inline">尺寸：宽194像素，高70像素</span>{/if}
+				                                            
+			                                            </span>
+			                                        </div>
+												
+											</td>
+											<td></td>
+										</tr>	
+										<?php endforeach ?>
+										
+										
+										<tr>
+											<td colspan="3" style="text-align: center;height:150px;">
+				                                    <button id="bsubmit" type="submit" data-loading-text="提交中..." class="btn btn-primary">保存</button>
+				                                    <button type="reset" class="btn btn-primary">取消</button>
+		                            		</td>
+		                            		
+		                        		</tr>
+									</tbody>
+								</table>
+							    
+                                 
+                                
+                            </form>
+                        </div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+  <!--   <script type="text/javascript" src="{$JS}comm.js"></script> -->
+    <script type="text/javascript" src="{$JS}shop.js"></script>
+
+	<script type="text/javascript" charset="UTF-8" src="{$JS}shop/sproductedit.js?dfaassd2014"></script>
+    </body>
+</html>

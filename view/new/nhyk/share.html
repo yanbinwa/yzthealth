@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/main.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="{$CSS}mwm/nhyk/dialog.css" media="all" />
+		
+		<script type="text/javascript" src="{$JS}mwm/nhyk/main.js"></script>
+		<script type="text/javascript" src="{$JS}mwm/nhyk/dialog_min.js"></script>
+        <title>会员卡</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+               <!-- Mobile Devices Support @begin -->
+            <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+            <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+            <meta content="no-cache" http-equiv="pragma">
+            <meta content="0" http-equiv="expires">
+            <meta content="telephone=no, address=no" name="format-detection">
+            <meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!-- Mobile Devices Support @end -->
+</head>
+    <body onselectstart="return true;" ondragstart="return false;">
+    <script>
+		function share(){
+			document.getElementById("masklayer").classList.add("on");
+		}
+</script>
+<div class="container integral share">
+	<header>
+		<ul class="tbox tbox_1">
+			<li>
+				<p>
+					<label>{$m->integral}</label>
+					可用积分
+				</p>
+			</li>
+			<li>
+				<a href="javascript:share();"><label>分享</label></a>
+			</li>
+			<li>
+				<p >
+									</p>
+			</li>
+		</ul>
+		<nav class="nav_integral">
+			<ul class="box">
+				<li><a href="exchangelist.html"><span class="icons icons_prize">&nbsp;</span><label>兑换礼品</label></a></li>
+				<li><a href="exchangelist.html"><span class="icons icons_luck">&nbsp;</span><label>积分抽奖</label></a></li>
+				<li><a href="integralTeach.html"><span class="icons icons_teach">&nbsp;</span><label>积分攻略</label></a></li>
+			</ul>
+		</nav>
+	</header>
+	<div class="body">
+		<div>
+			<p class="recommend"><span class="icons icons_recommend">&nbsp;</span>每日推荐</p>
+		</div>
+		<ul class="list_integral">
+		       {loop $rs as $v}
+				<li>
+				        {if $v->type =='tel'}
+						<a href="{$v->tel}">
+						{elseif $v->type =='map'}
+						<a href="http://api.map.baidu.com/marker?location={$v->wd},{$v->jd}&title={$v->place}&name={$v->place}&content={$v->place}&output=html&src=weiba|weiweb">
+						{else}
+						<a href="{$v->url}">
+						{/if}
+						<figure>
+							<img src="{$v->pic}" class="share_recommend_imgs" />
+						</figure>
+						</a>
+						<figcaption>
+							<h3>{$v->name}</h3>
+							<p class="pre">{$v->create_time}</p>
+							<a href="javascript:share();" class="icons icons_share">&nbsp;</a>
+						</figcaption>
+			    </li>
+			   {/loop}
+		</ul>
+	</div>
+		{if $wid=='6764263'}
+		  {I http://houtai.weixinguanjia.cn/nhyk/footer6764263-3.html}
+		{else}
+          {I http://houtai.weixinguanjia.cn/nhyk/footer-3.html}
+        {/if}
+
+</div>
+<style type="text/css">
+	.masklayer{
+		display:none;
+		position:fixed;
+		top:0;
+		left:0;
+		z-index:2000;
+		width:100%;
+		height:100%;
+		background-color:rgba(0,0,0,0.5);
+		text-align:right;
+	}
+	.masklayer.on{
+		display:block;
+	}
+	.masklayer img{
+		margin-top:10px;
+		margin-right:30px;
+		width:160px;
+	}
+</style>
+<div id="masklayer" class="masklayer" ontouchmove="return true;" onclick="$(this).toggleClass('on');">
+	<img src='../media/images/mwm/nhyk/share.png' alt='' style="width:260px;" />
+</div>        		
+<div mark="stat_code" style="width:0px; height:0px; display:none;">
+</div>
+	</body>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+
+wx.config({
+    //debug:true,
+    appId: "{$signPackage['appId']}",
+    timestamp: "{$signPackage['timestamp']}",
+    nonceStr: "{$signPackage['nonceStr']}",
+    signature: "{$signPackage['signature']}",
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+	   'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+		'showOptionMenu'
+    ]
+  });
+	 window.shareData = {
+		"imgUrl": "{$mem_set->pic}", 
+		"timeLineLink": "{$path}nhyk/index.html?wid={$wid}",
+		"sendFriendLink": "{$path}nhyk/index.html?wid={$wid}",
+		"weiboLink": "{$path}nhyk/index.html?wid={$wid}",
+		"tTitle": "{$mem_set->name}",
+		"tContent": "{$mem_set->jianjie}",
+		"fTitle": "{$mem_set->name}",
+		"fContent": "{$mem_set->jianjie}",
+		"wContent": "{$mem_set->jianjie}"   
+	};
+
+
+function sharelog(type,sta)
+{
+	 $.ajax({
+         url: "share-{s}.html",
+         type: "post",
+         dataType: 'json',
+         data: {
+             type:type,sta:sta},
+         success: function (data) {
+         },
+         error: function () {
+            
+         }
+     });
+}
+wx.ready(function () {
+    // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+	  //document.querySelector('#checkJsApi').onclick = function () {
+		wx.checkJsApi({
+		  jsApiList: [
+			'getNetworkType',
+			'previewImage'
+		  ],
+		  success: function (res) {
+			//alert(JSON.stringify(res));
+		  }
+		 
+		});
+	 // };
+	 // document.querySelector('#showOptionMenu').onclick = function () {
+		wx.showOptionMenu();
+	 // };
+	  // 2. 分享接口
+	  // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+	 // document.querySelector('#onMenuShareAppMessage').onclick = function () {
+		wx.onMenuShareAppMessage({
+		  title: window.shareData.fTitle,
+		  desc: window.shareData.fContent,
+		  link: window.shareData.sendFriendLink,
+		  imgUrl: window.shareData.imgUrl,
+		  trigger: function (res) {
+			//alert('用户点击发送给朋友');
+		  },
+		  success: function (res) {
+			sharelog('send_msg','ok');
+		  },
+		  cancel: function (res) {
+			//alert('已取消');
+		  },
+		  fail: function (res) {
+			alert(JSON.stringify(res));
+		  }
+		});
+		//alert('已注册获取“发送给朋友”状态事件');
+	  //};
+
+	  // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+	 // document.querySelector('#onMenuShareTimeline').onclick = function () {
+		wx.onMenuShareTimeline({
+			  title: window.shareData.fTitle,
+			  link: window.shareData.timeLineLink,
+			  imgUrl: window.shareData.imgUrl,
+			  trigger: function (res) {
+				//alert('用户点击分享到朋友圈');
+			  },
+			  success: function (res) {
+				alert('分享成功');
+				sharelog('timeline','ok');
+			  },
+			  cancel: function (res) {
+				//alert('已取消');
+			  },
+			  fail: function (res) {
+				alert(JSON.stringify(res));
+			  }
+			});
+		//alert('已注册获取“分享到朋友圈”状态事件');
+	 // };
+	 
+	//  wx.error(function (res) {
+	//      alert(res.errMsg);
+	// });
+	 
+
+  // 在这里调用 API
+});
+
+</script>
+
+</html>
+

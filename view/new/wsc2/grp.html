@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>
+      精选商品
+    </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="stylesheet" href="/wsc/c1.css?df">
+    <script type="text/javascript" src="{$JS}mwm/swipe.js"></script>
+    <script>
+		$(function(){			
+			new Swipe(document.getElementById('slideWrapper'), {
+				speed:500,
+				auto:3000,
+				callback: function(index, elem){
+					var lis = $('#bannerTab').children();
+					lis.removeClass("cur").eq(index).addClass("cur");
+				}
+			});
+			
+		});
+	</script>
+	
+  </head>
+  
+  <body>
+    {T tp1}
+    <div class="wx_wrap wx_xin_wrap">
+    
+    {if count($tjres)>0}
+      <div class="mod_slider" id="slideList">
+        <div class="inner" id="slideWrapper">
+          <ul class="pic_list" id="bannerImg">
+            {loop $tjres as $tj}
+            <li style="width: 640px;max-width:640px;min-width:300px;max-height:240px;overflow: hidden;">
+              <a href="/wsc2/pro-{$tj->id}.html">
+                <img src="{$tj->pic2}" style="max-width:640px;min-width:320px; max-height:240px;overflow: hidden;">
+              </a>
+            </li>
+            {/loop}
+          </ul>
+        </div>
+        <div class="bar_wrap">
+          <ul class="bar" id="bannerTab">
+          {loop $tjres as $tj}
+            <li id="{$__i}" no="{$__i}" class="">
+            </li>
+          {/loop}
+          </ul>
+        </div>
+      </div>
+      {/if}
+      
+      <div class="tm" id="nowDiv">
+      <div class="tm_tit" id="nowTitle">
+        <h3>{$g->name}</h3>
+        <p>{$g->ms}</p>
+      </div>
+      
+    </div>
+    
+    
+
+
+
+
+
+
+
+
+{if count($tjs)>0}
+<script type="text/javascript">
+function showshowview(o){
+	if($(o).is('.state_switch')){
+		$(o).removeClass('state_switch');
+		$('.mod_itemgrid').removeClass('mod_itemgrid').addClass('mod_itemlist');
+		$('.sku').show();
+		$('.ppplist1').hide();
+		$('.ppplist2').show();
+	}else{
+		$(o).addClass('state_switch');
+		$('.mod_itemlist').removeClass('mod_itemlist').addClass('mod_itemgrid');
+		$('.sku').hide();
+		$('.ppplist2').hide();
+		$('.ppplist1').show();
+	}
+}
+function pxjg(o){
+	$('.mod_filter_inner').children('a').removeClass('select');
+	$(o).addClass('select');
+	if($(o).is('.state_switch')){
+		//升序
+		$(o).removeClass('state_switch');
+		var prs = $('.hproduct').clone();
+		prs = prs.toArray();
+		prs.sort(function(a,b){
+            return (parseFloat($(a).attr('ordjg')) - parseFloat($(b).attr('ordjg')) <0);
+    	});
+		$('#itemCont').empty().append(prs);
+	}else{
+		//降序
+		$(o).addClass('state_switch');
+		var prs = $('.hproduct');
+		prs = prs.toArray();
+		prs.sort(function(a,b){
+            return (parseFloat($(a).attr('ordjg')) - parseFloat($(b).attr('ordjg')) >0);
+    	});
+		$('#itemCont').empty().append(prs);
+	}
+}
+function pxzk(o){
+	$('.mod_filter_inner').children('a').removeClass('select');
+	$(o).addClass('select');
+	var prs = $('.hproduct').clone();
+	prs = prs.toArray();
+	prs.sort(function(a,b){
+        return (parseFloat($(a).attr('ordzk')) - parseFloat($(b).attr('ordzk')) <0);
+	});
+	$('#itemCont').empty().append(prs);
+}
+function pxid(o){
+	$('.mod_filter_inner').children('a').removeClass('select');
+	$(o).addClass('select');
+	var prs = $('.hproduct').clone();
+	prs = prs.toArray();
+	prs.sort(function(a,b){
+        return (parseFloat($(a).attr('ordid')) - parseFloat($(b).attr('ordid')) <0);
+	});
+	$('#itemCont').empty().append(prs);
+}
+</script>
+<div class="wx_wrap">
+      <div class="tm_brandinfo" id="brandInfo" style="display:none;">
+        <h3 id="shopName">0</h3>
+        <p><a href="javascript:;" class="btn_guang" id="guangShop">进店逛逛</a></p>
+      </div>
+      
+      <div class="tm_banner" style="display: none;">
+        <img id="brandLogo">
+      </div>
+      
+      <div id="baseline"></div>
+      <div id="filterDiv" class="mod_fixed_wrapper">
+        <div class="mod_filter" id="filterMod">
+          <div class="mod_filter_inner" id="filter">
+            <a href="javascript:;" onclick="pxid(this)" no="1" class="select">默认</a>
+            <a href="javascript:;" onclick="pxjg(this)" no="2" class="">价格<i class="icon_sort"></i></a>
+            <a href="javascript:;" onclick="pxzk(this)" no="3" class="">折扣<i class="icon_sort_single"></i></a>
+            <a href="javascript:;" onclick="showshowview(this);" no="4" class="state_large state_switch" id="imgSwitch"><i class="icon_switch"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="mod_itemgrid" id="itemCont">
+
+{loop $tjs as $tj}
+<div class="hproduct" ordid="{$tj->id}" ordjg="{$tj->lowest}" style="margin-right:0px" ordzk="{$tj->zk}">
+  <a href="/wsc2/pro-{$tj->id}.html">
+  <p class="cover"><img src="{$tj->pic}" loaded="43"></p>
+  <p class="fn"><span class="dis">{wsc_gettags($tj)}</span>{$tj->name}</p>
+  <p class="sku" style="display: none;">{$tj->ms}</p>
+  <p class="prices  ppplist1"><strong><em>¥{$tj->lowest}</em></strong><del>¥{$tj->yj}</del>
+  {if $tj->show_zk}
+  <span class="discount">{$tj->zk}折</span>
+  {/if}
+  </p>
+  <p class="prices ppplist2" style="display: none;"><strong>商城价：<em>¥{$tj->lowest}</em></strong><span class="discount">{$tj->zk}折</span><del>市场价：¥{$tj->yj}</del></p>
+  <span class="btn_buy  ppplist2" style="display: none;">立即购买</span>
+  </a>
+</div>
+{/loop}
+</div>
+  </div>
+{/if}
+      
+    </div>
+    {T /_wf}
+     <script>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady()  {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+  </body>
+
+</html>

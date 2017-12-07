@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$wechatset->title}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta content="telephone=no" name="format-detection">
+<link rel="stylesheet" href="{$CSS}wxy/weui.min.css?<?php echo time();?>">
+<link rel="stylesheet" href="{$CSS}wxy/jquery-weui.css">
+<style type="text/css" media="screen">
+
+.demos-title {
+  text-align: center;
+  font-size: 34px;
+  color: #3cc51f;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.demos-sub-title {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+.demos-header {
+  padding: 35px 0;
+}
+.demos-content-padded {
+  padding: 15px;
+}
+.demos-second-title {
+  text-align: center;
+  font-size: 24px;
+  color: #3cc51f;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.position{ position: fixed;width: 100%; bottom: 0; left:0;z-index: 99; }
+#form1{ width: 97%; margin: auto;border: 1px solid #d9d9d9; border-radius: 3px; }
+.weui-cells{ margin-top: 0;  }
+</style>
+</head>
+<body>
+<div style="height: 1rem;"></div>
+<form action="" method="post"  id="form1">
+<div class="weui-cells weui-cells_form">
+  <div class="weui-cell" style=" border: none;">
+    <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="tel" name="telephone" id="telephone" required="required" placeholder="请输入手机号" value="{$member->telephone}">
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="text" name="full_name" id="full_name" required="required" placeholder="请输入姓名" value="{$member->true_name}">
+    </div>
+  </div>
+  <div class="weui-cell">
+    <div class="weui-cell__hd"><label for="" class="weui-label">时间</label></div>
+    <div class="weui-cell__bd">
+      <input class="weui-input" type="text" name="ll_time" id="ll_time" value="">
+    </div>
+  </div>
+  {if $supplier->is_lls}
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="name" class="weui-label">理疗店</label></div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" id="mobile" type="text" name="llshop" value="" placeholder="选择去理疗地点" required="required">
+          <input class="weui-input" id="llshopid" type="hidden" name="llshopid" value="">
+        </div>
+      </div> 
+      {/if}
+      {if $count > 0}
+      <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="name" class="weui-label">优惠券</label></div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" id="yyq" type="text" name="coupon" value="" placeholder="选择优惠券" required="required">
+          <input class="weui-input" id="couponid" type="hidden" name="couponid" value="">
+        </div>
+      </div> 
+      {/if}  
+<div class="weui-cell">
+    <div class="weui-cell__bd">
+      <textarea class="weui-textarea" onchange="javascript:textChanged2()" name="remarks" id="remarks" placeholder="还有什么要说的（选填）" rows="3"></textarea>
+      <div class="weui-textarea-counter"><span id="dqzs">0</span>/200</div>
+    </div>
+  </div>   
+</div>
+<div class="weui-cells weui-cells_checkbox">
+    <label class="weui-cell weui-check__label" for="s11" style="width: 40%; float: left;">
+      <div class="weui-cell__hd">
+        <input type="checkbox" class="weui-check" name="checkbox1" id="s11">
+        <i class="weui-icon-checked"></i>
+      </div>
+      <div class="weui-cell__bd">
+        <p>服务内容</p>
+      </div>
+    </label>
+    <label class="weui-cell weui-check__label" for="s12" style="width: 40%; float: left;">
+      <div class="weui-cell__hd">
+        <input type="checkbox" name="checkbox2" class="weui-check" id="s12">
+        <i class="weui-icon-checked"></i>
+      </div>
+      <div class="weui-cell__bd">
+        <p>禁忌症状</p>
+      </div>
+    </label>
+</div>
+<input type="hidden" name="engineerId" id="engineerId" value="{$engineerId}">
+<input type="hidden" name="productId" id="productId" value="{$productId}">
+<!-- <input type="submit" value="立即预约" class="weui-btn weui-btn_primary position" onclick="return checkform(this.form)"> -->
+<input type="button" value="立即预约" class="weui-btn weui-btn_primary position">
+</form>
+
+
+<div class="page">
+    <div class="page__bd" id="fwcont" style="display: none;">
+        <article class="weui-article">
+            <section>
+               {$sproduct->detail}                
+            </section>
+        </article>
+    </div>
+    <div class="page__bd" id="jjcont" style="display: none;">
+            <article class="weui-article">
+                    <section>
+                        {$web_set->detailcs}   
+                    </section>
+            </article>
+        </div>    
+</div>
+
+<script src="{$JS}wx/fastclick.js"></script>
+<script>
+$('.weui-btn_primary').click(function(){
+    var status = true;
+    var telephone  = $("#telephone").val();
+    var engineerId  = $("#engineerId").val();
+    var productId  = $("#productId").val();
+    var num  = $("#num").val();
+    var full_name = $("#full_name").val(); 
+    var ll_time = $("#ll_time").val();
+    var checkbox1 = $("#s11").val();
+    var checkbox2 = $("#s12").val();
+    var llshopid = $("#mobile").data("values"); 
+    var couponid = $("#yyq").data("values");    
+    var remarks  = $("#remarks").val(); 
+    $("#llshopid").val(llshopid); 
+    $("#couponid").val(couponid); 
+    if(full_name.length==0){
+       tusi("请输入姓名");
+        status = false ;
+    } 
+    if(!validatemobile(telephone)){
+      return false ;
+    }
+    if(ll_time.length==0){
+       tusi("请选择理疗时间");
+       status = false ;
+    }     
+    '{if $supplier->is_lls}'  
+    if(llshopid==undefined){
+       tusi("请选择理疗地点");
+        status = false ;
+    }  
+    '{/if}' 
+    if(checkbox1=='on'){
+       tusi("请选择服务内容");
+       status = false ;
+    } 
+   if(checkbox2=='on'){
+       tusi("请选择禁忌症状");
+       status = false ;
+    }   
+    if (status) {
+      if ({$remind}) {
+          $.confirm("当前地区无认证理疗店,请回首页重新选择！", "该地区暂无此服务", function() {
+            window.location.href="yangsheng.html";
+          }, function() {
+            //取消操作
+          });  
+      }else{
+        $.confirm("您的订单总计：{$total} 元", "您确定要立即预约吗?", function() {
+            var dataset = {
+              telephone:telephone,
+              full_name:full_name,
+              ll_time:ll_time,
+              checkbox1:checkbox1,
+              checkbox2:checkbox2,
+              llshopid:llshopid,
+              couponid:couponid,
+              remarks:remarks,
+              engineerId:engineerId,
+              productId:productId
+            };
+            $.post("payment.html",dataset,function(data){
+                console.log(data);
+                if(data.status==1){
+                  window.location.href=data.url;                        
+                }else if(data.status==2){
+                    tusi(data.error);
+                }else if(data.status==3){
+                    tusi(data.error);
+                }
+            },'json');
+
+          }, function() {
+            //取消操作
+          });          
+      }
+          
+    }  
+    
+});
+  $(function() {
+    FastClick.attach(document.body);
+    
+  });
+function textChanged2()
+{
+
+  i=$('#remarks').val();
+  $('#dqzs').html(i.length);
+}
+</script>
+<script src="{$JS}wx/jquery-weui.js"></script>
+<script>
+$(document).ready(function(){
+
+    $('#s11').click(function(event) {
+        $('#s11').val(1);
+        $('#fwcont').show();
+        $('#jjcont').hide();
+    });
+    $('#s12').click(function(event) {
+        $('#s12').val(1);
+        $('#jjcont').show();
+        $('#fwcont').hide();
+    });    
+});
+      
+      $("#mobile").select({
+        title: "选择理疗店",
+        items: {$supjson}
+      });
+$("#yyq").select({
+        title: "选择优惠券",
+        items: {$yhqjson}
+      });  
+ function validatemobile(mobile)
+    {
+        if(mobile.length==0)
+        {
+           tusi('请输入手机号码！');
+           return false;
+        }    
+        if(mobile.length!=11)
+        {
+            tusi('请输入有效的手机号码！');
+            return false;
+        }
+        return true;
+    }    
+    </script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    // 通过下面这个API隐藏右上角按钮
+    WeixinJSBridge.call('hideOptionMenu');
+});
+    $("#ll_time").datetimePicker();
+</script>
+</body>
+</html>
